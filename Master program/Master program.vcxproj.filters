@@ -22,6 +22,9 @@
     <Filter Include="Source Files\razno">
       <UniqueIdentifier>{73490c92-7028-43fd-b580-b613a43af048}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ThinkLAP">
+      <UniqueIdentifier>{21dd55ca-811b-4908-9886-24ea0a49ab7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp">
@@ -242,6 +245,57 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\__main.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Automobile.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\main.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\myCharPtr.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje2.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje3.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje4.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje5.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje6.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje7.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje8.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\StringLinkedList.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Student.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\test_Zadaci_array.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Vjezbe.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_array.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_List.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

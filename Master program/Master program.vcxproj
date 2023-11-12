@@ -199,6 +199,23 @@
     <ClCompile Include="..\_Projekti\razno\Time.cpp" />
     <ClCompile Include="..\_Projekti\razno\Word_match.cpp" />
     <ClCompile Include="..\_Projekti\razno\_WTF.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Automobile.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\main.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\myCharPtr.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje2.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje3.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje4.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje5.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje6.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje7.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje8.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\StringLinkedList.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Student.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\test_Zadaci_array.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Vjezbe.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_array.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_List.cpp" />
+    <ClCompile Include="..\_Projekti\ThinkLAP\__main.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
