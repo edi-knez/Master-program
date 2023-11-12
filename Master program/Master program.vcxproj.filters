@@ -19,11 +19,11 @@
     <Filter Include="Source Files\C++ knjiga">
       <UniqueIdentifier>{d46455e9-b53b-41cf-9d14-47e02a62ae7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\razno">
+      <UniqueIdentifier>{73490c92-7028-43fd-b580-b613a43af048}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp">
       <Filter>Source Files\FESB</Filter>
     </ClCompile>
@@ -125,6 +125,123 @@
     </ClCompile>
     <ClCompile Include="..\_Projekti\C++ knjiga\z121.cpp">
       <Filter>Source Files\C++ knjiga</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\_WTF.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\b_Number.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\b_Oblik.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Checkbook.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\d_BlankStr_matcher.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\d_Dek.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\d_Hex.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\d_Krug.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\d_Kvadrat.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\d_Number_mather.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\d_Okt.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\d_Trokut.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Decimal.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Dogs.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\File_16C.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\FlashCards.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Horses.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\infOsobi.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Line_number.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\List.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Mail_label.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Niz_template.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\PageFormatting.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Parsity.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Pigs.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Queue.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Razlomak.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\razno.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\ShareFile1.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\ShareFile2_.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\ShareFileInterface.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Small_set.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Stack_Instance.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\String_matcher.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\StringDouble.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\SymbolTable.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Time.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_Projekti\razno\Word_match.cpp">
+      <Filter>Source Files\razno</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
