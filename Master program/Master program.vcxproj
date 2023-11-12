@@ -221,6 +221,7 @@
   <ItemGroup>
     <None Include="..\_Projekti\C++ knjiga\datoteka.dat" />
     <None Include="..\_Projekti\C++ knjiga\kompleks.bin" />
+    <None Include="..\_Projekti\ThinkLAP\Student data.dat" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\_Projekti\C++ knjiga\CD.h" />

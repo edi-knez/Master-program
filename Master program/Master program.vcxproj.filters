@@ -43,6 +43,9 @@
     <Filter Include="Resource Files\FESB">
       <UniqueIdentifier>{40478354-0d8f-491a-a2cc-69d7dc8a89f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\ThinkLAP">
+      <UniqueIdentifier>{57a4fb84-8be2-423d-918b-da3eccfc853f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp">
@@ -322,6 +325,9 @@
     </None>
     <None Include="..\_Projekti\C++ knjiga\datoteka.dat">
       <Filter>Resource Files\C++ knjiga</Filter>
+    </None>
+    <None Include="..\_Projekti\ThinkLAP\Student data.dat">
+      <Filter>Resource Files\ThinkLAP</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
