@@ -28,6 +28,12 @@
     <Filter Include="Header Files\C++ knjiga">
       <UniqueIdentifier>{46c33a99-201f-440b-8b6f-c9311b9d039f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FESB">
+      <UniqueIdentifier>{b5901263-1547-412d-80f4-154d2af748ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\razno">
+      <UniqueIdentifier>{01d7e3ab-4a39-4c23-9fec-40413bbd0487}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp">
@@ -393,6 +399,114 @@
     </ClInclude>
     <ClInclude Include="..\_Projekti\C++ knjiga\Tocka3D.h">
       <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\b_Number.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\b_Oblik.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Checkbook.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\d_BlankStr_matcher.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\d_Dek.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\d_Hex.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\d_Krug.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\d_Kvadrat.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\d_Number_mather.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\d_Okt.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\d_Trokut.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Decimal.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Dogs.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\File_16C.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\FlashCards.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Horses.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\infOsobi.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Line_number.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\List.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Mail_label.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Niz_template.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\PageFormatting.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Parsity.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Pigs.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Queue.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Razlomak.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\ShareFile1.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\ShareFile2_.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\ShareFileInterface.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Small_set.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Stack_Instance.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\String_matcher.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\StringDouble.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\SymbolTable.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Time.hpp">
+      <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\razno\Word_match.hpp">
+      <Filter>Header Files\razno</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
