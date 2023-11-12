@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Kolegij.h"
+#include "Kolegij.hpp"
 
 
 class O_O_P : public Kolegij

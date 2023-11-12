@@ -1,4 +1,4 @@
-#include "KlNiz.h"
+#include "KlNiz.hpp"
 
 KlNiz::KlNiz() {
     iA = new int[10];

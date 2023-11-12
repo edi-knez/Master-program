@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <cmath>
-#include "Tocka2D.h"
+#include "Tocka2D.hpp"
 
 class Tocka3D : public Tocka2D {
 public:

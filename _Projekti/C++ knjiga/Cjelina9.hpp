@@ -5,15 +5,15 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "CD.h"
-#include "DVD.h"
-#include "LP.h"
-#include "MP3CD.h"
-#include "Ploca.h"
-#include "Tocka2D.h"
-#include "Tocka3D.h"
-#include "Kolegij.h"
-#include "OOP.h"
+#include "CD.hpp"
+#include "DVD.hpp"
+#include "LP.hpp"
+#include "MP3CD.hpp"
+#include "Ploca.hpp"
+#include "Tocka2D.hpp"
+#include "Tocka3D.hpp"
+#include "Kolegij.hpp"
+#include "OOP.hpp"
 
 class Cjelina9
 {

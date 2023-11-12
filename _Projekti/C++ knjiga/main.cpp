@@ -1,14 +1,14 @@
 #include <iostream>
-#include "Cjelina1.h"
-#include "Cjelina2.h"
-#include "Cjelina3.h"
-#include "Cjelina4.h"
-#include "Cjelina5.h"
-#include "Cjelina6.h"
-#include "Cjelina7.h"
-#include "Cjelina8.h"
-#include "Cjelina9.h"
-#include "Cjelina10.h"
+#include "Cjelina1.hpp"
+#include "Cjelina2.hpp"
+#include "Cjelina3.hpp"
+#include "Cjelina4.hpp"
+#include "Cjelina5.hpp"
+#include "Cjelina6.hpp"
+#include "Cjelina7.hpp"
+#include "Cjelina8.hpp"
+#include "Cjelina9.hpp"
+#include "Cjelina10.hpp"
 extern void bonus();
 
 /*

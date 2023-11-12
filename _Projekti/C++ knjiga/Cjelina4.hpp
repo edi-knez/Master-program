@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
-#include "Krug.h"
+#include "Krug.hpp"
 #pragma once
-#include "Tocka.h"
-#include "Tocka2.h"
+#include "Tocka.hpp"
+#include "Tocka2.hpp"
 
 
 class Cjelina4

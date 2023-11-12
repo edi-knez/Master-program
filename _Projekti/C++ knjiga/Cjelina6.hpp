@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "Kompleks.h"
-#include "iarray.h"
+#include "Kompleks.hpp"
+#include "iarray.hpp"
 
 class Cjelina6
 {

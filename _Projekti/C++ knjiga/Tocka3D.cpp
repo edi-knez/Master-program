@@ -1,4 +1,4 @@
-#include "Tocka3D.h"
+#include "Tocka3D.hpp"
 
 
 void Tocka3D::setZ(double z) {

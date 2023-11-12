@@ -1,4 +1,4 @@
-#include "Cjelina1.h"
+#include "Cjelina1.hpp"
 
 double Cjelina1::_kvadPovrsina(double funX) {
     double funX2;

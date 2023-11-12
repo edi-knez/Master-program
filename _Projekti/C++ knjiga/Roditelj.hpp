@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Clan_obitelji.h"
+#include "Clan_obitelji.hpp"
 class Roditelj : public Clan_obitelji {
 public:
     Roditelj() : Clan_obitelji() { brDjece = 0; }

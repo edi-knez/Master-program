@@ -1,5 +1,5 @@
 #pragma once
-#include "Ploca.h"
+#include "Ploca.hpp"
 
 class CD : public Ploca {
 public:

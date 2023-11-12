@@ -1,6 +1,6 @@
 #pragma once
-#include "Krug.h"
-#include "KlNiz.h"
+#include "Krug.hpp"
+#include "KlNiz.hpp"
 
 class Cjelina5
 {

@@ -1,4 +1,4 @@
-#include "Tocka2D.h"
+#include "Tocka2D.hpp"
 
 void Tocka2D::setX(double x) {
     m_x = x;

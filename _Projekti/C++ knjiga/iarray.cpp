@@ -1,4 +1,4 @@
-#include "iarray.h"
+#include "iarray.hpp"
 
 
 void iarray::init(const int* array, int size) {

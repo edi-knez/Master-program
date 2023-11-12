@@ -1,5 +1,5 @@
 #pragma once
-#include "Ploca.h"
+#include "Ploca.hpp"
 #include <iostream>
 
 class LP : public Ploca {

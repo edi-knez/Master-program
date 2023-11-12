@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "Kompleks.h"
+#include "Kompleks.hpp"
 
 class Cjelina7
 {

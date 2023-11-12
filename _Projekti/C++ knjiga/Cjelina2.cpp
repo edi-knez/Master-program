@@ -1,4 +1,4 @@
-#include "Cjelina2.h"
+#include "Cjelina2.hpp"
 
 void Cjelina2::ispis(int lr) {
     std::cout << "(int funkcija): " << lr << '\n';

@@ -1,4 +1,4 @@
-#include "Krug.h"
+#include "Krug.hpp"
 
 Krug::Krug() {
     radijus = 0.0;

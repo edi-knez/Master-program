@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Clan_obitelji.h"
+#include "Clan_obitelji.hpp"
 class Dijete : public Clan_obitelji {
 public:
     Dijete(std::string str, bool da_ne) : Clan_obitelji(str), kcer(da_ne) { }

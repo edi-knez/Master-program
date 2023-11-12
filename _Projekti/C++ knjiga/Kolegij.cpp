@@ -1,4 +1,4 @@
-#include "Kolegij.h"
+#include "Kolegij.hpp"
 
 std::string_view Kolegij::getImeKolegija() {
 	return imeKolegija;

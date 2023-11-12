@@ -1,4 +1,4 @@
-#include "OOP.h"
+#include "OOP.hpp"
 
 
 int O_O_P::getSatnicuPredavanja() {
