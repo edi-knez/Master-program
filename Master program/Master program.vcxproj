@@ -219,6 +219,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\_Projekti\C++ knjiga\datoteka.dat" />
     <None Include="..\_Projekti\C++ knjiga\kompleks.bin" />
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +304,13 @@
     <ClInclude Include="..\_Projekti\ThinkLAP\Vjezbe.hpp" />
     <ClInclude Include="..\_Projekti\ThinkLAP\Zadaci_array.h" />
     <ClInclude Include="..\_Projekti\ThinkLAP\Zadaci_List.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\_Projekti\C++ knjiga\cities.txt" />
+    <Text Include="..\_Projekti\C++ knjiga\datoteka.txt" />
+    <Text Include="..\_Projekti\C++ knjiga\filter.txt" />
+    <Text Include="..\_Projekti\C++ knjiga\kompleks.txt" />
+    <Text Include="..\_Projekti\C++ knjiga\lista.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

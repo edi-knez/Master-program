@@ -37,6 +37,9 @@
     <Filter Include="Header Files\ThinkLAP">
       <UniqueIdentifier>{9c0fe576-cb96-44eb-babf-a8eab3024a60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\C++ knjiga">
+      <UniqueIdentifier>{998f0fa7-f648-41fa-8fe0-ea4419fd5d63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp">
@@ -314,6 +317,9 @@
     <None Include="..\_Projekti\C++ knjiga\kompleks.bin">
       <Filter>Header Files\C++ knjiga</Filter>
     </None>
+    <None Include="..\_Projekti\C++ knjiga\datoteka.dat">
+      <Filter>Resource Files\C++ knjiga</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\_Projekti\C++ knjiga\CD.h">
@@ -559,5 +565,22 @@
     <ClInclude Include="..\_Projekti\ThinkLAP\Zadaci_List.h">
       <Filter>Header Files\ThinkLAP</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\_Projekti\C++ knjiga\lista.txt">
+      <Filter>Resource Files\C++ knjiga</Filter>
+    </Text>
+    <Text Include="..\_Projekti\C++ knjiga\kompleks.txt">
+      <Filter>Resource Files\C++ knjiga</Filter>
+    </Text>
+    <Text Include="..\_Projekti\C++ knjiga\filter.txt">
+      <Filter>Resource Files\C++ knjiga</Filter>
+    </Text>
+    <Text Include="..\_Projekti\C++ knjiga\datoteka.txt">
+      <Filter>Resource Files\C++ knjiga</Filter>
+    </Text>
+    <Text Include="..\_Projekti\C++ knjiga\cities.txt">
+      <Filter>Resource Files\C++ knjiga</Filter>
+    </Text>
   </ItemGroup>
 </Project>
