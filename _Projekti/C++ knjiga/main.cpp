@@ -10,6 +10,9 @@
 #include "Cjelina9.h"
 #include "Cjelina10.h"
 extern void bonus();
+
+/*
+
 int main()
 {
     Cjelina1 cj1;
@@ -69,7 +72,9 @@ int main()
     //cj10.zad1();
     //cj10.zad2();
 
-    bonus();
+    //bonus();
 
 	return 0;
 }
+
+*/
