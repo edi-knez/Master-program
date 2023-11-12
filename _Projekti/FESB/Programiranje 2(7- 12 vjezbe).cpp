@@ -56,6 +56,9 @@ void vj11_brojacImenaAna(FILE* fp, int* brojac);
 void vj11_citanjeDatoteke2(FILE* fp);
 void vj11_ispisRijec_po_Rijec(char* tekst);
 
+
+/*
+ 
 int main() {
 
 /*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
@@ -568,7 +571,9 @@ int main() {
 	//}
 	//free(niz1);
 	//free(niz2);
-}
+//}
+
+
 
 
 /*------------------------------------------------------	FUNKCIJE	--------------------------------------------------------------*/
@@ -847,7 +852,8 @@ void v9_prvaOsobaPoAbecedi_ime_pa_prezime(struct Osoba osobe[], int kolicina ) {
 
 void v9_najstarijaOsoba(struct Osoba osobe[], int kolicina) {
 	struct Osoba najstarija = osobe[0];
-	for (int i = 1; i < kolicina; i++) {
+	for (int i = 1; i < kolicina; i++) 
+	{
 		if (najstarija.d.godina - osobe[i].d.godina > 0) {
 			najstarija = osobe[i];
 		}
