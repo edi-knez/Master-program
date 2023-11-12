@@ -287,6 +287,22 @@
     <ClInclude Include="..\_Projekti\razno\SymbolTable.hpp" />
     <ClInclude Include="..\_Projekti\razno\Time.hpp" />
     <ClInclude Include="..\_Projekti\razno\Word_match.hpp" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Automobile.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\myCharPtr.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\nPog6.hpp" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje2.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje3.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje4.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje5.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje6.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje7.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje8.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\StringLL.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\StringLLAdv.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Student.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Vjezbe.hpp" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Zadaci_array.h" />
+    <ClInclude Include="..\_Projekti\ThinkLAP\Zadaci_List.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

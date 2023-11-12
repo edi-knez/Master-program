@@ -34,6 +34,9 @@
     <Filter Include="Header Files\razno">
       <UniqueIdentifier>{01d7e3ab-4a39-4c23-9fec-40413bbd0487}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ThinkLAP">
+      <UniqueIdentifier>{9c0fe576-cb96-44eb-babf-a8eab3024a60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp">
@@ -507,6 +510,54 @@
     </ClInclude>
     <ClInclude Include="..\_Projekti\razno\Word_match.hpp">
       <Filter>Header Files\razno</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Automobile.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\myCharPtr.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\nPog6.hpp">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje2.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje3.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje4.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje5.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje6.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje7.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Poglavlje8.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\StringLL.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\StringLLAdv.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Student.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Vjezbe.hpp">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Zadaci_array.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\ThinkLAP\Zadaci_List.h">
+      <Filter>Header Files\ThinkLAP</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
