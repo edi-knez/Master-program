@@ -218,6 +218,40 @@
     <ClCompile Include="..\_Projekti\ThinkLAP\__main.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\_Projekti\C++ knjiga\kompleks.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\_Projekti\C++ knjiga\CD.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina1.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina10.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina2.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina3.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina4.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina5.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina6.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina7.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina8.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina9.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Clan_obitelji.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Dijete.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\DVD.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\iarray.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\KlNiz.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Kolegij.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Kompleks.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Krug.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\LP.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\MP3CD.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\OOP.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Ploca.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\resource.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Roditelj.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka2.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka2D.h" />
+    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka3D.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
