@@ -221,6 +221,17 @@
   <ItemGroup>
     <None Include="..\_Projekti\C++ knjiga\datoteka.dat" />
     <None Include="..\_Projekti\C++ knjiga\kompleks.bin" />
+    <None Include="..\_Projekti\razno\bin.dat" />
+    <None Include="..\_Projekti\razno\copy-linija.dat" />
+    <None Include="..\_Projekti\razno\datoteka.dat" />
+    <None Include="..\_Projekti\razno\djeljivi sa 3.dat" />
+    <None Include="..\_Projekti\razno\linija.dat" />
+    <None Include="..\_Projekti\razno\linije.dat" />
+    <None Include="..\_Projekti\razno\lista.dat" />
+    <None Include="..\_Projekti\razno\osobe.inf" />
+    <None Include="..\_Projekti\razno\pretvorba ASCI u bin.dat" />
+    <None Include="..\_Projekti\razno\svi ostali.dat" />
+    <None Include="..\_Projekti\razno\test.dat" />
     <None Include="..\_Projekti\ThinkLAP\Student data.dat" />
   </ItemGroup>
   <ItemGroup>
@@ -318,6 +329,10 @@
     <Text Include="..\_Projekti\FESB\vj11_zad3.txt" />
     <Text Include="..\_Projekti\FESB\vj11_zad4.txt" />
     <Text Include="..\_Projekti\FESB\vj12_zad3_imena.txt" />
+    <Text Include="..\_Projekti\razno\datoteka.txt" />
+    <Text Include="..\_Projekti\razno\File_16C remove high bit.txt" />
+    <Text Include="..\_Projekti\razno\m_file removed high bit copy.txt" />
+    <Text Include="..\_Projekti\razno\test_23_zad1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

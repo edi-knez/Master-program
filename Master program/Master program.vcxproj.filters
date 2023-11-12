@@ -46,6 +46,9 @@
     <Filter Include="Resource Files\ThinkLAP">
       <UniqueIdentifier>{57a4fb84-8be2-423d-918b-da3eccfc853f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\razno">
+      <UniqueIdentifier>{0e23738b-b939-4541-aa40-deb03f01c3cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp">
@@ -329,6 +332,39 @@
     <None Include="..\_Projekti\ThinkLAP\Student data.dat">
       <Filter>Resource Files\ThinkLAP</Filter>
     </None>
+    <None Include="..\_Projekti\razno\osobe.inf">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\test.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\svi ostali.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\pretvorba ASCI u bin.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\lista.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\linije.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\linija.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\djeljivi sa 3.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\datoteka.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\copy-linija.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
+    <None Include="..\_Projekti\razno\bin.dat">
+      <Filter>Resource Files\razno</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\_Projekti\C++ knjiga\CD.h">
@@ -608,6 +644,18 @@
     </Text>
     <Text Include="..\_Projekti\FESB\test1.txt">
       <Filter>Resource Files\FESB</Filter>
+    </Text>
+    <Text Include="..\_Projekti\razno\test_23_zad1.txt">
+      <Filter>Resource Files\razno</Filter>
+    </Text>
+    <Text Include="..\_Projekti\razno\m_file removed high bit copy.txt">
+      <Filter>Resource Files\razno</Filter>
+    </Text>
+    <Text Include="..\_Projekti\razno\File_16C remove high bit.txt">
+      <Filter>Resource Files\razno</Filter>
+    </Text>
+    <Text Include="..\_Projekti\razno\datoteka.txt">
+      <Filter>Resource Files\razno</Filter>
     </Text>
   </ItemGroup>
 </Project>
