@@ -311,6 +311,12 @@
     <Text Include="..\_Projekti\C++ knjiga\filter.txt" />
     <Text Include="..\_Projekti\C++ knjiga\kompleks.txt" />
     <Text Include="..\_Projekti\C++ knjiga\lista.txt" />
+    <Text Include="..\_Projekti\FESB\test1.txt" />
+    <Text Include="..\_Projekti\FESB\test1_copy.txt" />
+    <Text Include="..\_Projekti\FESB\vj11_zad2.txt" />
+    <Text Include="..\_Projekti\FESB\vj11_zad3.txt" />
+    <Text Include="..\_Projekti\FESB\vj11_zad4.txt" />
+    <Text Include="..\_Projekti\FESB\vj12_zad3_imena.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
