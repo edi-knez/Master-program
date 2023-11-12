@@ -23,7 +23,7 @@ namespace StringLinkedList {
 
 
 
-int main()
+/* int main()
 {
 	Poglavlje2 pog2;
 	//pog2.printSidewaysTriangle();
@@ -390,3 +390,5 @@ int main()
 
 	return 0;
 }
+
+*/
