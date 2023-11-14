@@ -323,9 +323,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\_Projekti\C++ knjiga\kompleks.bin">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </None>
     <None Include="..\_Projekti\C++ knjiga\datoteka.dat">
       <Filter>Resource Files\C++ knjiga</Filter>
     </None>
@@ -365,95 +362,11 @@
     <None Include="..\_Projekti\razno\bin.dat">
       <Filter>Resource Files\razno</Filter>
     </None>
+    <None Include="..\_Projekti\C++ knjiga\kompleks.bin">
+      <Filter>Resource Files\C++ knjiga</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\_Projekti\C++ knjiga\CD.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina1.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina2.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina3.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina4.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina5.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina6.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina7.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina8.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina9.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina10.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Clan_obitelji.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Dijete.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\DVD.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\iarray.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\KlNiz.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Kolegij.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Kompleks.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Krug.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\LP.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\MP3CD.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\OOP.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Ploca.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\resource.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Roditelj.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka2.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka2D.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka3D.h">
-      <Filter>Header Files\C++ knjiga</Filter>
-    </ClInclude>
     <ClInclude Include="..\_Projekti\razno\b_Number.hpp">
       <Filter>Header Files\razno</Filter>
     </ClInclude>
@@ -609,6 +522,93 @@
     </ClInclude>
     <ClInclude Include="..\_Projekti\ThinkLAP\Zadaci_List.h">
       <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\CD.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina1.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina2.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina3.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina4.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina5.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina6.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina7.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina8.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina9.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Cjelina10.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Clan_obitelji.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Dijete.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\DVD.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\iarray.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\KlNiz.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Kolegij.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Kompleks.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Krug.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\LP.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\MP3CD.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\OOP.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Ploca.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\resource.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Roditelj.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka2.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka2D.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Projekti\C++ knjiga\Tocka3D.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
