@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-extern int z121_datoteka();
+extern int z121_datoteka();	// daje vidljivost funkciji koja se nalazi u drugoj cpp datoteci
 
 class Cjelina1
 {
