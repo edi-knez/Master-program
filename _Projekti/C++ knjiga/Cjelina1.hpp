@@ -3,6 +3,9 @@
 
 extern int z121_datoteka();	// daje vidljivost funkciji koja se nalazi u drugoj cpp datoteci
 
+/// <summary>
+///		Ova klasa sadrzi zadatke i vjezbe iz cjeline 1.
+/// </summary>
 class Cjelina1
 {
 public:

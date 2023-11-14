@@ -3,14 +3,14 @@
 
 
 /// <summary>
-/// Sadrzi zadatke koje se traze u cjelini2.
-/// zad1 - zad6
+///		Sadrzi zadatke koje se traze u cjelini2.
+///		zad1 - zad6
 /// 
-/// overloadi metode ispis se koriste u zad1
+///		overloadi metode ispis se koriste u zad1
 /// 
-/// Klasa krug sadrzi default konstruktora za inicijalizaciju, postavljanje radijusa i racunanje povrsine
+///		Klasa krug sadrzi default konstruktora za inicijalizaciju, postavljanje radijusa i racunanje povrsine
 /// 
-/// Klasa Razlomak sadrzi sadrzi default konstruktora za inicijalizaciju, metodu za postavljanje vrijednosti brojnika i nazivnika te metodu za racunanje decimalne vrijedosti
+///		Klasa Razlomak sadrzi sadrzi default konstruktora za inicijalizaciju, metodu za postavljanje vrijednosti brojnika i nazivnika te metodu za racunanje decimalne vrijedosti
 /// </summary>
 class Cjelina2
 {

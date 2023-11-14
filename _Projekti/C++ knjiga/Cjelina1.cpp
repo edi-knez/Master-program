@@ -1,7 +1,7 @@
 #include "Cjelina1.hpp"
 
 /// <summary>
-/// napisi funkciju koja racuna povrsinu kvadrata
+///		napisi funkciju koja racuna povrsinu kvadrata
 /// </summary>
 /// <param name="funX">duljina stranice kvadrata (double)</param>
 /// <returns>povrsinu kvadrata (double)</returns>
@@ -12,7 +12,7 @@ double Cjelina1::_kvadPovrsina(double funX) {
 }
 
 /// <summary>
-/// Ispisi i izracunaj x, x^2, x^4
+///		Ispisi i izracunaj x, x^2, x^4
 /// </summary>
 void Cjelina1::zad4_kvadrat() {
     using std::cout;
@@ -25,7 +25,7 @@ void Cjelina1::zad4_kvadrat() {
 }
 
 /// <summary>
-/// Ispis teksta u konzolu
+///		Ispis teksta u konzolu
 /// </summary>
 void Cjelina1::zad5_ispis()
 {
@@ -37,7 +37,7 @@ void Cjelina1::zad5_ispis()
 }
 
 /// <summary>
-/// Pozovi funkciju iz druge cpp datoteke
+///		Pozovi funkciju iz druge cpp datoteke
 /// </summary>
 void Cjelina1::vj1_2datoteke()
 {
@@ -46,7 +46,7 @@ void Cjelina1::vj1_2datoteke()
 }
 
 /// <summary>
-/// Izracunaj i ispisi povrsinu kruga u konzolu
+///		Izracunaj i ispisi povrsinu kruga u konzolu
 /// </summary>
 void Cjelina1::vj3_krug()
 {

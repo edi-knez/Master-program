@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 
+/// <summary>
+/// Ova klasa sadrzi zadatke i vjezbe iz cjeline 3.
+/// </summary>
 class Cjelina3
 {
 public:

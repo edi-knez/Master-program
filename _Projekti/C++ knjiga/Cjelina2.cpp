@@ -1,13 +1,13 @@
 #include "Cjelina2.hpp"
 
 /// <summary>
-/// ispisi integer
+///		ispisi integer
 /// </summary>
 /// <param name="lr">integer koji zelis ispisat</param>
 void Cjelina2::ispis(int lr) { std::cout << "(int funkcija): " << lr << '\n'; }
 
 /// <summary>
-/// Ispisi double
+///		Ispisi double
 /// </summary>
 /// <param name="lrDouble">double koji zelis ispisat</param>
 void Cjelina2::ispis(double lrDouble) { std::cout << "(double funkcija): " << lrDouble << '\n'; }
@@ -15,7 +15,7 @@ void Cjelina2::ispis(double lrDouble) { std::cout << "(double funkcija): " << lr
 void Cjelina2::Krug::operator=(double x) { this->m_radijus = x; }
 
 /// <summary>
-/// Provjeri hoce li se pozvat pravi overload
+///		Provjeri hoce li se pozvat pravi overload
 /// </summary>
 void Cjelina2::zad1()
 {
@@ -30,7 +30,7 @@ void Cjelina2::zad1()
 }
 
 /// <summary>
-/// testiraj setRadijus metodu
+///		testiraj setRadijus metodu
 /// </summary>
 void Cjelina2::zad2()
 {
@@ -47,7 +47,7 @@ void Cjelina2::zad2()
 }
 
 /// <summary>
-/// Testiraj setRadijus metodu sa vise vrijednosti i ispisi povrsinu pripadajucih krugova
+///		Testiraj setRadijus metodu sa vise vrijednosti i ispisi povrsinu pripadajucih krugova
 /// </summary>
 void Cjelina2::zad3()
 {
@@ -78,7 +78,7 @@ void Cjelina2::zad3()
 }
 
 /// <summary>
-/// Opet ispisi radijus i povrsinu kruga
+///		Opet ispisi radijus i povrsinu kruga
 /// </summary>
 void Cjelina2::zad4()
 {
@@ -93,7 +93,7 @@ void Cjelina2::zad4()
 }
 
 /// <summary>
-/// Ispisi decimalnu vrijednost razlomka ako je vazeci
+///		Ispisi decimalnu vrijednost razlomka ako je vazeci
 /// </summary>
 void Cjelina2::zad5()
 {
@@ -108,7 +108,7 @@ void Cjelina2::zad5()
 }
 
 /// <summary>
-/// Ispisi string, promijeni mu vrijednost pa opet ispisi te mu ispisi broj znakova koje sadrzi
+///		Ispisi string, promijeni mu vrijednost pa opet ispisi te mu ispisi broj znakova koje sadrzi
 /// </summary>
 void Cjelina2::zad6()
 {

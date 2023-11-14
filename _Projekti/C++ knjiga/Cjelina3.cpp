@@ -1,12 +1,18 @@
 #include "Cjelina3.hpp"
+/**********************************************************************/
+// ove funkcije su potrebne samo u ovoj cpp datoteci
 
 static void rect_area(float lwidth, float lheight, float& larea);
 //
 static void trokut_Opseg(float& o, const float& s1, const float& s2, const float& s3);
 static void kvadrat_Opseg(float& o, const float& s);
 static void krug_Opseg(float* o, const float* s);
+/************************************************************************/
 
 
+/// <summary>
+///		Primjer upotrebe pointera i referenca u funkcijama
+/// </summary>
 void Cjelina3::zad1()
 {
     double rad, pPov, refPov;
@@ -27,6 +33,9 @@ void Cjelina3::zad1()
     std::cout <<"Radijus: " << rad << "\nPovrsina = " << povrsina << " m2\n" << "Opseg = " << opseg << " m2\n";
 }
 
+/// <summary>
+///		Racuna povrsinu pravokutnika
+/// </summary>
 void Cjelina3::zad3()
 {
     float width = 2.5, height = 3.1, area = 0.0;
@@ -34,6 +43,9 @@ void Cjelina3::zad3()
     std::cout << "Povrsina pravokutnika je= " << area << '\n';
 }
 
+/// <summary>
+///		Racunanje opsega za trokut, kvadrat ili kruga zavisno o inputu
+/// </summary>
 void Cjelina3::zad4()
 {
     using std::cin; using std::cout;
@@ -73,6 +85,9 @@ void Cjelina3::zad4()
     }
 }
 
+/// <summary>
+///		Testiranje funkcionalnosti klase Registracija
+/// </summary>
 void Cjelina3::zad5()
 {
     Registracija r1(534, 234);
@@ -86,21 +101,45 @@ void Cjelina3::zad5()
 }
 
 
+/// <summary>
+///		Racuna i ispisuje povrsinu pravokutnika. Rezultat se sprema u referencu larea parametar.
+/// </summary>
+/// <param name="lwidth">sirina stranice</param>
+/// <param name="lheight">visina stranice</param>
+/// <param name="larea">varijabla za rezultat</param>
 void rect_area(float lwidth, float lheight, float& larea) {
     larea = lwidth * lheight;
     std::cout << "Povrsina funkcije je= " << larea << '\n';
 }
-//
+
+
+/// <summary>
+///		Racuna opseg trokuta
+/// </summary>
+/// <param name="o">varijabla za rezultat</param>
+/// <param name="s1">stranica a</param>
+/// <param name="s2">stranica b</param>
+/// <param name="s3">stranica c</param>
 void trokut_Opseg(float& o, const float& s1, const float& s2, const float& s3) {
     o = s1 + s2 + s3;
 }
 
+/// <summary>
+///		Racuna opseg kvadrata uz koristenje referenca
+/// </summary>
+/// <param name="o">varijabla za rezultat</param>
+/// <param name="s"></param>
 void kvadrat_Opseg(float& o, const float& s) {
     o = 4 * s;
 }
 
+/// <summary>
+///		racuna opseg kruga uz koristenje pointera
+/// </summary>
+/// <param name="o">varijabla za rezultat</param>
+/// <param name="s">radijus</param>
 void krug_Opseg(float* o, const float* s) {
-    *o = (*s) * (*s) * 3.14;
+    *o = 2 * (*s) * 3.14;
 }
 
 
