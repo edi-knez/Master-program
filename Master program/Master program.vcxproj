@@ -216,7 +216,6 @@
     <ClCompile Include="..\_Projekti\ThinkLAP\Vjezbe.cpp" />
     <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_array.cpp" />
     <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_List.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\__main.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

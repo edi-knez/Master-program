@@ -270,9 +270,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\_Projekti\ThinkLAP\__main.cpp">
-      <Filter>Source Files\ThinkLAP</Filter>
-    </ClCompile>
     <ClCompile Include="..\_Projekti\ThinkLAP\Automobile.cpp">
       <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>

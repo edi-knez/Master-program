@@ -1,5 +1,9 @@
 #include "Krug.hpp"
 
+/// <summary>
+///		implementacija klase Krug
+/// </summary>
+
 Krug::Krug() {
     radijus = 0.0;
 }

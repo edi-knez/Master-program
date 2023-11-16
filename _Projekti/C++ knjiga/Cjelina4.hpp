@@ -1,11 +1,13 @@
 #pragma once
 #include <iostream>
 #include "Krug.hpp"
-#pragma once
+
 #include "Tocka.hpp"
 #include "Tocka2.hpp"
 
-
+/// <summary>
+///		Rjesava zadatke iz cjeline 4 uz pomoæ klasa implementiranih u drugima datotekama
+/// </summary>
 class Cjelina4
 {
 public:

@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 
+/// <summary>
+///		Ova klasa sluzi za izradu kruga radijusa m_radijus i izracunavanje njegovog opsega i povrsine
+/// </summary>
 class Krug {
 public:
     Krug();

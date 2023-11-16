@@ -1,5 +1,8 @@
 #include "Cjelina4.hpp"
 
+/// <summary>
+///		Ispisuje povrsinu i opseg kruga
+/// </summary>
 void Cjelina4::zad1()
 {
     Krug k(10);
@@ -8,6 +11,9 @@ void Cjelina4::zad1()
     std::cout << "Opseg: " << k.izracunajOpseg() << '\n';
 }
 
+/// <summary>
+///		Ispisuje udaljenost dvije tocke iz obadvije perspektive
+/// </summary>
 void Cjelina4::zad3()
 {
         Tocka t1(1.0, 1.0);
@@ -17,6 +23,9 @@ void Cjelina4::zad3()
         std::cout << "Udaljenost izmedu t2 i t1 = " << t2.Udaljenost(t1) << '\n';
 }
 
+/// <summary>
+///		Ispisuje udaljenost dvije tocke postavljene sa metodom setTocka iz obadvije perspektive
+/// </summary>
 void Cjelina4::zad4()
 {
         Tocka2 t1;
@@ -28,6 +37,9 @@ void Cjelina4::zad4()
         std::cout << "Udaljenost izmedu t2 i t1 = " << Udaljenost(t2, t1) << '\n';
 }
 
+/// <summary>
+///		Ispisuje rjesenje kriptiranog izraza
+/// </summary>
 void Cjelina4::zad5()
 {
     int i = 0, a = 2, b;
