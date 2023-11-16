@@ -4,7 +4,11 @@ static void pisi_u_consolu_iz_datoteke(std::ifstream& datoteka);
 static void pisi_u_consolu_iz_datoteke(const std::string& naziv, const std::string& ekstenzija);
 
 
-
+/// <summary>
+///		Filtriraj gradove u filter.txt datoteku koja se otvara za citanje i brise sav sadrzaj pri pozivu funkcije
+/// 
+///		Gradovi se nalaze u datoteci cities.txt
+/// </summary>
 void Cjelina7::zad1()
 {
 	//// napravi datoteku i popuni je gradovima
@@ -25,13 +29,13 @@ void Cjelina7::zad1()
 	// dohvati karakter
 	while (in_file.get(c))
 	{
-		// grad u varijabli
+		// grad je spremljen u varijabli
 		if (c == ' ')
 		{
-			if (result != "zzz" && result != "")
+			if (result != "zzz" && result != "")	// ako se nalazi deliminator zzz ili je varijabla prazna, preskoci taj input
 				filter << result << "\n";
 
-			result = "";
+			result = "";	// resetiraj string
 			continue;
 		}
 
@@ -39,6 +43,13 @@ void Cjelina7::zad1()
 	}
 }
 
+/// <summary>
+///		Spremi u memoriji prvih 1000 float vrijednosti drugog korijena u niz
+///		Onda iz tog niza zapisi u datoteku kompleks.txt
+///		
+///		Nakon toga otvori binaernu datoteku kompleks.bin i zapisi rezultate
+///		Da provjeris uspjeh binaernog zapisa stvori novi niz od 1000 kompleksnih brojeva i procitaj podatke iz binaerne datoteke
+/// </summary>
 void Cjelina7::zad2()
 {
     //kompleks a, b;
@@ -99,10 +110,10 @@ void Cjelina7::zad4()
 
 }
 
-/*********************************************************
- * parametri:                                            *
- *                                                       *
- *   - std::ifstream& datoteka -> datoteka iz koje se cita */
+/// <summary>
+///		Ispisi datoteku u konzolu uz pomoc buffera
+/// </summary>
+/// <param name="datoteka">datoteka iz koje citas</param>
 void pisi_u_consolu_iz_datoteke(std::ifstream& datoteka) 
 {
     std::string blob;
@@ -125,7 +136,11 @@ void pisi_u_consolu_iz_datoteke(std::ifstream& datoteka)
     }
 }
 
-
+/// <summary>
+///		REDUDANTNA FUNKCIJA
+/// </summary>
+/// <param name="naziv"></param>
+/// <param name="ekstenzija"></param>
 void pisi_u_consolu_iz_datoteke(const std::string& naziv, const std::string& ekstenzija) 
 {
     std::string blob;
