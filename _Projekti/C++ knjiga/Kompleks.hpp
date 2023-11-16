@@ -3,6 +3,11 @@
 #include <iomanip>
 #include <iostream>
 
+
+/// <summary>
+///		Ova klasa sluzi za primjenu konpleksnih brojeva 
+///		Koristi razne operator oveloadove za jednostavnije korisnicko sucelje
+/// </summary>
 class Kompleks {
 public:
     Kompleks();
@@ -27,9 +32,9 @@ public:
 private:
     double real, imag;
     //
-    friend bool operator< (const Kompleks& c1, const Kompleks& c2);
+    friend bool operator< (const Kompleks& c1, const Kompleks& c2);	// ovdje se koristi friend jer je simetricna funkcija, usporedba bad dvima objektima
     friend bool operator> (const Kompleks& c1, const Kompleks& c2);
-    friend std::istream& operator>> (std::istream& s, Kompleks& c1);
+    friend std::istream& operator>> (std::istream& s, Kompleks& c1);	// a ovdje se koristi friend jer se drugacije nemoze napravit overload operatora >> klase istream
 
     //
 private:

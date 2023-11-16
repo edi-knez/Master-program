@@ -1,6 +1,8 @@
 #include "Kompleks.hpp"
 
-
+/// <summary>
+///		Implementacija klase Kompleks
+/// </summary>
 
 Kompleks::Kompleks() {
     imag = 0.0;
@@ -24,7 +26,12 @@ Kompleks Kompleks::operator-(const Kompleks& d)
 }
 
 
-
+/// <summary>
+///		Usporedba dvaju kompleksnih brojeva
+/// </summary>
+/// <param name="c1"></param>
+/// <param name="c2"></param>
+/// <returns></returns>
 bool operator< (const Kompleks& c1, const Kompleks& c2) {
     return (pow(c1.real, 2) + pow(c1.imag, 2) < pow(c2.real, 2) + pow(c2.imag, 2));
 }
@@ -33,6 +40,12 @@ bool operator> (const Kompleks& c1, const Kompleks& c2) {
     return (pow(c1.real, 2) + pow(c1.imag, 2) > pow(c2.real, 2) + pow(c2.imag, 2));
 }
 
+/// <summary>
+///		Implementacija istream operatora >> da bi se mogo direktno upisat u cin objekt sa tipkovnice
+/// </summary>
+/// <param name="s"></param>
+/// <param name="c1"></param>
+/// <returns></returns>
 std::istream& operator>> (std::istream& s, Kompleks& c1) {
     double rtemp, itemp;
 
@@ -43,7 +56,11 @@ std::istream& operator>> (std::istream& s, Kompleks& c1) {
     return s;
 }
 
-
+/// <summary>
+///		Implementacija operatora = , nije potrebno provjeravat je li samopridruzivanje jer se nece brisat memorija
+/// </summary>
+/// <param name="c">Novi kompleksni broj</param>
+/// <returns>Referencu na objekt koji je pozvan</returns>
 Kompleks& Kompleks::operator= (const Kompleks& c) {
     real = c.real;
     imag = c.imag;

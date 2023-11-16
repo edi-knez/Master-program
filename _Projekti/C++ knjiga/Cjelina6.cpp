@@ -2,6 +2,9 @@
 
 static double rekurzija(int potencija, double baza);
 
+/// <summary>
+///		Testiranje funkcionalnost klase Kompleks sa parametiziranim vrijednostima
+/// </summary>
 void Cjelina6::zad1()
 {
     using std::cout;
@@ -24,6 +27,9 @@ void Cjelina6::zad1()
     cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
 }
 
+/// <summary>
+///		Testiranje funkcionalnost klase Kompleks sa vrijednostima unesenim sa tipkovnice
+/// </summary>
 void Cjelina6::zad2()
 {
     using std::cout; using std::cin;
@@ -65,6 +71,9 @@ void Cjelina6::zad2()
     cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
 }
 
+/// <summary>
+///		Testiranje funkcionalnost klase iArray
+/// </summary>
 void Cjelina6::zad3()
 {
     using std::cout;
@@ -89,6 +98,9 @@ void Cjelina6::zad3()
     std::cout << "i3:\t" << i3.size() << '\n';
 }
 
+/// <summary>
+///		Racunanje potencije broja sa unosom sa tipkovnice
+/// </summary>
 void Cjelina6::zad4()
 {
     int i = 0;
@@ -106,6 +118,13 @@ void Cjelina6::zad4()
 }
 
 //
+
+/// <summary>
+///		Potencija broja se racuna pomocu rekurzivne funkcije
+/// </summary>
+/// <param name="potencija">na kojoj potenciji se nalazi broj</param>
+/// <param name="baza">broj koji zelimo potencirat</param>
+/// <returns></returns>
 double rekurzija(int potencija, double baza) {
 
     if (potencija == 0) {
