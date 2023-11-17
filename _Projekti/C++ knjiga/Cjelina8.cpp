@@ -5,6 +5,9 @@ template<class T> static T maximum(T a, T b);
 template<typename T> static T apsolutnaVrijednost(T a);
 static bool palindrom(std::string_view s);
 
+/// <summary>
+///		Razlika izmedu rada sa C i C++ stringom
+/// </summary>
 void Cjelina8::zad1()
 {
     // C
@@ -52,6 +55,11 @@ void Cjelina8::zad1()
 
 }
 
+/// <summary>
+///		Unos zeljenih brojeva u vektor pod strukturu sve dok se ne upise slovo
+///		Onda izracunaj i ispisi sumu pa prosjecnu vrijednost
+///		Nakon toga prikazi sve unesene brojeve
+/// </summary>
 void Cjelina8::zad2()
 {
     using std::cout; using std::cin; using std::vector;
@@ -65,8 +73,8 @@ void Cjelina8::zad2()
     while (cin >> val) {
         vec.push_back(val);
     }
-    cin.clear();
-    cin.ignore();
+    cin.clear();	// ocisti failbit zastavicu
+    cin.ignore();	// ignoriraj zadnji pritisnuti enter
     double sum = 0;
 
     for (vector<double>::const_iterator it = vec.begin(); it != vec.end(); it++) {
@@ -88,6 +96,11 @@ void Cjelina8::zad2()
     }
 }
 
+/// <summary>
+///		Testiranje template funkcije maximum sa integerima i double
+///		Testiranje template funkcije apsolutnaVrijednost sa integerom i double
+///		Testiranje palindrom funkcije
+/// </summary>
 void Cjelina8::zad3()
 {
     using std::cout; using std::string;
@@ -113,7 +126,7 @@ void Cjelina8::zad3()
         << "palindrom(anavolimilovana): " << palindrom(s3) << '\n';
 
 }
-
+	/// amaterski nacin za template funkciju maximum
     //
     //template<class T>
     //T maximum(T a, T b) {
@@ -125,22 +138,37 @@ void Cjelina8::zad3()
     //    }
     //}
 
+    /// <summary>
+    ///		branchless template funkcija za odredivanje max broja
+    /// </summary>
+    /// <typeparam name="T">tip podatka</typeparam>
+    /// <param name="a">broj1</param>
+    /// <param name="b">broj2</param>
+    /// <returns></returns>
     template<class T>
     T maximum(T a, T b) {
-        return (a > b) * a + (b > a) * b;
+        return (a > b) * a + (b > a) * b;	// (a>b) moze dat 0 ili 1 (zavisi tko je veci) * taj broj, druga strana ce biti 0 * broj = 0
     }
 
+	/// amaterski nacin za template funkciju apsolutnaVrijednost
     //template<typename T>
     //T apsolutnaVrijednost(T a) {
     //    if (a < 0)   a *= -1;
     //    return a;
     //}
 
+    /// <summary>
+    ///		branchless template funkcija za apsolutnuVrijednost broja
+    /// </summary>
+    /// <typeparam name="T">tip podatka</typeparam>
+    /// <param name="a">Broj za pretvorit</param>
+    /// <returns>Pretvoreni broj</returns>
     template<typename T>
     T apsolutnaVrijednost(T a) {
         return a - a * (a < 0) - a * (a < 0);
     }
 
+	/// amaterski nacin za palindrom funkciju
     //bool palindrom(std::string s) {
     //    std::string compare = "";
     //    for (int i = s.size() - 1; i > -1; i--) {
@@ -149,9 +177,14 @@ void Cjelina8::zad3()
     //    return (s == compare);
     //}
 
+    /// <summary>
+    ///		Optimizirani nacin za provjeru je li rijec palindrom
+    /// </summary>
+    /// <param name="s">Rijec za provjerit</param>
+    /// <returns>True/False</returns>
     bool palindrom(std::string_view s) 
     {
-        uint8_t kraj = s.size();
+        uint8_t kraj = s.size();	// netreba veci podatkovni tip jer niti jedna rijec niju duza od 256 znakova
         uint8_t polovica = kraj / 2;
         for (uint8_t i = 0; true; ++i) 
         {
