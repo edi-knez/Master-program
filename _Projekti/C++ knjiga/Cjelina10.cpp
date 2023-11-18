@@ -1,5 +1,8 @@
 #include "Cjelina10.hpp"
 
+/// <summary>
+///		U ovom testu se koriste izvedene klase pomocu heap memorije koje se pristupaju pomocu base klase pointera
+/// </summary>
 void Cjelina10::zad1()
 {
     /*   LP* a = new LP;
@@ -28,6 +31,9 @@ void Cjelina10::zad1()
     delete A[0], A[1], A[2];
 }
 
+/// <summary>
+///		U ovom testu se takoder pristupa objektima pomoce base klase pointera za koristenje metode ispisa, a i brisanja heap memorije
+/// </summary>
 void Cjelina10::zad2()
 {
     Roditelj* a = new Roditelj("Janko", 1);

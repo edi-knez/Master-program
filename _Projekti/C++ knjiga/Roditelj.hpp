@@ -1,6 +1,11 @@
 #pragma once
 #include <iostream>
 #include "Clan_obitelji.hpp"
+
+/// <summary>
+///		Ova klasa oznacuje da taj clan obitelji ima ulogu roditelja
+///		Override metodu _ispis koja ispisuje njegovo ime i prezime i broj djece
+/// </summary>
 class Roditelj : public Clan_obitelji {
 public:
     Roditelj() : Clan_obitelji() { brDjece = 0; }

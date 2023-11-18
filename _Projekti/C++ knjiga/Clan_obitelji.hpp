@@ -1,5 +1,9 @@
 #pragma once
 #include <string>
+
+/// <summary>
+///		Ova base klasa predstavlja clana obitelji. Njegova uloga se moze implementirati pomocu izvedene klase.
+/// </summary>
 class Clan_obitelji { // base
 public:
     Clan_obitelji() : ime_prezime("") {}
