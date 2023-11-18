@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 
+/// <summary>
+///		Ova klasa sluzi za prikazivanje tko je predavac za pojedini kolegij, koji kolegij predaje i koju konacnu ocjenu imas
+/// </summary>
 class Kolegij
 {
 public:

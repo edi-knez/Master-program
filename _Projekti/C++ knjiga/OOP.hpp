@@ -2,7 +2,11 @@
 #include <iostream>
 #include "Kolegij.hpp"
 
-
+/// <summary>
+///		OOP je vrsta kolegija i stoga moze poprimit sva svojstva base klase
+/// 
+///		Nadopunjuje informacije poput prikaza satnica vjezbi i predavanja, davanja ocjena za vjezbe i predavanja, ispravak ocjena ako se to dogodi te prikaz svih ostvarenih ocjena
+/// </summary>
 class O_O_P : public Kolegij
 {
 public:

@@ -1,15 +1,21 @@
 #pragma once
 #include <iostream>
 #include <cmath>
+
+//
 #include "Tocka2D.hpp"
 
+/// <summary>
+///		Tocka3D je izvedena od Tocka2D jer ona sadrzi sve osnovne infromacije koje Tocka3D takoder ima
+///		Dodaje Metodu za pristup i postavljanje vrijednosti trece koordinate
+///		Dodaje metodu za usporedbu dviju tocka kao i overload operatora ==
+/// </summary>
 class Tocka3D : public Tocka2D {
 public:
-    Tocka3D(double x, double y, double z) : Tocka2D(m_x, m_y) {
-        m_x = x;
-        m_y = y;
-        m_z = z;
-    }
+  Tocka3D(double x, double y, double z)
+      : Tocka2D(m_x, m_y)
+      , m_z { z } 
+  {}
     // metoda kojom se mijenja i ocitava polozaj tocke
     void setZ(double z);
     double getZ() const;

@@ -1,7 +1,11 @@
 #pragma once
 #include "Ploca.hpp"
-#include <iostream>
 
+/// <summary>
+///		Izvedena klasa za klase DVD
+///		Sadrzi dodatne informacije koje su povezane uz DVD
+///		Override metode base klase _ispisi da doda nove informacije u ispis na konzolu
+/// </summary>
 class LP : public Ploca {
 public:
     LP() :Ploca() { RPM = 45; }
