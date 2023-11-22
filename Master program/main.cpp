@@ -1,6 +1,6 @@
 #include <cstdlib>
 
-
+extern void zad4();
 
 
 
@@ -8,7 +8,7 @@
 int main()
 {
 	
-	
+	zad4();
 
 
 
