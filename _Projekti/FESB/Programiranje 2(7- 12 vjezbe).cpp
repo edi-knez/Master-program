@@ -1,6 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-
-#include <iostream>
+﻿#include <iostream>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -189,7 +187,7 @@ void vj8_unosElemenataMatrice( int a[][3], unsigned int velicina )
 		for( int j = 0; j < velicina; ++j )
 		{
 			printf( "A[%d][%d]: ", i, j );
-			scanf( "%d", &temp );
+			scanf_s( "%d", &temp );
 			a[i][j] = temp;
 		}
 	}
@@ -261,10 +259,11 @@ int vj8_rekurzija_minMax_elementNiza( int niz[], unsigned int velicina, bool max
 		}
 		vj8_rekurzija_minMax_elementNiza( niz, velicina - 1, max );
 	}
-	else
+	else if( velicina == 0 )
 	{
 		return result;
 	}
+	return -1;
 }
 
 char* vj8_deka_u_bin_okt_heksa( unsigned int dekadski, unsigned int baza )
@@ -338,22 +337,20 @@ void v9_ispisVremena( struct Vrijeme* v ) {
 int v9_proracunDatuma( struct Datum* c, int dan )
 {
 	int tempDan = c->dan;
-	if( tempDan == 1 && dan == -1 )	// edge case
+	if( tempDan == 1 && dan == -1 )	// edge case: prosli dan od parnih i neparnih mjeseci
 	{
-		( c->mjesec % 2 == 0 ) ? tempDan = 30 : tempDan = 31;
+		tempDan = ( c->mjesec % 2 == 0 ) ? 30 : 31;
 	}
-	else if( c->dan == 30 && dan == 1 )	// edge case
+	else if( c->dan == 30 && dan == 1 )	// edge case: sljedeci dan od parnih i neparnih mjeseci
 	{
-		( c->mjesec % 2 == 0 ) ? tempDan = 1 : tempDan = 31;
+		tempDan = ( c->mjesec % 2 == 0 ) ? 1 : 31;
 	}
 	else if( tempDan == 31 && dan == 1 )	// edge case
 	{
 		tempDan = 1;
 	}
-	else if( dan == 1 )
-		++tempDan;
-	else
-		--tempDan;
+	else if( dan == 1 )		++tempDan;
+	else					--tempDan;
 
 	return tempDan;
 }
@@ -366,21 +363,21 @@ void v9_ispisDatuma( struct Datum* d )
 
 void v9_unosPodatakaOsobe( struct Osoba* o, int index ) {
 	printf( "Unesi ime %d. osobe: ", index );
-	scanf( "%s", o->ime );
+	scanf_s( "%s", o->ime );
 	printf( "Unesi prezime %d. osobe: ", index );
-	scanf( "%s", o->prezime );
+	scanf_s( "%s", o->prezime );
 	printf( "%d. Unesi datum rodenja (dan): ", index );
-	scanf( "%d", &o->rodenaNa.dan );
+	scanf_s( "%d", &o->rodenaNa.dan );
 	printf( "%d. Unesi datum rodenja (mjesec): ", index );
-	scanf( "%d", &o->rodenaNa.mjesec );
+	scanf_s( "%d", &o->rodenaNa.mjesec );
 	printf( "%d. Unesi datum rodenja (godinu): ", index );
-	scanf( "%d", &o->rodenaNa.godina );
+	scanf_s( "%d", &o->rodenaNa.godina );
 	printf( "%d. Unesi vrijeme rodenja (sat): ", index );
-	scanf( "%d", &o->rodenaU.sati );
+	scanf_s( "%d", &o->rodenaU.sati );
 	printf( "%d. Unesi vrijeme rodenja (minutu): ", index );
-	scanf( "%d", &o->rodenaU.minute );
+	scanf_s( "%d", &o->rodenaU.minute );
 	printf( "%d. Unesi vrijeme rodenja (sekundu): ", index );
-	scanf( "%d", &o->rodenaU.sekunde );
+	scanf_s( "%d", &o->rodenaU.sekunde );
 }
 
 void v9_prvaOsobaPoAbecedi_ime_pa_prezime( struct Osoba osobe[], int kolicina )
@@ -402,7 +399,6 @@ void v9_prvaOsobaPoAbecedi_ime_pa_prezime( struct Osoba osobe[], int kolicina )
 	}
 	printf( "Prva osoba po abecedi:\n" );
 	prva.ispisOsobe();
-
 }
 
 void v9_najstarijaOsoba( struct Osoba osobe[], const int brOSOBA )
@@ -430,7 +426,7 @@ int vj10_brPonavljanja_podstringa_u_stringu( const char* tekst, const int velici
 {
 	int brojPonavljanja = 0;
 	printf( "Unesi podstring: " );
-	scanf( "%s", podstring );
+	scanf_s( "%s", podstring );
 	int velicinaPodstringa = strlen( podstring );
 	if( velicinaPodstringa > velicina - 1 )
 		return -1;
@@ -457,12 +453,12 @@ int vj10_brPonavljanja_podstringa_u_stringu( const char* tekst, const int velici
 ////////////////////////////////////////////////////////////////////////////////////// Vježba 11
 void vj11_kopiranjeDatoteke( FILE* fp, FILE* fp_copy, char* naziv1, char* naziv2 )
 {
-	fp = fopen( naziv1, "r" );
+	fopen_s( &fp, naziv1, "r" );
 	if( fp == NULL )
 		printf( "Greska pri otvaranju datoteke" );
 	else
 	{
-		fp_copy = fopen( naziv2, "w" );
+		fopen_s( &fp_copy, naziv2, "w" );
 		if( fp_copy == NULL )
 			printf( "Greska pri otvaranju datoteke" );
 		else
@@ -557,13 +553,13 @@ void aazad1()
 	char odabir = { 0 };
 	int rez, x, y, z;
 	printf( "x = " );
-	scanf( "%d", &x );
+	scanf_s( "%d", &x );
 	printf( "y = " );
-	scanf( "%d", &y );
+	scanf_s( "%d", &y );
 	printf( "z = " );
-	scanf( "%d", &z );
+	scanf_s( "%d", &z );
 	printf( "Unesi slovo za zeljenu operciju:\na) rez = x + y + z\nb) rez = x * y * z\nc) rez = x / y + z\nd) rez = (x / y - z)na1 / 2\n" );
-	scanf( " %c", &odabir );
+	scanf_s( " %c", &odabir );
 	switch( tolower( odabir ) )
 	{
 	case 'a':
@@ -672,13 +668,14 @@ void abzad2()
 void abzad3()
 {
 	const char* a = { "ovojekratkitest" };
-	printf( "my_strlen: %d\nstrlen: %d\n", vj8_my_strlen( a ), strlen( a ) );
+	printf( "my_strlen: %d\nstrlen: %zd\n", vj8_my_strlen( a ), strlen( a ) );
 
 	const char* c = { "tesktZaKopirat" };
 	char* d = (char*) malloc( vj8_my_strlen( c ) + 1 );
-	char* e = (char*) malloc( strlen( c ) + 1 );
+	size_t duljina = strlen( c );
+	char* e = (char*) malloc( duljina + 1 );
 	if( d )	vj8_my_strcpy( d, c );
-	if( e )	strcpy( e, c );
+	if( e )	strcpy_s( e, duljina, c );
 	printf( "c: %s\nd: %s\ne: %s", c, d, e );
 }
 
@@ -689,7 +686,7 @@ void abzad4()
 {
 	int n;
 	printf( "Unesi broj: " );
-	scanf( "%d", &n );
+	scanf_s( "%d", &n );
 	printf( "%d! = %d\n", n, vj8_rekurzija_faktorijele( n ) );
 }
 
@@ -713,10 +710,10 @@ void abzad6()
 {
 	unsigned int deka;
 	printf( "Unesi dekadski broj: " );
-	scanf( "%d", &deka );
+	scanf_s( "%d", &deka );
 	unsigned int baza;
 	printf( "Odaberi sustav u koji zelis pretvorit:\n2 -> binarni\n8 -> oktalni\n16 -> heksadecimalni\n\n" );
-	scanf( "%d", &baza );
+	scanf_s( "%d", &baza );
 
 	printf( "%d(10) = %s(%d)\n", deka, vj8_deka_u_bin_okt_heksa( deka, baza ), baza );
 }
@@ -793,7 +790,7 @@ void adzad1()
 	for( int i = 0; i < LIMIT_ELEMENATA; i++ )
 	{
 		printf( "Unesi %d. el: ", i );
-		scanf( "%d", niz + i );
+		scanf_s( "%d", niz + i );
 	}
 	puts( "" );
 	for( int i = 0; i < LIMIT_ELEMENATA; i++ )
@@ -859,19 +856,19 @@ void aezad1()
 	FILE* fp_copy{};
 	char naziv1[20], naziv2[20];
 	printf( "Upisi puni naziv datoteke .txt: " );
-	scanf( "%s", naziv1 );
+	scanf_s( "%s", naziv1 );
 	printf( "Upisi puni naziv za kopiju datoteke .txt: " );
-	scanf( "%s", naziv2 );
+	scanf_s( "%s", naziv2 );
 
-	fp = fopen( naziv1, "w" );
+	fopen_s( &fp, naziv1, "w" );
 	if( fp == NULL )
 		printf( "Greska pri otvaranju datoteke" );
 	else
 	{
 		fprintf( fp, "Hello World!\n" );
 		fprintf( fp, "Hello World drugi put!" );
+		fclose( fp );
 	}
-	fclose( fp );
 	vj11_kopiranjeDatoteke( fp, fp_copy, naziv1, naziv2 );
 }
 
@@ -881,7 +878,7 @@ void aezad1()
 void aezad2()
 {
 	FILE* fp;
-	fp = fopen( "vj11_zad2.txt", "r" );
+	fopen_s( &fp, "vj11_zad2.txt", "r" );
 
 	if( fp == NULL )
 		printf( "GRESKA\n" );
@@ -908,7 +905,7 @@ void aezad3()
 {
 
 	FILE* fp;
-	fp = fopen( "vj11_zad3.txt", "r" );	// provjeri postoji li
+	fopen_s( &fp, "vj11_zad3.txt", "r" );	// provjeri postoji li
 	if( fp )
 	{
 		vj11_citanjeDatoteke( fp );	// samo procitaj iz nje
@@ -916,7 +913,7 @@ void aezad3()
 	}
 	else
 	{
-		fp = fopen( "vj11_zad3.txt", "w" );	// stvori je
+		fopen_s( &fp, "vj11_zad3.txt", "w" );	// stvori je
 		if( fp )
 		{
 			fprintf( fp, "Ana\nA\n2000\n" );	// i popuni vrijednostima
@@ -930,7 +927,7 @@ void aezad3()
 			fprintf( fp, "Ana\nE\n2000\n" );
 			fclose( fp );
 
-			fp = fopen( "vj11_zad3.txt", "r" );
+			fopen_s( &fp, "vj11_zad3.txt", "r" );
 			if( fp )
 			{
 				vj11_citanjeDatoteke( fp );					// te procitaj je
@@ -951,7 +948,8 @@ void aezad3()
 	*/
 void aezad4()
 {
-	FILE* fp = fopen( "vj11_zad4.txt", "r" );
+	FILE* fp;
+	fopen_s( &fp, "vj11_zad4.txt", "r" );
 	if( fp )
 	{
 		vj11_citanjeDatoteke2( fp );
@@ -993,7 +991,7 @@ void afzad1()
 			{
 				printf( "Ako zelis prekinut unos bodova, unesi -1\n" );
 				printf( "Unesi bodove [0-100]: " );
-				scanf( "%d", &bodovi );
+				scanf_s( "%d", &bodovi );
 				puts( "" );
 			}
 			if( bodovi == -1 )	break;
@@ -1015,7 +1013,7 @@ void afzad2()
 {
 	int broj;
 	printf( "Unesi broj: " );
-	scanf( "%d", &broj );
+	scanf_s( "%d", &broj );
 	int tempBr = broj;
 	int velicina = tempBr > 0 ? 1 : 2;
 	while( tempBr > 0 )
@@ -1044,7 +1042,7 @@ void afzad2()
 void afzad3()
 {
 	FILE* fp;
-	fp = fopen( "vj12_zad3_imena.txt", "w" );
+	fopen_s( &fp, "vj12_zad3_imena.txt", "w" );
 	if( fp == NULL )
 		printf( "Greska pri otvaranju datoteke" );
 	else
@@ -1057,7 +1055,7 @@ void afzad3()
 	}
 	char imeStudenta[15];
 	int bodovi;
-	fp = fopen( "vj12_zad3_imena.txt", "r" );
+	fopen_s( &fp, "vj12_zad3_imena.txt", "r" );
 	if( fp )
 	{
 		while( fgets( imeStudenta, 15, fp ) != NULL )
@@ -1070,7 +1068,7 @@ void afzad3()
 				while( !isValidScore )
 				{
 					printf( "unesi bodove %d. kolokvija: ", i + 1 );
-					scanf( "%d", &bodovi );
+					scanf_s( "%d", &bodovi );
 					if( bodovi >= 0 && bodovi <= 100 )
 					{
 						ukupno += bodovi;
@@ -1116,7 +1114,7 @@ void afzad4()
 {
 	int n;
 	printf( "Unesi velicinu nizova: " );
-	scanf( "%d", &n );
+	scanf_s( "%d", &n );
 	int* niz1 = (int*) malloc( n * sizeof( int ) );
 	int* niz2 = (int*) malloc( n * sizeof( int ) );
 	if( niz1 == NULL )	return;

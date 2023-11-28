@@ -61,7 +61,7 @@ int main()
 	// VJEZBE 10
 	//adzad1();
 	//adzad2();
-	//adzad3();
+	adzad3();
 	//adzad4();
 
 	// VJEZBE 11
