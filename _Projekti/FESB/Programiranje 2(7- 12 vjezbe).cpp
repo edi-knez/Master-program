@@ -82,7 +82,7 @@ struct Osoba {
 	///		koristi obrnutu logiku da se rijesi slucaja 
 	/// </summary>
 	/// <param name="other"></param>
-	/// <returns>1 ako je osoba s kojom usporedujes mlada, 0 ako su jednake dobi ili -1 ako je osoba s kojom usporedujes starija</returns>
+	/// <returns>1 ako je osoba od koje usporedujes mlada, 0 ako su jednake dobi ili -1 ako je osoba od koje usporedujes starija</returns>
 	int compareWith( const Osoba& other )
 	{
 		int usporedbaDatuma = this->rodenaNa.usporedbaSaDatumom( other.rodenaNa );
@@ -115,12 +115,6 @@ void vj11_citanjeDatoteke( FILE* fp );
 void vj11_brojacImenaAna( FILE* fp, int* brojac );
 void vj11_citanjeDatoteke2( FILE* fp );
 void vj11_ispisRijec_po_Rijec( char* tekst );
-
-
-/*
-
-int main() {
-
 
 
 
@@ -206,7 +200,7 @@ int vj8_produktElemenataMatrice( int a[][3], unsigned int velicina )
 	return produkt;
 }
 
-int vj8_my_strlen( const char* tekst )
+size_t vj8_my_strlen( const char* tekst )
 {
 	unsigned int duljina = 0;
 	while( tekst[duljina] != '\0' )
@@ -297,7 +291,7 @@ char* vj8_deka_u_bin_okt_heksa( unsigned int dekadski, unsigned int baza )
 		break;
 	default:
 		printf( "Nepodrzana baza!\n" );
-		FillMemory( rezultat, 32, '0' );	// omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
+		rezultat[1] = '0';	// omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
 		rezultat[0] = '\0';
 		return rezultat;
 	}
@@ -340,12 +334,14 @@ int v9_proracunDatuma( struct Datum* c, int dan )
 	if( tempDan == 1 && dan == -1 )	// edge case: prosli dan od parnih i neparnih mjeseci
 	{
 		tempDan = ( c->mjesec % 2 == 0 ) ? 30 : 31;
+		--c->mjesec;
 	}
 	else if( c->dan == 30 && dan == 1 )	// edge case: sljedeci dan od parnih i neparnih mjeseci
 	{
 		tempDan = ( c->mjesec % 2 == 0 ) ? 1 : 31;
+		++c->mjesec;
 	}
-	else if( tempDan == 31 && dan == 1 )	// edge case
+	else if( tempDan == 31 && dan == 1 )	// edge case: sljedeci dan na mjesece koji imaju 31 dan
 	{
 		tempDan = 1;
 	}
@@ -469,10 +465,10 @@ void vj11_kopiranjeDatoteke( FILE* fp, FILE* fp_copy, char* naziv1, char* naziv2
 				fputc( znak, fp_copy );
 				znak = fgetc( fp );
 			}
+			fclose( fp_copy );
 		}
+		fclose( fp );
 	}
-	fclose( fp );
-	fclose( fp_copy );
 }
 
 void vj11_citanjeDatoteke( FILE* fp )
@@ -728,7 +724,6 @@ void abzad6()
 
 void aczad1()
 {
-
 	Vrijeme v1 = { 2, 35, 45 };
 	Vrijeme v2{ 3, 50, 30 };
 	Vrijeme v3 = v9_zbrajanjeVremena( &v1, &v2 );
@@ -742,7 +737,6 @@ void aczad1()
 	*/
 void aczad2()
 {
-
 	struct Datum d1 { 2000, 6, 5 };
 	struct Datum d2 { 2003, 3, 31 };
 	struct Datum d3 { 2000, 4, 30 };
@@ -759,7 +753,6 @@ void aczad2()
 	*/
 void aczad3()
 {
-
 	const int BROJ_OSOBA = 5;
 	struct Osoba osobe[BROJ_OSOBA];
 	osobe[0] = { "Marko", "Marulic", { 15, 5, 0 }, { 2003, 5, 12  } };
@@ -815,7 +808,6 @@ void adzad2()
 	*/
 void adzad3()
 {
-
 	struct Datum d1 { 2000, 6, 5 };
 	struct Datum d2 { 2003, 3, 31 };
 	struct Datum d3 { 2005, 4, 30 };
@@ -903,7 +895,6 @@ void aezad2()
 	*/
 void aezad3()
 {
-
 	FILE* fp;
 	fopen_s( &fp, "vj11_zad3.txt", "r" );	// provjeri postoji li
 	if( fp )
@@ -933,10 +924,7 @@ void aezad3()
 				vj11_citanjeDatoteke( fp );					// te procitaj je
 				fclose( fp );
 			}
-			else
-			{
-				printf( "GRESKA PRILIKOM OTVARANJA \"vj11_zad3.txt\" datoteke\n" );
-			}
+			else	printf( "GRESKA PRILIKOM OTVARANJA \"vj11_zad3.txt\" datoteke\n" );
 		}
 		else	printf( "GRESKA PRILIKOM OTVARANJA \"vj11_zad3.txt\" datoteke\n" );
 	}
