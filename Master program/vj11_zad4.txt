@@ -1,0 +1,1 @@
+"GRESKA\nNapravi datoteku imena \"vj11_zad4.txt\" i zapisi nesto u nju u programu za obradu teksta" 
