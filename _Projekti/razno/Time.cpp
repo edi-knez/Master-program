@@ -1,6 +1,6 @@
 #include "Time.hpp"
 
-Time::Time( bool mode, int s, int m, int sec )
+Time::Time( int s, int m, int sec, bool mode = false )
 {
 	m_mode = mode;
 	m_sati = abs( s % ( ( 2 - isMode12() ) * 12 ) );
@@ -8,7 +8,7 @@ Time::Time( bool mode, int s, int m, int sec )
 	m_sekunde = abs( sec % 60 );
 }
 
-inline Time operator+( const Time& t1, const Time& t2 )
+[[NODISCARD]] inline Time operator+( const Time& t1, const Time& t2 )
 {
 	int sec = t1.m_sekunde + t2.m_sekunde;
 	int min = ( sec >= 60 ) + t1.m_minute + t2.m_minute;
@@ -16,7 +16,7 @@ inline Time operator+( const Time& t1, const Time& t2 )
 	return Time( t1.m_mode, sat, min % 60, sec % 60 );
 }
 
-Time operator-( const Time& t1, const Time& t2 )
+[[NODISCARD]] Time operator-( const Time& t1, const Time& t2 )
 {
 	int tempSec = t1.m_sekunde - t2.m_sekunde;
 	int tempMin = t1.m_minute - t2.m_minute;

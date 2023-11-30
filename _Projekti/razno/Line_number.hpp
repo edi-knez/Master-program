@@ -7,7 +7,8 @@
 
 struct lineNumAndPosInfo_t
 {
-	lineNumAndPosInfo_t(): m_currentLine(0), m_currentPos(0) {}
+	lineNumAndPosInfo_t() : m_currentLine( 0 ), m_currentPos( 0 ) {}
+	lineNumAndPosInfo_t( size_t greska ) : m_currentPos( std::numeric_limits<size_t>::max() ) {}
 	size_t m_currentLine;
 	std::streampos m_currentPos;
 };
@@ -28,7 +29,7 @@ public:
 
 public:
 	std::fstream& getFileRef() { return m_datoteka; }
-	
+
 private:
 	std::fstream m_datoteka;
 	size_t m_idx;

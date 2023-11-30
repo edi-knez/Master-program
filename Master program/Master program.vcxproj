@@ -128,40 +128,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\_Projekti\C++ knjiga\bonus.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\CD.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina1.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina10.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina2.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina3.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina4.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina5.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina6.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina7.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina8.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina9.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Clan_obitelji.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Dijete.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\DVD.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\iarray.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\KlNiz.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Kolegij.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Kompleks.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Krug.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\LP.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\main.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\MP3CD.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\OOP.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Ploca.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Roditelj.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Tocka.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Tocka2.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Tocka2D.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\Tocka3D.cpp" />
-    <ClCompile Include="..\_Projekti\C++ knjiga\z121.cpp" />
-    <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp" />
-    <ClCompile Include="..\_Projekti\FESB\Programiranje 2.cpp" />
-    <ClCompile Include="..\_Projekti\FESB\Source.cpp" />
     <ClCompile Include="..\_Projekti\razno\b_Number.cpp" />
     <ClCompile Include="..\_Projekti\razno\b_Oblik.cpp" />
     <ClCompile Include="..\_Projekti\razno\Checkbook.cpp" />
@@ -188,7 +154,6 @@
     <ClCompile Include="..\_Projekti\razno\Pigs.cpp" />
     <ClCompile Include="..\_Projekti\razno\Queue.cpp" />
     <ClCompile Include="..\_Projekti\razno\Razlomak.cpp" />
-    <ClCompile Include="..\_Projekti\razno\razno.cpp" />
     <ClCompile Include="..\_Projekti\razno\ShareFile1.cpp" />
     <ClCompile Include="..\_Projekti\razno\ShareFile2_.cpp" />
     <ClCompile Include="..\_Projekti\razno\ShareFileInterface.cpp" />
@@ -199,24 +164,7 @@
     <ClCompile Include="..\_Projekti\razno\SymbolTable.cpp" />
     <ClCompile Include="..\_Projekti\razno\Time.cpp" />
     <ClCompile Include="..\_Projekti\razno\Word_match.cpp" />
-    <ClCompile Include="..\_Projekti\razno\_WTF.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Automobile.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\main.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\myCharPtr.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje2.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje3.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje4.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje5.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje6.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje7.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Poglavlje8.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\StringLinkedList.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Student.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\test_Zadaci_array.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Vjezbe.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_array.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_List.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\__main.cpp" />
+    <ClCompile Include="..\_Projekti\razno\raznoMain.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

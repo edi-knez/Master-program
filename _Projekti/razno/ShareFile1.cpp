@@ -11,5 +11,5 @@ void ShareFile1::otvori_datoteku()
 		std::cout << "Datoteka je vec otvorena!\n";
 		return;
 	}
-	datoteka.open("Datoteka.dat", std::ios::out);
+	datoteka.open( "Datoteka.dat", std::ios::out );
 }
