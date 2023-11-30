@@ -13,14 +13,14 @@ public:
 	~Stack_Instance() = default;
 
 public:
-	[[NODISCARD]] int size() { return m_index; }
-	[[MAYBE_UNSUED]] bool push_back( int value );
-	[[MAYBE_UNUSED]] int pop();
+	[[nodiscard]] int size() { return m_index; }
+	[[maybe_unused]] bool push_back( int value );
+	[[maybe_unused]] int pop();
 
 public:
 	void take_control();
 	void release_control();
-	[[NODISCARD]] static const Stack_Instance* const who_is_owner( const Stack_Instance* sIns, const size_t kolicina );
+	[[nodiscard]] static const Stack_Instance* const who_is_owner( const Stack_Instance* sIns, const size_t kolicina );
 
 private:
 	int m_index;

@@ -2,10 +2,10 @@
 class String_matcher
 {
 public:
-    virtual ~String_matcher() = default;
+	virtual ~String_matcher() = default;
 
 public:
-    // Returns true if string matches, false
-    virtual int match( const char* const string ) = 0;
+	// Returns true if string matches, false
+	virtual int match( const char* const string ) = 0;
 
 };

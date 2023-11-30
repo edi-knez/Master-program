@@ -1,20 +1,21 @@
 #pragma once
 #include "String_matcher.hpp"
+
 #include <string.h>
+
+
 class d_Number_mather : public String_matcher
 {
 public:
 	int match( const char* const string )
 	{
-		const char* ch = string;
-		size_t sz = strlen( string );
-		bool isNumber = sz > 1;
-		for( size_t i = 0; i < sz; ++i, ++ch )
+		if( string == nullptr )	return false;
+		while( *string != '\0' )
 		{
-			if( *ch < '0' || *ch > '9' )
+			if( *string < '0' || *string > '9' )
 				return false;
 		}
-		return isNumber;
+		return true;
 	}
 };
 

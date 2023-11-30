@@ -3,7 +3,7 @@
 class d_Dek : public b_Number
 {
 public:
-	d_Dek( int num ): b_Number ( num ) {}
+	d_Dek( int num ) : b_Number( num ) {}
 
 public:
 	void print_it() override

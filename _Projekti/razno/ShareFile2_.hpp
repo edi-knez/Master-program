@@ -12,7 +12,7 @@ class ShareFile2_
 public:
 	ShareFile2_()
 	{
-		std::fstream otvori("datoteka.dat", std::ios::out);
+		std::fstream otvori( "datoteka.dat", std::ios::out );
 	}
 	~ShareFile2_() { datoteka.close(); }
 

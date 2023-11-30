@@ -8,7 +8,7 @@
 struct lineNumAndPosInfo_t
 {
 	lineNumAndPosInfo_t() : m_currentLine( 0 ), m_currentPos( 0 ) {}
-	lineNumAndPosInfo_t( size_t greska ) : m_currentPos( std::numeric_limits<size_t>::max() ) {}
+	lineNumAndPosInfo_t( size_t greska ) : m_currentLine( 0 ), m_currentPos( std::numeric_limits<size_t>::max() ) {}
 	size_t m_currentLine;
 	std::streampos m_currentPos;
 };

@@ -6,15 +6,15 @@ class Word_match : public String_matcher
 public:
 	int match( const char* const string )
 	{
-		const char* ch = string;
-		size_t sz = strlen( string );
-		bool isWord = sz > 1;
-		for( size_t i = 0; i < sz; ++i, ++ch )
+		if( string == nullptr )	return -1;
+		while( *string != '\0' )
 		{
-			if( !( *ch >= 'a' && *ch <= 'z' || *ch >= 'A' && *ch <= 'Z' ) )
+			if( !( *string >= 'a' && *string <= 'z' ||
+				   *string >= 'A' && *string <= 'Z' ) )
 				return false;
+			++string;
 		}
-		return isWord;
+		return true;
 	}
 };
 

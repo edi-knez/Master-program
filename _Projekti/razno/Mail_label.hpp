@@ -9,7 +9,7 @@ public:
 	Mail_label() = default;
 	Mail_label( std::string id, std::string from, std::string to, std::string street, std::string state )
 	{
-		m_data = { {{id}, {from}, {to}, {street}, {state}} };
+		m_data = { {{std::move( id )}, {std::move( from )}, {std::move( to )}, {std::move( street )}, {std::move( state )}} };
 	}
 
 public:

@@ -7,9 +7,9 @@ public:
 	~Small_set() = default;
 
 public:
-	void set(int x);
-	void clear(int ind);
-	int test(int x);
+	void set( int x );
+	void clear( int ind );
+	int test( int x );
 
 private:
 	static const int _SIZE = 32;

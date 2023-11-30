@@ -8,7 +8,7 @@ public:
 		const char* ch = string;
 		if( ch[0] != ' ' )
 			return false;
-		return (*(++ch) == '\0');
+		return ( *( ++ch ) == '\0' );
 	}
 };
 
