@@ -1,9 +1,11 @@
 #pragma once
 #include "b_Number.hpp"
+
+
 class d_Okt : public b_Number
 {
 public:
-	d_Okt( int num ): b_Number( num ) {}
+	d_Okt( int num ) : b_Number( num ) {}
 
 public:
 	void print_it() override
@@ -17,10 +19,9 @@ public:
 			number /= 8;
 		} while( number != 0 );
 
-		for( size_t sz = buf.size() - 1U; sz < (0U - 1U); --sz )
-		{
-			std::cout << buf[sz];
-		}
+		for( const auto ch : buf )
+			std::cout << ch;
+
 		std::cout << '\n';
 	}
 };

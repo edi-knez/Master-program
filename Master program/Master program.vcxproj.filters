@@ -51,111 +51,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\_Projekti\FESB\Programiranje 2(7- 12 vjezbe).cpp">
-      <Filter>Source Files\FESB</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\FESB\Programiranje 2.cpp">
-      <Filter>Source Files\FESB</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\FESB\Source.cpp">
-      <Filter>Source Files\FESB</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\bonus.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\CD.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina1.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina2.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina3.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina4.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina5.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina6.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina7.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina8.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina9.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Cjelina10.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Clan_obitelji.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Dijete.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\DVD.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\iarray.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\KlNiz.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Kolegij.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Kompleks.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Krug.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\LP.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\main.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\MP3CD.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\OOP.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Ploca.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Roditelj.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Tocka.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Tocka2.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Tocka2D.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\Tocka3D.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\C++ knjiga\z121.cpp">
-      <Filter>Source Files\C++ knjiga</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\razno\_WTF.cpp">
-      <Filter>Source Files\razno</Filter>
-    </ClCompile>
     <ClCompile Include="..\_Projekti\razno\b_Number.cpp">
       <Filter>Source Files\razno</Filter>
     </ClCompile>
@@ -232,9 +127,6 @@
       <Filter>Source Files\razno</Filter>
     </ClCompile>
     <ClCompile Include="..\_Projekti\razno\Razlomak.cpp">
-      <Filter>Source Files\razno</Filter>
-    </ClCompile>
-    <ClCompile Include="..\_Projekti\razno\razno.cpp">
       <Filter>Source Files\razno</Filter>
     </ClCompile>
     <ClCompile Include="..\_Projekti\razno\ShareFile1.cpp">

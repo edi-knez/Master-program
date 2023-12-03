@@ -865,7 +865,7 @@ void moj_memcpy(const char from[], char to[], size_t n)
   to[idx] = '\0';
 }
 
-void count_letter(const char* c) noexcept(false)
+void count_letter(const char* c)
 {
   uint8_t samoglasnici = 0, suglasnici = 0;
   for (; *c != '\0'; ++c) {

@@ -2,44 +2,43 @@
 
 void PageFormatting::open_file( const char* ime )
 {
-    file.open( ime , std::ios::app );
+	m_file.open( ime, std::ios::app );
 }
 
 void PageFormatting::define_header( const char* header )
 {
-    if( stranica == 0 || trenutacnaStranica >= stranica ){}
-    else
-    {
-        file << header << "\n\n";
-        ++trenutacnaStranica;
-        linija += 3;
-    }
+	if( m_stranica == 0 || m_trenutacnaStranica >= m_stranica ) {}
+	else
+	{
+		m_file << header << "\n\n";
+		++m_trenutacnaStranica;
+		m_linija += 3;
+	}
 }
 
-void PageFormatting::print_line( const char* line)
+void PageFormatting::print_line( const char* line )
 {
-    if ( file.is_open() )
-    {
-        file << line << '\n';
-        ++linija;
-        if( linija == 24 )  page();
-        trenutacnaStranica += trenutacnaStranica < stranica;
-    }
+	if( m_file.is_open() )
+	{
+		m_file << line << '\n';
+		++m_linija;
+		if( m_linija == 24 )  page();
+		m_trenutacnaStranica += m_trenutacnaStranica < m_stranica;
+	}
 }
 
-void PageFormatting::page()
+inline void PageFormatting::page()
 {
-    if( file.is_open() )
-    {
-        for ( ; linija % 24 != 0; ++linija )
-            file << '\n';
+	if( m_file.is_open() )
+	{
+		for( ; m_linija % 24 != 0; ++m_linija )
+			m_file << '\n';
 
-        ++stranica;
-    }
+		++m_stranica;
+	}
 }
 
 void PageFormatting::close()
 {
-    if ( file.is_open() )
-        file.close();
+	if( m_file.is_open() )	m_file.close();
 }

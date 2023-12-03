@@ -7,7 +7,7 @@
 template<typename T, size_t s>
 class Niz_template
 {
-	
+
 public:
 	Niz_template() = delete;
 	Niz_template( const T& niz2 ) : m_sz( niz2.size() ) { memcpy( m_niz, niz2, m_sz ); }
@@ -18,12 +18,8 @@ public:
 
 	T operator[]( size_t pos ) const { assert( pos >= 0 && pos < m_sz ); return m_niz[pos]; }
 	T& operator[]( size_t pos ) { assert( pos >= 0 && pos < m_sz ); return m_niz[pos]; }
-	//friend bool operator == (const T& niz1, const T& niz2) const {
-	//	if ( niz1.m_sz == niz2.m_sz )
-	//		return memcmp( niz1, niz2, niz1.size() );
-	//	return false;
-	//}
-	
+	bool operator == ( const T& niz2 ) const;
+
 public:
 	constexpr void fill( T el )
 	{
@@ -45,3 +41,9 @@ public:
 	T* m_niz;
 };
 
+template<typename T, size_t s>
+bool Niz_template<T, s>::operator == ( const T& niz2 ) const {
+	if( m_sz == niz2.m_sz )
+		return !memcmp( m_niz, niz2, m_sz);
+	return false;
+}

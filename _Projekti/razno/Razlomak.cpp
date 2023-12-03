@@ -38,27 +38,25 @@ void Razlomak::setNazivnik( int broj1 )
 	}
 	m_nazivnik = broj1;
 
-	if( m_brojnik == 0 )
-		m_nazivnik = 1;
+	if( m_brojnik == 0 )	m_nazivnik = 1;
 }
 
 void Razlomak::setOperacija( char oper )
 {
-	if( oper != '+' &&
-		oper != '-' &&
-		oper != '*' &&
-		oper != '/' )
+	switch( oper )
 	{
+	case '+': case '-': case '*': case '/':
+		m_operacija = oper;
+		break;
+	default:
 		std::cout << "Nece ici. Dozvoljenje operacije: +, -, *, /\n";
-		return;
 	}
-	m_operacija = oper;
 }
 
 Razlomak operator +( const Razlomak& raz1, const Razlomak& raz2 )
 {
 	Razlomak rezultat;
-	rezultat.m_brojnik = (raz1.m_brojnik * raz2.m_nazivnik) + (raz2.m_brojnik * raz1.m_nazivnik);
+	rezultat.m_brojnik = ( raz1.m_brojnik * raz2.m_nazivnik ) + ( raz2.m_brojnik * raz1.m_nazivnik );
 	rezultat.m_nazivnik = raz1.m_nazivnik * raz2.m_nazivnik;
 	Razlomak::skrati( rezultat );
 	return rezultat;

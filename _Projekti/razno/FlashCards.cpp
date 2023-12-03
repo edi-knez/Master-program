@@ -4,30 +4,30 @@ FlashCards::FlashCards( const single_card cards[], int n ) :
 	m_brojKartica( n ), m_ukupanBrojKartica( n ), m_status( FlashCards::m_state_t::IZBORNIK )
 {
 	assert( n < MAX_KARTICA );
-	for ( size_t i = 0; i < m_brojKartica; ++i )
+	for( size_t i = 0; i < m_brojKartica; ++i )
 		m_Fcards[i] = cards[i];
 
 }
 
 void FlashCards::pokreni_izbornik()
 {
-	while( m_status > m_state_t::IZADI )
+	while( m_status != m_state_t::IZADI )
 	{
 		prikazi_izbornik();
 		std::string odabir;
 		std::cin >> odabir;
-		switch( odabir[0] )
+		switch( odabir[0] )	// uzmi 1. znak inputa
 		{
 		case '1':
 			pogadaj();
 			break;
 		case '2':
-
+			pregled_kartica();
 			break;
 		case '3':
 			break;
 		}
-		odabir.clear();
+		odabir.clear();	// i odbaci ostatak
 	}
 }
 
@@ -50,7 +50,7 @@ void FlashCards::izbornik()
 void FlashCards::pogadaj()
 {
 	std::array<struct FlashCards::single_card, 50> cardsCopy = m_Fcards;
-	size_t cards = cardsCopy.size();
+	size_t brojKartica = cardsCopy.size();
 
 	while( m_mojOdgovor != "\n" || !status() )
 	{
@@ -100,4 +100,18 @@ inline void FlashCards::remove_from_beginning( std::array<struct single_card, MA
 inline void FlashCards::put_back( std::array<struct single_card, MAX_KARTICA>& cardsCopy, const struct single_card& card )
 {
 	cardsCopy[get_broj_kartica() - 1] = card;
+}
+
+inline void FlashCards::pregled_kartica()
+{
+	puts( "Pregled kartica:\n--------------------------" );
+	char idx = 0;
+	for( const FlashCards::single_card card : FlashCards::m_Fcards )
+	{
+		std::cout << static_cast<unsigned short>( idx ) << ". kartica sadrzi pitanje:\n"
+			<< card.getQuestion()
+			<< "\nA odgovor na to pitanje je:\n"
+			<< card.getAnswer()
+			<< '\n';
+	}
 }

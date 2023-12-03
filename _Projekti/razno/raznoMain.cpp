@@ -95,7 +95,7 @@ void crtaj_grid();
 	Zad 2:
 */
 
-template <class T> static int numOfBits( T number );
+template <class T> int numOfBits( T number );
 
 /*
 	Zad 3:
@@ -168,7 +168,7 @@ void count_letter( const char* cstring ) noexcept( false );
 	Zad 2:
 */
 
-std::fstream search_open( std::array<const char*, 5> imenaDatoteka );
+std::fstream search_open( const std::array<const char*, 5>& imenaDatoteka );
 
 /*
 	Poglavlje 24
@@ -688,11 +688,11 @@ void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDa
   //    << "EL4:\n" << head->gotoNext()->gotoNext()->gotoNext()->getContent();
 
 
-	////const std::string ime = "test.dat";
-	////std::fstream datoteka;
-	////ispisi_datoteku_u_konzolu( datoteka, ime );
-
- // return 0;
+//	const std::string ime = "razno.cpp";
+//	std::fstream datoteka;
+//	ispisi_datoteku_u_konzolu( datoteka, ime );
+//
+//  return 0;
 //} ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   END MAIN
 
 
@@ -714,6 +714,11 @@ void crtaj_grid()
 	}
 }
 
+/// <summary>
+///		broji sve postavljene bitove u broju
+/// </summary>
+/// <param name=" broj koji te zanima</param>
+/// <returns> Broj postavljenih bitova</returns>
 template <typename T> size_t numOfBits( T number )
 {
 	size_t bits = 0;
@@ -745,7 +750,7 @@ std::array<short, 8> podijeliIntegerU8Dijela( int broj )
 
 
 /// <summary>
-/// Pomakni sve bitove ulijevo koji imaju vrijednost 1
+///		Pomakni sve bitove ulijevo koji imaju vrijednost 1
 /// </summary>
 /// <param name=" broj-">Shift bits of this number</param>
 /// <returns>Shifted all 1s to left</returns>
@@ -794,7 +799,7 @@ int ukupanBrojZivotinja() { return horseCnt() + pigsCnt() + dogsCnt(); }
 void postavi_niz_na_nulu( std::array<int, 15>& n )
 {
 	int* curr = n.data();
-	for( ; curr <= &n[14]; ++curr )
+	for( auto cur = std::begin( n ); cur != std::end( n ); ++curr )
 		*curr = 0;
 
 	  //ili
@@ -803,10 +808,11 @@ void postavi_niz_na_nulu( std::array<int, 15>& n )
 
 const char* prvi_alfa_num( const char* word )
 {
-	size_t sz = strlen( word );
-	for( size_t i = 0; i < sz; ++i )
+	for( size_t i = 0; word[i] != '\0'; ++i )
 	{
-		if( ( word[i] >= 'a' && word[i] <= 'z' ) || ( word[i] >= 'A' && word[i] <= 'Z' ) || ( word[i] >= '0' && word[i] <= '9' ) )
+		if( ( word[i] >= 'a' && word[i] <= 'z' ) ||
+			( word[i] >= 'A' && word[i] <= 'Z' ) ||
+			( word[i] >= '0' && word[i] <= '9' ) )
 			return &word[i];
 	}
 	return nullptr;
@@ -816,7 +822,7 @@ void matrixMultiply( std::array<std::array<int, 3>, 3>& matrix, int m )
 {
 	for( int i = 0; i < 3; ++i )
 		for( int j = 0; j < 3; ++j )
-			matrix[i][j] = m * matrix[i][j];
+			matrix[i][j] *= m;
 }
 
 void matrixMultiply( std::array<std::array<int, 2>, 2>& matrix )
@@ -864,7 +870,6 @@ std::vector<int> matrixMultiply( struct matrica_t matrica1, struct matrica_t mat
 	return noviMatrix;
 }
 
-static void moj_memcpy( const char from[], char to[], size_t n )
 {
 	size_t idx = 0;
 	for( ; from[idx] != '\0' && idx < n - 1; ++idx )
@@ -879,7 +884,6 @@ void count_letter( const char* c ) noexcept( false )
 	uint8_t samoglasnici = 0, suglasnici = 0;
 	for( ; *c != '\0'; ++c )
 	{
-		if( *c == 'a' || *c == 'e' || *c == 'i' || *c == 'o' || *c == 'u' || *c == 'A' || *c == 'E' || *c == 'I' || *c == 'O' || *c == 'U' )
 			++samoglasnici;
 		else if( isalpha( *c ) )
 			++suglasnici;
@@ -889,7 +893,6 @@ void count_letter( const char* c ) noexcept( false )
 	std::cout << "Suglasnici: " << static_cast<size_t>( suglasnici ) << "\nSamoglasnici: " << static_cast<size_t>( samoglasnici ) << '\n';
 }
 
-std::fstream search_open( std::array<const char*, 5> imenaDatoteka )
 {
 	std::fstream datoteka;
 	for( size_t i = 0; i < 5; ++i )
@@ -903,7 +906,6 @@ std::fstream search_open( std::array<const char*, 5> imenaDatoteka )
 }
 
 /// <summary>
-/// Pretrazuje datoteku dok ne nade duplu rijec
 /// </summary>
 /// <param name="imeDatoteke">Datoteka u koja ce se pretrazivat</param>
 /// <returns>
@@ -959,16 +961,22 @@ int32_t haveDoubleWords( const std::string_view imeDatoteke )
 	}
 }
 
+//todo: zavrsi ovo
+// trebalo bi sada radit
 void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDatoteke )
 {
 	datoteka.open( imeDatoteke, std::ios::in );
+	if( !datoteka.is_open() )
+	{
+		std::cout << "Datoteka se nije otvorila!n";
+		return;
+	}
 	bool zavrsenoCitanje = false;
 
 	std::string buf;
 	buf.reserve( 8096 );
 	while( !zavrsenoCitanje )
 	{
-		for( size_t counterChars = 0, counterForceBreak = 1, pos = 0; counterChars < 60 * 127; ++counterChars, ++counterForceBreak )
 		{
 			if( datoteka.eof() )
 			{
@@ -982,34 +990,20 @@ void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDa
 			if( c == '\n' )
 			{
 				counterForceBreak = 0;
-				pos = 0;
 			}
 			// The split point should be at the end of a sentence if possible,
-			if( c == '.' )
 			{
-			  // provjeri dali je sljedeci znak u datoteci new line znak
-				if( datoteka.get() != '\n' )
-					buf += '\n';
+				buf += '\n';
 				datoteka.seekg( -1, std::ios::cur ); // vrati get pointer za jedno mjesto
 				++counterChars;
 				counterForceBreak = 0;
-				pos = 0;
 			}
 
-			if( c == ' ' )
-				pos = counterForceBreak;
-
-			////  or at the end of a word if a sentence is too long//.
-			if( counterForceBreak == 127 )
-			{
-				if( pos > 0 )
 				{
-					buf[counterChars - ( 127 - pos )] = '\n';
+				{
 				}
 				else
 				{
-					++counterChars;
-					buf += '\n';
 				}
 				counterForceBreak = 0;
 				pos = 0;
@@ -1019,4 +1013,5 @@ void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDa
 		std::cout << buf;
 		buf.clear();
 	}
+	system( "pause" );
 }

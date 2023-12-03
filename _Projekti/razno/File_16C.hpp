@@ -37,7 +37,7 @@ public:
 	void ispis( std::fstream& datoteka );
 	// Write a program that copies a file and removes all characters with the high bit -> set(((ch & 0x80) != 0)
 	void removeHighBit();
-	void unos( const unsigned char a[] ) { otvoriDatoteku(); m_file << a; }
+	void unos( const unsigned char a[] ) { otvoriDatoteku(); if( m_file.is_open() ) m_file << a; }
 	void izbrisiSadrzaj() { m_file.open( m_name, std::ios::out | std::ios::trunc ); }
 	void vrati_datoteku_na_pocetak() { m_file.seekg( std::ios::beg ); }
 
@@ -49,7 +49,7 @@ public:
 
 private:
 	int calculate_num_osoba();
-	
+
 private:	// used internaly
 	void otvoriDatoteku() { m_file.open( getName(), std::ios::out | std::ios::in | std::ios::app ); }
 

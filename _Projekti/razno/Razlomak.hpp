@@ -9,7 +9,7 @@ class Razlomak
 {
 public:
 	Razlomak() = default;
-	Razlomak( int brojnik, int nazivnik ) { m_brojnik = brojnik; m_nazivnik = (nazivnik == 0) + (nazivnik != 0 ) * nazivnik; m_operacija = '\0'; }
+	Razlomak( int brojnik, int nazivnik ) { m_brojnik = brojnik; m_nazivnik = ( nazivnik == 0 ) + ( nazivnik != 0 ) * nazivnik; m_operacija = '\0'; }
 	Razlomak( int brojnik, int nazivnik, char oper ) { m_brojnik = brojnik; m_nazivnik = ( nazivnik == 0 ) + ( nazivnik != 0 ) * nazivnik; m_operacija = oper; }
 
 public:

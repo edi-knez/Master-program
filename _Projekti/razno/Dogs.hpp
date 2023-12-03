@@ -4,11 +4,10 @@ class Dogs
 	friend int dogsCnt();
 
 public:
-	Dogs();
-	~Dogs();
+	Dogs() { ++animalCount; }
+	~Dogs() { --animalCount; }
 
 private:
 	static int animalCount;
-
 };
 

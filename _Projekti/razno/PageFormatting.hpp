@@ -15,9 +15,9 @@ public:
 	void close();
 
 private:
-	std::ofstream file;
-	uint32_t linija;	// trenutacna
-	uint32_t stranica; // ukupno
-	uint32_t trenutacnaStranica;
+	std::ofstream m_file;
+	uint32_t m_linija;	// trenutacna
+	uint32_t m_stranica; // ukupno
+	uint32_t m_trenutacnaStranica;
 };
 
