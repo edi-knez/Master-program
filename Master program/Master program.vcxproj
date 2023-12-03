@@ -188,7 +188,6 @@
     <ClCompile Include="..\_Projekti\razno\Pigs.cpp" />
     <ClCompile Include="..\_Projekti\razno\Queue.cpp" />
     <ClCompile Include="..\_Projekti\razno\Razlomak.cpp" />
-    <ClCompile Include="..\_Projekti\razno\razno.cpp" />
     <ClCompile Include="..\_Projekti\razno\ShareFile1.cpp" />
     <ClCompile Include="..\_Projekti\razno\ShareFile2_.cpp" />
     <ClCompile Include="..\_Projekti\razno\ShareFileInterface.cpp" />
@@ -199,7 +198,6 @@
     <ClCompile Include="..\_Projekti\razno\SymbolTable.cpp" />
     <ClCompile Include="..\_Projekti\razno\Time.cpp" />
     <ClCompile Include="..\_Projekti\razno\Word_match.cpp" />
-    <ClCompile Include="..\_Projekti\razno\_WTF.cpp" />
     <ClCompile Include="..\_Projekti\ThinkLAP\Automobile.cpp" />
     <ClCompile Include="..\_Projekti\ThinkLAP\main.cpp" />
     <ClCompile Include="..\_Projekti\ThinkLAP\myCharPtr.cpp" />
@@ -216,7 +214,6 @@
     <ClCompile Include="..\_Projekti\ThinkLAP\Vjezbe.cpp" />
     <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_array.cpp" />
     <ClCompile Include="..\_Projekti\ThinkLAP\Zadaci_List.cpp" />
-    <ClCompile Include="..\_Projekti\ThinkLAP\__main.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
