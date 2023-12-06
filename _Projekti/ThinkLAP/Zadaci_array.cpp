@@ -74,10 +74,8 @@ static int zad2_iterative( const auto& binStr ) noexcept
 }
 static int zad2_recursive( const auto& binStr, size_t index )
 {
-	if( index >= binStr.size() )
-		return 0;
-	else
-		return zad2_recursive( binStr, index + 1 ) + ( binStr.at( index ) == '1' );
+	if( index >= binStr.size() )	return 0;
+	else	return zad2_recursive( binStr, index + 1 ) + ( binStr.at( index ) == '1' );
 }
 
 void zad3_ispis( const int target, const size_t numOfOccurances );
@@ -89,7 +87,7 @@ size_t zad3_recursive( const auto& brojevi, const int target, size_t index );
 /// </summary>
 /// <param name="brojevi"> -the array</param>
 /// <param name="target"> -the target</param>
-void Zadaci_array::zad3(const std::array<int, 8>& brojevi, const int target)
+void Zadaci_array::zad3( const std::array<int, 8>& brojevi, const int target )
 {
 	ispisPocetnogNiza( "brojevi", brojevi );
 

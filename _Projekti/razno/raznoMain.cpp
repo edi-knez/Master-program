@@ -76,11 +76,15 @@
 const int X_SIZE = 10;
 const int Y_SIZE = 10;
 static bool grid[Y_SIZE][X_SIZE]{ { true, false, false, false, false, false, false, false, false, true },
-  { true, false, false, false, false, false, false, false, false, true }, { true, false, false, false, false, false, false, false, false, true },
-  { true, false, false, false, false, false, false, false, false, true }, { true, false, false, false, false, false, false, false, false, true },
-  { true, false, false, false, false, false, false, false, false, true }, { true, false, false, false, false, false, false, false, false, true },
-  { true, false, false, false, false, false, false, false, false, true }, { true, false, false, false, false, false, false, false, false, true },
-  { true, false, false, false, false, false, false, false, false, true } };
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true } };
 
 /*
 	Zad 1:
@@ -95,7 +99,7 @@ void crtaj_grid();
 	Zad 2:
 */
 
-template <class T> int numOfBits( T number );
+template <class T> size_t numOfBits( T number );
 
 /*
 	Zad 3:
@@ -200,260 +204,340 @@ int32_t haveDoubleWords( const std::string_view imeDatoteke );
 
 void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDatoteke );
 
-//int main() ///////////////////////////////////////////////////////////////////     MAIN
-//{
-  //BOLEAN b = TRUE;
-  //if( b )
-  //	std::cout << "TEST\n";
 
-  //std::cout << divisibleBy10( 10 );
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void raz_zad1()
+{
+	BOLEAN b = TRUE;
+	if( b )  	std::cout << "TEST MACRO\n";
+}
 
-  //std::cout << is_digit( 5 );
-  //std::cout << is_hex( 5 );
-  //std::cout << is_hex( 'b' );
-  //std::cout << is_hex( 'g' );
-  //std::cout << is_hex( 'F' );
+void raz_zad2()
+{
+	std::cout << divisibleBy10( 10 );
+}
 
-  //int a = 5, b = 14, temp = 0;
-  //swap( a, b, temp );
-  //std::cout << a << " " << b << "\n";
-  //swap2( a, b );
-  //std::cout << a << " " << b << "\n";
+void raz_zad3()
+{
+	std::cout << is_digit( 5 );
+	std::cout << is_hex( 5 );
+	std::cout << is_hex( 'b' );
+	std::cout << is_hex( 'g' );
+	std::cout << is_hex( 'F' );
+}
+
+void raz_zad1()
+{
+	int a = 5, b = 14, temp = 0;
+	swap( a, b, temp );
+	std::cout << "(sa temp varijablom) " << a << " " << b << "\n";
+/// todo: provjeri sta je ovo
+	//swap2( a, b );
+	std::cout << a << " " << b << "\n";
+}
   ////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void raz_zad1()
+{
+	puts( "PRIJE:" );
+	crtaj_grid();
+	for( int i = 0; i < X_SIZE; ++i )
+	{
+		set_bit( i, 0, true );
+		set_bit( i, Y_SIZE - 1, 1 );
+	}
+	std::cout << "\nPoslije:\n";
+}
 
-  //	crtaj();
-  //for( int i = 0; i < X_SIZE; ++i )
-  //{
-  //	set_bit( i, 0, true );
-  //	set_bit( i, Y_SIZE - 1, 1 );
-  //}
-  //std::cout << "\n";
+void raz_zad1()
+{
+	puts( "PRIJE:" );
+	crtaj_grid();
+	for( int i = 0; i < X_SIZE; ++i )
+	{
+		clear_bit( i, 0 );
+	}
+	std::cout << "\nPoslije:\n";
+	crtaj_grid();
+}
 
-  //crtaj();
-  //for( int i = 0; i < X_SIZE; ++i )
-  //{
-  //	clear_bit( i, 0 );
-  //}
-  //std::cout << "\n";
-  //crtaj();
+void raz_zad1()
+{
+	std::cout << numOfBits( 5 ) << "\n"
+		<< numOfBits( 10 ) << "\n"
+		<< numOfBits( 15 ) << "\n";
+	std::cout << numOfBits( -5 ) << "\n"
+		<< numOfBits( -15 ) << "\n";
+}
 
-  //std::cout << numOfBits( 5 ) << "\n"
-  //	<< numOfBits( 10 ) << "\n"
-  //	<< numOfBits( 15 ) << "\n";
-  //std::cout << numOfBits( -5 ) << "\n"
-  //	<< numOfBits( -15 ) << "\n";
+void raz_zad1()
+{
+	int broj;
+	int temp;
+	std::cin >> broj;
+	temp = broj;
+	for( int i = 0; i < 32 || temp > 0; ++i )
+	{
+		std::cout << ( temp & 0x01 );
+		temp >>= 1;
+	}
+	std::cout << "\n";
+}
 
-  //int broj;
-  //int temp;
-  //std::cin >> broj;
-  //temp = broj;
-  //for( int i = 0; i < 32 || temp > 0; ++i )
-  //{
-  //	std::cout << ( temp & 0x01 );
-  //	temp >>= 1;
-  //}
+void raz_zad1()
+{
+	int broj;
+	std::cin >> broj;
+	std::array<short, 8> odvojeno;
+	odvojeno = podijeliIntegerU8Dijela( broj );
+	for( int i = 0; i < 8; ++i )
+	{
+		for( int j = 0; j < 4; ++j )
+		{
+			std::cout << ( odvojeno[i] & 0x01 );
+			odvojeno[i] >>= 1;
+		}
+		std::cout << "\n";
+	}
+}
 
-  //std::cout << "\n";
-  //std::array<short, 8> odvojeno;
-  //odvojeno = podijeliIntegerU8Dijela( broj );
-  //for( int i = 0; i < 8; ++i )
-  //{
-  //	for( int j = 0; j < 4; ++j )
-  //	{
-  //		std::cout << ( odvojeno[i] & 0x01 );
-  //		odvojeno[i] >>= 1;
-  //	}
-  //	std::cout << "\n";
-  //}
-
-  //char broj = 54;
-  //char result =  shiftBitsLeft( broj );
-  //std::cout << "\nBroj: ";
-  //for( int i = 0; i < 8; ++i )
-  //{
-  //	std::cout << static_cast<bool>( broj & 0x80 );
-  //	broj <<= 1;
-  //}
-  //std::cout << "(2)\nRezultat: ";
-  //for( int i = 0; i < 8; ++i )
-  //{
-  //	std::cout << static_cast<bool>( result & 0x80 );
-  //	result <<= 1;
-  //}
-  //std::cout << "(2)";
+void raz_zad1()
+{
+	char broj = 54;
+	char result = shiftBitsLeft( broj );
+	std::cout << "\nBroj: ";
+	for( int i = 0; i < 8; ++i )
+	{
+		std::cout << static_cast<bool>( broj & 0x80 );
+		broj <<= 1;
+	}
+	std::cout << "(2)\nRezultat: ";
+	for( int i = 0; i < 8; ++i )
+	{
+		std::cout << static_cast<bool>( result & 0x80 );
+		result <<= 1;
+	}
+	std::cout << "(2)";
+}
 
 
-  //Parsity primjer;
-  //primjer.put();
-  //std::cout << primjer.test() << "\n";
-  //primjer.put();
-  //std::cout << primjer.test() << "\n";
+void raz_zad1()
+{
+	Parsity primjer;
+	primjer.put();
+	std::cout << primjer.test() << "\n";
+	primjer.put();
+	std::cout << primjer.test() << "\n";
+}
 
-  //Checkbook book1;
-  //book1.addItem( 5 );
-  //book1.addItem( 100 );
-  //book1.addItem( 100 );
-  //std::cout << book1.total();
+void raz_zad1()
+{
+	Checkbook book1;
+	book1.addItem( 5 );
+	book1.addItem( 100 );
+	book1.addItem( 100 );
+	std::cout << book1.total();
+}
 
-  //queue->vjezbe
-  //Queue q;
-  //q.put( 1 );
-  //q.put( 2 );
-  //q.put( 3 );
-  //std::cout << q.get() << "\n";
-  //std::cout << q.get() << "\n";
-  //q.put( 10 );
-  //std::cout << q.get() << "\n";
+void raz_zad1()
+{
+	Queue q;
+	q.addItem( 1 );
+	q.addItem( 2 );
+	q.addItem( 3 );
+	std::cout << q.get() << "\n";
+	std::cout << q.get() << "\n";
+	q.addItem( 10 );
+	std::cout << q.get() << "\n";
+}
 
-  //Small_set small_set;
-  //small_set.set( 3 );
-  //small_set.set( 5 );
-  //small_set.set( 5 );
-  //std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
-  //std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
-  //small_set.clear( 5 );                             // Set contains [3]
-  //Small_set another_set( small_set );
-  //small_set.set( 0 );
-  //std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
-  //std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
+void raz_zad1()
+{
+  Small_set small_set;
+  small_set.set( 3 );
+  small_set.set( 5 );
+  small_set.set( 5 );
+  std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
+  std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
+  small_set.clear( 5 );                             // Set contains [3]
+  Small_set another_set( small_set );
+  small_set.set( 0 );
+  std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
+  std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
+}
 
-  //todo: FlachCards klasa
-  //const int n = 5;
-  //FlashCards::single_card cards[n] = {
-  //    { "test1", "test11" },
-  //    { "test2", "test2" },
-  //    { "test3", "test3" },
-  //    { "test4", "test4" },
-  //    { "test5", "test5" }
-  //};
+void raz_zad1()
+{
+  ////todo: FlachCards klasa
+  const int n = 5;
+  FlashCards::single_card cards[n] = {
+      { "test1", "test11" },
+      { "test2", "test2" },
+      { "test3", "test3" },
+      { "test4", "test4" },
+      { "test5", "test5" }
+  };
 
-  //FlashCards fc( cards, n );
-  //fc.izbornik();
+  FlashCards fc( cards, n );
+  fc.izbornik();
+}
 
-  //////////////////////////////////////
-  //ShareFile1 test;
-  //std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
-  //ShareFile2_ test2;
-  //std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
-  //std::cout << "----------------\n";
 
-  //test.otvori_datoteku();
-  //std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
-  //test2.otvori_datoteku();
-  //std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
-  //std::cout << "----------------\n";
+void raz_zad1()
+{
+  ShareFile1 test;
+  std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+  ShareFile2_ test2;
+  std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+  std::cout << "----------------\n";
 
-  //test.zatvori_datoteku();
-  //test2.zatvori_datoteku();
-  //test2.otvori_datoteku();
-  //std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
-  //test.otvori_datoteku();
-  //std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
-  ////////////////////////////////////////
+  test.otvori_datoteku();
+  std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+  test2.otvori_datoteku();
+  std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+  std::cout << "----------------\n";
 
-  //std::array<Pigs, 5> pigs;
-  //std::array<Dogs, 2> dogs;
-  //std::array<Horses, 3> horses;
-  //std::cout << ukupanBrojZivotinja() << "\n";
+  test.zatvori_datoteku();
+  test2.zatvori_datoteku();
+  test2.otvori_datoteku();
+  std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+  test.otvori_datoteku();
+  std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+}
 
-  //std::array<Stack_Instance, 5> stacks;
-  //std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
-  //stacks[0].take_control();
-  //std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
-  //stacks[4].pop();
-  //stacks[0].push_back( 10 );
-  //std::cout << "stack[0] size: " << stacks[0].size()
-  //    << "\nstack[1] size: " << stacks[1].size()
-  //    << '\n';
+void raz_zad1()
+{
+  std::array<Pigs, 5> pigs;
+  std::array<Dogs, 2> dogs;
+  std::array<Horses, 3> horses;
+  std::cout << ukupanBrojZivotinja() << "\n";
+}
 
+void raz_zad1()
+{
+  std::array<Stack_Instance, 5> stacks;
+  std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
+  stacks[0].take_control();
+  std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
+  stacks[4].pop();
+  stacks[0].push_back( 10 );
+  std::cout << "stack[0] size: " << stacks[0].size()
+      << "\nstack[1] size: " << stacks[1].size()
+      << '\n';
+}
+
+void raz_zad1()
+{
   //227. stranica
-  //char ime[] = "Dogs.hpp";
-  //Line_number test( ime );
-  //Line_number test2( ime );
-  //std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
-  //std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
-  //test.goto_line( 5 );
-  //std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
-  //test.goto_line( 2 );
-  //std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
-  //test2.goto_line( 2 );
-  //std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
-  //std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
-  //std::cout << "test.getFileRef().tellg(): " << test.getFileRef().tellg() << '\n';
-  //test2.goto_line( 6 );
-  //test.goto_line( 6 );
-  //std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
-  //std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
-  //test2.getFileRef().seekg( 5, std::ios::cur );
-  //std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
-  //test2.goto_line( 0 );
-  //test2.getFileRef().seekg( 5, std::ios::beg );
-  //std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
+  char ime[] = "Dogs.hpp";
+  Line_number test( ime );
+  Line_number test2( ime );
+  std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
+  std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
+  test.goto_line( 5 );
+  std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
+  test.goto_line( 2 );
+  std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
+  test2.goto_line( 2 );
+  std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
+  std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
+  std::cout << "test.getFileRef().tellg(): " << test.getFileRef().tellg() << '\n';
+  test2.goto_line( 6 );
+  test.goto_line( 6 );
+  std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
+  std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
+  test2.getFileRef().seekg( 5, std::ios::cur );
+  std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
+  test2.goto_line( 0 );
+  test2.getFileRef().seekg( 5, std::ios::beg );
+  std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
+}
 
+void raz_zad1()
+{
   //254. stranica
-  //std::array<int, 15> niz;
-  //niz.fill( 15 );
-  //for( const auto& n : niz )
-  //	std::cout << n << " ";
-  //std::cout << "\n";
-  //postavi_niz_na_nulu( niz );
-  //for( const auto& n : niz )
-  //	std::cout << n << " ";
-  //std::cout << "\n";
+  std::array<int, 15> niz;
+  niz.fill( 15 );
+  for( const auto& n : niz )
+  	std::cout << n << " ";
+  std::cout << "\n";
+  postavi_niz_na_nulu( niz );
+  for( const auto& n : niz )
+  	std::cout << n << " ";
+  std::cout << "\n";
+}
 
-  //const char str1[] = " \ttest ";
-  //const char str2[] = "  \t ";
-  //const char* c = prvi_alfa_num( str1 );
-  //const char* d = prvi_alfa_num( str2 );
-  //if( c )
-  //	std::cout << c << "\n";
-  //else
-  //	std::cout << "nullptr\n";
-  //if( d )
-  //	std::cout << d << "\n";
-  //else
-  //	std::cout << "nullptr\n";
+void raz_zad1()
+{
+  const char str1[] = " \ttest ";
+  const char str2[] = "  \t ";
+  const char* c = prvi_alfa_num( str1 );
+  const char* d = prvi_alfa_num( str2 );
+  if( c )
+  	std::cout << c << "\n";
+  else
+  	std::cout << "nullptr\n";
+  if( d )
+  	std::cout << d << "\n";
+  else
+  	std::cout << "nullptr\n";
+}
 
   //////////////////////////////////////////////////////////////
-  //File_16C f1( "linije.dat" );
-  //std::cout << "broj linija: " << f1.numOfLinesInFile() << " u datoteci: \"" << f1.getName() << "\"\n";
+void raz_zad1()
+{
+  File_16C f1( "linije.dat" );
+  std::cout << "broj linija: " << f1.numOfLinesInFile() << " u datoteci: \"" << f1.getName() << "\"\n";
+}
 
-  //File_16C f2( "linija.dat" );
-  //f2.copy_file( "copy-linija.dat" );
+void raz_zad1()
+{
+  File_16C f2( "linija.dat" );
+  f2.copy_file( "copy-linija.dat" );
+}
 
-  //File_16C f3;
-  //std::fstream lista( "lista.dat", std::ios::out );
-  //lista << 3 << " " << 6 << " " << 9 << " " << 10 << " " << 11 << " " << 12;
-  //lista.close();
-  //lista.open( "lista.dat", std::ios::out | std::ios::in | std::ios::ate );
-  //lista.seekg( std::ios::beg );
-  //std::cout << "\"lista.dat\": ";
-  //f3.ispis( lista );
-  //std::cout << "\n";
-  //f3.listOfNumbers( lista );
+void raz_zad1()
+{
+  File_16C f3;
+  std::fstream lista( "lista.dat", std::ios::out );
+  lista << 3 << " " << 6 << " " << 9 << " " << 10 << " " << 11 << " " << 12;
+  lista.close();
+  lista.open( "lista.dat", std::ios::out | std::ios::in | std::ios::ate );
+  lista.seekg( std::ios::beg );
+  std::cout << "\"lista.dat\": ";
+  f3.ispis( lista );
+  std::cout << "\n";
+  f3.listOfNumbers( lista );
+ 
+  std::fstream sa3( "djeljivi sa 3.dat", std::ios::in | std::ios::app );
+  std::cout << "\"djeljivi sa 3.dat\": ";
+  f3.ispis( sa3 );
+  std::cout << "\n";
+ 
+  std::fstream ostali( "svi ostali.dat", std::ios::in | std::ios::app );
+  std::cout << "\"svi ostali.dat\": ";
+  f3.ispis( ostali );
+  std::cout << "\n";
 
-  //std::fstream sa3( "djeljivi sa 3.dat", std::ios::in | std::ios::app );
-  //std::cout << "\"djeljivi sa 3.dat\": ";
-  //f3.ispis( sa3 );
-  //std::cout << "\n";
+  lista.close();
+  sa3.close();
+  ostali.close();
+}
 
-  //std::fstream ostali( "svi ostali.dat", std::ios::in | std::ios::app );
-  //std::cout << "\"svi ostali.dat\": ";
-  //f3.ispis( ostali );
-  //std::cout << "\n";
+void raz_zad1()
+{
+  File_16C f4( "File_16C remove high bit.txt" );
+  typedef const unsigned char cuc;
+  cuc podaci[] = { static_cast< cuc >( 192 ), static_cast< cuc >( 168 ), static_cast< cuc >( 128 ), static_cast< cuc >( 125 ), '\0' };
+  std::fstream in( f4.getName(), std::ios::out | std::ios::app | std::ios::trunc );
+  in << podaci;
+  in.close();
+  f4.removeHighBit();
+}
 
-  //lista.close();
-  //sa3.close();
-  //ostali.close();
 
-  //File_16C f4( "File_16C remove high bit.txt" );
-  //typedef const unsigned char cuc;
-  //cuc podaci[] = { static_cast< cuc >( 192 ), static_cast< cuc >( 168 ), static_cast< cuc >( 128 ), static_cast< cuc >( 125 ), '\0' };
-  //std::fstream in( f4.getName(), std::ios::out | std::ios::app | std::ios::trunc );
-  //in << podaci;
-  //in.close();
 
-  //f4.removeHighBit();
 
   //File_16C f5( "pretvorba ASCI u bin.dat" );
   //std::cout << "PRIJE: ";
@@ -870,6 +954,7 @@ std::vector<int> matrixMultiply( struct matrica_t matrica1, struct matrica_t mat
 	return noviMatrix;
 }
 
+static void moj_memcpy( const char from[], char to[], size_t n )
 {
 	size_t idx = 0;
 	for( ; from[idx] != '\0' && idx < n - 1; ++idx )
@@ -884,6 +969,8 @@ void count_letter( const char* c ) noexcept( false )
 	uint8_t samoglasnici = 0, suglasnici = 0;
 	for( ; *c != '\0'; ++c )
 	{
+		if( *c == 'a' || *c == 'e' || *c == 'i' || *c == 'o' || *c == 'u' ||
+			*c == 'A' || *c == 'E' || *c == 'I' || *c == 'O' || *c == 'U' )
 			++samoglasnici;
 		else if( isalpha( *c ) )
 			++suglasnici;
@@ -893,13 +980,13 @@ void count_letter( const char* c ) noexcept( false )
 	std::cout << "Suglasnici: " << static_cast<size_t>( suglasnici ) << "\nSamoglasnici: " << static_cast<size_t>( samoglasnici ) << '\n';
 }
 
+std::fstream search_open( const std::array<const char*, 5>& imenaDatoteka )
 {
 	std::fstream datoteka;
 	for( size_t i = 0; i < 5; ++i )
 	{
 		datoteka.open( imenaDatoteka[i], std::ios::in );
-		if( datoteka.is_open() )
-			return datoteka;
+		if( datoteka.is_open() )	return datoteka;
 	}
 	std::cout << "Nisam nasao datoteku koja postoji!\n";
 	return std::fstream();
@@ -977,6 +1064,7 @@ void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDa
 	buf.reserve( 8096 );
 	while( !zavrsenoCitanje )
 	{
+		for( size_t counterChars = 0, counterForceBreak = 1, pos = 0; counterChars < 60 * 127; ++counterChars, ++counterForceBreak )
 		{
 			if( datoteka.eof() )
 			{
@@ -991,19 +1079,29 @@ void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDa
 			{
 				counterForceBreak = 0;
 			}
-			// The split point should be at the end of a sentence if possible,
+			if( c == '.' )// The split point should be at the end of a sentence if possible,
 			{
 				buf += '\n';
-				datoteka.seekg( -1, std::ios::cur ); // vrati get pointer za jedno mjesto
+				if( datoteka.peek() == '\n' ) 	datoteka.seekg( 1, std::ios::cur ); // vrati get pointer za jedno mjesto
 				++counterChars;
 				counterForceBreak = 0;
 			}
 
+			////  or at the end of a word if a sentence is too long//.
+			if( counterForceBreak == 127 )
+			{
+				if( pos > 0 )
 				{
-				{
+					for( size_t i = counterChars - 1; i > 1 + counterChars - ( 127 - pos ); --i ) // kopiraj sve znakove iza razmaka za jedno mjesto gdje ce se stavit znak za novu liniju
+					{
+						buf[i + 1] = buf[i];
+					}
+					buf[1 + counterChars - ( 127 - pos )] = '\n';
 				}
 				else
 				{
+					++counterChars;
+					buf += '\n';
 				}
 				counterForceBreak = 0;
 				pos = 0;

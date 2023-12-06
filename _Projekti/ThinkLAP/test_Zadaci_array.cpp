@@ -2,7 +2,7 @@
 
 int zad1_recursive( const auto& numbers, size_t index );
 int zad1_iterative( const auto& numbers ) noexcept;
-void Zadaci_array::zad1()
+void Zadaci_array::test_zad1()
 {
 	static constexpr std::array numbers = { 1, 5, -4, 100, -54, 0 , 5, -54, 100 };
 	std::puts( "iteration:" );
@@ -38,7 +38,7 @@ int zad1_recursive( const auto& numbers, size_t index )
 void zad2_ispis( const int result, const char* ime );
 int zad2_iterative( const auto& binStr ) noexcept;
 int zad2_recursive( const auto& binStr, size_t index );
-void Zadaci_array::zad2()
+void Zadaci_array::test_zad2()
 {
 	static constexpr std::array binaryString1{ '1', '1', '0', '0', '1', '0', '1' };
 	static constexpr std::array binaryString2{ '1', '1', '1', '0', '1', '0', '1' };
@@ -84,7 +84,7 @@ void zad3_ispis( const int target, const size_t numOfOccurances );
 size_t zad3_iterative( const auto& brojevi, const int target );
 size_t zad3_recursive( const auto& brojevi, const int target, size_t index );
 
-void Zadaci_array::zad3(const std::array<int, 8>& brojevi, const int target)
+void Zadaci_array::test_zad3(const std::array<int, 8>& brojevi, const int target)
 {
 	std::puts( "Iterative:" );
 	const size_t timesAppeard = zad3_iterative( brojevi, target );

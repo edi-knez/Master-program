@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{77CB50AD-A664-4F5C-9EFA-0CAA4D3ABC2E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="master program\main.cpp" />
+    <ClCompile Include="setup.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\bonus.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\C++KnjigaMain.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\CD.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina1.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina10.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina2.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina3.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina4.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina5.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina6.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina7.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina8.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Cjelina9.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Clan_obitelji.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Dijete.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\DVD.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\iarray.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\KlNiz.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Kolegij.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Kompleks.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Krug.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\LP.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\MP3CD.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\OOP.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Ploca.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Roditelj.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Tocka.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Tocka2.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Tocka2D.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\Tocka3D.cpp" />
+    <ClCompile Include="_projekti\c++ knjiga\z121.cpp" />
+    <ClCompile Include="_projekti\fesb\Programiranje 2(7- 12 vjezbe).cpp" />
+    <ClCompile Include="_projekti\fesb\Programiranje 2.cpp" />
+    <ClCompile Include="_projekti\fesb\Source.cpp" />
+    <ClCompile Include="_projekti\razno\b_Number.cpp" />
+    <ClCompile Include="_projekti\razno\b_Oblik.cpp" />
+    <ClCompile Include="_projekti\razno\Checkbook.cpp" />
+    <ClCompile Include="_projekti\razno\Decimal.cpp" />
+    <ClCompile Include="_projekti\razno\Dogs.cpp" />
+    <ClCompile Include="_projekti\razno\d_BlankStr_matcher.cpp" />
+    <ClCompile Include="_projekti\razno\d_Dek.cpp" />
+    <ClCompile Include="_projekti\razno\d_Hex.cpp" />
+    <ClCompile Include="_projekti\razno\d_Krug.cpp" />
+    <ClCompile Include="_projekti\razno\d_Kvadrat.cpp" />
+    <ClCompile Include="_projekti\razno\d_Number_mather.cpp" />
+    <ClCompile Include="_projekti\razno\d_Okt.cpp" />
+    <ClCompile Include="_projekti\razno\d_Trokut.cpp" />
+    <ClCompile Include="_projekti\razno\File_16C.cpp" />
+    <ClCompile Include="_projekti\razno\FlashCards.cpp" />
+    <ClCompile Include="_projekti\razno\Horses.cpp" />
+    <ClCompile Include="_projekti\razno\infOsobi.cpp" />
+    <ClCompile Include="_projekti\razno\Line_number.cpp" />
+    <ClCompile Include="_projekti\razno\List.cpp" />
+    <ClCompile Include="_projekti\razno\Mail_label.cpp" />
+    <ClCompile Include="_projekti\razno\Niz_template.cpp" />
+    <ClCompile Include="_projekti\razno\PageFormatting.cpp" />
+    <ClCompile Include="_projekti\razno\Parsity.cpp" />
+    <ClCompile Include="_projekti\razno\Pigs.cpp" />
+    <ClCompile Include="_projekti\razno\Queue.cpp" />
+    <ClCompile Include="_projekti\razno\Razlomak.cpp" />
+    <ClCompile Include="_projekti\razno\raznoMain.cpp" />
+    <ClCompile Include="_projekti\razno\ShareFile1.cpp" />
+    <ClCompile Include="_projekti\razno\ShareFile2_.cpp" />
+    <ClCompile Include="_projekti\razno\ShareFileInterface.cpp" />
+    <ClCompile Include="_projekti\razno\Small_set.cpp" />
+    <ClCompile Include="_projekti\razno\Stack_Instance.cpp" />
+    <ClCompile Include="_projekti\razno\StringDouble.cpp" />
+    <ClCompile Include="_projekti\razno\String_matcher.cpp" />
+    <ClCompile Include="_projekti\razno\SymbolTable.cpp" />
+    <ClCompile Include="_projekti\razno\Time.cpp" />
+    <ClCompile Include="_projekti\razno\Word_match.cpp" />
+    <ClCompile Include="_projekti\thinklap\Automobile.cpp" />
+    <ClCompile Include="_projekti\thinklap\myCharPtr.cpp" />
+    <ClCompile Include="_projekti\thinklap\Poglavlje2.cpp" />
+    <ClCompile Include="_projekti\thinklap\Poglavlje3.cpp" />
+    <ClCompile Include="_projekti\thinklap\Poglavlje4.cpp" />
+    <ClCompile Include="_projekti\thinklap\Poglavlje5.cpp" />
+    <ClCompile Include="_projekti\thinklap\Poglavlje6.cpp" />
+    <ClCompile Include="_projekti\thinklap\Poglavlje7.cpp" />
+    <ClCompile Include="_projekti\thinklap\Poglavlje8.cpp" />
+    <ClCompile Include="_projekti\thinklap\StringLinkedList.cpp" />
+    <ClCompile Include="_projekti\thinklap\Student.cpp" />
+    <ClCompile Include="_projekti\thinklap\test_Zadaci_array.cpp" />
+    <ClCompile Include="_projekti\thinklap\ThinkLAPmain.cpp" />
+    <ClCompile Include="_projekti\thinklap\Vjezbe.cpp" />
+    <ClCompile Include="_projekti\thinklap\Zadaci_array.cpp" />
+    <ClCompile Include="_projekti\thinklap\Zadaci_List.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="_projekti\c++ knjiga\CD.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina1.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina10.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina2.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina3.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina4.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina5.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina6.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina7.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina8.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina9.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Clan_obitelji.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Dijete.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\DVD.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\iarray.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\KlNiz.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Kolegij.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Kompleks.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Krug.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\LP.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\MP3CD.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\OOP.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Ploca.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\resource.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Roditelj.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Tocka.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Tocka2.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Tocka2D.hpp" />
+    <ClInclude Include="_projekti\c++ knjiga\Tocka3D.hpp" />
+    <ClInclude Include="_projekti\razno\b_Number.hpp" />
+    <ClInclude Include="_projekti\razno\b_Oblik.hpp" />
+    <ClInclude Include="_projekti\razno\Checkbook.hpp" />
+    <ClInclude Include="_projekti\razno\Decimal.hpp" />
+    <ClInclude Include="_projekti\razno\Dogs.hpp" />
+    <ClInclude Include="_projekti\razno\d_BlankStr_matcher.hpp" />
+    <ClInclude Include="_projekti\razno\d_Dek.hpp" />
+    <ClInclude Include="_projekti\razno\d_Hex.hpp" />
+    <ClInclude Include="_projekti\razno\d_Krug.hpp" />
+    <ClInclude Include="_projekti\razno\d_Kvadrat.hpp" />
+    <ClInclude Include="_projekti\razno\d_Number_mather.hpp" />
+    <ClInclude Include="_projekti\razno\d_Okt.hpp" />
+    <ClInclude Include="_projekti\razno\d_Trokut.hpp" />
+    <ClInclude Include="_projekti\razno\File_16C.hpp" />
+    <ClInclude Include="_projekti\razno\FlashCards.hpp" />
+    <ClInclude Include="_projekti\razno\Horses.hpp" />
+    <ClInclude Include="_projekti\razno\infOsobi.hpp" />
+    <ClInclude Include="_projekti\razno\Line_number.hpp" />
+    <ClInclude Include="_projekti\razno\List.hpp" />
+    <ClInclude Include="_projekti\razno\Mail_label.hpp" />
+    <ClInclude Include="_projekti\razno\Niz_template.hpp" />
+    <ClInclude Include="_projekti\razno\PageFormatting.hpp" />
+    <ClInclude Include="_projekti\razno\Parsity.hpp" />
+    <ClInclude Include="_projekti\razno\Pigs.hpp" />
+    <ClInclude Include="_projekti\razno\Queue.hpp" />
+    <ClInclude Include="_projekti\razno\Razlomak.hpp" />
+    <ClInclude Include="_projekti\razno\ShareFile1.hpp" />
+    <ClInclude Include="_projekti\razno\ShareFile2_.hpp" />
+    <ClInclude Include="_projekti\razno\ShareFileInterface.hpp" />
+    <ClInclude Include="_projekti\razno\Small_set.hpp" />
+    <ClInclude Include="_projekti\razno\Stack_Instance.hpp" />
+    <ClInclude Include="_projekti\razno\StringDouble.hpp" />
+    <ClInclude Include="_projekti\razno\String_matcher.hpp" />
+    <ClInclude Include="_projekti\razno\SymbolTable.hpp" />
+    <ClInclude Include="_projekti\razno\Time.hpp" />
+    <ClInclude Include="_projekti\razno\Word_match.hpp" />
+    <ClInclude Include="_projekti\thinklap\Automobile.h" />
+    <ClInclude Include="_projekti\thinklap\myCharPtr.h" />
+    <ClInclude Include="_projekti\thinklap\nPog6.hpp" />
+    <ClInclude Include="_projekti\thinklap\Poglavlje2.h" />
+    <ClInclude Include="_projekti\thinklap\Poglavlje3.h" />
+    <ClInclude Include="_projekti\thinklap\Poglavlje4.h" />
+    <ClInclude Include="_projekti\thinklap\Poglavlje5.h" />
+    <ClInclude Include="_projekti\thinklap\Poglavlje6.h" />
+    <ClInclude Include="_projekti\thinklap\Poglavlje7.h" />
+    <ClInclude Include="_projekti\thinklap\Poglavlje8.h" />
+    <ClInclude Include="_projekti\thinklap\StringLL.h" />
+    <ClInclude Include="_projekti\thinklap\StringLLAdv.h" />
+    <ClInclude Include="_projekti\thinklap\Student.h" />
+    <ClInclude Include="_projekti\thinklap\Vjezbe.hpp" />
+    <ClInclude Include="_projekti\thinklap\Zadaci_array.h" />
+    <ClInclude Include="_projekti\thinklap\Zadaci_List.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imenaFunkcijaOutput.dat" />
+    <None Include="_projekti\c++ knjiga\kompleks.bin" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -15,7 +15,7 @@ public:
 	void addItem( int item );
 
 protected:
-	static const int MAX_SIZE = 1;
+	static const int MAX_SIZE = 2;
 	size_t totalCount;
 	std::array<int, MAX_SIZE> m_items;
 

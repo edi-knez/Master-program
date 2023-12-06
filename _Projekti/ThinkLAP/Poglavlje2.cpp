@@ -78,7 +78,7 @@ void Poglavlje2::luhnFormulaPrecomputed() const
 	const char* ptrNum = number.data();
 	assert( number.size() < 15 );
 
-	for( auto [tmpLen, multiply] = std::tuple{ uint32_t{number.size()}, uint8_t{0} };
+	for( auto [tmpLen, multiply] = std::tuple{ size_t{number.size()}, uint8_t{0} };
 		 tmpLen != 0;
 		 --tmpLen, ++ptrNum, multiply = !multiply )
 	{
@@ -92,8 +92,7 @@ void Poglavlje2::luhnFormulaPrecomputed() const
 		{
 			sum += precomputedData.at( *ptrNum - '0' );
 		}
-		else
-			sum += *ptrNum - '0';
+		else sum += *ptrNum - '0';
 	}
 	if( sum == 0 && number.size() == 1 ) std::cout << "Broj je prekratak!\n";
 	else if( sum % 10 == 0 ) std::cout << "Broj je vazeci!\n";
@@ -115,7 +114,9 @@ void Poglavlje2::luhnFormulaExpression() const
 
 	//size_t len = strlen(number);
 
-	for( auto [tmpLen, multiply] = std::tuple{ uint32_t{number.length()}, uint8_t{0} }; tmpLen != 0; --tmpLen, ++ptrNum, multiply = !multiply )
+	for( auto [tmpLen, multiply] = std::tuple{ size_t{number.length()}, uint8_t{0} };
+		 tmpLen != 0;
+		 --tmpLen, ++ptrNum, multiply = !multiply )
 	{
 		if( !isdigit( *ptrNum ) )
 		{
@@ -131,8 +132,7 @@ void Poglavlje2::luhnFormulaExpression() const
 				//!<< "\n((9* uvjet) - num) * 2: " << ((9 * uvjet) - num) * 2 << '\n';
 			sum += abs( -9 * uvjet + ( 9 * uvjet - num ) * 2 );
 		}
-		else
-			sum += *ptrNum - '0';
+		else sum += *ptrNum - '0';
 	}
 	if( sum == 0 && number.length() == 1 ) std::cout << "Broj je prekratak!\n";
 	else if( sum % 10 == 0 ) std::cout << "Broj je vazeci!\n";
@@ -254,7 +254,8 @@ void Poglavlje2::decodeMessage() const
 			{
 				message[i] = znakovi.at( std::get<0>( data ) - 1 );
 			}
-			else {
+			else
+			{
 				message[i] = std::get<0>( data ) + static_cast<uint32_t>( dMode ) - 1;
 			}
 		}
@@ -336,7 +337,7 @@ void Poglavlje2::decodeMessageRjesenje() const
 			break;
 		}
 		std::cout << outputCharacter;
-	} while( digitChar != 10 );
+	} while( digitChar != '\n' );
 	std::cout << "\n";
 }
 
@@ -459,7 +460,7 @@ void test_vj3()
 		{
 			if( j <= brojRazmakaLD )							std::cout << ' '; // samo lijeva strana se crta
 			else if( j > brojRazmakaLD + brojLjestva &&
-					 j <= 14 - brojRazmakaLD - brojLjestva )		std::cout << ' '; // prazan prostor izmedu
+					 j <= 14 - brojRazmakaLD - brojLjestva )	std::cout << ' '; // prazan prostor izmedu
 			else											std::cout << '#';
 		}
 		std::cout << '\n';
@@ -500,7 +501,7 @@ void vj5_build_and_print_ISBN_format( std::string_view digits )
 
 	uint8_t ISBNcounter = 0;
 	uint8_t digitsCounter = 0;
-	for( uint8_t i = 0; i < 4; ++i )
+	for( uint8_t i = 0; i < format.size(); ++i )
 	{
 		for( uint8_t j = 0; j < format.at( i ); ++j )
 		{
@@ -543,7 +544,7 @@ std::pair<uint32_t, std::array<char, 14>> vj5_calculate_sum( const uint32_t DIGI
 		retVal.second.at( size_t( sz ) ) = input;
 		++sz;
 	}
-	retVal.second[13] = '\0';
+	retVal.second[retVal.second.size() - 1] = '\0';
 	return retVal;
 }
 void Poglavlje2::vj5_check() const
@@ -666,16 +667,14 @@ int vj7_unos_hex_broja()
 		}
 		else
 		{
-			if( isdigit( temp ) )
-				hex = ( hex << 4 ) + temp - '0';
+			if( isdigit( temp ) )	hex = ( hex << 4 ) + temp - '0';
 			else
 			{
-				if( temp <= 'F' )
-					hex = ( hex << 4 ) + HexSlova[temp - 'A'];
+				if( temp <= 'F' )	hex = ( hex << 4 ) + HexSlova[temp - 'A'];
 				////-49 + 97; = 48 -> '0'
-				else if( temp >= 'a' && temp <= 'f' )
-					hex = ( hex << 4 ) + HexSlova[temp - 'a'];
-				else {
+				else if( temp >= 'a' && temp <= 'f' )	hex = ( hex << 4 ) + HexSlova[temp - 'a'];
+				else
+				{
 					throw "ERROR 16.1!";
 				}
 			}
@@ -748,7 +747,7 @@ void Poglavlje2::vj7_pretvorba_sa_hex() const
 	Baza bOut;
 	int brojZaPretvorit = INT32_MAX;
 	uint8_t odabir = -1;
-	while( odabir > uint8_t(Baza::HEX) + uint8_t(BazaE::OFFSET))
+	while( odabir > uint8_t( Baza::HEX ) + uint8_t( BazaE::OFFSET ) )
 	{
 		std::cout << "Izbor iz:\n"
 			<< "2) Baze bin\n"
@@ -763,7 +762,7 @@ void Poglavlje2::vj7_pretvorba_sa_hex() const
 			bInp = Baza::BIN;
 			brojZaPretvorit = vj6_bin_to_dec();
 			break;
-		case uint8_t( Baza::DEK ) + uint8_t(BazaE::OFFSET):
+		case uint8_t( Baza::DEK ) + uint8_t( BazaE::OFFSET ):
 		{
 			bInp = Baza::DEK;
 			std::cout << "Unesi dekatski broj: ";
@@ -788,7 +787,7 @@ void Poglavlje2::vj7_pretvorba_sa_hex() const
 			<< "10) Bazu dek\n"
 			<< "16) Bazu hex\n";
 		std::cout << "U koju bazu pretvorit broj: ";
-		odabir = uint8_t(extract_number()._Myfirst._Val);
+		odabir = uint8_t( extract_number()._Myfirst._Val );
 		switch( odabir )
 		{
 		case uint8_t( Baza::BIN ) + uint8_t( BazaE::OFFSET ):
@@ -933,21 +932,19 @@ void Poglavlje2::vj9_unos_string_info( const std::string_view str ) const
 			ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U';
 		tmpSamoglasniciURijeci += isSamoglasnik;
 
-		auto update_varijable = [&]( const bool isNovaRijec = true ) mutable {
+		auto update_varijable = [ & ]( const bool isNovaRijec = true ) mutable {
 			numOfWords += isNovaRijec;
 			if( longestWord < tmpSlovaURijeci )	longestWord = tmpSlovaURijeci;
 			if( samoglasniciURijeci < tmpSamoglasniciURijeci )	samoglasniciURijeci = tmpSamoglasniciURijeci;
-		};
+			};
 
-		if( isspace( ch ) && !isspace( prethodniZnak ) )
+		if( ( isspace( ch ) || ispunct( ch ) ) && !isspace( prethodniZnak ) )
 		{
 			update_varijable();
 			tmpSlovaURijeci = 0;
 			tmpSamoglasniciURijeci = 0;
 		}
-		else if( iter + 1 == str.end() )
-			update_varijable( isSlovo );
-
+		else if( iter + 1 == str.end() )	update_varijable( isSlovo );
 
 		prethodniZnak = ch;
 	}

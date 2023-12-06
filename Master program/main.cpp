@@ -1,41 +1,76 @@
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <array>
+#include <vector>
 
-extern void zad4();
-////////////////////
-extern void aazad1();
-extern void aazad2();
-extern void aazad3();
-extern void aazad4();
-////////////////////
-extern void abzad1();
-extern void abzad2();
-extern void abzad3();
-extern void abzad4();
-extern void abzad5();
-extern void abzad6();
-////////////////////
-extern void aczad1();
-extern void aczad2();
-extern void aczad3();
-////////////////////
-extern void adzad1();
-extern void adzad2();
-extern void adzad3();
-extern void adzad4();
-////////////////////
-extern void aezad1();
-extern void aezad2();
-extern void aezad3();
-extern void aezad4();
-////////////////////
-extern void afzad1();
-extern void afzad2();
-extern void afzad3();
-extern void afzad4();
+extern void fesb_vj1_1();	extern void fesb_vj1_2();	extern void fesb_vj1_3();	extern void fesb_vj1_4();
+extern void fesb_vj2_1();	extern void fesb_vj2_2();	extern void fesb_vj2_3();	extern void fesb_vj2_4();	extern void fesb_vj2_5();
+extern void fesb_vj3_1();	extern void fesb_vj3_2();	extern void fesb_vj3_3();	extern void fesb_vj3_4();
+extern void fesb_vj4_1();	extern void fesb_vj4_2();	extern void fesb_vj4_3();
+extern void fesb_vj5_1();	extern void fesb_vj5_2();	extern void fesb_vj5_3();	extern void fesb_vj5_4();
+extern void fesb_vj6_1();	extern void fesb_vj6_2();	extern void fesb_vj6_3();	extern void fesb_vj6_4();
+extern void fesb_vj7_1();	extern void fesb_vj7_2();	extern void fesb_vj7_3();	extern void fesb_vj7_4();
+extern void fesb_vj8_1();	extern void fesb_vj8_2();	extern void fesb_vj8_3();	extern void fesb_vj8_4();	extern void fesb_vj8_5();	extern void fesb_vj8_6();
+extern void fesb_vj9_1();	extern void fesb_vj9_2();	extern void fesb_vj9_3();
+extern void fesb_vj10_1();	extern void fesb_vj10_2();	extern void fesb_vj10_3();	extern void fesb_vj10_4();
+extern void fesb_vj11_1();	extern void fesb_vj11_2();	extern void fesb_vj11_3();	extern void fesb_vj11_4();
+extern void fesb_vj12_1();	extern void fesb_vj12_2();	extern void fesb_vj12_3();	extern void fesb_vj12_4();
+
+
+extern enum class projekt;
+
+static std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
+extern std::array<std::vector<std::string>, popisProjekata.size()> popisFunkcija;
+extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
 
 
 int main()
 {
+	char odabir = 0;
+	while( odabir != 'a' || odabir != 'r' )
+	{
+		std::cout << "Ako želis automatizirat proces unesi znak \"a\", a ako želiš ruèno unosit informacije unesi \"r\" ";
+		std::cin >> odabir;
+		odabir = tolower( odabir );
+	}
+
+	auto ispisiPopisProjekata = []() {
+		uint8_t i = 1;
+		for( const std::string_view strView : popisProjekata )
+		{
+			std::cout << i++ << ". " << strView << '\n';
+		}
+		};
+	auto ispisiPopisFunkcijaZa = []( const enum class projekt proj ) {
+		for( uint8_t idx = 0; idx < popisFunkcija[static_cast<uint8_t>( proj )].size(); ++idx )
+		{
+			std::cout << opisZadatka[static_cast<uint8_t>( proj )][idx]
+				<< '\n'
+				<< popisFunkcija[static_cast<uint8_t>( proj )][idx];
+		}
+		};
+
+	ispisiPopisProjekata();
+	//ispisiPopisFunkcija();
+	//ispisiPopisParametara();
+	bool wantToContinue = true;
+	while( wantToContinue )
+	{
+		switch( odabir )
+		{
+		case 'a':
+			//automatizirano()
+			break;
+		case 'r':
+			rucno();
+			break;
+		default:
+			std::cout << "You are not supposed to be here";
+			exit( 1 );
+
+		}
+	}
 	// zadnji zad iz 1. datoteke
 	//zad4();
 
@@ -76,5 +111,5 @@ int main()
 	//afzad3();
 	//afzad4();
 
-	return EXIT_SUCCESS; 
+	return EXIT_SUCCESS;
 }
