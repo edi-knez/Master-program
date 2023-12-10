@@ -10,9 +10,11 @@ enum class projekt
 	ThinkLAP
 };
 
+void* ( *Pfun )( ) = &fesb_vj10_1;
 
 std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
-std::array<std::vector<std::string>, popisProjekata.size()> popisFunkcija;
+std::array<std::vector<std::string>, popisProjekata.size()> popisImenaFunkcija;
+std::array<std::vector<void (*pFun)( )>, popisProjekata.size()> popisFunkcija;
 
 void popuniPopisFunkcija();
 void popuniPopisFunkcijaZa( const enum class projekt proj );
@@ -150,6 +152,21 @@ void popuniPopisFunkcijaZaProjekt( const enum class projekt proj )
 
 	case razno:
 	{
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
 
 	}
 	break;
@@ -164,7 +181,7 @@ void popuniPopisFunkcijaZaProjekt( const enum class projekt proj )
 		std::cout << "ERROR"; exit( 1 );
 	}
 
-
+	
 
 }
 

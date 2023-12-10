@@ -208,18 +208,18 @@ void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDa
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void raz_zad1()
+void Practical_Cpp_Programming_pog10_1()
 {
 	BOLEAN b = TRUE;
 	if( b )  	std::cout << "TEST MACRO\n";
 }
 
-void raz_zad2()
+void Practical_Cpp_Programming_pog10_2()
 {
 	std::cout << divisibleBy10( 10 );
 }
 
-void raz_zad3()
+void Practical_Cpp_Programming_pog10_3()
 {
 	std::cout << is_digit( 5 );
 	std::cout << is_hex( 5 );
@@ -228,7 +228,7 @@ void raz_zad3()
 	std::cout << is_hex( 'F' );
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog10_4()
 {
 	int a = 5, b = 14, temp = 0;
 	swap( a, b, temp );
@@ -238,7 +238,7 @@ void raz_zad1()
 	std::cout << a << " " << b << "\n";
 }
   ////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-void raz_zad1()
+void Practical_Cpp_Programming_pog11_1()
 {
 	puts( "PRIJE:" );
 	crtaj_grid();
@@ -250,7 +250,7 @@ void raz_zad1()
 	std::cout << "\nPoslije:\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog11_2()
 {
 	puts( "PRIJE:" );
 	crtaj_grid();
@@ -262,7 +262,7 @@ void raz_zad1()
 	crtaj_grid();
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog11_3()
 {
 	std::cout << numOfBits( 5 ) << "\n"
 		<< numOfBits( 10 ) << "\n"
@@ -271,7 +271,7 @@ void raz_zad1()
 		<< numOfBits( -15 ) << "\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog11_4()
 {
 	int broj;
 	int temp;
@@ -285,7 +285,7 @@ void raz_zad1()
 	std::cout << "\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog11_5()
 {
 	int broj;
 	std::cin >> broj;
@@ -302,7 +302,7 @@ void raz_zad1()
 	}
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog11_6()
 {
 	char broj = 54;
 	char result = shiftBitsLeft( broj );
@@ -322,7 +322,7 @@ void raz_zad1()
 }
 
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog13_1()
 {
 	Parsity primjer;
 	primjer.put();
@@ -331,7 +331,7 @@ void raz_zad1()
 	std::cout << primjer.test() << "\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog13_2()
 {
 	Checkbook book1;
 	book1.addItem( 5 );
@@ -340,7 +340,7 @@ void raz_zad1()
 	std::cout << book1.total();
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog13_3()
 {
 	Queue q;
 	q.addItem( 1 );
@@ -352,432 +352,491 @@ void raz_zad1()
 	std::cout << q.get() << "\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog13_4()
 {
-  Small_set small_set;
-  small_set.set( 3 );
-  small_set.set( 5 );
-  small_set.set( 5 );
-  std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
-  std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
-  small_set.clear( 5 );                             // Set contains [3]
-  Small_set another_set( small_set );
-  small_set.set( 0 );
-  std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
-  std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
+	Small_set small_set;
+	small_set.set( 3 );
+	small_set.set( 5 );
+	small_set.set( 5 );
+	std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
+	std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
+	small_set.clear( 5 );                             // Set contains [3]
+	Small_set another_set( small_set );
+	small_set.set( 0 );
+	std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
+	std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog13_5()
 {
   ////todo: FlachCards klasa
-  const int n = 5;
-  FlashCards::single_card cards[n] = {
-      { "test1", "test11" },
-      { "test2", "test2" },
-      { "test3", "test3" },
-      { "test4", "test4" },
-      { "test5", "test5" }
-  };
+	const int N = 5;
+	FlashCards::single_card cards[n] = {
+		{ "test1", "test11" },
+		{ "test2", "test2" },
+		{ "test3", "test3" },
+		{ "test4", "test4" },
+		{ "test5", "test5" }
+	};
 
-  FlashCards fc( cards, n );
-  fc.izbornik();
+	FlashCards fc( cards, N );
+	fc.izbornik();
 }
 
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog14_1()
 {
-  ShareFile1 test;
-  std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
-  ShareFile2_ test2;
-  std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
-  std::cout << "----------------\n";
+	ShareFile1 test;
+	std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+	ShareFile2_ test2;
+	std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+	std::cout << "----------------\n";
 
-  test.otvori_datoteku();
-  std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
-  test2.otvori_datoteku();
-  std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
-  std::cout << "----------------\n";
+	test.otvori_datoteku();
+	std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+	test2.otvori_datoteku();
+	std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+	std::cout << "----------------\n";
 
-  test.zatvori_datoteku();
-  test2.zatvori_datoteku();
-  test2.otvori_datoteku();
-  std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
-  test.otvori_datoteku();
-  std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+	test.zatvori_datoteku();
+	test2.zatvori_datoteku();
+	test2.otvori_datoteku();
+	std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+	test.otvori_datoteku();
+	std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog14_2()
 {
-  std::array<Pigs, 5> pigs;
-  std::array<Dogs, 2> dogs;
-  std::array<Horses, 3> horses;
-  std::cout << ukupanBrojZivotinja() << "\n";
+	std::array<Pigs, 5> pigs;
+	std::array<Dogs, 2> dogs;
+	std::array<Horses, 3> horses;
+	std::cout << ukupanBrojZivotinja() << "\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog14_3()
 {
-  std::array<Stack_Instance, 5> stacks;
-  std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
-  stacks[0].take_control();
-  std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
-  stacks[4].pop();
-  stacks[0].push_back( 10 );
-  std::cout << "stack[0] size: " << stacks[0].size()
-      << "\nstack[1] size: " << stacks[1].size()
-      << '\n';
+	std::array<Stack_Instance, 5> stacks;
+	std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
+	stacks[0].take_control();
+	std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
+	stacks[4].pop();
+	stacks[0].push_back( 10 );
+	std::cout << "stack[0] size: " << stacks[0].size()
+		<< "\nstack[1] size: " << stacks[1].size()
+		<< '\n';
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog14_4()
 {
   //227. stranica
-  char ime[] = "Dogs.hpp";
-  Line_number test( ime );
-  Line_number test2( ime );
-  std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
-  std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
-  test.goto_line( 5 );
-  std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
-  test.goto_line( 2 );
-  std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
-  test2.goto_line( 2 );
-  std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg()<<"\n";
-  std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
-  std::cout << "test.getFileRef().tellg(): " << test.getFileRef().tellg() << '\n';
-  test2.goto_line( 6 );
-  test.goto_line( 6 );
-  std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
-  std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
-  test2.getFileRef().seekg( 5, std::ios::cur );
-  std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
-  test2.goto_line( 0 );
-  test2.getFileRef().seekg( 5, std::ios::beg );
-  std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
+	char ime[] = "Dogs.hpp";
+	Line_number test( ime );
+	Line_number test2( ime );
+	std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
+	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
+	test.goto_line( 5 );
+	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
+	test.goto_line( 2 );
+	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
+	test2.goto_line( 2 );
+	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
+	std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
+	std::cout << "test.getFileRef().tellg(): " << test.getFileRef().tellg() << '\n';
+	test2.goto_line( 6 );
+	test.goto_line( 6 );
+	std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
+	std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
+	test2.getFileRef().seekg( 5, std::ios::cur );
+	std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
+	test2.goto_line( 0 );
+	test2.getFileRef().seekg( 5, std::ios::beg );
+	std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
 }
 
-void raz_zad1()
-{
   //254. stranica
-  std::array<int, 15> niz;
-  niz.fill( 15 );
-  for( const auto& n : niz )
-  	std::cout << n << " ";
-  std::cout << "\n";
-  postavi_niz_na_nulu( niz );
-  for( const auto& n : niz )
-  	std::cout << n << " ";
-  std::cout << "\n";
+void Practical_Cpp_Programming_pog15_1()
+{
+	std::array<int, 15> niz;
+	niz.fill( 15 );
+	for( const auto& n : niz )
+		std::cout << n << " ";
+	std::cout << "\n";
+	postavi_niz_na_nulu( niz );
+	for( const auto& n : niz )
+		std::cout << n << " ";
+	std::cout << "\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog15_2()
 {
-  const char str1[] = " \ttest ";
-  const char str2[] = "  \t ";
-  const char* c = prvi_alfa_num( str1 );
-  const char* d = prvi_alfa_num( str2 );
-  if( c )
-  	std::cout << c << "\n";
-  else
-  	std::cout << "nullptr\n";
-  if( d )
-  	std::cout << d << "\n";
-  else
-  	std::cout << "nullptr\n";
+	const char str1[] = " \ttest ";
+	const char str2[] = "  \t ";
+	const char* c = prvi_alfa_num( str1 );
+	const char* d = prvi_alfa_num( str2 );
+	if( c )
+		std::cout << c << "\n";
+	else
+		std::cout << "nullptr\n";
+	if( d )
+		std::cout << d << "\n";
+	else
+		std::cout << "nullptr\n";
 }
 
   //////////////////////////////////////////////////////////////
-void raz_zad1()
+void Practical_Cpp_Programming_pog16_1()
 {
-  File_16C f1( "linije.dat" );
-  std::cout << "broj linija: " << f1.numOfLinesInFile() << " u datoteci: \"" << f1.getName() << "\"\n";
+	File_16C f1( "linije.dat" );
+	std::cout << "broj linija: " << f1.numOfLinesInFile() << " u datoteci: \"" << f1.getName() << "\"\n";
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog16_2()
 {
-  File_16C f2( "linija.dat" );
-  f2.copy_file( "copy-linija.dat" );
+	File_16C f2( "linija.dat" );
+	f2.copy_file( "copy-linija.dat" );
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog16_3()
 {
-  File_16C f3;
-  std::fstream lista( "lista.dat", std::ios::out );
-  lista << 3 << " " << 6 << " " << 9 << " " << 10 << " " << 11 << " " << 12;
-  lista.close();
-  lista.open( "lista.dat", std::ios::out | std::ios::in | std::ios::ate );
-  lista.seekg( std::ios::beg );
-  std::cout << "\"lista.dat\": ";
-  f3.ispis( lista );
-  std::cout << "\n";
-  f3.listOfNumbers( lista );
- 
-  std::fstream sa3( "djeljivi sa 3.dat", std::ios::in | std::ios::app );
-  std::cout << "\"djeljivi sa 3.dat\": ";
-  f3.ispis( sa3 );
-  std::cout << "\n";
- 
-  std::fstream ostali( "svi ostali.dat", std::ios::in | std::ios::app );
-  std::cout << "\"svi ostali.dat\": ";
-  f3.ispis( ostali );
-  std::cout << "\n";
+	File_16C f3;
+	std::fstream lista( "lista.dat", std::ios::out );
+	lista << 3 << " " << 6 << " " << 9 << " " << 10 << " " << 11 << " " << 12;
+	lista.close();
+	lista.open( "lista.dat", std::ios::out | std::ios::in | std::ios::ate );
+	lista.seekg( std::ios::beg );
+	std::cout << "\"lista.dat\": ";
+	f3.ispis( lista );
+	std::cout << "\n";
+	f3.listOfNumbers( lista );
 
-  lista.close();
-  sa3.close();
-  ostali.close();
+	std::fstream sa3( "djeljivi sa 3.dat", std::ios::in | std::ios::app );
+	std::cout << "\"djeljivi sa 3.dat\": ";
+	f3.ispis( sa3 );
+	std::cout << "\n";
+
+	std::fstream ostali( "svi ostali.dat", std::ios::in | std::ios::app );
+	std::cout << "\"svi ostali.dat\": ";
+	f3.ispis( ostali );
+	std::cout << "\n";
+
+	lista.close();
+	sa3.close();
+	ostali.close();
 }
 
-void raz_zad1()
+void Practical_Cpp_Programming_pog16_4()
 {
-  File_16C f4( "File_16C remove high bit.txt" );
-  typedef const unsigned char cuc;
-  cuc podaci[] = { static_cast< cuc >( 192 ), static_cast< cuc >( 168 ), static_cast< cuc >( 128 ), static_cast< cuc >( 125 ), '\0' };
-  std::fstream in( f4.getName(), std::ios::out | std::ios::app | std::ios::trunc );
-  in << podaci;
-  in.close();
-  f4.removeHighBit();
+	File_16C f4( "File_16C remove high bit.txt" );
+	typedef const unsigned char cuc;
+	cuc podaci[] = { static_cast<cuc>( 192 ), static_cast<cuc>( 168 ), static_cast<cuc>( 128 ), static_cast<cuc>( 125 ), '\0' };
+	std::fstream in( f4.getName(), std::ios::out | std::ios::app | std::ios::trunc );
+	in << podaci;
+	in.close();
+	f4.removeHighBit();
 }
 
 
+// todo: zasto se vraca u ASCI
+void Practical_Cpp_Programming_pog16_5()
+{
+	File_16C f5( "pretvorba ASCI u bin.dat" );
+	std::cout << "PRIJE: ";
+	f5.ispis();
 
+	if( f5.ASCI_to_bin() )
+	{
+		std::cout << "\nPretvorba uspjesna!\n";
+		f5.bin_to_ASCI();
+		std::cout << "\nPOSLIJE: ";
+		f5.ispis();
+	}
+	else
+		std::cout << "Nista nece da radi\n";
+}
 
-  //File_16C f5( "pretvorba ASCI u bin.dat" );
-  //std::cout << "PRIJE: ";
+void Practical_Cpp_Programming_pog16_6()
+{
+	File_16C f6( "osobe.inf" );
+	f6.read_info_o_osobi();
+	f6.ispis_osoba();
+}
+////////////////////////////////////////////////////////////////
 
-  //f5.ispis();
-  //if( f5.ASCI_to_bin() )
-  //{
-  //	std::cout << "\nPretvorba uspjesna!\n";
-  //	f5.bin_to_ASCI();
-  //	std::cout << "\nPOSLIJE: ";
-  //	f5.ispis();
-  //}
-  //else
-  //	std::cout << "Nista nece da radi\n";
+// 317. stranica
+////////////////////////////////////////////////////////////////////////
+void Practical_Cpp_Programming_pog17_2__1()
+{
+	std::array<std::array<int, 3>, 3> matrix = { {{{ 2, 1, 1 }},
+											   {{ 2, 2, 2 }},
+											   {{ 2, 1, 1 }}} };
+	std::cout << "2x2:\n";
+	std::array<std::array<int, 2>, 2> matrix = { { {{ 2, 1 }},
+												{{ 1, 1 }} } };
+	matrixMultiply( matrix );
+	for( int i = 0; i < 2; ++i )
+	{
+		for( int j = 0; j < 2; ++j )
+			std::cout << matrix[i][j] << " ";
 
-  //File_16C f6( "osobe.inf" );
-  //f6.read_info_o_osobi();
-  //f6.ispis_osoba();
-  ////////////////////////////////////////////////////////////////
+		std::cout << "\n";
+	}
+}
 
-  // 317. stranica
-  ////////////////////////////////////////////////////////////////////////
-  //std::array<std::array<int, 3>, 3> matrix = { {{{ 2, 1, 1 }},
-  //											 {{ 2, 2, 2 }},
-  //											 {{ 2, 1, 1 }}} };
-  //std::cout << "2x2:\n";
-  //std::array<std::array<int, 2>, 2> matrix = {{ {{ 2, 1 }},
-  //											  {{ 1, 1 }} }};
-  //matrixMultiply( matrix );
-  //for( int i = 0; i < 2; ++i )
-  //{
-  //	for( int j = 0; j < 2; ++j )
-  //		std::cout << matrix[i][j] << " ";
+void Practical_Cpp_Programming_pog17_2__2()
+{
+	std::array<std::array<int, 3>, 3> matrix = { {{{ 2, 1, 1 }},
+											   {{ 2, 2, 2 }},
+											   {{ 2, 1, 1 }}} };
+	matrixMultiply( matrix, 5 );
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+			std::cout << matrix[i][j] << " ";
 
-  //	std::cout << "\n";
-  //}
+		std::cout << "\n";
+	}
+}
 
-  //std::array<std::array<int, 3>, 3> matrix = { {{{ 2, 1, 1 }},
-  //											 {{ 2, 2, 2 }},
-  //											 {{ 2, 1, 1 }}} };
-  //matrixMultiply( matrix, 5 );
-  //for( int i = 0; i < 3; ++i )
-  //{
-  //	for( int j = 0; j < 3; ++j )
-  //		std::cout << matrix[i][j] << " ";
+void Practical_Cpp_Programming_pog17_2__3()
+{
+	std::cout << "vec2x2:\n";
+	size_t x = 3;
+	size_t y = 2;
 
-  //	std::cout << "\n";
-  //}
+	int niz[6] = { 2, 1, 1,
+				  1, 1, 1 };
 
-  //std::cout << "vec2x2:\n";
-  //size_t x = 3;
-  //size_t y = 2;
+	std::vector<int> matricaRez = matrixMultiply( matrica_t{ x, y, niz }, matrica_t{ y, x, niz } );
+	for( int i = 0; i < y; ++i )
+	{
+		for( int j = 0; j < y; ++j )
+			std::cout << matricaRez[i * y + j] << " ";
 
-  //int niz[6] = { 2, 1, 1,
-  //				1, 1, 1 };
+		std::cout << "\n";
+	}
+}
+///////
 
-  //std::vector<int> matricaRez =  matrixMultiply( matrica_t{ x, y, niz }, matrica_t{ y, x, niz } );
-  //for( int i = 0; i < y; ++i )
-  //{
-  //	for( int j = 0; j < y; ++j )
-  //		std::cout << matricaRez[i * y + j] << " ";
+void Practical_Cpp_Programming_pog17_5()
+{
+	char str[] = "tesaaaaaaaat\0";
+	char noviStr[10];
+	moj_memcpy( str, noviStr, 10 );
+	std::cout << "novi string: " << noviStr << '\n';
+}
 
-  //	std::cout << "\n";
-  //}
-  ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//	341. stranica
+void Practical_Cpp_Programming_pog18_1()
+{
+	Razlomak raz1( 1, 3, '+' );
+	Razlomak raz2( 3, 8, '=' );
+	Razlomak rezultat = raz1 + raz2;
+	std::cout << raz1 << raz2 << rezultat;
+}
 
-  //char str[] = "tesaaaaaaaat\0";
-  //char noviStr[10];
-  //moj_memcpy( str, noviStr, 10 );
-  //std::cout << "novi string: " << noviStr << '\n';
+void Practical_Cpp_Programming_pog18_2()
+{
+	Decimal dec;
+	dec.setBase( 500000 );
+	dec.setDecimal( -15 );
+	std::cout << dec << '\n';
+	dec.setBase( 16 );
+	dec.setDecimal( 32 );
+	std::cout << dec;
+}
 
-  //	341. stranica
+void Practical_Cpp_Programming_pog18_4()
+{
+	Time t1( 0, 0, 59, 0 );
+	Time t2( 0, 25, 3, 1 );
+	Time t3 = t1 - t2;
+	std::cout << "  " << t1
+		<< "- " << t2
+		<< "----------------------\n"
+		<< t3;
+}
 
-  //Razlomak raz1( 1, 3, '+' );
-  //Razlomak raz2( 3, 8, '=' );
-  //Razlomak rezultat = raz1 + raz2;
-  //std::cout << raz1 << raz2 << rezultat;
+//	355. stranica
+void Practical_Cpp_Programming_pog19_1()
+{
+	StringDouble sd1( "5.55" );
+	StringDouble sd2( "2" );
+	std::cout << sd1 << "+ " << sd2 << "= " << sd1 + sd2 << '\n'
+		<< sd1 << "- " << sd2 << "= " << sd1 - sd2 << '\n'
+		<< sd1 << "* " << sd2 << "= " << sd1 * sd2 << '\n'
+		<< sd1 << "/ " << sd2 << "= " << sd1 / sd2 << '\n';
+}
 
-  //Decimal dec;
-  //dec.setBase( 500000 );
-  //dec.setDecimal( -15 );
-  //std::cout << dec << '\n';
-  //dec.setBase( 16 );
-  //dec.setDecimal( 32 );
-  //std::cout << dec;
+void Practical_Cpp_Programming_pog21_1()
+{
+	Checkbook* cb = new Checkbook;
+	cb->total();
+	cb->addItem( 1 );
+	cb->addItem( 2 );
+	cb->addItem( 3 );
+	cb->addItem( 4 );
+	cb->addItem( 5 );
+	cb->addItem( 6 );
+	cb->addItem( 7 );
+	//cb->addItem( 8 );
+	//cb->addItem( 9 );
+	//cb->addItem( 10 );
+	//cb->addItem( 11 );
+	//cb->addItem( 12 );
+	//cb->addItem( 13 );
+	//cb->addItem( 14 );
+	std::array<int, 10> items = static_cast<Queue*>( cb )->get10();
+	for( const auto& item : items )
+		std::cout << item << "\n";
+	delete cb;
+}
 
-  //Time t1( 0, 0, 59, 0 );
-  //Time t2( 0, 25, 3, 1 );
-  //Time t3 = t1 - t2;
-  //std::cout << "  " << t1
-  //	<< "- " << t2
-  //	<< "----------------------\n"
-  //	<< t3;
+void Practical_Cpp_Programming_pog21_2()
+{
+	Word_match wm;
+	d_Number_mather nm;
+	d_BlankStr_matcher bsm;
+	std::cout << "Word_match: 43, was: " << wm.match( "43" ) << wm.match( "was" )
+		<< "\nNumber_match 43, was: " << nm.match( "43" ) << nm.match( "was" )
+		<< "\nBlankStr_match 43,  , was: " << bsm.match( "43" ) << bsm.match( " " ) << bsm.match( "was" );
+}
 
-  //	355. stranica
+void Practical_Cpp_Programming_pog21_3()
+{
+	d_Krug krug( 4 );
+	d_Kvadrat kvad( 4 );
+	d_Trokut trok( 4, 4 );
+	std::cout << "Krug: " << krug.v_povrsina()
+		<< "\nKvad: " << kvad.v_povrsina()
+		<< "\nTrok: " << trok.v_povrsina() << "\n";
+}
 
-  //StringDouble sd1("5.55");
-  //StringDouble sd2("2");
-  //std::cout << sd1 << "+ " << sd2 << "= " << sd1 + sd2 << '\n'
-  //	<< sd1 << "- " << sd2 << "= " << sd1 - sd2 << '\n'
-  //	<< sd1 << "* " << sd2 << "= " << sd1 * sd2 << '\n'
-  //	<< sd1 << "/ " << sd2 << "= " << sd1 / sd2 << '\n';
+void Practical_Cpp_Programming_pog21_4()
+{
+	d_Dek dek( 42 );
+	d_Okt okt( 8 );
+	d_Hex hex( 16 );
+	dek.print_it();
+	okt.print_it();
+	hex.print_it();
 
-  //	21. poglavlje procitat kad zavrsis queue & stack vjezbe
+}
+void Practical_Cpp_Programming_pog21_5()
+{
+	count_letter( "HelloWorld" );
+	count_letter( "Hello World" );
+}
 
-  //Checkbook* cb = new Checkbook;
-  //cb->total();
-  //cb->addItem( 1 );
-  //cb->addItem( 2 );
-  //cb->addItem( 3 );
-  //cb->addItem( 4 );
-  //cb->addItem( 5 );
-  //cb->addItem( 6 );
-  //cb->addItem( 7 );
-  ////cb->addItem( 8 );
-  ////cb->addItem( 9 );
-  ////cb->addItem( 10 );
-  ////cb->addItem( 11 );
-  ////cb->addItem( 12 );
-  ////cb->addItem( 13 );
-  ////cb->addItem( 14 );
-  //std::array<int, 10> items = static_cast<Queue*>(cb)->get10();
-  //for( const auto& item : items )
-  //	std::cout << item << "\n";
-  //delete cb;
+//	435. stranica
+////////////////////////////////////////
+void Practical_Cpp_Programming_pog23_1()
+{
+	PageFormatting pf;
+	std::string input;
+	input.reserve( 32 );
+	std::cout << "Unesi ime datoteke: ";
+	std::getline( std::cin, input );
+	pf.open_file( input.c_str() );
+	std::cout << "Unesi naslov datoteke: ";
+	std::getline( std::cin, input );
+	pf.page();
 
-  //Word_match wm;
-  //d_Number_mather nm;
-  //d_BlankStr_matcher bsm;
-  //std::cout << "Word_match: 43, was: " << wm.match( "43" ) << wm.match( "was" )
-  //	<< "\nNumber_match 43, was: " << nm.match("43") << nm.match("was")
-  //	<< "\nBlankStr_match 43,  , was: " << bsm.match("43") << bsm.match(" ") << bsm.match("was");
+	pf.define_header( input.c_str() );
+	pf.define_header( input.c_str() );
+	std::cout << "Unesi tekst:\n";
+	std::getline( std::cin, input );
+	pf.print_line( input.c_str() );
+	pf.print_line( input.c_str() );
+	pf.page();
+	pf.print_line( input.c_str() );
+	pf.print_line( input.c_str() );
+}
 
-  //d_Krug krug( 4 );
-  //d_Kvadrat kvad( 4 );
-  //d_Trokut trok( 4, 4 );
-  //std::cout << "Krug: " << krug.v_povrsina()
-  //	<< "\nKvad: " << kvad.v_povrsina()
-  //	<< "\nTrok: " << trok.v_povrsina() << "\n";
+void Practical_Cpp_Programming_pog22_2()
+{
+	std::array<const char*, 5> imena = { {{"Time.cpp"}, {"test"}, {"aaaaaaa"}, {"razno.cpp"}, {"razno.hpp"} } };
+	std::fstream datoteka = search_open( imena );
+	std::string stream;
+	stream.reserve( 256 );
+	if( datoteka.is_open() )
+	{
+		while( std::getline( datoteka, stream ) )
+		{
+			std::cout << stream << '\n';
+		}
+	}
+}
 
-  //d_Dek dek( 42 );
-  //d_Okt okt( 8 );
-  //d_Hex hex( 16 );
-  //dek.print_it();
-  //okt.print_it();
-  //hex.print_it();
+/////////-> Kada koristis usrane std vektore i sranja sa dinamickom memorijom, koristi indexe jer ce se iz cistog mira preselit u memoriji i pointeri nece vazit
+//// Zato kad sam 1. put pisa kod i testira nema gresaka i sad kad opet pokrenem errori neki
+void Practical_Cpp_Programming_pog22_3()
+{
+	SymbolTable st;
+	st.enter( "test" );
+	st.enter( "test" );
+	st.enter( "test2" );
+	st.enter( "test" );
+	std::cout << ( st.lookup( "test" ) ? "Nasao sam test\n" : "Nema ga :(\n" );
+	st.remove( "test" );
 
-  //count_letter( "HelloWorld" );
-  //count_letter( "Hello World" );
+	std::cout << ( st.lookup( "test" ) ? "Nasao sam test\n" : "Nema ga :(\n" );
+}
 
-  //	435. stranica
+/////////////////////////////////////////
+//	446. stranica
+void Practical_Cpp_Programming_pog24_1()
+{
+	std::cout << "min(2, 5): " << min( 2, 5 )
+		<< "\nmin(2.5, 1.05): " << min( 2.5, 1.05 )
+		<< "\nmin('a', 'A'): " << min( 'a', 'A' )
+		<< "\nmin(\"aA\", \"Aa\"): " << min( "aA\0", "Aa\0" ) << '\n';
+}
 
-  ////////////////////////////////////////
-  //PageFormatting pf;
-  //std::string input;
-  //input.reserve( 32 );
-  //std::cout << "Unesi ime datoteke: ";
-  //std::getline( std::cin, input );
-  //pf.open_file( input.c_str() );
-  //std::cout << "Unesi naslov datoteke: ";
-  //std::getline( std::cin, input );
-  //pf.page();
+//	484. stranica
+void Practical_Cpp_Programming_pog26_1()
+{
+	std::string imeDatoteke{};
+	std::cout << "Unesi ime datoteke: ";
+	std::cin >> imeDatoteke; // npr. razno.cpp
+	std::cout << haveDoubleWords( imeDatoteke );
+}
 
-  //pf.define_header( input.c_str() );
-  //pf.define_header( input.c_str() );
-  //std::cout << "Unesi tekst:\n";
-  //std::getline( std::cin, input );
-  //pf.print_line( input.c_str() );
-  //pf.print_line( input.c_str() );
-  //pf.page();
-  //pf.print_line( input.c_str() );
-  //pf.print_line( input.c_str() );
-  /////////////////////////////////////////
+void Practical_Cpp_Programming_pog26_3()
+{
+	Mail_label test( "7", "t", "e", "S", "t" );
+	Mail_label test2( "6", "t", "e", "S", "t" );
+	Mail_label test3( "2", "t", "e", "S", "t" );
+	Mail_label test4;
+	std::cin >> test4;
+	List* head = new List( test );
+	List* el2 = new List( test2 );
+	List* el3 = new List( test3 );
+	List* el4 = new List( test4 );
+	head->insert( el2 );
+	el2->insert( el3 );
+	el3->insert( el4 );
+	std::cout << "HEAD:\n" << head->getContent()
+		<< "EL2:\n" << el2->getContent()
+		<< "EL3:\n" << el3->getContent()
+		<< "EL4:\n" << el4->getContent();
+	List::sortByID( head );
+	std::cout << "\nSORTED!\nHEAD:\n" << head->getContent()
+		<< "EL2:\n" << head->gotoNext()->getContent()
+		<< "EL3:\n" << head->gotoNext()->gotoNext()->getContent()
+		<< "EL4:\n" << head->gotoNext()->gotoNext()->gotoNext()->getContent();
+}
 
-  //std::array<const char*, 5> imena = { {{"Time.cpp"}, {"test"}, {"aaaaaaa"}, {"razno.cpp"}, {"razno.hpp"} } };
-  //std::fstream datoteka = search_open(imena);
-  //std::string stream;
-  //stream.reserve( 256 );
-  //if(datoteka.is_open())
-  //{
-  //    while ( std::getline( datoteka, stream ) )
-  //    {
-  //        std::cout << stream << '\n';
-  //    }
-  //}
-
-  /////////-> Kada koristis usrane std vektore i sranja sa dinamickom memorijom, koristi indexe jer ce se iz cistog mira preselit u memoriji i pointeri nece vazit
-  //// Zato kad sam 1. put pisa kod i testira nema gresaka i sad kad opet pokrenem errori neki
-  //SymbolTable st;
-  //st.enter( "test" );
-  //st.enter( "test" );
-  //st.enter( "test2" );
-  //st.enter( "test" );
-  //std::cout << ( st.lookup( "test" ) ? "Nasao sam test\n" : "Nema ga :(\n" );
-  //st.remove( "test" );
-
-  //std::cout << ( st.lookup( "test" ) ? "Nasao sam test\n" : "Nema ga :(\n" );
-
-  //	446. stranica
-
-  //std::cout << "min(2, 5): " << min( 2, 5 )
-  //<< "\nmin(2.5, 1.05): " << min( 2.5, 1.05 )
-  //<< "\nmin('a', 'A'): " << min( 'a', 'A' )
-  //<< "\nmin(\"aA\", \"Aa\"): " << min( "aA\0", "Aa\0" ) << '\n';
-
-  //	484. stranica
-  //std::string imeDatoteke {};
-  //std::cout << "Unesi ime datoteke: ";
-  //std::cin >> imeDatoteke; // npr. razno.cpp
-  //std::cout << haveDoubleWords( imeDatoteke );
-
-  //Mail_label test( "7", "t", "e", "S", "t" );
-  //Mail_label test2( "6", "t", "e", "S", "t" );
-  //Mail_label test3( "2", "t", "e", "S", "t" );
-  //Mail_label test4;
-  //std::cin >> test4;
-  //List* head = new List( test );
-  //List* el2 = new List( test2 );
-  //List* el3 = new List( test3 );
-  //List* el4 = new List( test4 );
-  //head->insert( el2 );
-  //el2->insert( el3 );
-  //el3->insert( el4 );
-  //std::cout << "HEAD:\n" << head->getContent()
-  //    << "EL2:\n" << el2->getContent()
-  //    << "EL3:\n" << el3->getContent()
-  //    << "EL4:\n" << el4->getContent();
-  //List::sortByID( head );
-  //std::cout << "\nSORTED!\nHEAD:\n" << head->getContent()
-  //    << "EL2:\n" << head->gotoNext()->getContent()
-  //    << "EL3:\n" << head->gotoNext()->gotoNext()->getContent()
-  //    << "EL4:\n" << head->gotoNext()->gotoNext()->gotoNext()->getContent();
-
-
-//	const std::string ime = "razno.cpp";
-//	std::fstream datoteka;
-//	ispisi_datoteku_u_konzolu( datoteka, ime );
-//
-//  return 0;
-//} ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   END MAIN
+void Practical_Cpp_Programming_pog26_5()
+{
+	const std::string ime = "razno.cpp";
+	std::fstream datoteka;
+	ispisi_datoteku_u_konzolu( datoteka, ime );
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 inline void set_bit( size_t x, size_t y, bool bit ) { grid[y][x] = bit; }

@@ -25,8 +25,12 @@ extern std::array<std::vector<std::string>, popisProjekata.size()> popisFunkcija
 extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
 
 
+
 int main()
 {
+
+	void ( *Pfun )( ) = fesb_vj10_1;
+	pFun();
 	char odabir = 0;
 	while( odabir != 'a' || odabir != 'r' )
 	{
@@ -43,11 +47,12 @@ int main()
 		}
 		};
 	auto ispisiPopisFunkcijaZa = []( const enum class projekt proj ) {
-		for( uint8_t idx = 0; idx < popisFunkcija[static_cast<uint8_t>( proj )].size(); ++idx )
+		uint8_t projIdx = static_cast<uint8_t>( proj );
+		for( uint8_t idx = 0; idx < popisFunkcija[projIdx].size(); ++idx )
 		{
-			std::cout << opisZadatka[static_cast<uint8_t>( proj )][idx]
+			std::cout << opisZadatka[projIdx][idx]
 				<< '\n'
-				<< popisFunkcija[static_cast<uint8_t>( proj )][idx];
+				<< popisFunkcija[projIdx][idx];
 		}
 		};
 
