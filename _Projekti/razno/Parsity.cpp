@@ -1,8 +1,5 @@
 #include "Parsity.hpp"
 
-Parsity::Parsity() : count( 0 )
-{
-}
 
 void Parsity::put()
 {
@@ -11,5 +8,5 @@ void Parsity::put()
 
 bool Parsity::test()
 {
-	return ( count % 2 == 0 );
+	return count & 1;
 }

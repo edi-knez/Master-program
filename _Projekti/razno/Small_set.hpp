@@ -4,6 +4,7 @@ class Small_set
 {
 public:
 	Small_set() : m_set( { -1 } ) {};
+	Small_set( const Small_set& other ) = default;
 	~Small_set() = default;
 
 public:
@@ -14,6 +15,5 @@ public:
 private:
 	static const int _SIZE = 32;
 	std::array<int, _SIZE> m_set;
-
 };
 

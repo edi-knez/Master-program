@@ -31,27 +31,28 @@ bool Line_number::init( const char name[] )
 		return false;
 	}
 }
-
-void Line_number::goto_line( int zeljenaLinija = 0 )
+// todo: OPTIMIZACIJA:
+/// sortiranje vektora tako da kod trazenja najblize poznate valjane liniju, pregledava vektor sve dok ne dode do kraja vektora ili dok zeljena linija ne postane manja od one poznate u vektoru. Tako umjesto da svaki puta pretrazuje cijeli vektor, napravi samo 2 provjere, sa linijom koja je veca od trazene i onom prije nje
+void Line_number::goto_line( size_t zeljenaLinija = 0 )
 {
 	if( zeljenaLinija < 0 )	return;
 	if( m_table[m_idx].m_currentLine == zeljenaLinija )	return;
 
-	// nadi najmanju arihmeticku sredinu (najblizu liniju)
-	std::for_each( std::begin( m_table ), std::end( m_table ), [ & ]( lineNumAndPosInfo_t& info )
+	// nadi najblizu liniju
+	std::for_each( std::begin( m_table ), std::end( m_table ), [ & ]( const lineNumAndPosInfo_t& info )
 				   {
-					   //linija = std::min( std::abs( vLin[0] - zeljenaLinija ), linija );
-					   size_t abs = std::abs( static_cast<long>( info.m_currentLine ) - zeljenaLinija );
-					   if( abs < m_table[m_idx].m_currentLine - zeljenaLinija )
+					   size_t razlikaOdZeljeneLinije = std::abs( static_cast<long long>( info.m_currentLine ) - static_cast<long long>( zeljenaLinija ) );
+					   size_t razlikaOdTrenutacneLinije = std::abs( static_cast<long long>( m_table[m_idx].m_currentLine ) - static_cast<long long>( zeljenaLinija ));
+					   if( razlikaOdZeljeneLinije < razlikaOdTrenutacneLinije )
 					   {
 						   //std::cout << "skacem na liniju: " << info.m_currentLine << " sa linije ovog objekta: " << m_table[m_idx].m_currentLine << "\nNova lokacija u datoteci: " << info.m_currentPos << ", stara lokacija: " << m_table[m_idx].m_currentPos << "\n";
 						   m_table[m_idx].m_currentLine = info.m_currentLine;
 						   m_table[m_idx].m_currentPos = info.m_currentPos;
-						   m_datoteka.seekg( info.m_currentPos, std::ios::beg );
+						   m_datoteka.seekg( info.m_currentPos, std::ios::cur );
 					   }
 				   } );
 
-				   // ako je manji bit ce 1, ako veci bit ce -1
+			// --> ako se trenutacna linija nalazi prije zeljene linije, dobiva vrijednost 1. Inace dobiva vrijednost -1 <--
 	int pomak = ( m_table[m_idx].m_currentLine < zeljenaLinija ) - ( m_table[m_idx].m_currentLine > zeljenaLinija );
 	if( pomak == 1 )
 	{
@@ -73,14 +74,14 @@ void Line_number::goto_line( int zeljenaLinija = 0 )
 			m_table[m_idx].m_currentLine -= m_datoteka.seekg( -1, std::ios::cur ).peek() == '\n';
 		}
 	}
-	m_table[m_idx].m_currentPos = m_datoteka.tellg();
+	m_table[m_idx].m_currentPos = 0;
 }
 
 size_t Line_number::getCurrentLine() { return m_table[m_idx].m_currentLine; }
 
-long int Line_number::getCharPos()
+size_t Line_number::getCharPos()
 {
-	long int pos = 0;
+	size_t pos = 0;
 		// od trenutacne pozicije karaktera odi nazad jedno mjesto dok ne dode
 	if( getCurrentLine() == 0 ) // do pocetka datoteke
 		while( m_datoteka.seekg( -1, std::ios::cur ).tellg() != -1 )

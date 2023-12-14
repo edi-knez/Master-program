@@ -10,11 +10,13 @@ enum class projekt
 	ThinkLAP
 };
 
+/*
 void* ( *Pfun )( ) = &fesb_vj10_1;
+*/
 
 std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
 std::array<std::vector<std::string>, popisProjekata.size()> popisImenaFunkcija;
-std::array<std::vector<void (*pFun)( )>, popisProjekata.size()> popisFunkcija;
+std::array<std::vector<std::string>, popisProjekata.size()> popisFunkcija;
 
 void popuniPopisFunkcija();
 void popuniPopisFunkcijaZa( const enum class projekt proj );
@@ -29,7 +31,8 @@ void popuniPopisFunkcija()
 	popuniPopisFunkcijaZa( projekt::razno );
 	popuniPopisFunkcijaZa( projekt::ThinkLAP );
 }
-void popuniPopisFunkcijaZaProjekt( const enum class projekt proj )
+
+void popuniPopisFunkcijaZa( const enum class projekt proj )
 {
 	switch( proj )
 	{
@@ -152,21 +155,49 @@ void popuniPopisFunkcijaZaProjekt( const enum class projekt proj )
 
 	case razno:
 	{
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_vj1_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_2" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_3" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_4" );
+
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog11_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog11_2" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog11_3" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog11_4" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog11_5" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog11_6" );
+		
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog13_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog13_2" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog13_3" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog13_4" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog13_5" );
+
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog14_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog14_2" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog14_3" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog14_4" );
+
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog15_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog15_2" );
+
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog16_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog16_2" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog16_3" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog16_4" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog16_5" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog16_6" );
+
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog17_2__1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog17_2__2" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog17_2__3" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog17_5" );
+
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog18_1" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog18_2" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog18_4" );
+
+
 
 	}
 	break;

@@ -2,8 +2,8 @@
 #include <iostream>
 #include <array>
 
-//
-//// prvo podrska za 1 operaciju, a onda za vise njih, zagrade
+// todo:
+/// prvo podrska za 1 operaciju, a onda za vise njih, zagrade
 //// + - * /
 class Razlomak
 {

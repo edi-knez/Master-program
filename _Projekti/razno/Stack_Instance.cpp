@@ -53,7 +53,6 @@ void Stack_Instance::take_control()
 	std::cout << "Stack is now locked by this object: " << this << "\n";
 	m_statusOfStack = status::LOCKED;
 	this->m_I_am_LockingStack = true;
-
 }
 
 void Stack_Instance::release_control()
@@ -71,16 +70,15 @@ void Stack_Instance::release_control()
 
 Stack_Instance::status Stack_Instance::is_stack_locked() const { return m_statusOfStack; }
 
-const Stack_Instance* const Stack_Instance::who_is_owner( const Stack_Instance* sIns, const size_t brojInstanci )
+const Stack_Instance* const Stack_Instance::who_is_owner( const Stack_Instance* sIns, const size_t BROJ_INSTANCI)
 {
-	for( size_t i = 0; i < brojInstanci; ++i )
+	for( size_t i = 0; i < BROJ_INSTANCI; ++i )
 	{
 		if( check_have_access( *sIns ) )
 		{
 			std::cout << "i: " << i << ".\n";
-			return sIns;
+			return sIns + i;
 		}
-		++sIns;
 	}
 	return nullptr;
 }

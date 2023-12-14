@@ -16,8 +16,13 @@ std::ostream& operator<<( std::ostream& out, const Razlomak& raz )
 
 void Razlomak::skrati( Razlomak& raz )
 {
-	for( int i = 2; i <= raz.m_nazivnik / 2; ++i )
-		if( raz.m_brojnik % i == 0 )
+	// ispravak BUG-a kada bi pokusao skratit 10/5 
+	// nebi uspjeo jer bi pokusao samo podijelit brojeve sa 2
+	// 
+	// ispravak BUG-a, nije provjeravao da li je nazivnik djeljiv sa i-tim brojem
+	const size_t ZADNJI_BROJ = raz.m_brojnik > raz.m_nazivnik ? raz.m_nazivnik : raz.m_nazivnik / 2;
+	for( int i = 2; i <= ZADNJI_BROJ; ++i )
+		if( raz.m_brojnik % i == 0 && raz.m_nazivnik % i == 0 )
 		{
 			raz.m_brojnik /= i;
 			raz.m_nazivnik /= i;
@@ -79,12 +84,18 @@ Razlomak operator *( const Razlomak& raz1, const Razlomak& raz2 )
 	Razlomak::skrati( rezultat );
 	return rezultat;
 }
-
+// ispravak BUG-a kada bi se podijelio 1/10 sa 1/100
+// rezultat bi imao nazivnik 0!!
+// umjesto djeljenja napravit ce reciprocno mnozenje
 Razlomak operator /( const Razlomak& raz1, const Razlomak& raz2 )
 {
 	Razlomak rezultat;
-	rezultat.m_brojnik = raz1.m_brojnik / raz2.m_brojnik;
-	rezultat.m_nazivnik = raz1.m_nazivnik / raz2.m_nazivnik;
+	bool isNegative = raz2.m_brojnik < 0;
+	Razlomak temp;
+	temp.m_brojnik = ( isNegative ? -1 * raz2.m_nazivnik : raz2.m_nazivnik );
+	temp.m_nazivnik = abs( raz2.m_brojnik );
+	rezultat.m_brojnik = raz1.m_brojnik * temp.m_brojnik;
+	rezultat.m_nazivnik = raz1.m_nazivnik * temp.m_nazivnik;
 	Razlomak::skrati( rezultat );
 	return rezultat;
 }

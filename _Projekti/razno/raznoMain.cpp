@@ -70,7 +70,7 @@
 
 #define swap(num, num2, temp) ((temp = num, num = num2, num2 = temp))
 
-#define swap2(num, num2) (num += num2; num2 = num - num2; num -= num2)
+#define swap2(num, num2) num += num2; num2 = num - num2; num -= num2
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 const int X_SIZE = 10;
@@ -216,7 +216,8 @@ void Practical_Cpp_Programming_pog10_1()
 
 void Practical_Cpp_Programming_pog10_2()
 {
-	std::cout << divisibleBy10( 10 );
+	BOLEAN isIstina = divisibleBy10( 10 );
+	std::cout << "Broj: " << 10 << ( ( isIstina == 1 ) ? "je" : "nije" ) << "djeljiv sa 10!\n";
 }
 
 void Practical_Cpp_Programming_pog10_3()
@@ -231,11 +232,11 @@ void Practical_Cpp_Programming_pog10_3()
 void Practical_Cpp_Programming_pog10_4()
 {
 	int a = 5, b = 14, temp = 0;
+	std::cout << "swap varijabli putem MACRO:\n";
 	swap( a, b, temp );
-	std::cout << "(sa temp varijablom) " << a << " " << b << "\n";
-/// todo: provjeri sta je ovo
-	//swap2( a, b );
-	std::cout << a << " " << b << "\n";
+	std::cout << "sa temp varijablom: " << a << " " << b << "\n";
+	swap2( a, b );
+	std::cout << "bez temp varijable: " << a << " " << b << "\n";
 }
   ////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void Practical_Cpp_Programming_pog11_1()
@@ -275,14 +276,16 @@ void Practical_Cpp_Programming_pog11_4()
 {
 	int broj;
 	int temp;
+	char postavljeniBitoviBroja[sizeof( broj ) + 1] = { 0 };
 	std::cin >> broj;
 	temp = broj;
-	for( int i = 0; i < 32 || temp > 0; ++i )
+	size_t idx = 0;
+	for( ; temp > 0; ++idx )
 	{
-		std::cout << ( temp & 0x01 );
+		postavljeniBitoviBroja[sizeof( broj ) - idx] = ( temp & 0x1 ) + '0';	// OPTIMIZACIJA: spremi rezultat u bufer umjesto zvat funkciju za ispis za svaki broj
 		temp >>= 1;
 	}
-	std::cout << "\n";
+	std::cout << postavljeniBitoviBroja << "\n";
 }
 
 void Practical_Cpp_Programming_pog11_5()
@@ -290,15 +293,16 @@ void Practical_Cpp_Programming_pog11_5()
 	int broj;
 	std::cin >> broj;
 	std::array<short, 8> odvojeno;
+	char bitoviDijelaBroja[5] = { 0 };
 	odvojeno = podijeliIntegerU8Dijela( broj );
 	for( int i = 0; i < 8; ++i )
 	{
 		for( int j = 0; j < 4; ++j )
 		{
-			std::cout << ( odvojeno[i] & 0x01 );
+			bitoviDijelaBroja[4 - j] = ( odvojeno[i] & 0x01 ) + '0';
 			odvojeno[i] >>= 1;
 		}
-		std::cout << "\n";
+		std::cout << bitoviDijelaBroja << "\n";
 	}
 }
 
@@ -306,19 +310,27 @@ void Practical_Cpp_Programming_pog11_6()
 {
 	char broj = 54;
 	char result = shiftBitsLeft( broj );
+	char bitoviBroja[sizeof( broj ) + 1] = { 0 };
+	const char MSG = 1 << sizeof( broj );	// Most Significant Bit
 	std::cout << "\nBroj: ";
-	for( int i = 0; i < 8; ++i )
+	size_t idx = 0;
+	do
 	{
-		std::cout << static_cast<bool>( broj & 0x80 );
+		bitoviBroja[idx] = ( broj & MSG ) + '0';
 		broj <<= 1;
-	}
-	std::cout << "(2)\nRezultat: ";
-	for( int i = 0; i < 8; ++i )
+		++idx;
+	} while( broj > 0 );
+	std::cout << bitoviBroja
+		<< "(2)\nRezultat: ";
+
+	idx = 0;
+	do
 	{
-		std::cout << static_cast<bool>( result & 0x80 );
+		bitoviBroja[idx] = ( result & MSG ) + '0';
 		result <<= 1;
-	}
-	std::cout << "(2)";
+		++idx;
+	} while( result > 0 );
+	std::cout << bitoviBroja << "(2)";	// po bazi 2
 }
 
 
@@ -370,8 +382,7 @@ void Practical_Cpp_Programming_pog13_4()
 void Practical_Cpp_Programming_pog13_5()
 {
   ////todo: FlachCards klasa
-	const int N = 5;
-	FlashCards::single_card cards[n] = {
+	std::vector<FlashCards::single_card> cards = {	// dodavanje kartica dinamicki
 		{ "test1", "test11" },
 		{ "test2", "test2" },
 		{ "test3", "test3" },
@@ -379,7 +390,7 @@ void Practical_Cpp_Programming_pog13_5()
 		{ "test5", "test5" }
 	};
 
-	FlashCards fc( cards, N );
+	FlashCards fc( cards.data(), cards.size() );
 	fc.izbornik();
 }
 
@@ -432,7 +443,10 @@ void Practical_Cpp_Programming_pog14_4()
   //227. stranica
 	char ime[] = "Dogs.hpp";
 	Line_number test( ime );
+	if( test.getCurrentLine() == std::numeric_limits<size_t>::max() )	return; // failed to open
 	Line_number test2( ime );
+	if( test2.getCurrentLine() == std::numeric_limits<size_t>::max() )	return;	// failed to open
+
 	std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
 	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
 	test.goto_line( 5 );
@@ -450,7 +464,7 @@ void Practical_Cpp_Programming_pog14_4()
 	test2.getFileRef().seekg( 5, std::ios::cur );
 	std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
 	test2.goto_line( 0 );
-	test2.getFileRef().seekg( 5, std::ios::beg );
+	test2.getFileRef().seekg( 5, std::ios::cur );
 	std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
 }
 
@@ -567,9 +581,6 @@ void Practical_Cpp_Programming_pog16_6()
 ////////////////////////////////////////////////////////////////////////
 void Practical_Cpp_Programming_pog17_2__1()
 {
-	std::array<std::array<int, 3>, 3> matrix = { {{{ 2, 1, 1 }},
-											   {{ 2, 2, 2 }},
-											   {{ 2, 1, 1 }}} };
 	std::cout << "2x2:\n";
 	std::array<std::array<int, 2>, 2> matrix = { { {{ 2, 1 }},
 												{{ 1, 1 }} } };
@@ -865,11 +876,9 @@ void crtaj_grid()
 template <typename T> size_t numOfBits( T number )
 {
 	size_t bits = 0;
-	int sizeofType = 1 << sizeof( number );
-	while( number <<= 1 )
+	while( number >>= 1 )
 	{
-		if( number & ( 1 << sizeofType ) )
-			bits++;
+		bits += number & 1;	// OPTIMIZACIJA: branchless brojanje bitova, uklonjen nepotreban shift jer je redoslijed usporedivanja bitova promijenjen
 	}
 	return bits;
 }
@@ -929,9 +938,9 @@ char shiftBitsLeft( char broj )
 	return result;
 }
 
-bool is_using_file( const ShareFile1& ) { return ShareFile1::used(); }
+bool is_using_file1() { return ShareFile1::used(); }
 
-bool is_using_file( const ShareFile2_& ) { return ShareFile2_::used(); }
+bool is_using_file1() { return ShareFile2_::used(); }
 
 inline int horseCnt() { return Horses::animalCount; }
 inline int pigsCnt() { return Pigs::animalCount; }
@@ -947,6 +956,12 @@ void postavi_niz_na_nulu( std::array<int, 15>& n )
 
 	  //ili
 	  //memset( &n, 0, sizeof n );
+
+	// ili
+	//for( auto& el : n )
+	//{
+	//	el = 0;
+	//}
 }
 
 const char* prvi_alfa_num( const char* word )
@@ -1002,8 +1017,9 @@ std::vector<int> matrixMultiply( struct matrica_t matrica1, struct matrica_t mat
 	}
 
 	noviMatrix.reserve( matrica1.m_y * matrica2.m_x );
-	while( noviMatrix.size() < noviMatrix.capacity() )
-		noviMatrix.push_back( 0 ); // napuni vektor sa nulama
+	memset( static_cast<void*>( &noviMatrix.begin() ), 0, matrica1.m_y * matrica2.m_x );
+	//while( noviMatrix.size() < noviMatrix.capacity() )
+	//	noviMatrix.push_back( 0 ); // napuni vektor sa nulama
 
 	for( int i = 0; i < matrica2.m_x; ++i )
 		for( int j = 0; j < matrica1.m_y; ++j )

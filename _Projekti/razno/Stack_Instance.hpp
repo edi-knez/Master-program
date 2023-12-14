@@ -2,6 +2,7 @@
 #include <array>
 #include <iostream>
 
+
 class Stack_Instance
 {
 	friend std::ostream& operator <<( std::ostream& out, const Stack_Instance& sInst );
@@ -35,12 +36,12 @@ private:
 	} m_statusOfStack;
 
 private:
-	Stack_Instance::status is_stack_locked() const;
+	[[nodiscard]] Stack_Instance::status is_stack_locked() const;
 	static friend const bool check_have_access( const Stack_Instance& this_stack );
-
 };
 
-const bool check_have_access( const Stack_Instance& this_stack )
+
+[[nodiscard]] inline const bool check_have_access( const Stack_Instance& this_stack )
 {
 	return this_stack.m_I_am_LockingStack;
 }

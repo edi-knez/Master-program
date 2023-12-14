@@ -1,10 +1,11 @@
 #pragma once
 #include <iostream>
 
+// All numbers are of the form DDDDD.D
 class Decimal
 {
 public:
-	Decimal() : m_base(0), m_decimal(0) {}
+	Decimal() : m_base( 0 ), m_decimal( 0 ) {}
 
 public:
 	void setBase( int num )
@@ -23,13 +24,13 @@ public:
 			std::cout << "Nedozvoljena decimala\n";
 			return;
 		}
-		while( num >= 10 )
+		while( num >= 100 )	// skracuj decimalni dio ukoliko je korisnik poslao broj veci od jednoznamenkastog!
 		{
 			size_t mjesta = 10;
-			if      ( num > 100 )	{ mjesta = 100; }
-			else if ( num > 1000 )	{ mjesta = 1000; }
-			else if ( num > 10000 )	{ mjesta = 10000; }
-			else if ( num > 100000 ){ mjesta = 100000; }
+			if( num > 100 ) { mjesta = 100; }
+			else if( num > 1'000 ) { mjesta = 1'000; }
+			else if( num > 10'000 ) { mjesta = 10'000; }
+			else if( num > 100'000 ) { mjesta = 100'000; }
 			num /= mjesta;
 		}
 		m_decimal = num;
@@ -40,9 +41,7 @@ public:
 private:
 	friend std::ostream& operator<<( std::ostream& out, const Decimal& broj )
 	{
-		for( int znamenka = 5; znamenka >= 0; --znamenka )
-			out << ( static_cast<int>( broj.getBase() / pow(10, znamenka) ) % 10 );
-		out << "." << broj.getDecimal();
+		out << broj.getBase() << "." << broj.getDecimal();
 		return out;
 	}
 

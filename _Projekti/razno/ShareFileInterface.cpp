@@ -1,8 +1,7 @@
 #include "ShareFileInterface.hpp"
 
 
-
 bool ShareFileInterface::getStanjeDatoteke()
 {
-	return ( ShareFile1::used() || ShareFile2_::used() );
+	return ( f_is_using_file() || ShareFile2_::used() );
 }

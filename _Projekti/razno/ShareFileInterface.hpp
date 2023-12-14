@@ -7,5 +7,11 @@ class ShareFileInterface
 {
 public:
 	static bool getStanjeDatoteke();
+
 };
 
+	////////////
+bool f_is_using_file()
+{
+	return ShareFile1::used();
+}

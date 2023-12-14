@@ -3,7 +3,7 @@
 class Parsity
 {
 public:
-	Parsity();
+	Parsity() = default;
 
 public:
 	void put();

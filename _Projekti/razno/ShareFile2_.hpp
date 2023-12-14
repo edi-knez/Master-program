@@ -12,21 +12,21 @@ class ShareFile2_
 public:
 	ShareFile2_()
 	{
-		std::fstream otvori( "datoteka.dat", std::ios::out );
+		m_datoteka.open( "Datoteka.dat", std::ios::out );
 	}
-	~ShareFile2_() { datoteka.close(); }
+	~ShareFile2_() { m_datoteka.close(); }
 
 public:
 	void otvori_datoteku();
-	void zatvori_datoteku() { if( ShareFile2_::used() )	datoteka.close(); }
+	void zatvori_datoteku() { if( ShareFile2_::used() )	m_datoteka.close(); }
+
+private:
+	static bool used() { return m_datoteka.is_open(); }
+
+private:
+	static std::fstream m_datoteka;
 
 
 private:
-	static std::fstream datoteka;
-
-private:
-	static bool used() { return datoteka.is_open(); }
-
-private:
-	friend bool is_using_file( const ShareFile2_& datoteka );
+	friend bool is_using_file1();
 };
