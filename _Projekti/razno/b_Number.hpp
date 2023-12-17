@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <sstream>
+
+
 class b_Number
 {
 public:

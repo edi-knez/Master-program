@@ -1,4 +1,6 @@
 #pragma once
+
+
 class b_Oblik
 {
 public:

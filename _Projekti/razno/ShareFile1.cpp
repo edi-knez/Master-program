@@ -1,7 +1,7 @@
 #include "ShareFile1.hpp"
 
 
-//std::fstream ShareFile1::m_datoteka;
+std::fstream ShareFile1::m_datoteka;
 
 
 void ShareFile1::otvori_datoteku()
@@ -11,5 +11,5 @@ void ShareFile1::otvori_datoteku()
 		std::cout << "Datoteka je vec otvorena!\n";
 		return;
 	}
-	m_datoteka.open( "Datoteka.dat", std::ios::out );
+	this->m_datoteka.open( "Datoteka.dat", std::ios::out );
 }

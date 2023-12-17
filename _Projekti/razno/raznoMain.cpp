@@ -4,8 +4,8 @@
 #include "Small_set.hpp"
 #include "FlashCards.hpp"
 
-#include "ShareFile1.hpp"
-#include "ShareFile2_.hpp"
+//#include "ShareFile1.hpp"
+//#include "ShareFile2_.hpp"
 #include "ShareFileInterface.hpp"
 #include "Horses.hpp"
 #include "Pigs.hpp"
@@ -117,8 +117,8 @@ char shiftBitsLeft( char broj );
 	str 227, zad1
 */
 
-bool is_using_file( const ShareFile1& cFile1 );
-bool is_using_file( const ShareFile2_& cFile2 );
+bool is_using_file1();
+bool is_using_file1( const int );
 
 int ukupanBrojZivotinja();
 
@@ -396,25 +396,25 @@ void Practical_Cpp_Programming_pog13_5()
 
 
 void Practical_Cpp_Programming_pog14_1()
-{
+{/*
 	ShareFile1 test;
-	std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+	std::cout << "ShareFile1: " << is_using_file1() << "\n";
 	ShareFile2_ test2;
-	std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+	std::cout << "ShareFile2: " << is_using_file1( 0 ) << "\n";
 	std::cout << "----------------\n";
 
 	test.otvori_datoteku();
-	std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+	std::cout << "ShareFile1: " << is_using_file1() << "\n";
 	test2.otvori_datoteku();
-	std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+	std::cout << "ShareFile2: " << is_using_file1( 0 ) << "\n";
 	std::cout << "----------------\n";
 
 	test.zatvori_datoteku();
 	test2.zatvori_datoteku();
 	test2.otvori_datoteku();
-	std::cout << "ShareFile2: " << is_using_file( test2 ) << "\n";
+	std::cout << "ShareFile2: " << is_using_file1( 0 ) << "\n";
 	test.otvori_datoteku();
-	std::cout << "ShareFile1: " << is_using_file( test ) << "\n";
+	std::cout << "ShareFile1: " << is_using_file1() << "\n";*/
 }
 
 void Practical_Cpp_Programming_pog14_2()
@@ -711,7 +711,7 @@ void Practical_Cpp_Programming_pog21_2()
 	d_BlankStr_matcher bsm;
 	std::cout << "Word_match: 43, was: " << wm.match( "43" ) << wm.match( "was" )
 		<< "\nNumber_match 43, was: " << nm.match( "43" ) << nm.match( "was" )
-		<< "\nBlankStr_match 43,  , was: " << bsm.match( "43" ) << bsm.match( " " ) << bsm.match( "was" );
+		<< "\nBlankStr_match 43,  , was: " << bsm.match( "43" ) << bsm.match( "  " ) << bsm.match( "was" );
 }
 
 void Practical_Cpp_Programming_pog21_3()
@@ -734,7 +734,7 @@ void Practical_Cpp_Programming_pog21_4()
 	hex.print_it();
 
 }
-void Practical_Cpp_Programming_pog21_5()
+void Practical_Cpp_Programming_pog22_4()
 {
 	count_letter( "HelloWorld" );
 	count_letter( "Hello World" );
@@ -765,10 +765,10 @@ void Practical_Cpp_Programming_pog23_1()
 	pf.print_line( input.c_str() );
 }
 
-void Practical_Cpp_Programming_pog22_2()
+void Practical_Cpp_Programming_pog23_2()
 {
-	std::array<const char*, 5> imena = { {{"Time.cpp"}, {"test"}, {"aaaaaaa"}, {"razno.cpp"}, {"razno.hpp"} } };
-	std::fstream datoteka = search_open( imena );
+	std::array<const char*, 5> imenaDatoteka = { {{"Time.cpp"}, {"test"}, {"aaaaaaa"}, {"raznoMain.cpp"}, {"razno.hpp"} } };
+	std::fstream datoteka = search_open( imenaDatoteka );
 	std::string stream;
 	stream.reserve( 256 );
 	if( datoteka.is_open() )
@@ -780,9 +780,9 @@ void Practical_Cpp_Programming_pog22_2()
 	}
 }
 
-/////////-> Kada koristis usrane std vektore i sranja sa dinamickom memorijom, koristi indexe jer ce se iz cistog mira preselit u memoriji i pointeri nece vazit
+/////////-> Koristi indexe kada brises vise stvari za redom iz vektora jer se moze preselit u memoriji
 //// Zato kad sam 1. put pisa kod i testira nema gresaka i sad kad opet pokrenem errori neki
-void Practical_Cpp_Programming_pog22_3()
+void Practical_Cpp_Programming_pog23_3()
 {
 	SymbolTable st;
 	st.enter( "test" );
@@ -810,7 +810,7 @@ void Practical_Cpp_Programming_pog26_1()
 {
 	std::string imeDatoteke{};
 	std::cout << "Unesi ime datoteke: ";
-	std::cin >> imeDatoteke; // npr. razno.cpp
+	std::cin >> imeDatoteke; // npr. raznoMain.cpp
 	std::cout << haveDoubleWords( imeDatoteke );
 }
 
@@ -940,7 +940,7 @@ char shiftBitsLeft( char broj )
 
 bool is_using_file1() { return ShareFile1::used(); }
 
-bool is_using_file1() { return ShareFile2_::used(); }
+bool is_using_file1( const int ) { return ShareFile2_::used(); }
 
 inline int horseCnt() { return Horses::animalCount; }
 inline int pigsCnt() { return Pigs::animalCount; }
@@ -1017,9 +1017,9 @@ std::vector<int> matrixMultiply( struct matrica_t matrica1, struct matrica_t mat
 	}
 
 	noviMatrix.reserve( matrica1.m_y * matrica2.m_x );
-	memset( static_cast<void*>( &noviMatrix.begin() ), 0, matrica1.m_y * matrica2.m_x );
-	//while( noviMatrix.size() < noviMatrix.capacity() )
-	//	noviMatrix.push_back( 0 ); // napuni vektor sa nulama
+//	memset( static_cast<void*>( &noviMatrix.begin() ), 0, matrica1.m_y * matrica2.m_x );
+	while( noviMatrix.size() < noviMatrix.capacity() )
+		noviMatrix.push_back( 0 ); // napuni vektor sa nulama
 
 	for( int i = 0; i < matrica2.m_x; ++i )
 		for( int j = 0; j < matrica1.m_y; ++j )
@@ -1094,7 +1094,7 @@ int32_t haveDoubleWords( const std::string_view imeDatoteke )
 
 				temp += ch;
 			}
-			if( temp[0] == '\0' ) // ako sam naisao na znak koji nije slovo vise puta zaredom, nemoram pregledavat
+			if( temp[0] == '\0' ) // ako sam naisao na znak koji nije slovo vise puta zaredom, nemoram pregledavat kolekciju
 				continue;
 
 			  // provjeravam trenutnu rijec sa kolekcijom rijeci koje sam vec pronasao
@@ -1154,10 +1154,12 @@ void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDa
 			{
 				counterForceBreak = 0;
 			}
-			if( c == '.' )// The split point should be at the end of a sentence if possible,
+			if( c == ',' )	pos = counterForceBreak + 1;
+			if( c == ' ' )	pos = counterForceBreak;
+			if( c == '.' && counterForceBreak > 90 )// The split point should be at the end of a sentence if possible,
 			{
 				buf += '\n';
-				if( datoteka.peek() == '\n' ) 	datoteka.seekg( 1, std::ios::cur ); // vrati get pointer za jedno mjesto
+				if( datoteka.peek() == '\n' ) 	datoteka.seekg( 1, std::ios::cur ); // preskoci taj new line jer sam je vec dodao
 				++counterChars;
 				counterForceBreak = 0;
 			}

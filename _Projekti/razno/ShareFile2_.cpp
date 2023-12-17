@@ -1,6 +1,6 @@
 #include "ShareFile2_.hpp"
 
-
+std::fstream ShareFile2_::m_datoteka;
 
 void ShareFile2_::otvori_datoteku()
 {

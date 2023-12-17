@@ -2,12 +2,12 @@
 
 void SymbolTable::enter( const char* name )
 {
-	table.push_back( name );
+	m_table.push_back( name );
 }
 
 bool SymbolTable::lookup( const char* name )
 {
-	for( const auto& item : table )
+	for( const auto& item : m_table )
 	{
 		if( item == name )
 			return true;
@@ -17,13 +17,13 @@ bool SymbolTable::lookup( const char* name )
 
 void SymbolTable::remove( const char* name )
 {
-	std::vector<std::string>::iterator it = table.begin();
-	for( size_t i = 0; i < table.size(); )
+	std::vector<std::string>::iterator it = m_table.begin();
+	for( size_t i = 0; i < m_table.size(); )
 	{
-		if( table[i] == name )
+		if( m_table[i] == name )
 		{
-			table.erase( ( it + i ) );
-			it = table.begin();	// postavi iterator na pravo mjesto ako se vektor premjesti
+			m_table.erase( ( it + i ) );
+			it = m_table.begin();	// postavi iterator na pravo mjesto ako se vektor premjesti
 		}
 		else	++i;
 	}

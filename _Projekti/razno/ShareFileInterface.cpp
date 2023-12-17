@@ -3,5 +3,5 @@
 
 bool ShareFileInterface::getStanjeDatoteke()
 {
-	return ( f_is_using_file() || ShareFile2_::used() );
+	return ( ShareFile1::used() || ShareFile2_::used() );
 }

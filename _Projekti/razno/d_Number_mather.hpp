@@ -7,7 +7,7 @@
 class d_Number_mather : public String_matcher
 {
 public:
-	int match( const char* const string )
+	int match( const char* const string ) override
 	{
 		if( string == nullptr )	return false;
 		while( *string != '\0' )

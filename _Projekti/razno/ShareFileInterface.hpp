@@ -2,6 +2,7 @@
 #include "ShareFile1.hpp"
 #include "ShareFile2_.hpp"
 
+//extern bool f_is_using_file();
 
 class ShareFileInterface
 {
@@ -11,7 +12,7 @@ public:
 };
 
 	////////////
-bool f_is_using_file()
-{
-	return ShareFile1::used();
-}
+//bool f_is_using_file()
+//{
+//	return ShareFile1::used();
+//}

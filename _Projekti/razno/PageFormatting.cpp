@@ -20,10 +20,10 @@ void PageFormatting::print_line( const char* line )
 {
 	if( m_file.is_open() )
 	{
-		m_file << line << '\n';
-		++m_linija;
 		if( m_linija == 24 )  page();
 		m_trenutacnaStranica += m_trenutacnaStranica < m_stranica;
+		m_file << line << '\n';
+		++m_linija;
 	}
 }
 
@@ -31,7 +31,7 @@ inline void PageFormatting::page()
 {
 	if( m_file.is_open() )
 	{
-		for( ; m_linija % 24 != 0; ++m_linija )
+		for( ; m_linija < 24; ++m_linija )
 			m_file << '\n';
 
 		++m_stranica;

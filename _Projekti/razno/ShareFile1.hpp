@@ -1,6 +1,6 @@
 #pragma once
 #include "ShareFileInterface.hpp"
-#include "ShareFile2_.hpp"
+//#include "ShareFile2_.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -9,6 +9,8 @@
 class ShareFile1
 {
 	friend class ShareFileInterface;
+	friend bool is_using_file1();
+	//friend bool f_is_using_file();
 public:
 	ShareFile1()
 	{
@@ -26,8 +28,4 @@ private:
 
 private:
 	static std::fstream m_datoteka;
-
-private:
-	friend bool is_using_file1();
-	friend bool f_is_using_file();
 };

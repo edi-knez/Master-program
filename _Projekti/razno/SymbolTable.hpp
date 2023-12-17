@@ -6,7 +6,7 @@
 class SymbolTable
 {
 public:
-	SymbolTable() { table.reserve( 10 ); };
+	SymbolTable() { m_table.reserve( 10 ); };
 
 public:
 	void enter( const char* name );
@@ -14,6 +14,6 @@ public:
 	void remove( const char* name );
 
 private:
-	std::vector<std::string> table;
+	std::vector<std::string> m_table;
 };
 

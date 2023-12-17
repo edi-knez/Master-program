@@ -24,15 +24,16 @@ static std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
 extern std::array<std::vector<std::string>, popisProjekata.size()> popisFunkcija;
 extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
 
+extern void test();
 
 
 int main()
 {
+	test();
+	return EXIT_SUCCESS;
 
-	void ( *Pfun )( ) = fesb_vj10_1;
-	pFun();
 	char odabir = 0;
-	while( odabir != 'a' || odabir != 'r' )
+	while( odabir != 'a' && odabir != 'r' )
 	{
 		std::cout << "Ako želis automatizirat proces unesi znak \"a\", a ako želiš ruèno unosit informacije unesi \"r\" ";
 		std::cin >> odabir;
@@ -68,7 +69,7 @@ int main()
 			//automatizirano()
 			break;
 		case 'r':
-			rucno();
+		//	rucno();
 			break;
 		default:
 			std::cout << "You are not supposed to be here";

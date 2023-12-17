@@ -7,7 +7,7 @@
 class Word_match : public String_matcher
 {
 public:
-	int match( const char* string )
+	int match( const char* string ) override
 	{
 		if( string == nullptr )	return -1;
 		while( *string != '\0' )
