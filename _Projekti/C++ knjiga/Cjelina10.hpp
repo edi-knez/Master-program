@@ -12,7 +12,7 @@
 class Cjelina10
 {
 public:
-	void zad1();
-	void zad2();
+	static void zad1();
+	static void zad2();
 };
 

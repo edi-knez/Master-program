@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-extern int z121_datoteka();	// daje vidljivost funkciji koja se nalazi u drugoj cpp datoteci
+extern int z121_datoteka();	// daje vidljivost (ovoj datoteci) o funkciji ovoga imena koja se nalazi u drugoj cpp datoteci
 
 /// <summary>
 ///		Ova klasa sadrzi zadatke i vjezbe iz cjeline 1.
@@ -9,14 +9,14 @@ extern int z121_datoteka();	// daje vidljivost funkciji koja se nalazi u drugoj 
 class Cjelina1
 {
 public:
-    void zad4_kvadrat();
-    void zad5_ispis();
+    static void zad4_kvadrat();
+    static void zad5_ispis();
 
 private:
-    double _kvadPovrsina(double x);
+    static double _kvadPovrsina(double x);
 
 public:
-    void vj1_2datoteke();
-    void vj3_krug();
+    static void vj1_2datoteke();
+    static void vj3_krug();
 };
 

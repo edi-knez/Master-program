@@ -368,26 +368,6 @@ namespace StringLinkedList {
 	Poglavlje7 pog7;
 
 
-
-
-	
-
-
-
-
-
-
-	//auto t = new int;
-
-
-	//// double var = 5.5;
-
-	//double var = 5.5;
-
-	//int v = var;
-
-	//int thisIsReallyReallyVeryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyLongVariableName     = var;
-
 	return 0;
 }
 

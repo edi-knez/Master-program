@@ -123,7 +123,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="master program\main.cpp" />
-    <ClCompile Include="setup.cpp" />
+    <ClCompile Include="Master program\setup.cpp" />
     <ClCompile Include="_projekti\c++ knjiga\bonus.cpp" />
     <ClCompile Include="_projekti\c++ knjiga\C++KnjigaMain.cpp" />
     <ClCompile Include="_projekti\c++ knjiga\CD.cpp" />

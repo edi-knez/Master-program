@@ -279,7 +279,7 @@
     <ClCompile Include="_projekti\thinklap\Zadaci_List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="setup.cpp">
+    <ClCompile Include="Master program\setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

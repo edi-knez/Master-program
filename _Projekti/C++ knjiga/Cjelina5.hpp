@@ -5,8 +5,8 @@
 class Cjelina5
 {
 public:
-	void zad2();
-    void zad3();
+	static void zad2();
+	static void zad3();
 };
 
 

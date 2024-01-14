@@ -238,7 +238,8 @@ void Practical_Cpp_Programming_pog10_4()
 	swap2( a, b );
 	std::cout << "bez temp varijable: " << a << " " << b << "\n";
 }
-  ////>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
 void Practical_Cpp_Programming_pog11_1()
 {
 	puts( "PRIJE:" );
@@ -249,6 +250,7 @@ void Practical_Cpp_Programming_pog11_1()
 		set_bit( i, Y_SIZE - 1, 1 );
 	}
 	std::cout << "\nPoslije:\n";
+	crtaj_grid();
 }
 
 void Practical_Cpp_Programming_pog11_2()
@@ -396,7 +398,7 @@ void Practical_Cpp_Programming_pog13_5()
 
 
 void Practical_Cpp_Programming_pog14_1()
-{/*
+{
 	ShareFile1 test;
 	std::cout << "ShareFile1: " << is_using_file1() << "\n";
 	ShareFile2_ test2;
@@ -414,7 +416,7 @@ void Practical_Cpp_Programming_pog14_1()
 	test2.otvori_datoteku();
 	std::cout << "ShareFile2: " << is_using_file1( 0 ) << "\n";
 	test.otvori_datoteku();
-	std::cout << "ShareFile1: " << is_using_file1() << "\n";*/
+	std::cout << "ShareFile1: " << is_using_file1() << "\n";
 }
 
 void Practical_Cpp_Programming_pog14_2()
@@ -498,7 +500,7 @@ void Practical_Cpp_Programming_pog15_2()
 		std::cout << "nullptr\n";
 }
 
-  //////////////////////////////////////////////////////////////
+
 void Practical_Cpp_Programming_pog16_1()
 {
 	File_16C f1( "linije.dat" );
@@ -575,7 +577,7 @@ void Practical_Cpp_Programming_pog16_6()
 	f6.read_info_o_osobi();
 	f6.ispis_osoba();
 }
-////////////////////////////////////////////////////////////////
+
 
 // 317. stranica
 ////////////////////////////////////////////////////////////////////////
@@ -627,7 +629,6 @@ void Practical_Cpp_Programming_pog17_2__3()
 		std::cout << "\n";
 	}
 }
-///////
 
 void Practical_Cpp_Programming_pog17_5()
 {
@@ -724,7 +725,7 @@ void Practical_Cpp_Programming_pog21_3()
 		<< "\nTrok: " << trok.v_povrsina() << "\n";
 }
 
-void Practical_Cpp_Programming_pog21_4()
+void Practical_Cpp_Programming_pog21_5()
 {
 	d_Dek dek( 42 );
 	d_Okt okt( 8 );
@@ -734,11 +735,14 @@ void Practical_Cpp_Programming_pog21_4()
 	hex.print_it();
 
 }
+
+
 void Practical_Cpp_Programming_pog22_4()
 {
 	count_letter( "HelloWorld" );
 	count_letter( "Hello World" );
 }
+
 
 //	435. stranica
 ////////////////////////////////////////
@@ -795,7 +799,7 @@ void Practical_Cpp_Programming_pog23_3()
 	std::cout << ( st.lookup( "test" ) ? "Nasao sam test\n" : "Nema ga :(\n" );
 }
 
-/////////////////////////////////////////
+
 //	446. stranica
 void Practical_Cpp_Programming_pog24_1()
 {
@@ -804,6 +808,7 @@ void Practical_Cpp_Programming_pog24_1()
 		<< "\nmin('a', 'A'): " << min( 'a', 'A' )
 		<< "\nmin(\"aA\", \"Aa\"): " << min( "aA\0", "Aa\0" ) << '\n';
 }
+
 
 //	484. stranica
 void Practical_Cpp_Programming_pog26_1()

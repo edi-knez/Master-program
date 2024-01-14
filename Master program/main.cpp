@@ -4,32 +4,26 @@
 #include <array>
 #include <vector>
 
-extern void fesb_vj1_1();	extern void fesb_vj1_2();	extern void fesb_vj1_3();	extern void fesb_vj1_4();
-extern void fesb_vj2_1();	extern void fesb_vj2_2();	extern void fesb_vj2_3();	extern void fesb_vj2_4();	extern void fesb_vj2_5();
-extern void fesb_vj3_1();	extern void fesb_vj3_2();	extern void fesb_vj3_3();	extern void fesb_vj3_4();
-extern void fesb_vj4_1();	extern void fesb_vj4_2();	extern void fesb_vj4_3();
-extern void fesb_vj5_1();	extern void fesb_vj5_2();	extern void fesb_vj5_3();	extern void fesb_vj5_4();
-extern void fesb_vj6_1();	extern void fesb_vj6_2();	extern void fesb_vj6_3();	extern void fesb_vj6_4();
-extern void fesb_vj7_1();	extern void fesb_vj7_2();	extern void fesb_vj7_3();	extern void fesb_vj7_4();
-extern void fesb_vj8_1();	extern void fesb_vj8_2();	extern void fesb_vj8_3();	extern void fesb_vj8_4();	extern void fesb_vj8_5();	extern void fesb_vj8_6();
-extern void fesb_vj9_1();	extern void fesb_vj9_2();	extern void fesb_vj9_3();
-extern void fesb_vj10_1();	extern void fesb_vj10_2();	extern void fesb_vj10_3();	extern void fesb_vj10_4();
-extern void fesb_vj11_1();	extern void fesb_vj11_2();	extern void fesb_vj11_3();	extern void fesb_vj11_4();
-extern void fesb_vj12_1();	extern void fesb_vj12_2();	extern void fesb_vj12_3();	extern void fesb_vj12_4();
-
+#include <set>
+#include <unordered_map>
+#include <deque>
 
 extern enum class projekt;
 
 static std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
-extern std::array<std::vector<std::string>, popisProjekata.size()> popisFunkcija;
+extern std::array<std::vector<std::string>, popisProjekata.size()> popisImenaFunkcija;
 extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
 
 extern void test();
 
 
-int main()
+void automatizirano();
+void rucno();
+
+int main( char args, char* argv[] )
 {
-	test();
+
+	//test();
 	return EXIT_SUCCESS;
 
 	char odabir = 0;
@@ -49,11 +43,11 @@ int main()
 		};
 	auto ispisiPopisFunkcijaZa = []( const enum class projekt proj ) {
 		uint8_t projIdx = static_cast<uint8_t>( proj );
-		for( uint8_t idx = 0; idx < popisFunkcija[projIdx].size(); ++idx )
+		for( uint8_t idx = 0; idx < popisImenaFunkcija[projIdx].size(); ++idx )
 		{
 			std::cout << opisZadatka[projIdx][idx]
 				<< '\n'
-				<< popisFunkcija[projIdx][idx];
+				<< popisImenaFunkcija[projIdx][idx];
 		}
 		};
 
@@ -66,10 +60,10 @@ int main()
 		switch( odabir )
 		{
 		case 'a':
-			//automatizirano()
+			automatizirano();
 			break;
 		case 'r':
-		//	rucno();
+			rucno();
 			break;
 		default:
 			std::cout << "You are not supposed to be here";
@@ -118,4 +112,29 @@ int main()
 	//afzad4();
 
 	return EXIT_SUCCESS;
+}
+
+void automatizirano()
+{
+	// 3 opcije:
+	// koristi argumente ako su dostupni
+	// procitaj iz datoteke inpute
+	// pitaj korisnika da unese sve potrebne infromacije za zeljenu funkciju
+	/// extra:
+	// korisnik moze memorirat unos u datoteku
+	// korisnik moze memorirat unos u unordered_map
+	/// extra2:
+	// korisnik unosi imena datoteka koje zeli testirat u argumente programa
+
+	//proslijedi input kako bi se izvrsila zeljena funkcija
+}
+
+void rucno()
+{
+	//ispisi listu projekata
+	//unesi odabir projekta
+	//ispisi cjeline/poglavlja funkcija, ispisi opis poglavlja?
+	//unesi odabir cjeline/poglavlja
+	//ispisi popis funkcija i njihov opis
+	//unesi odabir funkcije za pokrenut
 }

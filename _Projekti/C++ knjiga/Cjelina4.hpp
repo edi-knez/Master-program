@@ -11,10 +11,10 @@
 class Cjelina4
 {
 public:
-    void zad1();
-    void zad3();
-    void zad4();
-    void zad5();
+	static void zad1();
+	static void zad3();
+	static void zad4();
+	static void zad5();
 };
 
 

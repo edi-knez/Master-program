@@ -15,67 +15,69 @@
 class Cjelina2
 {
 public:
-    void zad1();
-    void zad2();
-    void zad3();
-    void zad4();
-    void zad5();
-    void zad6();
+	static void zad1();
+	static void zad2();
+	static void zad3();
+	static void zad4();
+	static void zad5();
+	static void zad6();
 
 private:
-    void ispis(int lr);
-    void ispis(double lrDouble);
-    //
+	static void ispis( int lr );
+	static void ispis( double lrDouble );
+	//
 
 public:
-    class Krug {
-    public:
-        Krug() { m_radijus = 0.0; }
+	class Krug {
+	public:
+		Krug() { m_radijus = 0.0; }
 
-    public:
-        double Povrsina() { return 3.14 * m_radijus * m_radijus;    }
-    
-    public:
-        double getRadijus() { return m_radijus; }
-        //void setRadijus(double radijus) {
-        //    m_radijus = radijus;
-        //}
-        void SetRadijus(double tempR) 
-        {
-            if (tempR >= 0.0) { m_radijus = tempR; }
-            else { std::cout << "GRESKA! Radijus ne moze biti negativan!!" << '\n'; }
-        }
+	public:
+		double Povrsina() { return 3.14 * m_radijus * m_radijus; }
 
-        void operator=(double x);
+	public:
+		double getRadijus() { return m_radijus; }
+		//void setRadijus(double radijus) {
+		//    m_radijus = radijus;
+		//}
+		void SetRadijus( double tempR )
+		{
+			if( tempR >= 0.0 ) { m_radijus = tempR; }
+			else { std::cout << "GRESKA! Radijus ne moze biti negativan!!" << '\n'; }
+		}
 
-    //public:
-    private:
-        double m_radijus;
-    };
+		void operator=( double x );
 
-    //
-    class Razlomak {
-    public:
-        Razlomak() : brojnik(0), nazivnik(0) {}
+	//public:
+	private:
+		double m_radijus;
+	};
 
-    public:
-        bool Set(int tempBr, int tempNz) {
-            if (tempNz != 0) {
-                brojnik = tempBr;
-                nazivnik = tempNz;
-                return 1;
-            }
-            else {
-                std::cout << "Greska! Nazivnik nesmije biti 0!";
-                return 0;
-            }
-        };
-        double GetDecimal() { return static_cast<double>(brojnik) / static_cast<double>(nazivnik); }
+	//
+	class Razlomak {
+	public:
+		Razlomak() : brojnik( 0 ), nazivnik( 0 ) {}
 
-    private:
-        int brojnik;
-        int nazivnik;
-    };
+	public:
+		bool Set( int tempBr, int tempNz ) {
+			if( tempNz != 0 )
+			{
+				brojnik = tempBr;
+				nazivnik = tempNz;
+				return 1;
+			}
+			else
+			{
+				std::cout << "Greska! Nazivnik nesmije biti 0!";
+				return 0;
+			}
+		};
+		double GetDecimal() { return static_cast<double>( brojnik ) / static_cast<double>( nazivnik ); }
+
+	private:
+		int brojnik;
+		int nazivnik;
+	};
 };
 
 
