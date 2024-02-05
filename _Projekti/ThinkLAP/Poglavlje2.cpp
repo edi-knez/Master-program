@@ -573,7 +573,6 @@ int Poglavlje2::vj6_bin_to_dec() const
 	int dec = 0;
 	char bit;
 	std::cin.get( bit );
-	// undefined behaviour ako se unese broj 0 vise od 32 puta?
 	while( bit != '\n' && dec >= 0 )
 	{
 		if( bit < '0' || bit > '1' )
@@ -767,7 +766,7 @@ void Poglavlje2::vj7_pretvorba_sa_hex() const
 			bInp = Baza::DEK;
 			std::cout << "Unesi dekatski broj: ";
 			////auto [dec, unused] = extract_number();// za grupu podataka(treba mi samo int)
-			brojZaPretvorit = extract_number()._Myfirst._Val;
+			brojZaPretvorit = std::get<0>( extract_number() );
 			break;
 		}
 		case uint8_t( Baza::HEX ) + uint8_t( BazaE::OFFSET ):
@@ -787,7 +786,7 @@ void Poglavlje2::vj7_pretvorba_sa_hex() const
 			<< "10) Bazu dek\n"
 			<< "16) Bazu hex\n";
 		std::cout << "U koju bazu pretvorit broj: ";
-		odabir = uint8_t( extract_number()._Myfirst._Val );
+		odabir = uint8_t( std::get<0>( extract_number() ) );
 		switch( odabir )
 		{
 		case uint8_t( Baza::BIN ) + uint8_t( BazaE::OFFSET ):
@@ -841,13 +840,17 @@ void Poglavlje2::vj7_pretvorba_sa_hex() const
 
 void Poglavlje2::vj8_pretvorba_sve_baze() const
 {
-	Extra::BazaExtended bInp, bOut = Extra::BazaExtended::HEX;
-	int pocetniBroj;
-	int pretvoreniBroj;
-	//vj8_unos(bInp, pocetniBroj, bOut);
-	// pretvoreniBroj = pretvorba
-	pretvoreniBroj = 2147483647;
-	vj8_ispisi_sa_bazom( bOut, pretvoreniBroj );
+	if( true ) std::cout << "NOT IMPLEMENTED\n";
+	else
+	{
+		Extra::BazaExtended bInp, bOut = Extra::BazaExtended::HEX;
+		int pocetniBroj;
+		int pretvoreniBroj;
+		vj8_unos( bInp, pocetniBroj, bOut );
+		// pretvoreniBroj = pretvorba
+		pretvoreniBroj = 2147483647;
+		vj8_ispisi_sa_bazom( bOut, pretvoreniBroj );
+	}
 }
 void Poglavlje2::vj8_unos( Extra::BazaExtended& bI, int& broj, Extra::BazaExtended& bO ) const
 {
@@ -916,11 +919,12 @@ void Poglavlje2::vj9_unos_string_info( const std::string_view str ) const
 	uint8_t longestWord = 0;
 	uint8_t numOfWords = 0;
 	uint8_t samoglasniciURijeci = 0;
-
+	std::string rijecSaNajviseSamoglasnika;
 	char prethodniZnak = ' ';
 	uint8_t tmpSlovaURijeci = 0;
 	uint8_t tmpSamoglasniciURijeci = 0;
 
+	std::string_view::const_iterator pocRijeci = str.begin();
 	std::string_view::const_iterator iter = str.begin();
 	for( ; iter != str.end(); ++iter )
 	{
@@ -935,7 +939,12 @@ void Poglavlje2::vj9_unos_string_info( const std::string_view str ) const
 		auto update_varijable = [ & ]( const bool isNovaRijec = true ) mutable {
 			numOfWords += isNovaRijec;
 			if( longestWord < tmpSlovaURijeci )	longestWord = tmpSlovaURijeci;
-			if( samoglasniciURijeci < tmpSamoglasniciURijeci )	samoglasniciURijeci = tmpSamoglasniciURijeci;
+			if( samoglasniciURijeci < tmpSamoglasniciURijeci )
+			{
+				samoglasniciURijeci = tmpSamoglasniciURijeci;
+				rijecSaNajviseSamoglasnika = std::string( pocRijeci, iter);
+			}
+			pocRijeci = iter;
 			};
 
 		if( ( isspace( ch ) || ispunct( ch ) ) && !isspace( prethodniZnak ) )
@@ -951,5 +960,5 @@ void Poglavlje2::vj9_unos_string_info( const std::string_view str ) const
 	std::cout << "Ta linija sadrzi:\n"
 		<< "Broj rijeci: " << static_cast<int>( numOfWords ) << "\n"
 		<< "Najdulja rijec ima: " << static_cast<int>( longestWord ) << " slova\n"
-		<< "Najvise samoglasnika u rijeci: " << static_cast<int>( samoglasniciURijeci ) << '\n';
+		<< "Najvise samoglasnika u rijeci je: " << static_cast<int>( samoglasniciURijeci ) << " ; a sadrzi ih rijec: " << rijecSaNajviseSamoglasnika << '\n';
 }

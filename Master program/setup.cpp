@@ -3,7 +3,7 @@
 /// koristi prikladniji spremnik: ime projekta - unordered_map koja sadrzi se poglavlja/cjeline - set koji sadrzi vektor sa svim funkcijama
 /// koristi nekakve offsete da bi pojednostavio kod za unos
 /// lazy popunjavanje funkcija / imena funkcija / opisa po potrebi
-/// koristi namespace funkcije za projekata
+/// koristi namespace funkcije za projekte
 
 #include <iostream>
 #include <array>
@@ -13,10 +13,12 @@
 
 enum class projekt
 {
+	BEGIN = 0,
 	CppKnjiga = 0,
 	FESB,
 	razno,
-	ThinkLAP
+	ThinkLAP,
+	END = 4
 };
 
 //////////////////////////////////////
@@ -93,6 +95,26 @@ extern void Practical_Cpp_Programming_pog24_1();
 /////////////////////////////////////
 extern void Practical_Cpp_Programming_pog26_1(); extern void Practical_Cpp_Programming_pog26_3(); extern void Practical_Cpp_Programming_pog26_5();
 /////////////////////////////////////
+
+//////////////////////////////////////
+/// //////////////////////////////////
+//////////////////////////////////////
+/// poglavlje 2:
+extern void ThinkLAP_printSidewaysTriangle(); extern void ThinkLAP_luhnFormulaPrecomputed_and_Expression(); extern void ThinkLAP_decodeMessage();
+extern void ThinkLAP_pog2vj1(); extern void ThinkLAP_pog2vj2(); extern void ThinkLAP_pog2vj2version2(); extern void ThinkLAP_pog2vj5_check(); extern void ThinkLAP_pog2vj5_generate(); extern void ThinkLAP_pog2vj6(); extern void ThinkLAP_pog2vj6_2(); extern void ThinkLAP_pog2vj7(); extern void ThinkLAP_pog2vj8(); extern void ThinkLAP_pog2vj9();
+
+/// poglavlje 3:
+extern void ThinkLAP_pog3_finding_the_mode(); extern void ThinkLAP_pog3_vj1_sorting(); void ThinkLAP_pog3_highestSales_zadano(); extern void ThinkLAP_pog3_vj2_median(); extern void ThinkLAP_pog3_vj3_issorted(); extern void ThinkLAP_pog3_vj4_encode_and_vj5_decode(); extern void ThinkLAP_pog3_vj8_grade_better_than(); extern void ThinkLAP_pog3_vj9_modified_median(); 
+
+/// poglavlje 4:
+extern void ThinkLAP_pog4_osnovne_operacije_stringa(); extern void ThinkLAP_pog4_prosjek_ocjena_studenata(); extern void ThinkLAP_pog4_vj1(); extern void ThinkLAP_pog4_vj2_jos_operacija_nad_stringom(); extern void ThinkLAP_pog4_myCharPtr_klasa_testiranje(); extern void ThinkLAP_pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda(); extern void ThinkLAP_pog4_vj6(); extern void ThinkLAP_pog4_vj7(); extern void ThinkLAP_pog4_vj8(); extern void ThinkLAP_pog4_vj9(); extern void ThinkLAP_pog4_vj10(); 
+
+/// poglavlje 5:
+extern void ThinkLAP_pog5_vj1(); extern void ThinkLAP_pog5_zad1(); extern void ThinkLAP_pog5_zad2(); extern void ThinkLAP_pog5_zad3_i_4(); extern void ThinkLAP_pog5_zad5(); 
+
+/// poglavlje 6:
+extern void ThinkLAP_pog6_vj1(); extern void ThinkLAP_pog6_vj2(); extern void ThinkLAP_pog6_vj3(); extern void ThinkLAP_pog6_vj4(); extern void ThinkLAP_pog6_vj5(); extern void ThinkLAP_pog6_zad1(); extern void ThinkLAP_pog6_zad2(); extern void ThinkLAP_pog6_zad3(); extern void ThinkLAP_pog6_zad4(); extern void ThinkLAP_pog6_zad5(); extern void ThinkLAP_pog6_zad6();
+//////////////////////////////////////
 
 
 //////////////////////////////////////
@@ -492,7 +514,7 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 
 	case ThinkLAP:
 	{
-		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "--Poglavlje10" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "--Poglavlje2" );
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_1" );
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_2" );
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_3" );

@@ -7,12 +7,16 @@
 #include <set>
 #include <unordered_map>
 #include <deque>
+#include <processthreadsapi.h>
 
-extern enum class projekt;
+extern enum class projekt {};
+
+extern void popuniCijeliPopisFunkcija();
 
 static std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
 extern std::array<std::vector<std::string>, popisProjekata.size()> popisImenaFunkcija;
-extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
+//extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
+extern std::array<std::vector<void ( * )( )>, popisProjekata.size()> popisFunkcija;
 
 extern void test();
 
@@ -22,6 +26,7 @@ void rucno();
 
 int main( char args, char* argv[] )
 {
+	popuniCijeliPopisFunkcija();
 
 	//test();
 	return EXIT_SUCCESS;
@@ -34,26 +39,6 @@ int main( char args, char* argv[] )
 		odabir = tolower( odabir );
 	}
 
-	auto ispisiPopisProjekata = []() {
-		uint8_t i = 1;
-		for( const std::string_view strView : popisProjekata )
-		{
-			std::cout << i++ << ". " << strView << '\n';
-		}
-		};
-	auto ispisiPopisFunkcijaZa = []( const enum class projekt proj ) {
-		uint8_t projIdx = static_cast<uint8_t>( proj );
-		for( uint8_t idx = 0; idx < popisImenaFunkcija[projIdx].size(); ++idx )
-		{
-			std::cout << opisZadatka[projIdx][idx]
-				<< '\n'
-				<< popisImenaFunkcija[projIdx][idx];
-		}
-		};
-
-	ispisiPopisProjekata();
-	//ispisiPopisFunkcija();
-	//ispisiPopisParametara();
 	bool wantToContinue = true;
 	while( wantToContinue )
 	{
@@ -67,8 +52,7 @@ int main( char args, char* argv[] )
 			break;
 		default:
 			std::cout << "You are not supposed to be here";
-			exit( 1 );
-
+			ExitProcess( EXIT_FAILURE );
 		}
 	}
 	// zadnji zad iz 1. datoteke
@@ -131,10 +115,35 @@ void automatizirano()
 
 void rucno()
 {
-	//ispisi listu projekata
+	auto ispisiPopisProjekata = []() {
+		uint8_t i = 1;
+		for( const std::string_view strView : popisProjekata )
+		{
+			std::cout << i++ << ". " << strView << '\n';
+		}
+		};
+	auto ispisiPopisFunkcijaZa = []( const enum class projekt proj ) {
+		uint8_t projIdx = static_cast<uint8_t>( proj );
+		for( uint8_t idx = 0; idx < popisImenaFunkcija[projIdx].size(); ++idx )
+		{
+		//	std::cout << opisZadatka[projIdx][idx]
+			//	<< '\n'
+			//<< popisImenaFunkcija[projIdx][idx];
+		}
+		};
+
+	ispisiPopisProjekata();
 	//unesi odabir projekta
-	//ispisi cjeline/poglavlja funkcija, ispisi opis poglavlja?
-	//unesi odabir cjeline/poglavlja
+	projekt mojegaIzbora;
+	int tempOdabir = -1;
+	while( tempOdabir < 0 || tempOdabir > popisProjekata.size() )	std::cin >> tempOdabir;
+	mojegaIzbora = static_cast<projekt>( tempOdabir );
+
 	//ispisi popis funkcija i njihov opis
+	ispisiPopisFunkcijaZa( mojegaIzbora );
+	//ispisi cjeline/poglavlja funkcija, ispisi opis poglavlja?
+	tempOdabir = -1;
+	while( tempOdabir < 0 || tempOdabir > popisProjekata.size() )	std::cin >> tempOdabir;
+	//unesi odabir cjeline/poglavlja
 	//unesi odabir funkcije za pokrenut
 }
