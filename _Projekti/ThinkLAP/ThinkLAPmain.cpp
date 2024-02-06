@@ -218,7 +218,7 @@ void ThinkLAP_pog3_vj4_encode_and_vj5_decode()
 	}
 }
 
-/////////////////////////////////////////////////////////////////////////////////////// PROVJERI da li daje tocne rezultate
+/////////////////////////////////////////////////////////////////////////////////////// TODO: PROVJERI da li daje tocne rezultate
 void ThinkLAP_pog3_vj8_grade_better_than()
 {
 	Poglavlje3 pog3;
@@ -234,6 +234,9 @@ void ThinkLAP_pog3_vj9_modified_median()
 	Poglavlje3 pog3;
 	pog3.vj9_modified_median();
 }
+
+//////////////////////////////////////////////
+/// poglavlje 4:
 
 void ThinkLAP_pog4_osnovne_operacije_stringa()
 {
@@ -278,7 +281,7 @@ void ThinkLAP_pog4_prosjek_ocjena_studenata()
 void ThinkLAP_pog4_vj1()
 {
 	Poglavlje4 pog4;
-	pog4.vj1_(); /////////////////////////////////////////////////////////////////////////////////////////	pogledaj za zadatak koji se moze rjesit sa dinamicnom memorijom
+	pog4.vj1_(); ///////////////////////////////////////////////////////////////////////////////////////// TODO	pogledaj za zadatak koji se moze rjesit sa dinamicnom memorijom
 }
 
 void ThinkLAP_pog4_vj2_jos_operacija_nad_stringom()
@@ -471,6 +474,8 @@ void ThinkLAP_pog4_vj10()
 	StringLinkedList::del( advNodeRez );
 }
 
+//////////////////////////////////////
+/// poglavlje5:
 
 void ThinkLAP_pog5_vj1()
 {
@@ -506,6 +511,11 @@ void ThinkLAP_pog5_zad5()
 ///////////////////////////////////////////////////////////////////
 //////pog5.zad6(); // student records
 //////pog5.zad7(); // stud rec with range
+
+
+
+///////////////////////////////////////////
+/// poglavlje 6:
 
 void ThinkLAP_pog6_vj1()
 {

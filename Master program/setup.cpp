@@ -101,7 +101,7 @@ extern void Practical_Cpp_Programming_pog26_1(); extern void Practical_Cpp_Progr
 //////////////////////////////////////
 /// poglavlje 2:
 extern void ThinkLAP_printSidewaysTriangle(); extern void ThinkLAP_luhnFormulaPrecomputed_and_Expression(); extern void ThinkLAP_decodeMessage();
-extern void ThinkLAP_pog2vj1(); extern void ThinkLAP_pog2vj2(); extern void ThinkLAP_pog2vj2version2(); extern void ThinkLAP_pog2vj5_check(); extern void ThinkLAP_pog2vj5_generate(); extern void ThinkLAP_pog2vj6(); extern void ThinkLAP_pog2vj6_2(); extern void ThinkLAP_pog2vj7(); extern void ThinkLAP_pog2vj8(); extern void ThinkLAP_pog2vj9();
+extern void ThinkLAP_pog2vj1(); extern void ThinkLAP_pog2vj2(); extern void ThinkLAP_pog2vj2version2(); extern void ThinkLAP_pog2vj3(); extern void ThinkLAP_pog2vj5_check(); extern void ThinkLAP_pog2vj5_generate(); extern void ThinkLAP_pog2vj6(); extern void ThinkLAP_pog2vj6_2(); extern void ThinkLAP_pog2vj7(); extern void ThinkLAP_pog2vj8(); extern void ThinkLAP_pog2vj9();
 
 /// poglavlje 3:
 extern void ThinkLAP_pog3_finding_the_mode(); extern void ThinkLAP_pog3_vj1_sorting(); void ThinkLAP_pog3_highestSales_zadano(); extern void ThinkLAP_pog3_vj2_median(); extern void ThinkLAP_pog3_vj3_issorted(); extern void ThinkLAP_pog3_vj4_encode_and_vj5_decode(); extern void ThinkLAP_pog3_vj8_grade_better_than(); extern void ThinkLAP_pog3_vj9_modified_median(); 
@@ -515,22 +515,117 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 	case ThinkLAP:
 	{
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "--Poglavlje2" );
-		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_1" );
-		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_2" );
-		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_3" );
-		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_4" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_1 );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_2 );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_3 );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_4 );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_printSidewaysTriangle" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_luhnFormulaPrecomputed_and_Expression" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_decodeMessage" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj1" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj2" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj2version2" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj3" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj5_check" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj5_generate" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj6" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj6_2" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj7" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj8" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog2vj9" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_printSidewaysTriangle );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_luhnFormulaPrecomputed_and_Expression );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_decodeMessage );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj1 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj2 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj2version2 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj3 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj5_check );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj5_generate );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj6 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj6_2 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj7 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj8 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog2vj9 );
+
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "--Poglavlje3" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog3_finding_the_mode" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog3_vj1_sorting" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog3_highestSales_zadano" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog3_vj2_median" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog3_vj3_issorted" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog3_vj4_encode_and_vj5_decode" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog3_vj8_grade_better_than" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog3_vj9_modified_median" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog3_finding_the_mode );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog3_vj1_sorting );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog3_highestSales_zadano );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog3_vj2_median );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog3_vj3_issorted );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog3_vj4_encode_and_vj5_decode );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog3_vj8_grade_better_than );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog3_vj9_modified_median );
+
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "--Poglavlje4" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_osnovne_operacije_stringa" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_prosjek_ocjena_studenata" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_vj1" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_vj2_jos_operacija_nad_stringom" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_myCharPtr_klasa_testiranje" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_vj6" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_vj7" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_vj8" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_vj9" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog4_vj10" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_osnovne_operacije_stringa );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_prosjek_ocjena_studenata );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_vj1 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_vj2_jos_operacija_nad_stringom );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_myCharPtr_klasa_testiranje );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_vj6 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_vj7 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_vj8 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_vj9 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog4_vj10 );
+
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "--Poglavlje5" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog5_vj1" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog5_zad1" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog5_zad2" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog5_zad3_i_4" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog5_zad5" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog5_vj1 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog5_zad1 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog5_zad2 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog5_zad3_i_4 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog5_zad5 );
+
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "--Poglavlje6" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_vj1" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_vj2" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_vj3" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_vj4" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_vj5" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_zad1" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_zad2" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_zad3" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_zad4" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_zad5" );
+		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "ThinkLAP_pog6_zad6" );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_vj1 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_vj2 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_vj3 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_vj4 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_vj5 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_zad1 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_zad2 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_zad3 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_zad4 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_zad5 );
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ThinkLAP_pog6_zad6 );
 	}
 	break;
 
 	default:
 		std::cout << "ERROR"; exit( 1 );
 	}
-
-
-
 }
 

@@ -1,3 +1,8 @@
+/// za napravit:
+/// - koristi wxWidgets za GUI kod rucnog nacina
+/// - JSON datoteka koja sadrzi sve informacije
+/// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
+
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -7,7 +12,6 @@
 #include <set>
 #include <unordered_map>
 #include <deque>
-#include <processthreadsapi.h>
 
 extern enum class projekt {};
 
@@ -20,15 +24,24 @@ extern std::array<std::vector<void ( * )( )>, popisProjekata.size()> popisFunkci
 
 extern void test();
 
+namespace Master
+{
+	void init() 
+	{
+		popuniCijeliPopisFunkcija();
+		for( auto& vec : popisFunkcija )	vec.shrink_to_fit();
+	}
+}
 
 void automatizirano();
 void rucno();
 
 int main( char args, char* argv[] )
 {
-	popuniCijeliPopisFunkcija();
-
+	Master::init();
+	//popisFunkcija[0][0]();
 	//test();
+
 	return EXIT_SUCCESS;
 
 	char odabir = 0;
@@ -51,8 +64,8 @@ int main( char args, char* argv[] )
 			rucno();
 			break;
 		default:
-			std::cout << "You are not supposed to be here";
-			ExitProcess( EXIT_FAILURE );
+			std::cout << "Krivi unos! Izlazim...";
+			exit( EXIT_FAILURE );
 		}
 	}
 	// zadnji zad iz 1. datoteke

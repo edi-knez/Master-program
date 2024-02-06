@@ -297,6 +297,7 @@ void insertInto( std::unique_ptr<treeNode>& root, int value )
 			n->right = std::move( newNode );
 	}
 	else								std::clog << "Node sa brojem \"" << value << "\" vec postoji ili je root == nullptr!\n\n";
+	//TODO:
 	//! poslat addresu roota iz ove funkcije jer ako salje iz findNoe funk, onda je to dangling ref
 
 	//? ------------------------------------------------------

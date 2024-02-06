@@ -552,8 +552,6 @@ void Practical_Cpp_Programming_pog16_4()
 	f4.removeHighBit();
 }
 
-
-// todo: zasto se vraca u ASCI
 void Practical_Cpp_Programming_pog16_5()
 {
 	File_16C f5( "pretvorba ASCI u bin.dat" );
