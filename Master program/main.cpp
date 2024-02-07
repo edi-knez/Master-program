@@ -36,10 +36,10 @@ namespace Master
 void automatizirano();
 void rucno();
 
-int main( char args, char* argv[] )
+int main( const size_t args, const char* argv[] )
 {
 	Master::init();
-	//popisFunkcija[0][0]();
+	//popisFunkcija[3][0]();
 	//test();
 
 	return EXIT_SUCCESS;

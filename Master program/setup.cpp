@@ -21,6 +21,15 @@ enum class projekt
 	END = 4
 };
 
+struct Zadatak
+{
+	const char* tekst;
+	const char* naziv;
+	const char* povratniTip;
+	const char* argumenti;
+	const char* podTipArgumenata;
+};
+
 //////////////////////////////////////
 /// ////////////////////////////////// potrebne datoteke iz projekta C++ knjiga
 //////////////////////////////////////
@@ -85,7 +94,7 @@ extern void Practical_Cpp_Programming_pog18_1(); extern void Practical_Cpp_Progr
 extern void Practical_Cpp_Programming_pog19_1();
 /////////////////////////////////////
 extern void Practical_Cpp_Programming_pog21_1(); extern void Practical_Cpp_Programming_pog21_2(); extern void Practical_Cpp_Programming_pog21_3();
- extern void Practical_Cpp_Programming_pog21_5();
+extern void Practical_Cpp_Programming_pog21_5();
 /////////////////////////////////////
 extern void Practical_Cpp_Programming_pog22_4();
 /////////////////////////////////////
@@ -104,13 +113,13 @@ extern void ThinkLAP_printSidewaysTriangle(); extern void ThinkLAP_luhnFormulaPr
 extern void ThinkLAP_pog2vj1(); extern void ThinkLAP_pog2vj2(); extern void ThinkLAP_pog2vj2version2(); extern void ThinkLAP_pog2vj3(); extern void ThinkLAP_pog2vj5_check(); extern void ThinkLAP_pog2vj5_generate(); extern void ThinkLAP_pog2vj6(); extern void ThinkLAP_pog2vj6_2(); extern void ThinkLAP_pog2vj7(); extern void ThinkLAP_pog2vj8(); extern void ThinkLAP_pog2vj9();
 
 /// poglavlje 3:
-extern void ThinkLAP_pog3_finding_the_mode(); extern void ThinkLAP_pog3_vj1_sorting(); void ThinkLAP_pog3_highestSales_zadano(); extern void ThinkLAP_pog3_vj2_median(); extern void ThinkLAP_pog3_vj3_issorted(); extern void ThinkLAP_pog3_vj4_encode_and_vj5_decode(); extern void ThinkLAP_pog3_vj8_grade_better_than(); extern void ThinkLAP_pog3_vj9_modified_median(); 
+extern void ThinkLAP_pog3_finding_the_mode(); extern void ThinkLAP_pog3_vj1_sorting(); void ThinkLAP_pog3_highestSales_zadano(); extern void ThinkLAP_pog3_vj2_median(); extern void ThinkLAP_pog3_vj3_issorted(); extern void ThinkLAP_pog3_vj4_encode_and_vj5_decode(); extern void ThinkLAP_pog3_vj8_grade_better_than(); extern void ThinkLAP_pog3_vj9_modified_median();
 
 /// poglavlje 4:
-extern void ThinkLAP_pog4_osnovne_operacije_stringa(); extern void ThinkLAP_pog4_prosjek_ocjena_studenata(); extern void ThinkLAP_pog4_vj1(); extern void ThinkLAP_pog4_vj2_jos_operacija_nad_stringom(); extern void ThinkLAP_pog4_myCharPtr_klasa_testiranje(); extern void ThinkLAP_pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda(); extern void ThinkLAP_pog4_vj6(); extern void ThinkLAP_pog4_vj7(); extern void ThinkLAP_pog4_vj8(); extern void ThinkLAP_pog4_vj9(); extern void ThinkLAP_pog4_vj10(); 
+extern void ThinkLAP_pog4_osnovne_operacije_stringa(); extern void ThinkLAP_pog4_prosjek_ocjena_studenata(); extern void ThinkLAP_pog4_vj1(); extern void ThinkLAP_pog4_vj2_jos_operacija_nad_stringom(); extern void ThinkLAP_pog4_myCharPtr_klasa_testiranje(); extern void ThinkLAP_pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda(); extern void ThinkLAP_pog4_vj6(); extern void ThinkLAP_pog4_vj7(); extern void ThinkLAP_pog4_vj8(); extern void ThinkLAP_pog4_vj9(); extern void ThinkLAP_pog4_vj10();
 
 /// poglavlje 5:
-extern void ThinkLAP_pog5_vj1(); extern void ThinkLAP_pog5_zad1(); extern void ThinkLAP_pog5_zad2(); extern void ThinkLAP_pog5_zad3_i_4(); extern void ThinkLAP_pog5_zad5(); 
+extern void ThinkLAP_pog5_vj1(); extern void ThinkLAP_pog5_zad1(); extern void ThinkLAP_pog5_zad2(); extern void ThinkLAP_pog5_zad3_i_4(); extern void ThinkLAP_pog5_zad5();
 
 /// poglavlje 6:
 extern void ThinkLAP_pog6_vj1(); extern void ThinkLAP_pog6_vj2(); extern void ThinkLAP_pog6_vj3(); extern void ThinkLAP_pog6_vj4(); extern void ThinkLAP_pog6_vj5(); extern void ThinkLAP_pog6_zad1(); extern void ThinkLAP_pog6_zad2(); extern void ThinkLAP_pog6_zad3(); extern void ThinkLAP_pog6_zad4(); extern void ThinkLAP_pog6_zad5(); extern void ThinkLAP_pog6_zad6();
@@ -125,7 +134,7 @@ void test()
 {
 	void ( *Pfun )( ) = fesb_vj10_1;
 
-	std::vector<void (*)()> vecPointersOnFunctions;
+	std::vector<void ( * )( )> vecPointersOnFunctions;
 	vecPointersOnFunctions.push_back( fesb_vj10_1 );
 	//void* vPtr_naFunkciju = reinterpret_cast<void*>( fesb_vj10_1 );
 
@@ -139,7 +148,7 @@ void test()
 
 std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
 std::array<std::vector<std::string>, popisProjekata.size()> popisImenaFunkcija;
-std::array<std::vector<void (*)()>, popisProjekata.size()> popisFunkcija;
+std::array<std::vector<void ( * )( )>, popisProjekata.size()> popisFunkcija;
 
 void popuniCijeliPopisFunkcija();
 void popuniPopisFunkcijaZa( const enum class projekt proj );
@@ -147,12 +156,13 @@ void popuniPopisFunkcijaZa( const enum class projekt proj );
 ////////////////////////////////////////////////////////////////////////////////////
 
 
+
 void popuniCijeliPopisFunkcija()
 {
-	popuniPopisFunkcijaZa( projekt::CppKnjiga );
-	popuniPopisFunkcijaZa( projekt::FESB );
-	popuniPopisFunkcijaZa( projekt::razno );
-	popuniPopisFunkcijaZa( projekt::ThinkLAP );
+	for( projekt cur = projekt::BEGIN; cur < projekt::END; cur = static_cast<projekt>( static_cast<uint8_t>( cur ) + 1 ) )
+	{
+		popuniPopisFunkcijaZa( cur );
+	}
 }
 
 void popuniPopisFunkcijaZa( const enum class projekt proj )
@@ -255,7 +265,7 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "cj10.zad2" );
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina10::zad1 );
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina10::zad2 );
-		
+
 	}
 	break;
 
@@ -360,7 +370,7 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "fesb_vj10_4" );
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( fesb_vj10_1 );
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( fesb_vj10_2 );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( fesb_vj10_3);
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( fesb_vj10_3 );
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( fesb_vj10_4 );
 
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "--Cjelina11" );
@@ -392,7 +402,7 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_2" );
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_3" );
 		popisImenaFunkcija[static_cast<uint8_t>( proj )].emplace_back( "Practical C++ Programming_pog10_4" );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_1);
+		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_1 );
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_2 );
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_3 );
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Practical_Cpp_Programming_pog10_4 );
