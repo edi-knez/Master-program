@@ -13,12 +13,12 @@
 #include <unordered_map>
 #include <deque>
 
-extern enum class projekt {};
+extern enum class projekt;
 
 extern void popuniCijeliPopisFunkcija();
 
 static std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
-extern std::array<std::vector<std::string>, popisProjekata.size()> popisImenaFunkcija;
+extern std::array<std::unordered_map<std::string, size_t>, popisProjekata.size()> popisImenaFunkcija;
 //extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
 extern std::array<std::vector<void ( * )( )>, popisProjekata.size()> popisFunkcija;
 
@@ -36,10 +36,18 @@ namespace Master
 void automatizirano();
 void rucno();
 
+
 int main( const size_t args, const char* argv[] )
 {
 	Master::init();
-	//popisFunkcija[3][0]();
+
+	auto iterID_funkcijeZaIzvrsit = popisImenaFunkcija[0].find( "cj2.zad4" );
+	if( iterID_funkcijeZaIzvrsit != popisImenaFunkcija[0].end() )
+	{
+		std::cout << "ID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second << '\n';
+		popisFunkcija[0][iterID_funkcijeZaIzvrsit->second]();
+	}
+	//popisFunkcija[2][ID_funkcijeZaIzvrsit->]();
 	//test();
 
 	return EXIT_SUCCESS;
@@ -61,6 +69,7 @@ int main( const size_t args, const char* argv[] )
 			automatizirano();
 			break;
 		case 'r':
+			// otvori GUI
 			rucno();
 			break;
 		default:
@@ -68,45 +77,6 @@ int main( const size_t args, const char* argv[] )
 			exit( EXIT_FAILURE );
 		}
 	}
-	// zadnji zad iz 1. datoteke
-	//zad4();
-
-	// VJEZBE 7
-	//aazad1();
-	//aazad2();
-	//aazad3();
-	//aazad4();
-
-	// VJEZBE 8
-	//abzad1();
-	//abzad2();
-	//abzad3();
-	//abzad4();
-	//abzad5();
-	//abzad6();
-
-	// VJEZBE 9
-	//aczad1();
-	//aczad2();
-	//aczad3();
-
-	// VJEZBE 10
-	//adzad1();
-	//adzad2();
-	//adzad3();
-	//adzad4();
-
-	// VJEZBE 11
-	//aezad1();
-	//aezad2();
-	//aezad3();
-	//aezad4();
-
-	// VJEZBE 12
-	//afzad1();
-	//afzad2();
-	//afzad3();
-	//afzad4();
 
 	return EXIT_SUCCESS;
 }
@@ -144,19 +114,25 @@ void rucno()
 			//<< popisImenaFunkcija[projIdx][idx];
 		}
 		};
+	int tempOdabir;
+	auto resetVarijabluZaOdabir = [ & ]() {
+		tempOdabir = -1;
+		};
+
 
 	ispisiPopisProjekata();
 	//unesi odabir projekta
 	projekt mojegaIzbora;
-	int tempOdabir = -1;
+	resetVarijabluZaOdabir();
 	while( tempOdabir < 0 || tempOdabir > popisProjekata.size() )	std::cin >> tempOdabir;
 	mojegaIzbora = static_cast<projekt>( tempOdabir );
 
 	//ispisi popis funkcija i njihov opis
 	ispisiPopisFunkcijaZa( mojegaIzbora );
 	//ispisi cjeline/poglavlja funkcija, ispisi opis poglavlja?
-	tempOdabir = -1;
+	resetVarijabluZaOdabir();
 	while( tempOdabir < 0 || tempOdabir > popisProjekata.size() )	std::cin >> tempOdabir;
 	//unesi odabir cjeline/poglavlja
+	resetVarijabluZaOdabir();
 	//unesi odabir funkcije za pokrenut
 }

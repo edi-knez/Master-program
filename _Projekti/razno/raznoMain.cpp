@@ -217,7 +217,7 @@ void Practical_Cpp_Programming_pog10_1()
 void Practical_Cpp_Programming_pog10_2()
 {
 	BOLEAN isIstina = divisibleBy10( 10 );
-	std::cout << "Broj: " << 10 << ( ( isIstina == 1 ) ? "je" : "nije" ) << "djeljiv sa 10!\n";
+	std::cout << "Broj: " << 10 << ( ( isIstina == 1 ) ? " je" : " nije" ) << " djeljiv sa 10!\n";
 }
 
 void Practical_Cpp_Programming_pog10_3()
