@@ -1,12 +1,7 @@
 /// Poboljsanja za buducnost:
 /// ---------------------------
-/// koristi prikladniji spremnik: ime projekta - unordered_map koja sadrzi se poglavlja/cjeline - set koji sadrzi vektor sa svim funkcijama
-/// koristi nekakve offsete da bi pojednostavio kod za unos
 /// lazy popunjavanje funkcija / imena funkcija / opisa po potrebi
-/// koristi namespace funkcije za projekte
-/// koristenje MACRO za dodavanje novih funkcija na popis
 /// dodavanje klasa
-#include "PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 #include <iostream>
 #include <array>
@@ -15,6 +10,8 @@
 #include <vector>
 #include <fstream>
 
+
+#include "PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 /// VAZNO:
 // kada dodajes novi projekt, stavi vrijednost od projekt::END na projekt::imeNovogProjekta
 enum class projekt
@@ -37,19 +34,19 @@ struct Zadatak
 	const char* kod; // tijelo funkcije
 };
 
-//#define IME_NAMESPACE IME_NAMESPACE"::"
+
 #define DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( IME_NAMESPACE::ime_funkcije )
 
 //////////////////////////////////////
 /// ////////////////////////////////// template za automatizirat zvanje funkcija umjesto sve rucno napravit u switchu
 //////////////////////////////////////
-extern void fesb_vj10_1();
+extern void FESB::vj10_1();
 void test()
 {
-	void ( *Pfun )( ) = fesb_vj10_1;
+	void ( *Pfun )( ) = FESB::vj10_1;
 
 	std::vector<void ( * )( )> vecPointersOnFunctions;
-	vecPointersOnFunctions.push_back( fesb_vj10_1 );
+	vecPointersOnFunctions.push_back( FESB::vj10_1 );
 	//void* vPtr_naFunkciju = reinterpret_cast<void*>( fesb_vj10_1 );
 
 	//auto funcPtr = fesb_vj10_1;
@@ -97,7 +94,6 @@ void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& c
 	{
 		funID += cjeline.second.size();
 	}
-
 	container.insert( { funcName, funID } );
 }
 

@@ -117,7 +117,6 @@ void vj11_citanjeDatoteke2( FILE* fp );
 void vj11_ispisRijec_po_Rijec( char* tekst );
 
 
-
 /*------------------------------------------------------	FUNKCIJE	--------------------------------------------------------------*/
 
 ////////////////////////////////////////////////////////////////////////////////// vježba 7
@@ -536,6 +535,8 @@ void vj11_ispisRijec_po_Rijec( char* tekst )
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
 
+#include "../../Master program/PotrebneDatotekeIDeklaracijeFunkcija.hpp"
+
 /*
 	1. Napisati program koji unese 3 broja i zatim po želji korisnika (ovisno o tome koje se slovo unese) računa:
 	a) rez = x + y + z
@@ -545,7 +546,7 @@ void vj11_ispisRijec_po_Rijec( char* tekst )
 	Svi rezultati se računaju preko f-ija (jedna za svaki primjer), s tim da je za primjer
 	pod “d” potrebno provjeriti je li izraz ispod korijena > o, i ako nije treba javiti grešku.
 */
-void fesb_vj7_1()
+void FESB::vj7_1()
 {
 	char odabir = { 0 };
 	int rez, x, y, z;
@@ -595,7 +596,7 @@ void fesb_vj7_1()
 	2. Napisati program koji sadrži dvije varijable: globalnu varijablu X i lokalnu varijablu Y(lokalna za f-ju main)
 	i dodijeliti im neke vrijednosti. Iz glavnog programa treba pozvati f-ju koja ispisuje vrijednosti obije varijable.
 	*/
-void fesb_vj7_2()
+void FESB::vj7_2()
 {
 	int Y = 5;
 	vj7_ispisVrijednostiVarijabla( Y );
@@ -605,7 +606,7 @@ void fesb_vj7_2()
 	3. Napraviti program koji u “običnoj” f-ji računa faktorijele. Rezultat je potrebno ispisati u glavnom programu
 	i nije dozvoljeno korištenje globalnih varijabli.
 	*/
-void fesb_vj7_3()
+void FESB::vj7_3()
 {
 	int rezultat = vj7_faktorijele( 3 );
 	printf( "Rezultat 3! = %d\n", rezultat );
@@ -617,7 +618,7 @@ void fesb_vj7_3()
 	Npr. za x = 5, ispisati izračunate rezultate za 5, 10 i 50 ponavljanja. Zašto se program ponaša "čudno" za 50 ponavljanja?
 	*/
 
-void fesb_vj7_4()
+void FESB::vj7_4()
 {
 	printf( "(moj) exp(5): %e\nexp(5): %e\n", vj7_exp( 1, 5 ), exp( 1 ) );
 	printf( "(moj) exp(5): %e\nexp(5): %e\n", vj7_exp( 5, 5 ), exp( 5 ) );
@@ -632,7 +633,7 @@ void fesb_vj7_4()
 	koja uzima tri argumenta (niz, broj elemenata niza i vrijednost koja se traži),
 	a treba vratiti 1 ako broj postoji ili 0 ako broj ne postoji.
 	*/
-void fesb_vj8_1()
+void FESB::vj8_1()
 {
 	const int BROJ_ELEMENATA = 6;
 	int testBroj1 = 4, testBroj2 = 5;
@@ -650,7 +651,7 @@ void fesb_vj8_1()
 	//2. Napisati program koji računa produkt svih elemenata matrice dimenzija 3x3. Program ne smije
 	//sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
 	*/
-void fesb_vj8_2()
+void FESB::vj8_2()
 {
 	const int vel = 3;
 	int matricaA[vel][vel];
@@ -662,7 +663,7 @@ void fesb_vj8_2()
 	//3. Napisati program koji sadrži f-je my_strlen i my_strcpy, koje rade isto što i f-je strlen i strcpy.
 	//Ispravnost funkcija provjeriti usporedbom sa stvarnim f-jama strlen i strcpy.
 	//*/
-void fesb_vj8_3()
+void FESB::vj8_3()
 {
 	const char* a = { "ovojekratkitest" };
 	printf( "my_strlen: %zd\nstrlen: %zd\n", vj8_my_strlen( a ), strlen( a ) );
@@ -679,7 +680,7 @@ void fesb_vj8_3()
 	/*
 	4. Napisati program koji pomoću rekurzivne f-je računa faktorijele.
 	*/
-void fesb_vj8_4()
+void FESB::vj8_4()
 {
 	int n;
 	printf( "Unesi broj: " );
@@ -690,7 +691,7 @@ void fesb_vj8_4()
 	/*
 	5. Napisati program koji korištenjem rekurzivnih funkcija traži minimalni, odnosno maksimalni element niza brojeva.
 	*/
-void fesb_vj8_5()
+void FESB::vj8_5()
 {
 	int niz[5] = { 3, 5, 1, 7, 2 };
 	printf( "najmanji element niza je: %d\n", vj8_rekurzija_minMax_elementNiza( niz, 4 ) );
@@ -703,7 +704,7 @@ void fesb_vj8_5()
 	Dekadski broj, kao i brojevna baza (2, 8, 16) u koju se radi pretvorba se unose u programu, a pretvorbu je potrebno realizirati pomoću
 	rekurzivne f-je. Rezultat se ispisuje u mainu.
 	*/
-void fesb_vj8_6()
+void FESB::vj8_6()
 {
 	unsigned int deka;
 	printf( "Unesi dekadski broj: " );
@@ -723,7 +724,7 @@ void fesb_vj8_6()
 	vremena koristiti strukturu, a zbrajanje i ispis napraviti u odvojenim funkcijama.
 	*/
 
-void fesb_vj9_1()
+void FESB::vj9_1()
 {
 	Vrijeme v1 = { 2, 35, 45 };
 	Vrijeme v2{ 3, 50, 30 };
@@ -736,7 +737,7 @@ void fesb_vj9_1()
 	Za pohranu datuma koristiti strukturu datum (dan, mjesec, godina). Proračun i ispis dana prije/poslije
 	napraviti u funkciji dan_prije / dan_poslije
 	*/
-void fesb_vj9_2()
+void FESB::vj9_2()
 {
 	struct Datum d1 { 2000, 6, 5 };
 	struct Datum d2 { 2003, 3, 31 };
@@ -752,7 +753,7 @@ void fesb_vj9_2()
 	3. Napisati program koji unosi podatke o 5 osoba (ime, prezime, datum i sat rođenja). U programu napraviti
 	funkciju koja pronalazi najstariju osobu, te funkciju koja pronalazi osobu prvu po abecedi.
 	*/
-void fesb_vj9_3()
+void FESB::vj9_3()
 {
 	const int BROJ_OSOBA = 5;
 	struct Osoba osobe[BROJ_OSOBA];
@@ -776,7 +777,7 @@ void fesb_vj9_3()
 	1. Napisati program koji prvo unosi, a zatim ispisuje elemente nekog polja brojeva i polja znakova zajedno s
 	adresom svakog elementa. Sve unose i ispise je potrebno napraviti preko pokazivača i ne smiju se koristiti [].
 	*/
-void fesb_vj10_1()
+void FESB::vj10_1()
 {
 	const int LIMIT_ELEMENATA = 10;
 	int niz[LIMIT_ELEMENATA];
@@ -796,7 +797,7 @@ void fesb_vj10_1()
 	/*
 	2. Napisati program koji u jednoj funkciji računa sumu, produkt i razliku dva broja, a svi se rezultati ispisuju u glavnom programu.
 	*/
-void fesb_vj10_2()
+void FESB::vj10_2()
 {
 	int suma, produkt, razlika;
 	vracanjeVrijednosti_3_varijableUfunkciji( &suma, &produkt, &razlika, 25, 5 );
@@ -807,7 +808,7 @@ void fesb_vj10_2()
 	3. Zadatak s računanjem dana prije i poslije riješiti preko funkcija na način da se sva tri datuma
 	deklariraju u mainu, a unos, i proračun dana prije i poslije u f-ji. Rezultate je potrebno ispisati u mainu, a ne u funkciji.
 	*/
-void fesb_vj10_3()
+void FESB::vj10_3()
 {
 	struct Datum d1 { 2000, 6, 5 };
 	struct Datum d2 { 2003, 3, 31 };
@@ -829,7 +830,7 @@ void fesb_vj10_3()
 	Podstring je potrebno unijeti u f-ji. F-ja za pretraživanje treba vratiti broj
 	ponavljanja. U funkciji za pretraživanje se može koristiti f-ja strncmp iz string.h.
 	*/
-void fesb_vj10_4()
+void FESB::vj10_4()
 {
 	const int BUFFER_LIMIT = 128;
 	char tekst[BUFFER_LIMIT] = { "Kratka prica je oblik kratke narativne proze. Kratke price su sazetije u usporedbi s duzim djelima fikcije, kao sto su novele\0" };
@@ -843,7 +844,7 @@ void fesb_vj10_4()
 	/*
 	1. Napisati program koji kopira jednu datoteku u drugu. Nazivi obije datoteke se unose u glavnom programu, a kopiranje se radi u funkciji.
 	*/
-void fesb_vj11_1()
+void FESB::vj11_1()
 {
 	FILE* fp;
 	FILE* fp_copy{};
@@ -868,7 +869,7 @@ void fesb_vj11_1()
 	/*2. Napisati program koji iz datoteke znak, po znak čita znamenke sve dok ne pročita nešto što nije broj ili
 	se dostigne kraj datoteke. Te znamenke je potrebno pretvoriti u broj koji je bio zapisan u datoteci i ispisati ga na ekran.
 	*/
-void fesb_vj11_2()
+void FESB::vj11_2()
 {
 	FILE* fp;
 	fopen_s( &fp, "vj11_zad2.txt", "r" );
@@ -894,7 +895,7 @@ void fesb_vj11_2()
 	3. Napisati program koji iz datoteke čita maks. 100 podataka o osobama (ime, prezime i godinu rođenja) i
 	traži koliko se osoba zove Ana. Čitanje datoteke i brojenje je potrebno napraviti u odvojenim f-jama.
 	*/
-void fesb_vj11_3()
+void FESB::vj11_3()
 {
 	FILE* fp;
 	fopen_s( &fp, "vj11_zad3.txt", "r" );	// provjeri postoji li
@@ -935,7 +936,7 @@ void fesb_vj11_3()
 	4. Napisati program koji iz datoteke pročita 1 cijeli redak i onda ga riječ po riječ ispisuje na ekran, a svaka je riječ u svom retku.
 	- Datoteke potrebne za ove zadatke je potrebno napraviti u nekom tekstualnom editoru (npr. Notepad, …).
 	*/
-void fesb_vj11_4()
+void FESB::vj11_4()
 {
 	FILE* fp;
 	fopen_s( &fp, "vj11_zad4.txt", "r" );
@@ -956,7 +957,7 @@ void fesb_vj11_4()
 	1. Napisati program koji unosi bodove kolokvija svih studenata i računa prosječni broj bodova, nakon što
 	su ocjene unesene, uz uvjet da unaprijed nije poznato koliko je bilo studenata.
 	*/
-void fesb_vj12_1()
+void FESB::vj12_1()
 {
 	int brStudenata = 0;
 	int sumaBodova = 0;
@@ -998,7 +999,7 @@ void fesb_vj12_1()
 	2. Napisati program koji neki dekadski broj pretvara u string koji se sastoji od znamenki tog broja. String
 	se dinamički alocira ovisno o tome koliko znamenki ima broj.
 	*/
-void fesb_vj12_2()
+void FESB::vj12_2()
 {
 	int broj;
 	printf( "Unesi broj: " );
@@ -1028,7 +1029,7 @@ void fesb_vj12_2()
 	3. Napisati program koji čita imena N (unosi se u programu) studenata iz datoteke, a zatim za svakog studenta
 	pita koliko je bodova dobio iz svakog od kolokvija (ukupno 3) i zatim računa ukupni broj bodova i ocjenu, prema tablici:
 	*/
-void fesb_vj12_3()
+void FESB::vj12_3()
 {
 	FILE* fp;
 	fopen_s( &fp, "vj12_zad3_imena.txt", "w" );
@@ -1099,7 +1100,7 @@ void fesb_vj12_3()
 	4. Napisati program koji pomoću nizova simulira rad reda (podaci se skidaju s početka, a stižu na kraj).
 	Red mora biti cirkularan, a dimenzija se unosi u programu. U zadatku koristiti pokazivače na prvi i zadnji element u redu.
 	*/
-void fesb_vj12_4()
+void FESB::vj12_4()
 {
 	int n;
 	printf( "Unesi velicinu nizova: " );

@@ -22,24 +22,25 @@ namespace StringLinkedList {
 //////////////////////////////////////
 
 
+#include "../../Master program/PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 //* int main()
 //{
-void ThinkLAP_printSidewaysTriangle()
+void ThinkLAP::printSidewaysTriangle()
 {
 	Poglavlje2 pog2;
 	pog2.printSidewaysTriangle();
 	pog2.printSidewaysTriangleRec();
 }
 
-void ThinkLAP_luhnFormulaPrecomputed_and_Expression()
+void ThinkLAP::luhnFormulaPrecomputed_and_Expression()
 {
 	Poglavlje2 pog2;
 	pog2.luhnFormulaPrecomputed();
 	pog2.luhnFormulaExpression();
 }
 
-void ThinkLAP_decodeMessage()
+void ThinkLAP::decodeMessage()
 {
 	Poglavlje2 pog2;
 	pog2.decodeMessage();
@@ -56,40 +57,40 @@ void ThinkLAP_decodeMessage()
 
 
 	// vjezbe
-void ThinkLAP_pog2vj1()
+void ThinkLAP::pog2vj1()
 {
 	Poglavlje2 pog2;
 	pog2.vj1();
 }
-void ThinkLAP_pog2vj2()
+void ThinkLAP::pog2vj2()
 {
 	Poglavlje2 pog2;
 	pog2.vj2();
 }
-void ThinkLAP_pog2vj2version2()
+void ThinkLAP::pog2vj2version2()
 {
 	Poglavlje2 pog2;
 	pog2.vj2_version2();
 }
-void ThinkLAP_pog2vj3()
+void ThinkLAP::pog2vj3()
 {
 	Poglavlje2 pog2;
 	//// input: 9780306406157 (978-0-306-40615-7)
 	pog2.vj3();
 }
-void ThinkLAP_pog2vj5_check()
+void ThinkLAP::pog2vj5_check()
 {
 	Poglavlje2 pog2;
 	pog2.vj5_check();
 	//// input: 978030640615 (978-0-306-40615-?)
 }
-void ThinkLAP_pog2vj5_generate()
+void ThinkLAP::pog2vj5_generate()
 {
 	Poglavlje2 pog2;
 	pog2.vj5_generate();
 }
 
-void ThinkLAP_pog2vj6()
+void ThinkLAP::pog2vj6()
 {
 	try
 	{
@@ -105,14 +106,14 @@ void ThinkLAP_pog2vj6()
 		std::cout << "--GRESKA!--\n";
 	}
 }
-void ThinkLAP_pog2vj6_2()
+void ThinkLAP::pog2vj6_2()
 {
 	Poglavlje2 pog2;
 	int bin = pog2.vj6_dec_to_bin();
 	pog2.vj6_ispisi_bin( bin );
 	////std::cout << bin;
 }
-void ThinkLAP_pog2vj7()
+void ThinkLAP::pog2vj7()
 {
 	struct testCase
 	{							// b									d				h
@@ -125,14 +126,14 @@ void ThinkLAP_pog2vj7()
 	Poglavlje2 pog2;
 	pog2.vj7_pretvorba_sa_hex();
 }
-void ThinkLAP_pog2vj8()
+void ThinkLAP::pog2vj8()
 {
 	Poglavlje2 pog2;
 ////--------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>(neg brojevi)
 	pog2.vj8_pretvorba_sve_baze();
 }
 
-void ThinkLAP_pog2vj9()
+void ThinkLAP::pog2vj9()
 {
 	//test cases :
 	//rE,
@@ -150,31 +151,31 @@ void ThinkLAP_pog2vj9()
 ///////////////////////////////////////////////////////////////////////////
 /// Poglavlje 3:
 
-void ThinkLAP_pog3_finding_the_mode()
+void ThinkLAP::pog3_finding_the_mode()
 {
 	Poglavlje3 pog3;
 	pog3.finding_the_mode();
 }
 
-void ThinkLAP_pog3_vj1_sorting()
+void ThinkLAP::pog3_vj1_sorting()
 {
 	Poglavlje3 pog3;
 	pog3.vj1_sorting();
 }
 
-void ThinkLAP_pog3_highestSales_zadano()
+void ThinkLAP::pog3_highestSales_zadano()
 {
 	Poglavlje3 pog3;
 	pog3.highestSales_zadano();
 }
 
-void ThinkLAP_pog3_vj2_median()
+void ThinkLAP::pog3_vj2_median()
 {
 	Poglavlje3 pog3;
 	pog3.vj2_median();
 }
 
-void ThinkLAP_pog3_vj3_issorted()
+void ThinkLAP::pog3_vj3_issorted()
 {
 	Poglavlje3 pog3;
 	std::array<int, 20> niz1{ 5865, 5456, 3983, 6464, 9957, 4785, 3875, 3838, 4959, 1122, 7766, 2534, 23, 55, 67, 99, 265, 376, 232, 223 };
@@ -187,7 +188,7 @@ void ThinkLAP_pog3_vj3_issorted()
 	std::cout << ( ( pog3.vj3_issorted( niz2 ) == true ) ? "sortiran\n" : "nije sortiran\n" );
 }
 
-void ThinkLAP_pog3_vj4_encode_and_vj5_decode()
+void ThinkLAP::pog3_vj4_encode_and_vj5_decode()
 {
 	try
 	{
@@ -219,7 +220,7 @@ void ThinkLAP_pog3_vj4_encode_and_vj5_decode()
 }
 
 /////////////////////////////////////////////////////////////////////////////////////// TODO: PROVJERI da li daje tocne rezultate
-void ThinkLAP_pog3_vj8_grade_better_than()
+void ThinkLAP::pog3_vj8_grade_better_than()
 {
 	Poglavlje3 pog3;
 	const auto rezultati = pog3.vj8_grade_better_than();
@@ -229,7 +230,7 @@ void ThinkLAP_pog3_vj8_grade_better_than()
 		<< "75%: " << static_cast<uint8_t>( rezultati[2] != UINT8_MAX ? ( rezultati[2] + 'A' ) : '\\' ) << '\n';
 }
 
-void ThinkLAP_pog3_vj9_modified_median()
+void ThinkLAP::pog3_vj9_modified_median()
 {
 	Poglavlje3 pog3;
 	pog3.vj9_modified_median();
@@ -238,7 +239,7 @@ void ThinkLAP_pog3_vj9_modified_median()
 //////////////////////////////////////////////
 /// poglavlje 4:
 
-void ThinkLAP_pog4_osnovne_operacije_stringa()
+void ThinkLAP::pog4_osnovne_operacije_stringa()
 {
 	Poglavlje4 pog4;
 	const char* string = "";
@@ -261,7 +262,7 @@ void ThinkLAP_pog4_osnovne_operacije_stringa()
 		std::cout << pog4.characterAt( string, data.first ) << '\n';
 	delete[] string;
 }
-void ThinkLAP_pog4_prosjek_ocjena_studenata()
+void ThinkLAP::pog4_prosjek_ocjena_studenata()
 {
 	Poglavlje4 pog4;
 	Poglavlje4::StudentRecord* record = nullptr;
@@ -278,13 +279,13 @@ void ThinkLAP_pog4_prosjek_ocjena_studenata()
 	delete record;
 }
 
-void ThinkLAP_pog4_vj1()
+void ThinkLAP::pog4_vj1()
 {
 	Poglavlje4 pog4;
 	pog4.vj1_(); ///////////////////////////////////////////////////////////////////////////////////////// TODO	pogledaj za zadatak koji se moze rjesit sa dinamicnom memorijom
 }
 
-void ThinkLAP_pog4_vj2_jos_operacija_nad_stringom()
+void ThinkLAP::pog4_vj2_jos_operacija_nad_stringom()
 {
 	Poglavlje4 pog4;
 	const char* test1 = "\0";
@@ -332,7 +333,7 @@ void ThinkLAP_pog4_vj2_jos_operacija_nad_stringom()
 //////delete[] test1;
 ////////////////////////
 
-void ThinkLAP_pog4_myCharPtr_klasa_testiranje()
+void ThinkLAP::pog4_myCharPtr_klasa_testiranje()
 {
 	Poglavlje4 pog4;
 	Poglavlje4::myCharptr string1( 12, "Konstruktor!" ), string2( 14, "Konstruktor2!a" );
@@ -355,7 +356,7 @@ void ThinkLAP_pog4_myCharPtr_klasa_testiranje()
 		std::cout << pog4.vj4_characterAt( string1, i ) << '\t' << pog4.vj4_characterAt( string2, i ) << '\t' << pog4.vj4_characterAt( string3, i ) << '\t' << pog4.vj4_characterAt( string4, i ) << '\n' << '\n';
 }
 
-void ThinkLAP_pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda()
+void ThinkLAP::pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda()
 {
 	Poglavlje4 pog4;
 	Poglavlje4::StudentRecord* record = nullptr;
@@ -401,7 +402,7 @@ StringLLAdv testVal2()
 	return advNode2;
 }
 
-void ThinkLAP_pog4_vj6()
+void ThinkLAP::pog4_vj6()
 {
 	struct StringLLAdv advNode = testVal1();
 	std::cout << "nakon append advNode:\n";
@@ -410,7 +411,7 @@ void ThinkLAP_pog4_vj6()
 	StringLinkedList::del( advNode );
 }
 
-void ThinkLAP_pog4_vj7()
+void ThinkLAP::pog4_vj7()
 {
 	StringLLAdv advNode = testVal1();
 	StringLLAdv advNode2 = testVal2();
@@ -422,7 +423,7 @@ void ThinkLAP_pog4_vj7()
 	StringLinkedList::del( advNode2 );
 }
 
-void ThinkLAP_pog4_vj8()
+void ThinkLAP::pog4_vj8()
 {
 	StringLLAdv advNode = testVal1();
 	StringLLAdv advNode2 = testVal2();
@@ -448,7 +449,7 @@ void ThinkLAP_pog4_vj8()
 	StringLinkedList::del( advNode2 );
 }
 
-void ThinkLAP_pog4_vj9()
+void ThinkLAP::pog4_vj9()
 {
 //inp: 12233344445555566666677777778888888899999999910101010101010101010
 	std::cout << "Unesi bilo koji pozitivan broj: ";
@@ -459,7 +460,7 @@ void ThinkLAP_pog4_vj9()
 	StringLinkedList::del( advNode );
 }
 
-void ThinkLAP_pog4_vj10()
+void ThinkLAP::pog4_vj10()
 {
 	std::cout << "Unesi bilo koji pozitivan broj: ";
 	StringLLAdv advNode = StringLinkedList::vj9_intToList();
@@ -477,31 +478,31 @@ void ThinkLAP_pog4_vj10()
 //////////////////////////////////////
 /// poglavlje5:
 
-void ThinkLAP_pog5_vj1()
+void ThinkLAP::pog5_vj1()
 {
 	Poglavlje5 pog5;
 	pog5.vj_studentRecords();
 }
 
-void ThinkLAP_pog5_zad1()
+void ThinkLAP::pog5_zad1()
 {
 	Poglavlje5 pog5;
 	pog5.zad1_printCarInfo();
 }
 
-void ThinkLAP_pog5_zad2()
+void ThinkLAP::pog5_zad2()
 {
 	Poglavlje5 pog5;
 	pog5.zad2_printCarsAge();
 }
 
-void ThinkLAP_pog5_zad3_i_4()
+void ThinkLAP::pog5_zad3_i_4()
 {
 	Poglavlje5 pog5;
 	pog5.zad3i4_myCharPtr_class();
 }
 
-void ThinkLAP_pog5_zad5()
+void ThinkLAP::pog5_zad5()
 {
 	Poglavlje5 pog5;
 	pog5.zad5_remove();
@@ -517,67 +518,67 @@ void ThinkLAP_pog5_zad5()
 ///////////////////////////////////////////
 /// poglavlje 6:
 
-void ThinkLAP_pog6_vj1()
+void ThinkLAP::pog6_vj1()
 {
 	Poglavlje6 pog6;
 	pog6.vj1_parrots();
 }
 
-void ThinkLAP_pog6_vj2()
+void ThinkLAP::pog6_vj2()
 {
 	Poglavlje6 pog6;
 	pog6.vj2_salary();
 }
 
-void ThinkLAP_pog6_vj3()
+void ThinkLAP::pog6_vj3()
 {
 	Poglavlje6 pog6;
 	pog6.vj3_sum();
 }
 
-void ThinkLAP_pog6_vj4()
+void ThinkLAP::pog6_vj4()
 {
 	Poglavlje6 pog6;
 	pog6.vj4_count_negative_numbers();
 }
 
-void ThinkLAP_pog6_vj5()
+void ThinkLAP::pog6_vj5()
 {
 	Poglavlje6 pog6;
 	pog6.vj5_biggest_num_tree();
 }
 
-void ThinkLAP_pog6_zad1()
+void ThinkLAP::pog6_zad1()
 {
 	Poglavlje6 pog6;
 	pog6.zad1_sum_of_positive_numbers();
 }
 
-void ThinkLAP_pog6_zad2()
+void ThinkLAP::pog6_zad2()
 {
 	Poglavlje6 pog6;
 	pog6.zad2_binary_str_even_odd();
 }
 
-void ThinkLAP_pog6_zad3()
+void ThinkLAP::pog6_zad3()
 {
 	Poglavlje6 pog6;
 	pog6.zad3_target_appeard();
 }
 
-void ThinkLAP_pog6_zad4()
+void ThinkLAP::pog6_zad4()
 {
 	Poglavlje6 pog6;
 	pog6.zad4_tree_is_heap();
 }
 
-void ThinkLAP_pog6_zad5()
+void ThinkLAP::pog6_zad5()
 {
 	Poglavlje6 pog6;
 	pog6.zad5_is_binary_search_tree();
 }
 
-void ThinkLAP_pog6_zad6()
+void ThinkLAP::pog6_zad6()
 {
 	Poglavlje6 pog6;
 	pog6.zad6_insert_value_in_binary_search_tree();

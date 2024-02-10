@@ -8,6 +8,8 @@
 #include <conio.h>
 
 
+#include "../../Master program/PotrebneDatotekeIDeklaracijeFunkcija.hpp"
+using namespace FESB;
 //int main()
 //{
 	/* -------------------------------------------------------  Vježba 1: --------------------------------------------------- */
@@ -15,7 +17,7 @@
 	1. Napisati program koji definira 4 varijable(char, int, float, double).Ispisati sve četiri varijable,
 	zajedno s njihovim adresama i izračunati koliko su bajtova u memoriji sve te varijable zajedno zauzele.
 	*/
-void fesb_vj1_1()
+void FESB::vj1_1()
 {
 	char a = 'a';
 	int b = 5;
@@ -35,7 +37,7 @@ void fesb_vj1_1()
 	a treću izraču nati kao sumu prve dvije. Ispisati sva tri znaka kao znak i kao ASCII vrijednosti.
 	*/
 
-void fesb_vj1_2()
+void FESB::vj1_2()
 {
 	char a = '0', b = '9', c = a + b;
 	printf( "a: %c b: %c c: %c\n", a, b, c );
@@ -45,7 +47,7 @@ void fesb_vj1_2()
 	/*3.
 	Napisati program koji računa sumu, produkt, razliku i kvocijent dva cijela broja.Ispisati sve rezultate na ekran.
 	*/
-void fesb_vj1_3()
+void FESB::vj1_3()
 {
 	int a = 15, b = 5;
 	printf( "suma: %d\n", a + b );
@@ -57,7 +59,7 @@ void fesb_vj1_3()
 	/*
 	4. Napisati program koji računa sumu prvih 50 brojeva.
 	*/
-void fesb_vj1_4()
+void FESB::vj1_4()
 {
 	int suma = 0;
 	for( int i = 0; i < 50; ++i )
@@ -73,7 +75,7 @@ void fesb_vj1_4()
 	B B
 	A
 	U programu je dozvoljeno koristiti najviše 2 printf() naredbe.*/
-void fesb_vj1_5()
+void FESB::vj1_5()
 {
 	const int SIRINA = 5;
 	const int VISINA = 5;
@@ -94,7 +96,7 @@ void fesb_vj1_5()
 	1. Napisati program koji pretvara uneseni realni broj u cijeli na način da ako je prva znamenka iza decimalne točke >= 5
 	zaokružuje se na prvi veći. Program mora raditi i za pozitivne i za negativne brojeve.
 	*/
-void fesb_vj2_1()
+void FESB::vj2_1()
 {
 	int cijeliBr;
 	float realniBr;
@@ -107,7 +109,7 @@ void fesb_vj2_1()
 	/*
 	2. Napisati program koji unosi 10 brojeva ali na ekran ispisuje samo neparne. Broj se ispisuje čim je unesen.
 	*/
-void fesb_vj2_2()
+void FESB::vj2_2()
 {
 	const int INPUT_LIMIT = 10;
 	int broj, brojac = 0;
@@ -125,7 +127,7 @@ void fesb_vj2_2()
 	/*
 	3. Napisati program koji unosi 10 brojeva i računa koliko ih je djeljivo s 3.
 	*/
-void fesb_vj2_3()
+void FESB::vj2_3()
 {
 	const int INPUT_LIMIT = 10;
 	int broj, brojac = 0, brojacNeparan = 0;
@@ -146,7 +148,7 @@ void fesb_vj2_3()
 4. Napisati program koji unosi 10 znakova i računa koliko ih je uneseno: a) malim slovima;
 																		 b) koliko ih je = H.
 */
-void fesb_vj2_4()
+void FESB::vj2_4()
 {
 	const int INPUT_LIMIT = 10;
 	char slovo;
@@ -173,7 +175,7 @@ void fesb_vj2_4()
 5. Napisati program koji unosi bodove kolokvija za 5 učenika (između 0 i 100) te računa koliko je učenika prošlo (više od 50)
 i koliki je prosječni broj bodova.
 */
-void fesb_vj2_5()
+void FESB::vj2_5()
 {
 	const int BROJ_UCENIKA = 5;
 	int bodovi, sumaBodova = 0, prolaz = 0;
@@ -181,7 +183,7 @@ void fesb_vj2_5()
 	{
 		printf( "Unesi bodove %d. ucenika\n", i + 1 );
 		scanf_s( "%d", &bodovi );
-		if( bodovi > 50 )	// OPTIMIZACIJA: branchless increment
+		if( bodovi > 50 )	// TODO: OPTIMIZACIJA: branchless increment
 			prolaz++;
 		sumaBodova += bodovi;
 	}
@@ -194,7 +196,7 @@ void fesb_vj2_5()
 1. Napisati program koji računa aritmetičku sumu brojeva. Nije unaprijed poznato koliko će se brojeva unijeti,
 program prestaje s radom kad se unese 0, ali nju netreba računati za prosjek.
 */
-void fesb_vj3_1()
+void FESB::vj3_1()
 {
 	int broj, suma = 0, brojac = 0;
 	printf( "Unesi brojeve razlicite od 0 za daljnji unos\n" );
@@ -220,7 +222,7 @@ void fesb_vj3_1()
 posebno i to u obrnutom redoslijedu.
 Npr. broj 4893 je potrebno ispisati kao 3 9 8 4
 */
-void fesb_vj3_2()
+void FESB::vj3_2()
 {
 	int broj, reverseBroj = 0;
 	printf( "Unesi broj: " );
@@ -239,7 +241,7 @@ void fesb_vj3_2()
 Program svaki put treba javiti je li uneseni broj > ili < od generiranog. Pogađanje traje sve dok se broj ne pogodi.
 Potrebno je ispisati iz kojeg je puta broj pogođen.
 */
-void fesb_vj3_3()
+void FESB::vj3_3()
 {
 	int generiraniBroj, korisnikBroj, pokusaj = 0;
 	srand( (unsigned) time( NULL ) );
@@ -264,7 +266,7 @@ void fesb_vj3_3()
 /*
 4. Napisati program koji ispisuje sve primitivne brojeve od 0 – 100.
 */
-void fesb_vj3_4()
+void FESB::vj3_4()
 {
 	//for( int i = 1; i <= 100; ++i )
 	//{
@@ -287,7 +289,7 @@ void fesb_vj3_4()
 	1. Napisati program koji s tastature unosi dva cijela broja i matematičku operaciju
 	(+, -, * ili /). Ovisno o operaciji je potrebno izračunati i ispisati rezultat.
 	*/
-void fesb_vj4_1()
+void FESB::vj4_1()
 {
 	int broj, broj2;
 	char operacija = 0;
@@ -341,7 +343,7 @@ void fesb_vj4_1()
 ako se unese krivi broj unos se ponavlja. Kada su ocjene unesene program
 računa histogram ocjena u 5 grupa (koliko je bilo kojih ocjena) i ispisuje ga na ekran.
 */
-void fesb_vj4_2()
+void FESB::vj4_2()
 {
 	const int INPUT_LIMIT = 20;
 	int ocjeneKolokvija[20];
@@ -370,7 +372,7 @@ c) sortira niz od najmanjeg prema najvećem elementu.
 Napomena: najmanji i najveći element niza se ne smiju samo ispisati nakon
 sortiranja. Potrebno ih je pronaći prije sortiranja.
 */
-void fesb_vj4_3()
+void FESB::vj4_3()
 {
 	const int BROJ_ELEMENATA = 10;
 	int niz[BROJ_ELEMENATA];
@@ -415,7 +417,7 @@ void fesb_vj4_3()
 1. Napravi program koji uzima znakove s tastature (sa ili bez prikaza tih znakova na
 ekranu) sve dok se ne unese znak ESC. Tada se izlazi iz programa.
 */
-void fesb_vj5_1()
+void FESB::vj5_1()
 {
 	char znak = 0;
 	while( znak != 27 )
@@ -425,7 +427,7 @@ void fesb_vj5_1()
 /*
 2. Napravit program koji iz unesenog stringa stvara novi (u novoj varijabli), na način da iz prvog prebaci sve znakove osim brojeva.
 */
-void fesb_vj5_2()
+void FESB::vj5_2()
 {
 	const int STRING_LIMIT = 20;
 	char str1[STRING_LIMIT] = { 0 };
@@ -447,7 +449,7 @@ a) U stringu trebaju ostati samo slova.  -> (pise "samo slova" ali nemoze se ost
 b) Iz tog stringa treba izbaciti sve samoglasnike (velika i mala slova).
 c) Sva velika slova pretvoriti u mala i obrnuto.
 */
-void fesb_vj5_3()
+void FESB::vj5_3()
 {
 	const int STRING_LIMIT = 20;
 	char str[STRING_LIMIT] = { 0 };
@@ -480,7 +482,7 @@ void fesb_vj5_3()
 4. Napravi program koji unesenu dekadsku vrijednost pretvara u heksadecimalnu, s tim da je znamenke potrebno
 ispisati svaku u svom redu i to u pravom rasporedu.
 */
-void fesb_vj5_4()
+void FESB::vj5_4()
 {
 	unsigned int deka;
 	char heksa[9] = { '0', '0', '0', '0', '0', '0', '0', '0', '\0' };
@@ -512,7 +514,7 @@ void fesb_vj5_4()
 1. Napisati program koji unosi jednu matricu (A dimenzija 3x3) i iz te matrice
 računa matricu B = 5*A. Matricu B je potrebno ispisati.
 */
-void fesb_vj6_1()
+void FESB::vj6_1()
 {
 	int A[3][3], B[3][3];
 	int broj;
@@ -541,7 +543,7 @@ void fesb_vj6_1()
 /*
 2. Napisati program koji unosi jednu matricu (A dimenzija 3x3) i iz te matrice stvara matricu B = AT. Matricu B je potrebno ispisati.
 */
-void fesb_vj6_2()
+void FESB::vj6_2()
 {
 	int A[3][3], B[3][3];
 	int broj;
@@ -578,7 +580,7 @@ void fesb_vj6_2()
 3. Napisati program koji unosi dvije matrice (A i B dimenzija 3x3), a zatim računa matricu C = A + B i
 matricu D = A * B. Matrice C i D je potrebno ispisati.
 */
-void fesb_vj6_3()
+void FESB::vj6_3()
 {
 	int A[3][3], B[3][3], C[3][3], D[3][3] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
 	int broj;
@@ -643,7 +645,7 @@ c) sortira imena po abecedi i ispisuje ih.
 Pri tome rezultati pretraživanja ne smiju razlikovati velika i mala slova, tj. bez obzira je li ime uneseno
 velikim ili malim slovom treba biti na ispravnom mjestu po abecedi.
 */
-void fesb_vj6_4()
+void FESB::vj6_4()
 {
 	const unsigned int BROJ_LJUDI = 5;
 	const unsigned int NAME_LIMIT = 20;

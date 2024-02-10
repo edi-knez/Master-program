@@ -46,6 +46,8 @@
 #include <climits>
 
 
+#include "../../Master program/PotrebneDatotekeIDeklaracijeFunkcija.hpp"
+
 /*
 	Zad 1:
 */
@@ -208,19 +210,22 @@ void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDa
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void Practical_Cpp_Programming_pog10_1()
+
+
+
+void PracticalCppProg::pog10_1()
 {
 	BOLEAN b = TRUE;
 	if( b )  	std::cout << "TEST MACRO\n";
 }
 
-void Practical_Cpp_Programming_pog10_2()
+void PracticalCppProg::pog10_2()
 {
 	BOLEAN isIstina = divisibleBy10( 10 );
 	std::cout << "Broj: " << 10 << ( ( isIstina == 1 ) ? " je" : " nije" ) << " djeljiv sa 10!\n";
 }
 
-void Practical_Cpp_Programming_pog10_3()
+void PracticalCppProg::pog10_3()
 {
 	std::cout << is_digit( 5 );
 	std::cout << is_hex( 5 );
@@ -229,7 +234,7 @@ void Practical_Cpp_Programming_pog10_3()
 	std::cout << is_hex( 'F' );
 }
 
-void Practical_Cpp_Programming_pog10_4()
+void PracticalCppProg::pog10_4()
 {
 	int a = 5, b = 14, temp = 0;
 	std::cout << "swap varijabli putem MACRO:\n";
@@ -240,7 +245,7 @@ void Practical_Cpp_Programming_pog10_4()
 }
 
 
-void Practical_Cpp_Programming_pog11_1()
+void PracticalCppProg::pog11_1()
 {
 	puts( "PRIJE:" );
 	crtaj_grid();
@@ -253,7 +258,7 @@ void Practical_Cpp_Programming_pog11_1()
 	crtaj_grid();
 }
 
-void Practical_Cpp_Programming_pog11_2()
+void PracticalCppProg::pog11_2()
 {
 	puts( "PRIJE:" );
 	crtaj_grid();
@@ -265,7 +270,7 @@ void Practical_Cpp_Programming_pog11_2()
 	crtaj_grid();
 }
 
-void Practical_Cpp_Programming_pog11_3()
+void PracticalCppProg::pog11_3()
 {
 	std::cout << numOfBits( 5 ) << "\n"
 		<< numOfBits( 10 ) << "\n"
@@ -274,7 +279,7 @@ void Practical_Cpp_Programming_pog11_3()
 		<< numOfBits( -15 ) << "\n";
 }
 
-void Practical_Cpp_Programming_pog11_4()
+void PracticalCppProg::pog11_4()
 {
 	int broj;
 	int temp;
@@ -290,7 +295,7 @@ void Practical_Cpp_Programming_pog11_4()
 	std::cout << postavljeniBitoviBroja << "\n";
 }
 
-void Practical_Cpp_Programming_pog11_5()
+void PracticalCppProg::pog11_5()
 {
 	int broj;
 	std::cin >> broj;
@@ -308,7 +313,7 @@ void Practical_Cpp_Programming_pog11_5()
 	}
 }
 
-void Practical_Cpp_Programming_pog11_6()
+void PracticalCppProg::pog11_6()
 {
 	char broj = 54;
 	char result = shiftBitsLeft( broj );
@@ -336,7 +341,7 @@ void Practical_Cpp_Programming_pog11_6()
 }
 
 
-void Practical_Cpp_Programming_pog13_1()
+void PracticalCppProg::pog13_1()
 {
 	Parsity primjer;
 	primjer.put();
@@ -345,7 +350,7 @@ void Practical_Cpp_Programming_pog13_1()
 	std::cout << primjer.test() << "\n";
 }
 
-void Practical_Cpp_Programming_pog13_2()
+void PracticalCppProg::pog13_2()
 {
 	Checkbook book1;
 	book1.addItem( 5 );
@@ -354,7 +359,7 @@ void Practical_Cpp_Programming_pog13_2()
 	std::cout << book1.total();
 }
 
-void Practical_Cpp_Programming_pog13_3()
+void PracticalCppProg::pog13_3()
 {
 	Queue q;
 	q.addItem( 1 );
@@ -366,7 +371,7 @@ void Practical_Cpp_Programming_pog13_3()
 	std::cout << q.get() << "\n";
 }
 
-void Practical_Cpp_Programming_pog13_4()
+void PracticalCppProg::pog13_4()
 {
 	Small_set small_set;
 	small_set.set( 3 );
@@ -381,7 +386,7 @@ void Practical_Cpp_Programming_pog13_4()
 	std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
 }
 
-void Practical_Cpp_Programming_pog13_5()
+void PracticalCppProg::pog13_5()
 {
   ////todo: FlachCards klasa
 	std::vector<FlashCards::single_card> cards = {	// dodavanje kartica dinamicki
@@ -397,7 +402,7 @@ void Practical_Cpp_Programming_pog13_5()
 }
 
 
-void Practical_Cpp_Programming_pog14_1()
+void PracticalCppProg::pog14_1()
 {
 	ShareFile1 test;
 	std::cout << "ShareFile1: " << is_using_file1() << "\n";
@@ -419,7 +424,7 @@ void Practical_Cpp_Programming_pog14_1()
 	std::cout << "ShareFile1: " << is_using_file1() << "\n";
 }
 
-void Practical_Cpp_Programming_pog14_2()
+void PracticalCppProg::pog14_2()
 {
 	std::array<Pigs, 5> pigs;
 	std::array<Dogs, 2> dogs;
@@ -427,7 +432,7 @@ void Practical_Cpp_Programming_pog14_2()
 	std::cout << ukupanBrojZivotinja() << "\n";
 }
 
-void Practical_Cpp_Programming_pog14_3()
+void PracticalCppProg::pog14_3()
 {
 	std::array<Stack_Instance, 5> stacks;
 	std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
@@ -440,7 +445,7 @@ void Practical_Cpp_Programming_pog14_3()
 		<< '\n';
 }
 
-void Practical_Cpp_Programming_pog14_4()
+void PracticalCppProg::pog14_4()
 {
   //227. stranica
 	char ime[] = "Dogs.hpp";
@@ -471,7 +476,7 @@ void Practical_Cpp_Programming_pog14_4()
 }
 
   //254. stranica
-void Practical_Cpp_Programming_pog15_1()
+void PracticalCppProg::pog15_1()
 {
 	std::array<int, 15> niz;
 	niz.fill( 15 );
@@ -484,7 +489,7 @@ void Practical_Cpp_Programming_pog15_1()
 	std::cout << "\n";
 }
 
-void Practical_Cpp_Programming_pog15_2()
+void PracticalCppProg::pog15_2()
 {
 	const char str1[] = " \ttest ";
 	const char str2[] = "  \t ";
@@ -501,19 +506,19 @@ void Practical_Cpp_Programming_pog15_2()
 }
 
 
-void Practical_Cpp_Programming_pog16_1()
+void PracticalCppProg::pog16_1()
 {
 	File_16C f1( "linije.dat" );
 	std::cout << "broj linija: " << f1.numOfLinesInFile() << " u datoteci: \"" << f1.getName() << "\"\n";
 }
 
-void Practical_Cpp_Programming_pog16_2()
+void PracticalCppProg::pog16_2()
 {
 	File_16C f2( "linija.dat" );
 	f2.copy_file( "copy-linija.dat" );
 }
 
-void Practical_Cpp_Programming_pog16_3()
+void PracticalCppProg::pog16_3()
 {
 	File_16C f3;
 	std::fstream lista( "lista.dat", std::ios::out );
@@ -541,7 +546,7 @@ void Practical_Cpp_Programming_pog16_3()
 	ostali.close();
 }
 
-void Practical_Cpp_Programming_pog16_4()
+void PracticalCppProg::pog16_4()
 {
 	File_16C f4( "File_16C remove high bit.txt" );
 	typedef const unsigned char cuc;
@@ -552,7 +557,7 @@ void Practical_Cpp_Programming_pog16_4()
 	f4.removeHighBit();
 }
 
-void Practical_Cpp_Programming_pog16_5()
+void PracticalCppProg::pog16_5()
 {
 	File_16C f5( "pretvorba ASCI u bin.dat" );
 	std::cout << "PRIJE: ";
@@ -569,7 +574,7 @@ void Practical_Cpp_Programming_pog16_5()
 		std::cout << "Nista nece da radi\n";
 }
 
-void Practical_Cpp_Programming_pog16_6()
+void PracticalCppProg::pog16_6()
 {
 	File_16C f6( "osobe.inf" );
 	f6.read_info_o_osobi();
@@ -579,7 +584,7 @@ void Practical_Cpp_Programming_pog16_6()
 
 // 317. stranica
 ////////////////////////////////////////////////////////////////////////
-void Practical_Cpp_Programming_pog17_2__1()
+void PracticalCppProg::pog17_2__1()
 {
 	std::cout << "2x2:\n";
 	std::array<std::array<int, 2>, 2> matrix = { { {{ 2, 1 }},
@@ -594,7 +599,7 @@ void Practical_Cpp_Programming_pog17_2__1()
 	}
 }
 
-void Practical_Cpp_Programming_pog17_2__2()
+void PracticalCppProg::pog17_2__2()
 {
 	std::array<std::array<int, 3>, 3> matrix = { {{{ 2, 1, 1 }},
 											   {{ 2, 2, 2 }},
@@ -609,7 +614,7 @@ void Practical_Cpp_Programming_pog17_2__2()
 	}
 }
 
-void Practical_Cpp_Programming_pog17_2__3()
+void PracticalCppProg::pog17_2__3()
 {
 	std::cout << "vec2x2:\n";
 	size_t x = 3;
@@ -628,7 +633,7 @@ void Practical_Cpp_Programming_pog17_2__3()
 	}
 }
 
-void Practical_Cpp_Programming_pog17_5()
+void PracticalCppProg::pog17_5()
 {
 	char str[] = "tesaaaaaaaat\0";
 	char noviStr[10];
@@ -638,7 +643,7 @@ void Practical_Cpp_Programming_pog17_5()
 
 ///////////////////////////////////////////////////////////////////////////
 //	341. stranica
-void Practical_Cpp_Programming_pog18_1()
+void PracticalCppProg::pog18_1()
 {
 	Razlomak raz1( 1, 3, '+' );
 	Razlomak raz2( 3, 8, '=' );
@@ -646,7 +651,7 @@ void Practical_Cpp_Programming_pog18_1()
 	std::cout << raz1 << raz2 << rezultat;
 }
 
-void Practical_Cpp_Programming_pog18_2()
+void PracticalCppProg::pog18_2()
 {
 	Decimal dec;
 	dec.setBase( 500000 );
@@ -657,7 +662,7 @@ void Practical_Cpp_Programming_pog18_2()
 	std::cout << dec;
 }
 
-void Practical_Cpp_Programming_pog18_4()
+void PracticalCppProg::pog18_4()
 {
 	Time t1( 0, 0, 59, 0 );
 	Time t2( 0, 25, 3, 1 );
@@ -669,7 +674,7 @@ void Practical_Cpp_Programming_pog18_4()
 }
 
 //	355. stranica
-void Practical_Cpp_Programming_pog19_1()
+void PracticalCppProg::pog19_1()
 {
 	StringDouble sd1( "5.55" );
 	StringDouble sd2( "2" );
@@ -679,7 +684,7 @@ void Practical_Cpp_Programming_pog19_1()
 		<< sd1 << "/ " << sd2 << "= " << sd1 / sd2 << '\n';
 }
 
-void Practical_Cpp_Programming_pog21_1()
+void PracticalCppProg::pog21_1()
 {
 	Checkbook* cb = new Checkbook;
 	cb->total();
@@ -703,7 +708,7 @@ void Practical_Cpp_Programming_pog21_1()
 	delete cb;
 }
 
-void Practical_Cpp_Programming_pog21_2()
+void PracticalCppProg::pog21_2()
 {
 	Word_match wm;
 	d_Number_mather nm;
@@ -713,7 +718,7 @@ void Practical_Cpp_Programming_pog21_2()
 		<< "\nBlankStr_match 43,  , was: " << bsm.match( "43" ) << bsm.match( "  " ) << bsm.match( "was" );
 }
 
-void Practical_Cpp_Programming_pog21_3()
+void PracticalCppProg::pog21_3()
 {
 	d_Krug krug( 4 );
 	d_Kvadrat kvad( 4 );
@@ -723,7 +728,7 @@ void Practical_Cpp_Programming_pog21_3()
 		<< "\nTrok: " << trok.v_povrsina() << "\n";
 }
 
-void Practical_Cpp_Programming_pog21_5()
+void PracticalCppProg::pog21_5()
 {
 	d_Dek dek( 42 );
 	d_Okt okt( 8 );
@@ -735,7 +740,7 @@ void Practical_Cpp_Programming_pog21_5()
 }
 
 
-void Practical_Cpp_Programming_pog22_4()
+void PracticalCppProg::pog22_4()
 {
 	count_letter( "HelloWorld" );
 	count_letter( "Hello World" );
@@ -744,7 +749,7 @@ void Practical_Cpp_Programming_pog22_4()
 
 //	435. stranica
 ////////////////////////////////////////
-void Practical_Cpp_Programming_pog23_1()
+void PracticalCppProg::pog23_1()
 {
 	PageFormatting pf;
 	std::string input;
@@ -767,7 +772,7 @@ void Practical_Cpp_Programming_pog23_1()
 	pf.print_line( input.c_str() );
 }
 
-void Practical_Cpp_Programming_pog23_2()
+void PracticalCppProg::pog23_2()
 {
 	std::array<const char*, 5> imenaDatoteka = { {{"Time.cpp"}, {"test"}, {"aaaaaaa"}, {"raznoMain.cpp"}, {"razno.hpp"} } };
 	std::fstream datoteka = search_open( imenaDatoteka );
@@ -784,7 +789,7 @@ void Practical_Cpp_Programming_pog23_2()
 
 /////////-> Koristi indexe kada brises vise stvari za redom iz vektora jer se moze preselit u memoriji
 //// Zato kad sam 1. put pisa kod i testira nema gresaka i sad kad opet pokrenem errori neki
-void Practical_Cpp_Programming_pog23_3()
+void PracticalCppProg::pog23_3()
 {
 	SymbolTable st;
 	st.enter( "test" );
@@ -799,7 +804,7 @@ void Practical_Cpp_Programming_pog23_3()
 
 
 //	446. stranica
-void Practical_Cpp_Programming_pog24_1()
+void PracticalCppProg::pog24_1()
 {
 	std::cout << "min(2, 5): " << min( 2, 5 )
 		<< "\nmin(2.5, 1.05): " << min( 2.5, 1.05 )
@@ -809,7 +814,7 @@ void Practical_Cpp_Programming_pog24_1()
 
 
 //	484. stranica
-void Practical_Cpp_Programming_pog26_1()
+void PracticalCppProg::pog26_1()
 {
 	std::string imeDatoteke{};
 	std::cout << "Unesi ime datoteke: ";
@@ -817,7 +822,7 @@ void Practical_Cpp_Programming_pog26_1()
 	std::cout << haveDoubleWords( imeDatoteke );
 }
 
-void Practical_Cpp_Programming_pog26_3()
+void PracticalCppProg::pog26_3()
 {
 	Mail_label test( "7", "t", "e", "S", "t" );
 	Mail_label test2( "6", "t", "e", "S", "t" );
@@ -842,9 +847,9 @@ void Practical_Cpp_Programming_pog26_3()
 		<< "EL4:\n" << head->gotoNext()->gotoNext()->gotoNext()->getContent();
 }
 
-void Practical_Cpp_Programming_pog26_5()
+void PracticalCppProg::pog26_5()
 {
-	const std::string ime = "razno.cpp";
+	const std::string ime = "raznoMain.cpp";
 	std::fstream datoteka;
 	ispisi_datoteku_u_konzolu( datoteka, ime );
 }
