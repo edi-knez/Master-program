@@ -18,7 +18,8 @@ extern enum class projekt;
 extern void popuniCijeliPopisFunkcija();
 
 static std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
-extern std::array<std::unordered_map<std::string, size_t>, popisProjekata.size()> popisImenaFunkcija;
+extern std::array<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>, popisProjekata.size()> popisImenaFunkcijaPoCjelinama;
+//extern std::array<std::unordered_map<std::string, size_t>, popisProjekata.size()> popisImenaFunkcija;
 //extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
 extern std::array<std::vector<void ( * )( )>, popisProjekata.size()> popisFunkcija;
 
@@ -26,7 +27,7 @@ extern void test();
 
 namespace Master
 {
-	void init() 
+	void init()
 	{
 		popuniCijeliPopisFunkcija();
 		for( auto& vec : popisFunkcija )	vec.shrink_to_fit();
@@ -41,13 +42,61 @@ int main( const size_t args, const char* argv[] )
 {
 	Master::init();
 
-	auto iterID_funkcijeZaIzvrsit = popisImenaFunkcija[0].find( "cj2.zad4" );
-	if( iterID_funkcijeZaIzvrsit != popisImenaFunkcija[0].end() )
+	std::cout << "DOBRODOSAO!!\n"
+		<< "Unesi broj za projekt iz cijeg zelis pokrenut funkciju:\n\n1) Cpp knjiga\n2) FESB\n3) Practical c++ programming\n4) ThinkLAP\n\n";
+	char odabirProjekta;
+	do
 	{
-		std::cout << "ID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second << '\n';
-		popisFunkcija[0][iterID_funkcijeZaIzvrsit->second]();
+		std::cin >> odabirProjekta;
+		switch( odabirProjekta )
+		{
+		case '1': case '2': case '3': case '4':
+			odabirProjekta -= '0' + 1;
+			break;
+		default:
+			puts( "Krivi unos!!" );
+			odabirProjekta = -1;
+		}
+	} while( odabirProjekta < 0 );
+	std::cout << "\nOdabrao si projekt " << popisProjekata[odabirProjekta]
+		<< "\n\Iz koje cjeline zelis pokrenut funkciju?\n\n";
+	for( const auto& str : popisImenaFunkcijaPoCjelinama[odabirProjekta] )
+		std::cout << str.first << '\n';
+	std::cout << "\nTvoj odabir: ";
+	std::string odabirCjeline;
+	do
+	{
+		std::cin >> odabirCjeline;
+		if( popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline ) == popisImenaFunkcijaPoCjelinama[odabirProjekta].end() )
+		{
+			puts( "Krivi unos!!!" );
+		}
+		else	break;
+	} while( true );
+	std::cout << "\nOdabrao si projekt " << popisProjekata[odabirProjekta] << " - " << odabirCjeline
+		<< "\n\Izaberi jednu od ponudenih funkcija koju zelis pokrenut:\n";
+	for( const auto& str : popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second )
+	{
+		puts( str.first.c_str() );
 	}
-	//popisFunkcija[2][ID_funkcijeZaIzvrsit->]();
+	std::cout << "\nTvoj odabir: ";
+	std::string odabirFunkcije;
+	do
+	{
+		std::cin >> odabirFunkcije;
+		if( popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije ) == popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
+		{
+			puts( "Krivi unos!!!" );
+		}
+		else	break;
+	} while( true );
+	auto iterID_funkcijeZaIzvrsit = popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
+	if( iterID_funkcijeZaIzvrsit != popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
+	{
+		std::cout << "Pokrecem...\n";
+		std::cout << "ID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second << '\n';
+		popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second]();
+	}
 	//test();
 
 	return EXIT_SUCCESS;
@@ -107,7 +156,7 @@ void rucno()
 		};
 	auto ispisiPopisFunkcijaZa = []( const enum class projekt proj ) {
 		uint8_t projIdx = static_cast<uint8_t>( proj );
-		for( uint8_t idx = 0; idx < popisImenaFunkcija[projIdx].size(); ++idx )
+		//for( uint8_t idx = 0; idx < popisImenaFunkcija[projIdx].size(); ++idx )
 		{
 		//	std::cout << opisZadatka[projIdx][idx]
 			//	<< '\n'
