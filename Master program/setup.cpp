@@ -6,7 +6,7 @@
 /// koristi namespace funkcije za projekte
 /// koristenje MACRO za dodavanje novih funkcija na popis
 /// dodavanje klasa
-#include "PotrebneDatotekeIDeklaracijeFunkcija.h"
+#include "PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 #include <iostream>
 #include <array>
@@ -37,7 +37,8 @@ struct Zadatak
 	const char* kod; // tijelo funkcije
 };
 
-
+//#define IME_NAMESPACE IME_NAMESPACE"::"
+#define DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( IME_NAMESPACE::ime_funkcije )
 
 //////////////////////////////////////
 /// ////////////////////////////////// template za automatizirat zvanje funkcija umjesto sve rucno napravit u switchu
@@ -134,10 +135,10 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 			insertFunctionNameAndIDIntoUMap( iter, proj, "cj1.zad5_ispis", brojCjeline );
 			insertFunctionNameAndIDIntoUMap( iter, proj, "cj1.vj1_2datoteke", brojCjeline );
 			insertFunctionNameAndIDIntoUMap( iter, proj, "cj1.vj3_krug", brojCjeline );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina1::zad4_kvadrat );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina1::zad5_ispis );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina1::vj1_2datoteke );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina1::vj3_krug );
+			DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );
+			DODAJ_FUNKCIJU( Cjelina1, zad5_ispis );
+			DODAJ_FUNKCIJU( Cjelina1, vj1_2datoteke );
+			DODAJ_FUNKCIJU( Cjelina1, vj3_krug );
 		}
 
 		brojCjeline = "Cjelina2";
@@ -151,12 +152,12 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 			insertFunctionNameAndIDIntoUMap( iter, proj, "cj2.zad4", brojCjeline );
 			insertFunctionNameAndIDIntoUMap( iter, proj, "cj2.zad5", brojCjeline );
 			insertFunctionNameAndIDIntoUMap( iter, proj, "cj2.zad6", brojCjeline );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina2::zad1 );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina2::zad2 );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina2::zad3 );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina2::zad4 );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina2::zad5 );
-			popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina2::zad6 );
+			DODAJ_FUNKCIJU( Cjelina2, zad1 );
+			DODAJ_FUNKCIJU( Cjelina2, zad2 );
+			DODAJ_FUNKCIJU( Cjelina2, zad3 );
+			DODAJ_FUNKCIJU( Cjelina2, zad4 );
+			DODAJ_FUNKCIJU( Cjelina2, zad5 );
+			DODAJ_FUNKCIJU( Cjelina2, zad6 );
 		}
 	}
 	/*
