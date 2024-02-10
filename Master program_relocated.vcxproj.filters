@@ -527,6 +527,9 @@
     <ClInclude Include="_projekti\thinklap\Vjezbe.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="_projekti\c++ knjiga\kompleks.bin">
