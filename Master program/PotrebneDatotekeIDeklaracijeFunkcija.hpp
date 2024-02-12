@@ -61,11 +61,10 @@ namespace PracticalCppProg
 	extern void pog16_6();
 	/////////////////////////////////////
 
-	extern void pog17_2__1(); extern void pog17_2__2(); extern void pog17_2__3();
-	extern void pog17_5();
+	extern void pog17_2__1();	extern void pog17_2__2();	extern void pog17_2__3();	extern void pog17_5();
 	/////////////////////////////////////
 
-	extern void pog18_1(); extern void pog18_2(); extern void pog18_4();
+	extern void pog18_1();	extern void pog18_2();	extern void pog18_4();
 	/////////////////////////////////////
 
 	extern void pog19_1();
@@ -110,7 +109,7 @@ namespace ThinkLAP
 	extern void pog4_vj7();		extern void pog4_vj8();		extern void pog4_vj9();		extern void pog4_vj10();
 
 	/// poglavlje 5:
-	extern void pog5_vj1();	extern void pog5_zad1();	extern void pog5_zad2();	extern void pog5_zad3_i_4();
+	extern void pog5_vj1();		extern void pog5_zad1();	extern void pog5_zad2();	extern void pog5_zad3_i_4();
 	extern void pog5_zad5();
 
 	/// poglavlje 6:

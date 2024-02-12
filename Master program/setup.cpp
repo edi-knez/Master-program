@@ -4,16 +4,17 @@
 /// dodavanje klasa
 
 #include <iostream>
-#include <array>
-#include <set>
-#include <unordered_map>
-#include <vector>
 #include <fstream>
 
+#include <array>
+#include <vector>
+#include <unordered_map>
 
+#include "../_Includes/json.hpp"
 #include "PotrebneDatotekeIDeklaracijeFunkcija.hpp"
-/// VAZNO:
-// kada dodajes novi projekt, stavi vrijednost od projekt::END na projekt::imeNovogProjekta
+
+using json = nlohmann::json;
+
 enum class projekt
 {
 	BEGIN = 0,
@@ -21,21 +22,22 @@ enum class projekt
 	FESB,
 	razno,
 	ThinkLAP,
-	END = projekt::ThinkLAP
+	END
 };
 
 struct Zadatak
 {
 	const char* tekst;
-	const char* naziv;
 	const char* povratniTip;
-	const char* argumenti;
+	const char* naziv;
 	const char* podTipArgumenata;
+	const char* argumenti;
 	const char* kod; // tijelo funkcije
 };
 
 
 #define DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( IME_NAMESPACE::ime_funkcije )
+#define DODAJ_FUNKCIJU2( ime_funkcije ) popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ime_funkcije )
 
 //////////////////////////////////////
 /// ////////////////////////////////// template za automatizirat zvanje funkcija umjesto sve rucno napravit u switchu
@@ -43,13 +45,11 @@ struct Zadatak
 extern void FESB::vj10_1();
 void test()
 {
+	//auto funcPtr = fesb_vj10_1;
 	void ( *Pfun )( ) = FESB::vj10_1;
 
 	std::vector<void ( * )( )> vecPointersOnFunctions;
 	vecPointersOnFunctions.push_back( FESB::vj10_1 );
-	//void* vPtr_naFunkciju = reinterpret_cast<void*>( fesb_vj10_1 );
-
-	//auto funcPtr = fesb_vj10_1;
 	vecPointersOnFunctions[0]();
 }
 ///////////////////////////////////
@@ -100,10 +100,7 @@ void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& c
 void popuniPopisFunkcijaZa( const enum class projekt proj )
 {
 //	std::pair<std::string, std::string> name;
-	/// ZA KasNIJE
 /*
-	// dohvacaj imena funkcija iz datoteke
-	// ucitaj funkcije iz .exe ili .obj  datoteke
 	//while( name = getName() )
 	{
 

@@ -6,20 +6,17 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+
 #include <array>
 #include <vector>
-
-#include <set>
 #include <unordered_map>
-#include <deque>
 
-extern enum class projekt;
+extern enum class projekt {};
 
 extern void popuniCijeliPopisFunkcija();
 
 static std::array popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
 extern std::array<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>, popisProjekata.size()> popisImenaFunkcijaPoCjelinama;
-//extern std::array<std::unordered_map<std::string, size_t>, popisProjekata.size()> popisImenaFunkcija;
 //extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
 extern std::array<std::vector<void ( * )( )>, popisProjekata.size()> popisFunkcija;
 
@@ -74,7 +71,7 @@ int main( const size_t args, const char* argv[] )
 		else	break;
 	} while( true );
 	std::cout << "\nOdabrao si projekt " << popisProjekata[odabirProjekta] << " - " << odabirCjeline
-		<< "\n\Izaberi jednu od ponudenih funkcija koju zelis pokrenut:\n";
+		<< "\n\Izaberi jednu od ponudenih funkcija koju zelis pokrenut:\n\n";
 	for( const auto& str : popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second )
 	{
 		puts( str.first.c_str() );
@@ -93,8 +90,8 @@ int main( const size_t args, const char* argv[] )
 	auto iterID_funkcijeZaIzvrsit = popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
 	if( iterID_funkcijeZaIzvrsit != popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
 	{
-		std::cout << "Pokrecem...\n";
 		std::cout << "ID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second << '\n';
+		std::cout << "Pokrecem...\n\n\n";
 		popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second]();
 	}
 	//test();
