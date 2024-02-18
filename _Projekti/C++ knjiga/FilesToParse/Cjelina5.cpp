@@ -1,4 +1,4 @@
-#include "Cjelina5.hpp"
+#include "../Cjelina5.hpp"
 
 /// <summary>
 ///		Implementacija zadataka iz cjeline 5

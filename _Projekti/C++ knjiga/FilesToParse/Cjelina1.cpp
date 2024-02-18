@@ -1,4 +1,4 @@
-#include "Cjelina1.hpp"
+#include "../Cjelina1.hpp"
 
 /// <summary>
 ///		napisi funkciju koja racuna povrsinu kvadrata

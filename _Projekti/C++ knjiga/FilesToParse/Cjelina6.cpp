@@ -1,4 +1,4 @@
-#include "Cjelina6.hpp"
+#include "../Cjelina6.hpp"
 
 static double rekurzija(int potencija, double baza);
 

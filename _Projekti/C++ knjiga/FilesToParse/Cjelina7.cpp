@@ -1,4 +1,4 @@
-#include "Cjelina7.hpp"
+#include "../Cjelina7.hpp"
 
 static void pisi_u_consolu_iz_datoteke(std::ifstream& datoteka);
 static void pisi_u_consolu_iz_datoteke(const std::string& naziv, const std::string& ekstenzija);

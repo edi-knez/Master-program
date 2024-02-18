@@ -1,4 +1,4 @@
-#include "Cjelina8.hpp"
+#include "../Cjelina8.hpp"
 
 
 template<class T> static T maximum(T a, T b);

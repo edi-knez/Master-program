@@ -27,36 +27,6 @@
     <ClCompile Include="_projekti\c++ knjiga\CD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina10.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina5.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina6.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina7.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina8.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Cjelina9.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="_projekti\c++ knjiga\Clan_obitelji.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -109,12 +79,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\c++ knjiga\z121.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\fesb\Programiranje 2(7- 12 vjezbe).cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\fesb\Programiranje 2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\fesb\Source.cpp">
@@ -280,6 +244,48 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Master program\setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Master program\ParseFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina6.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina7.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina8.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina9.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina10.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\FESB\FilesToParse\Programiranje 2(7- 12 vjezbe).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\FESB\FilesToParse\Programiranje 2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -528,6 +534,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Master program\ParseFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

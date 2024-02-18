@@ -1,4 +1,4 @@
-#include "Cjelina4.hpp"
+#include "../Cjelina4.hpp"
 
 /// <summary>
 ///		Ispisuje povrsinu i opseg kruga

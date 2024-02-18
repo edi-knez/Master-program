@@ -1,4 +1,4 @@
-#include "Cjelina2.hpp"
+#include "../Cjelina2.hpp"
 
 /// <summary>
 ///		ispisi integer

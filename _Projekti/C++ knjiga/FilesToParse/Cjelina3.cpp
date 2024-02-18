@@ -1,4 +1,4 @@
-#include "Cjelina3.hpp"
+#include "../Cjelina3.hpp"
 /**********************************************************************/
 // ove funkcije su potrebne samo u ovoj cpp datoteci
 

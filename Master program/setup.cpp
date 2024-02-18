@@ -1,10 +1,16 @@
+//////////////////////////////////////////////////////////////////////
+/// VAZNO: funkcije se moraju dodavat u onom redoslijedu u kojem se ubacuje naziv funkcija na popis !!!
+//////////////////////////////////////////////////////////////////////
 /// Poboljsanja za buducnost:
 /// ---------------------------
-/// lazy popunjavanje funkcija / imena funkcija / opisa po potrebi
-/// dodavanje klasa
+
+/// FEATURE: lazy popunjavanje funkcija / imena funkcija / opisa po potrebi
+/// FEATURE: dodavanje klasa
+//////////////////////////////////////////////////////////////////////
 
 #include <iostream>
 #include <fstream>
+
 
 #include <array>
 #include <vector>
@@ -15,6 +21,7 @@
 
 using json = nlohmann::json;
 
+// nemoze se koristit za dinamicko dodavanje
 enum class projekt
 {
 	BEGIN = 0,
@@ -25,48 +32,22 @@ enum class projekt
 	END
 };
 
-struct Zadatak
-{
-	const char* tekst;
-	const char* povratniTip;
-	const char* naziv;
-	const char* podTipArgumenata;
-	const char* argumenti;
-	const char* kod; // tijelo funkcije
-};
-
 
 #define DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( IME_NAMESPACE::ime_funkcije )
 #define DODAJ_FUNKCIJU2( ime_funkcije ) popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( ime_funkcije )
-
-//////////////////////////////////////
-/// ////////////////////////////////// template za automatizirat zvanje funkcija umjesto sve rucno napravit u switchu
-//////////////////////////////////////
-extern void FESB::vj10_1();
-void test()
-{
-	//auto funcPtr = fesb_vj10_1;
-	void ( *Pfun )( ) = FESB::vj10_1;
-
-	std::vector<void ( * )( )> vecPointersOnFunctions;
-	vecPointersOnFunctions.push_back( FESB::vj10_1 );
-	vecPointersOnFunctions[0]();
-}
-///////////////////////////////////
-
 
 ///////////////////////////////////
 /// ////////////////////////////////
 ///////////////////////////////////
 
-extern std::array<const char*, 4> popisProjekata;
+extern std::vector<const char*> popisProjekata;
 // niz projekata koji sadrzi umap stringova cjelina koji sadrzi umap stringova naziva funkcija
-std::array<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>, popisProjekata.size()> popisImenaFunkcijaPoCjelinama;
-std::array<std::vector<void ( * )( )>, popisProjekata.size()> popisFunkcija;
+std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
+std::vector<std::vector<void ( * )( )>> popisFunkcija;
 
 void popuniCijeliPopisFunkcija();
 void popuniPopisFunkcijaZa( const enum class projekt proj );
-
+extern void addFunctionsFromFiles();
 ////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -97,6 +78,7 @@ void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& c
 	container.insert( { funcName, funID } );
 }
 
+// citanje iz JSON datoteke nakon 2. kompilacije
 void popuniPopisFunkcijaZa( const enum class projekt proj )
 {
 //	std::pair<std::string, std::string> name;
@@ -110,28 +92,36 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 	}
 */
 
-
 	std::string brojCjeline;
+	// otvori datoteku naziva "Functions.cpp" i odi na liniju
+	brojCjeline = "Cjelina1";
+	std::unordered_map<std::string, size_t> Cjelina1;
+	popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].insert( { brojCjeline, std::move( Cjelina1 ) } );
+	{
+		auto& iter = popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].find( brojCjeline )->second;
+		std::string imeZadatka = "cj1.zad4_kvadrat";
+		insertFunctionNameAndIDIntoUMap( iter, proj, imeZadatka, brojCjeline );
+		DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );
+
+	}
+	addFunctionsFromFiles();
+
+
 	switch( proj )
 	{
 		using enum projekt;
 	case CppKnjiga:
 	{
+/*
 		brojCjeline = "Cjelina1";
 		std::unordered_map<std::string, size_t> Cjelina1;
 		popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].insert( { brojCjeline, std::move( Cjelina1 ) } );
 		{
-		////std::unordered_map<std::string, size_t> test;
-		////test = popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].find("Cjelina1")->second;
 			auto& iter = popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].find( brojCjeline )->second;
-			insertFunctionNameAndIDIntoUMap( iter, proj, "cj1.zad4_kvadrat", brojCjeline );
-			insertFunctionNameAndIDIntoUMap( iter, proj, "cj1.zad5_ispis", brojCjeline );
-			insertFunctionNameAndIDIntoUMap( iter, proj, "cj1.vj1_2datoteke", brojCjeline );
-			insertFunctionNameAndIDIntoUMap( iter, proj, "cj1.vj3_krug", brojCjeline );
+			std::string imeZadatka = "cj1.zad4_kvadrat";
+			insertFunctionNameAndIDIntoUMap( iter, proj, imeZadatka, brojCjeline );
 			DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );
-			DODAJ_FUNKCIJU( Cjelina1, zad5_ispis );
-			DODAJ_FUNKCIJU( Cjelina1, vj1_2datoteke );
-			DODAJ_FUNKCIJU( Cjelina1, vj3_krug );
+
 		}
 
 		brojCjeline = "Cjelina2";
@@ -152,6 +142,7 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 			DODAJ_FUNKCIJU( Cjelina2, zad5 );
 			DODAJ_FUNKCIJU( Cjelina2, zad6 );
 		}
+		*/
 	}
 	/*
 		brojCjeline = "Cjelina2";
