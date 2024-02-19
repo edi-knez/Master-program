@@ -536,7 +536,7 @@
     <ClInclude Include="Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Master program\ParseFile.h">
+    <ClInclude Include="Master program\ParseFile.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

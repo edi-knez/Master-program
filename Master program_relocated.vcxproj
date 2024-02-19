@@ -216,7 +216,7 @@
     <ClCompile Include="_projekti\thinklap\Zadaci_List.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Master program\ParseFile.h" />
+    <ClInclude Include="Master program\ParseFile.hpp" />
     <ClInclude Include="Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp" />
     <ClInclude Include="_projekti\c++ knjiga\CD.hpp" />
     <ClInclude Include="_projekti\c++ knjiga\Cjelina1.hpp" />

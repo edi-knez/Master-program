@@ -19,6 +19,8 @@
 #include "../_Includes/json.hpp"
 #include "PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
+#include "ParseFile.hpp"
+
 using json = nlohmann::json;
 
 // nemoze se koristit za dinamicko dodavanje
@@ -93,6 +95,7 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 */
 
 	std::string brojCjeline;
+	ParseFile pf;
 	// otvori datoteku naziva "Functions.cpp" i odi na liniju
 	brojCjeline = "Cjelina1";
 	std::unordered_map<std::string, size_t> Cjelina1;

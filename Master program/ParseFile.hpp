@@ -4,10 +4,11 @@
 #include <iostream>
 #include <fstream>
 
-#include <vector>
 #include <string_view>
+#include <vector>
 #include <string>
 #include <stack>
+#include <list>
 
 #include "../_Includes/json.hpp"
 
@@ -21,10 +22,7 @@
 static struct Zadatak
 {
 	std::string tekst;
-	std::string povratniTip;
-	std::string naziv;
-	std::string podTipArgumenata;
-	std::string argumenti;
+	std::string deklaracija;
 	std::string kod; // tijelo funkcije
 };
 
@@ -47,16 +45,12 @@ public:
 public:
 	/// dohvati popunjene zadatke za JSON handler
 	std::vector<Zadatak>&& getZadatke() { return std::move( m_zadaci ); }
+	std::ifstream& getDatoteku( size_t indexDatoteke ) { return m_datoteke[indexDatoteke]; }
 /////////////////////////////////////////////////////////
-private:
+public:
 	/// citaj
-	///  - nije potrebno reci za koji je projekt jer m_datoteka vec govori o kojem se projektu radi
-	// pronadi pocetak funkcije
-	// koristi listu da bi dobio tekst zadatka
-	// procitaj deklaraciju
-	// procitaj tijelo
-	void readFiles();
-	void readFile( std::ifstream& dat );
+	///  - nije potrebno reci za koji je projekt jer m_datoteka vec govori o kojem se projektu radi (po indexu)
+	std::vector<Zadatak> readFile( std::ifstream& dat );
 
 /////////////////////////////////////////////////////////
 private:

@@ -12,10 +12,11 @@
 /// da bi se automatizirao postupak, ParserFile klasa se ucitat sve informacije o funkcijama, te ce dodat sva imena funkcija u "Functions.cpp" datoteku 
 /// za koju je potrebna jos jedna kompilacija da bi mogao koristit funkcionalnosti koju si dodao
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// za napravit:
-/// - koristi wxWidgets za GUI kod rucnog nacina
+/// TODO za napravit:
 /// - JSON datoteka koja sadrzi sve informacije
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
+/// - koristi wxWidgets za GUI kod rucnog nacina
+/// - dinamicki containeri za bilo kakvu konfiguraciju
 
 #include <cstdlib>
 #include <iostream>
@@ -28,7 +29,7 @@ namespace fs = std::filesystem;
 
 #include "../_Includes/json.hpp"
 
-#include "ParseFile.h"
+#include "ParseFile.hpp"
 
 extern enum class projekt {};
 
@@ -83,13 +84,14 @@ namespace Master
 			for( size_t idx = 0; idx < paths.size(); ++idx )
 			{
 				ParseFile pf( paths, imenaDatoteka[idx] );
+				size_t idxOfFile = 0;
 				for( const auto& fName : imenaDatoteka )
 				{
-			//		pf.readFile();
-			// popuni JSON objekt i Functions.cpp kako parsira datoteke
-
+					Zadatak zad;
+					std::vector<Zadatak> zadaci = pf.readFile( pf.getDatoteku( idxOfFile ) );
+			// popuni JSON objekt kako parsira datoteke
+					++idxOfFile;
 				}
-
 			}
 			std::cout << "\n\nRecompile the program to proced to the next stage!\nExiting...\n";
 			exit( EXIT_SUCCESS );
