@@ -3,8 +3,10 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 #include <string_view>
+#include <optional>
 #include <vector>
 #include <string>
 #include <stack>
@@ -19,7 +21,7 @@
 /// Zapisi sve informacije o zadacima u JSON datoteku
 
 
-static struct Zadatak
+struct Zadatak
 {
 	std::string tekst;
 	std::string deklaracija;
@@ -35,10 +37,10 @@ public:
 	//ParseFile( std::vector<std::string_view>& paths, std::vector<size_t>& pathIdx, std::vector<std::string>& imenaDatoteka, std::vector<std::string>& ekstenzijaDatoteka );
 	//ParseFile( std::vector<std::string_view>& paths, std::vector<size_t>& pathIdx, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka = "cpp" );
 	//ParseFile( std::vector<std::string_view>& paths, std::vector<std::string>& imenaDatoteka, std::vector<std::string>& ekstenzijaDatoteka );
-	ParseFile( std::vector<std::string_view>& paths, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka = "cpp");
+	ParseFile( const std::string_view& path, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka = "cpp" );
 	ParseFile() = delete;
 	ParseFile( const ParseFile& ) = delete;
-	ParseFile( ParseFile&& ) = delete;
+	ParseFile( ParseFile&& ) = default;
 	ParseFile& operator=( const ParseFile& ) = delete;
 	ParseFile&& operator= ( ParseFile&& ) = delete;
 //////////////////////////////////////////////////////////
@@ -50,7 +52,9 @@ public:
 public:
 	/// citaj
 	///  - nije potrebno reci za koji je projekt jer m_datoteka vec govori o kojem se projektu radi (po indexu)
-	std::vector<Zadatak> readFile( std::ifstream& dat );
+	std::vector<Zadatak*> readFile( std::ifstream& dat );
+	//
+	std::optional<size_t> getPositionOfFunction( std::ifstream& dat, const char* imeFunkcije );
 
 /////////////////////////////////////////////////////////
 private:

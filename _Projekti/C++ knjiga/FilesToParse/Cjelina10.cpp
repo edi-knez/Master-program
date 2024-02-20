@@ -1,4 +1,4 @@
-#include "Cjelina10.hpp"
+#include "../Cjelina10.hpp"
 
 /// <summary>
 ///		U ovom testu se koriste izvedene klase pomocu heap memorije koje se pristupaju pomocu base klase pointera

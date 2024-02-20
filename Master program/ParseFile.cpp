@@ -31,11 +31,11 @@
 }
 */
 
-ParseFile::ParseFile( std::vector<std::string_view>& paths, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka )
+ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka )
 {
-	if( paths.empty() )
+	if( path.empty() || path[0] == '\0' )
 	{
-		std::cout << "UNESI LISTU PATHOVA!\n";
+		std::cout << "UNESI VAZECI PATH!\n";
 		exit( EXIT_FAILURE );
 	}
 	if( imenaDatoteka.empty() )
@@ -44,41 +44,46 @@ ParseFile::ParseFile( std::vector<std::string_view>& paths, std::vector<std::str
 		exit( EXIT_FAILURE );
 	}
 
-	for( size_t idx = 0; idx < paths.size(); ++idx )
+	m_paths.push_back( path );
+	for( size_t datIdx = 0; datIdx < imenaDatoteka.size(); ++datIdx )
 	{
-		std::string_view curPath = m_paths[idx];
-		std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
-	//	m_datoteke.emplace_back( std::ifstream( curPath.data() + dat, std::ios::in ) );
-		if( !m_datoteke[idx].is_open() )
+		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
+		std::string datotekeProjekta = imenaDatoteka[datIdx];
+		m_datoteke.emplace_back( std::ifstream( m_paths.front().data() + datotekeProjekta, std::ios::in ) );
+
+		if( !m_datoteke[datIdx].is_open() )
 		{
-			std::cout << "Nisam otvorio datoteku: " << curPath << '\\' << dat << '\n';
+			std::cout << "Nisam otvorio datoteku: " << m_paths.front() << datotekeProjekta << '\n';
 			exit( EXIT_FAILURE );
 		}
 	}
+
 }
 
 bool findStartOfAFunction( std::ifstream& dat );
 std::string getKomentar( std::ifstream& dat );
 std::string getDeclaration( std::ifstream& dat );
 std::string getFuncBody( std::ifstream& dat );
-std::vector<Zadatak> ParseFile::readFile( std::ifstream& dat )
+std::vector<Zadatak*> ParseFile::readFile( std::ifstream& dat )
 {
-	std::vector<Zadatak> retVal;
+
+	std::vector<Zadatak*> retVal;
 	while( !dat.eof() )
 	{
 		bool is_eof = findStartOfAFunction( dat );
 		if( !is_eof )
 		{
-			auto zad = std::make_unique<Zadatak>();
+			auto zad = new Zadatak;
 			zad->tekst = getKomentar( dat );
 			zad->deklaracija = getDeclaration( dat );
 			zad->kod = getFuncBody( dat );
-			retVal.emplace_back( zad );
+			retVal.push_back( std::move( zad ) );
 		}
 	}
 	return retVal;
 }
 
+// BUG: neradi ispravno!!
 bool findStartOfAFunction( std::ifstream& dat )
 {
 	std::string line;
@@ -165,16 +170,18 @@ std::string getKomentar( std::ifstream& dat )
 	std::string retVal;	// dodaj sve liniju u jednu cjelinu
 	for( const auto& linijaTekstaZadatka : tekstZadatka )	retVal += linijaTekstaZadatka;
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
+	return retVal;
 }
 
 std::string getDeclaration( std::ifstream& dat )
 {
-	std::string line;
 	char c;
 	while( dat >> c ) if( isalpha( c ) )	break;	// preskoci whitespace
 	dat.seekg( -1, std::ios::cur );
+	std::string line;
 	dat >> line;
-	return line;
+	bool pocetakTijelaFun = line.at( line.size() - 3 ) == '{';
+	return std::string( line.begin(), line.end() - pocetakTijelaFun - 1 ); // -1 zbog '\n' znaka
 }
 
 std::string getFuncBody( std::ifstream& dat )
@@ -193,3 +200,69 @@ std::string getFuncBody( std::ifstream& dat )
 
 	return retVal;
 }
+
+void skipFuncBody( std::ifstream& dat );
+std::optional<size_t> ParseFile::getPositionOfFunction( std::ifstream& dat, const char* imeFunkcije )
+{
+	while( bool is_eof = findStartOfAFunction( dat ) )
+	{
+		std::string deklaracija = getDeclaration( dat );
+		std::string::iterator it;
+		// pronadi pocetak povratnog tipa
+		it = std::find_if( deklaracija.begin(), deklaracija.end(), [ &it ]( char c )
+						   {
+							   return isalpha( c );
+						   } );
+		// pronadi kraj povratnog tipa
+		it = std::find_if( it, deklaracija.end(), [ & ]( char c )
+						   {
+							   return  isspace( c );
+						   } );
+		// pronadi pocetak imena funkcije
+		it = std::find_if( it, deklaracija.end(), [ & ]( char c )
+						   {
+							   return isalpha( c );
+						   } );
+		// pronadi kraj imena funkcije
+		std::string::iterator itEnd = it;
+		itEnd = std::find( it, deklaracija.end(), '(' );
+
+		// ukloni namespace ukoliko postoji
+		std::string::iterator itTemp = it;
+		while( itTemp != itEnd && *itTemp != ':' ) { ++itTemp; }
+		if( itTemp != itEnd )
+		{
+			it = itTemp + 2;
+		}
+
+		std::string pronadenoIme( it, itEnd );
+		if( strcmp( pronadenoIme.data(), imeFunkcije ) == 0 )	return dat.tellg();
+		else skipFuncBody( dat );
+	}
+	return {};
+}
+
+void skipFuncBody( std::ifstream& dat )
+{
+	size_t stack = 0;
+	while( !dat.eof() )
+	{
+		dat.seekg( 1, std::ios::cur );
+		stack += dat.peek() == '{';
+		stack -= dat.peek() == '}';
+		if( stack == 0 )	break;
+	}
+}
+
+
+
+
+
+
+
+
+
+///
+
+
+

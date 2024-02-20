@@ -13,7 +13,6 @@
 /// za koju je potrebna jos jedna kompilacija da bi mogao koristit funkcionalnosti koju si dodao
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TODO za napravit:
-/// - JSON datoteka koja sadrzi sve informacije
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
 /// - koristi wxWidgets za GUI kod rucnog nacina
 /// - dinamicki containeri za bilo kakvu konfiguraciju
@@ -31,125 +30,45 @@ namespace fs = std::filesystem;
 
 #include "ParseFile.hpp"
 
-extern enum class projekt {};
+extern struct Zadatak;
 
 extern void popuniCijeliPopisFunkcija();
 
 static std::vector popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
-extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
+
+
+///extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
 //extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
-extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
+///extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
 
 
 namespace Master
 {
-	void init()
+	// niz projekata koji sadrzi umap stringova cjelina koji sadrzi umap stringova naziva funkcija
+	extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
+	extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
+
+	void init();
+	namespace _INTERNAL
 	{
-		std::cout << "DOBRODOSAO!!\n";
-		std::string nazivJSONdat = "InformacijeOZadacima.json";
-		std::ifstream JSON_dat( nazivJSONdat, std::ios::in );
-		if( !JSON_dat.is_open() )
-		{
-			//std::ofstream dat( "InformacijeOZadacima.json", std::ios::out );
-			//nlohmann::json a;
-			//a["test"] = 5;
-
-			std::vector<std::string_view> paths =
-			{
-				"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti",
-				"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti",
-				"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti",
-				"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti"
-			};
-
-			std::vector<std::vector<std::string>> imenaDatoteka;
-			{
-				size_t idx = 0;
-				for( const auto path : paths )
-				{
-					imenaDatoteka.push_back( {} );
-					for( const auto& entry : fs::directory_iterator( path ) )
-					{
-						std::string pathToFile = entry.path().string();
-						size_t fileNameLen = 0;
-						while( pathToFile[pathToFile.size() - 1 - fileNameLen++] != '\\' ) {}
-						std::string fileName( pathToFile.begin() + pathToFile.size() - fileNameLen, pathToFile.end() );
-						imenaDatoteka[idx].push_back( fileName );
-					}
-					++idx;
-				}
-			}
-
-			std::cout << "Parsing files...\n";
-			for( size_t idx = 0; idx < paths.size(); ++idx )
-			{
-				ParseFile pf( paths, imenaDatoteka[idx] );
-				size_t idxOfFile = 0;
-				for( const auto& fName : imenaDatoteka )
-				{
-					Zadatak zad;
-					std::vector<Zadatak> zadaci = pf.readFile( pf.getDatoteku( idxOfFile ) );
-			// popuni JSON objekt kako parsira datoteke
-					++idxOfFile;
-				}
-			}
-			std::cout << "\n\nRecompile the program to proced to the next stage!\nExiting...\n";
-			exit( EXIT_SUCCESS );
-		}
-		else
-		{
-			std::cout << "Ako zelis nastavit sa trenatacnom verzijom upisi broj 1, inace 0: ";
-			char odabir;
-			std::cin >> odabir;
-			if( odabir == '1' )
-			{
-				for( size_t i = 0; i < popisProjekata.size(); ++i )
-				{
-					popisImenaFunkcijaPoCjelinama.push_back( {} );
-					popisFunkcija.push_back( {} );
-				}
-				popuniCijeliPopisFunkcija();
-				for( auto& vec : popisFunkcija )	vec.shrink_to_fit();
-			}
-			else if( odabir == '0' )
-			{
-				std::cout << "Pravim kopiju JSON datoteke i brisem je!\n";
-				std::cout << "Da bi primjenio promjene, rekompaliraj program\n";
-				auto copy_file = []( std::ifstream& copyFrom, std::ofstream& copyTo )
-					{
-						std::stringbuf buf;
-						char c;
-						while( copyFrom >> c )
-						{
-							buf.sputbackc( c );
-						}
-						for( const char c : buf.str() )
-						{
-							copyTo.put( c );
-						}
-					};
-				std::ifstream curJSON( nazivJSONdat, std::ios::in );
-				std::ofstream backup( nazivJSONdat + ".bak", std::ios::out );
-				if( !curJSON.is_open() || !backup.is_open() )
-				{
-					std::cout << "Nemogu zavrsit postupak!!\n"
-						<< "Ako problem je i dalje tu, obrisi JSON datoteku rucno\n\n";
-				}
-				copy_file( curJSON, backup );
-				std::remove( nazivJSONdat.c_str() );
-				exit( EXIT_SUCCESS );
-			}
-		}
+		nlohmann::json buildJSON_structure();
+		void processZadatke( nlohmann::json& jsonData );
 	}
+
 }
 
 void automatizirano();
 void rucno();
 
-
+/// ////////////////////////////////////////////////////////////////////////////////////////////////////
 int main( const size_t args, const char* argv[] )
 {
 	Master::init();
+
+
+
+	exit( EXIT_SUCCESS );
+/// ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	std::cout << "Unesi broj za projekt iz cijeg zelis pokrenut funkciju:\n";
 	{
@@ -174,14 +93,14 @@ int main( const size_t args, const char* argv[] )
 	} while( odabirProjekta < 0 );
 	std::cout << "\nOdabrao si projekt " << popisProjekata[odabirProjekta]
 		<< "\n\Iz koje cjeline zelis pokrenut funkciju?\n\n";
-	for( const auto& str : popisImenaFunkcijaPoCjelinama[odabirProjekta] )
+	for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta] )
 		std::cout << str.first << '\n';
 	std::cout << "\nTvoj odabir: ";
 	std::string odabirCjeline;
 	do
 	{
 		std::cin >> odabirCjeline;
-		if( popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline ) == popisImenaFunkcijaPoCjelinama[odabirProjekta].end() )
+		if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline ) == Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].end() )
 		{
 			puts( "Krivi unos!!!" );
 		}
@@ -189,7 +108,7 @@ int main( const size_t args, const char* argv[] )
 	} while( true );
 	std::cout << "\nOdabrao si projekt " << popisProjekata[odabirProjekta] << " - " << odabirCjeline
 		<< "\n\Izaberi jednu od ponudenih funkcija koju zelis pokrenut:\n\n";
-	for( const auto& str : popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second )
+	for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second )
 	{
 		puts( str.first.c_str() );
 	}
@@ -198,23 +117,22 @@ int main( const size_t args, const char* argv[] )
 	do
 	{
 		std::cin >> odabirFunkcije;
-		if( popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije ) == popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
+		if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije ) == Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
 		{
 			puts( "Krivi unos!!!" );
 		}
 		else	break;
 	} while( true );
-	auto iterID_funkcijeZaIzvrsit = popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
-	if( iterID_funkcijeZaIzvrsit != popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
+	auto iterID_funkcijeZaIzvrsit = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
+	if( iterID_funkcijeZaIzvrsit != Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
 	{
 		std::cout << "\nID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second << '\n';
 		std::cout << "Pokrecem...\n\n\n";
-		popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second]();
+		Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second]();
 	}
-	//test();
 
 	return EXIT_SUCCESS;
-
+/// ////////////////// //////////////////////// //////////////////////////////////////	////////////////////////////////////////////////
 	char odabir = 0;
 	while( odabir != 'a' && odabir != 'r' )
 	{
@@ -261,41 +179,108 @@ void automatizirano()
 
 void rucno()
 {
-	auto ispisiPopisProjekata = []() {
-		uint8_t i = 1;
-		for( const std::string_view strView : popisProjekata )
+
+
+
+}
+
+void Master::init()
+{
+	std::cout << "DOBRODOSAO!!\n";
+	std::string nazivJSONdat = "InformacijeOZadacima.json";
+	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
+	if( !JSON_datoteka.is_open() )
+	{
+		//std::ofstream dat( "InformacijeOZadacima.json", std::ios::out );
+		nlohmann::json jsonData = _INTERNAL::buildJSON_structure();
+
+		std::vector<std::string_view> paths =
 		{
-			std::cout << i++ << ". " << strView << '\n';
-		}
+			"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\C++ knjiga\\FilesToParse\\",
+			"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\FESB\\FilesToParse\\",
+			"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\razno\\FilesToParse\\",
+			"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\ThinkLAP\\FilesToParse\\"
 		};
-	auto ispisiPopisFunkcijaZa = []( const enum class projekt proj ) {
-		uint8_t projIdx = static_cast<uint8_t>( proj );
-		//for( uint8_t idx = 0; idx < popisImenaFunkcija[projIdx].size(); ++idx )
+		std::vector<std::vector<std::string>> imenaDatoteka;
 		{
-		//	std::cout << opisZadatka[projIdx][idx]
-			//	<< '\n'
-			//<< popisImenaFunkcija[projIdx][idx];
+			size_t idx = 0;
+			for( const auto path : paths )
+			{
+				imenaDatoteka.push_back( {} );
+				for( const auto& entry : fs::directory_iterator( path ) )
+				{
+					std::string pathToFile = entry.path().string();
+					std::string::reverse_iterator itStart = pathToFile.rbegin();
+					std::string::reverse_iterator itEnd;
+					itEnd = std::find( itStart, pathToFile.rend(), '\\' );
+					size_t fileNameLen = itEnd - itStart;
+					std::string fileName( pathToFile.begin() + pathToFile.size() - fileNameLen, pathToFile.end() );
+					imenaDatoteka[idx].push_back( fileName );
+				}
+				++idx;
+			}
 		}
-		};
-	int tempOdabir;
-	auto resetVarijabluZaOdabir = [ & ]() {
-		tempOdabir = -1;
-		};
 
-
-	ispisiPopisProjekata();
-	//unesi odabir projekta
-	projekt mojegaIzbora;
-	resetVarijabluZaOdabir();
-	while( tempOdabir < 0 || tempOdabir > popisProjekata.size() )	std::cin >> tempOdabir;
-	mojegaIzbora = static_cast<projekt>( tempOdabir );
-
-	//ispisi popis funkcija i njihov opis
-	ispisiPopisFunkcijaZa( mojegaIzbora );
-	//ispisi cjeline/poglavlja funkcija, ispisi opis poglavlja?
-	resetVarijabluZaOdabir();
-	while( tempOdabir < 0 || tempOdabir > popisProjekata.size() )	std::cin >> tempOdabir;
-	//unesi odabir cjeline/poglavlja
-	resetVarijabluZaOdabir();
-	//unesi odabir funkcije za pokrenut
+		std::cout << "Parsing files...\n";
+		std::vector<ParseFile> pfs;
+		std::vector<std::vector<Zadatak*>> zadaci( paths.size() );
+		for( size_t idx = 0; idx < paths.size(); ++idx )
+		{
+			pfs.push_back( ParseFile( paths[idx], imenaDatoteka[idx] ) );
+			size_t idxOfFile = 0;
+			for( const auto& fName : imenaDatoteka[idx] )
+			{
+				// BUG: readFile ne vraca informacije zadataka
+				zadaci[idx] = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ) ) );
+		// popuni JSON objekt kako parsira datoteke
+				++idxOfFile;
+			}
+		}
+		std::cout << "\nDONE!\nRecompile the program to proceed to the next stage!\nExiting...\n";
+		exit( EXIT_SUCCESS );
+	}
+	else
+	{
+		std::cout << "Ako zelis nastavit sa trenatacnom verzijom upisi broj 1, inace 0: ";
+		char odabir;
+		std::cin >> odabir;
+		if( odabir == '1' )
+		{
+			for( size_t i = 0; i < popisProjekata.size(); ++i )
+			{
+				popisImenaFunkcijaPoCjelinama.push_back( {} );
+				popisFunkcija.push_back( {} );
+			}
+			popuniCijeliPopisFunkcija();
+			for( auto& vec : popisFunkcija )	vec.shrink_to_fit();
+		}
+		else if( odabir == '0' )
+		{
+			std::cout << "Pravim kopiju JSON datoteke i brisem je!\n";
+			std::cout << "Da bi primjenio promjene, rekompaliraj program\n";
+			auto copy_file = []( std::ifstream& copyFrom, std::ofstream& copyTo )
+				{
+					std::stringbuf buf;
+					char c;
+					while( copyFrom >> c )
+					{
+						buf.sputbackc( c );
+					}
+					for( const char c : buf.str() )
+					{
+						copyTo.put( c );
+					}
+				};
+			std::ifstream curJSON( nazivJSONdat, std::ios::in );
+			std::ofstream backup( nazivJSONdat + ".bak", std::ios::out );
+			if( !curJSON.is_open() || !backup.is_open() )
+			{
+				std::cout << "Nemogu zavrsit postupak!!\n"
+					<< "Ako problem je i dalje tu, obrisi JSON datoteku rucno\n\n";
+			}
+			copy_file( curJSON, backup );
+			std::remove( nazivJSONdat.c_str() );
+			exit( EXIT_SUCCESS );
+		}
+	}
 }
