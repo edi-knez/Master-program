@@ -5,6 +5,7 @@
 #include <fstream>
 #include <memory>
 
+#include <sstream>
 #include <string_view>
 #include <optional>
 #include <vector>
@@ -47,18 +48,18 @@ public:
 public:
 	/// dohvati popunjene zadatke za JSON handler
 	std::vector<Zadatak>&& getZadatke() { return std::move( m_zadaci ); }
-	std::ifstream& getDatoteku( size_t indexDatoteke ) { return m_datoteke[indexDatoteke]; }
+	std::fstream& getDatoteku( size_t indexDatoteke ) { return m_datoteke[indexDatoteke]; }
 /////////////////////////////////////////////////////////
 public:
 	/// citaj
 	///  - nije potrebno reci za koji je projekt jer m_datoteka vec govori o kojem se projektu radi (po indexu)
-	std::vector<Zadatak*> readFile( std::ifstream& dat );
+	std::vector<Zadatak*> readFile( std::fstream& dat );
 	//
-	std::optional<size_t> getPositionOfFunction( std::ifstream& dat, const char* imeFunkcije );
+	std::optional<size_t> getPositionOfFunction( std::fstream& dat, const char* imeFunkcije );
 
 /////////////////////////////////////////////////////////
 private:
-	std::vector<std::ifstream> m_datoteke;
+	std::vector<std::fstream> m_datoteke;
 	std::vector<std::string_view> m_paths;
 	std::vector<Zadatak> m_zadaci;
 };

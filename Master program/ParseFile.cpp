@@ -49,7 +49,7 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 	{
 		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
 		std::string datotekeProjekta = imenaDatoteka[datIdx];
-		m_datoteke.emplace_back( std::ifstream( m_paths.front().data() + datotekeProjekta, std::ios::in ) );
+		m_datoteke.emplace_back( std::fstream( m_paths.front().data() + datotekeProjekta, std::ios::in ) );
 
 		if( !m_datoteke[datIdx].is_open() )
 		{
@@ -60,11 +60,11 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 
 }
 
-bool findStartOfAFunction( std::ifstream& dat );
-std::string getKomentar( std::ifstream& dat );
-std::string getDeclaration( std::ifstream& dat );
-std::string getFuncBody( std::ifstream& dat );
-std::vector<Zadatak*> ParseFile::readFile( std::ifstream& dat )
+bool findStartOfAFunction( std::fstream& dat );
+std::string getKomentar( std::fstream& dat );
+std::string getDeclaration( std::fstream& dat );
+std::string getFuncBody( std::fstream& dat );
+std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat )
 {
 
 	std::vector<Zadatak*> retVal;
@@ -83,18 +83,23 @@ std::vector<Zadatak*> ParseFile::readFile( std::ifstream& dat )
 	return retVal;
 }
 
-// BUG: neradi ispravno!!
-bool findStartOfAFunction( std::ifstream& dat )
+bool findStartOfAFunction( std::fstream& dat )
 {
-	std::string line;
-	line.reserve( 255 );
-	while( dat >> line )
+	std::string firstWord;
+	firstWord.reserve( 30 );
+	// TODO: mjesto za razmislit u buducnosti
+	std::string funRetType = "void";
+	while( !dat.eof() )
 	{
-		std::string funRetType = "void";
-		// preskoci sav whitespace
-		const auto pocetak = std::find_first_of( line.begin(), line.end(), funRetType.begin(), funRetType.end() );
+		dat >> firstWord;
 
-		if( pocetak[0] != '\0' )	break;
+		if( firstWord == funRetType )
+		{
+			dat.seekg( -1 * ( firstWord.size() + 1 ), std::ios::cur );	 // + 1 da se vrati ispred 1. znaka u toj liniji
+			break;
+		}
+		while( dat.get() != '\n' ) {};
+		firstWord.clear();
 	}
 	return dat.eof();
 }
@@ -102,6 +107,7 @@ bool findStartOfAFunction( std::ifstream& dat )
 /// <summary>
 ///		test komentar
 
+// BUG: neradi ispravno!!
 /// <summary>
 ///		Da bi bio siguran da citas komentar od funkcije, a ne neki random, moras pocet citat od deklaracije te funkcije.
 ///		Citas od kraja linije prema pocetku dok nenaides na pocetak komentara "//" ili dok do dodes do kraja cijelog komentara "\n\n".
@@ -111,17 +117,21 @@ bool findStartOfAFunction( std::ifstream& dat )
 /// </summary>
 /// <param name="dat"> datoteka koja se cita </param>
 /// <returns> Cijeli tekst zadatka (ukoliko ga ima) </returns>
-std::string getKomentar( std::ifstream& dat )
+std::string getKomentar( std::fstream& dat )
 {
 	size_t currentPosInFile = dat.tellg();
 	size_t currentPosInComment = dat.tellg();
 	size_t previousPosInComment = dat.tellg();
 	std::list<std::string> tekstZadatka;
 	std::string line;
+	bool firstTime = true;
 	while( bool notBeginingOfFile = dat.tellg() > 0 )
 	{
-		dat.seekg( -1, std::ios::cur );	// vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
-		if( bool notBeginingOfFile = dat.tellg() - static_cast<std::streampos>( 1 ); dat.peek() == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )	break;	// doslo je do pocetka teksta zadatka
+		dat.seekg( -2, std::ios::cur );	// vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
+	//	dat.seekg( -1, std::ios::cur );
+	//	dat.seekg( -1, std::ios::cur );
+		std::cout << "nalazi se na znaku: " << dat.peek() << "\t, a sljedeci znak je: " << dat.get() << "\n\n";
+		if( bool notBeginingOfFile = dat.tellg()/* - static_cast<std::streampos>( 1 ) */; dat.peek() == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )	break;	// doslo je do pocetka teksta zadatka
 		dat.seekg( -1, std::ios::cur ); // vrati se unazad za znak za koji si sada provjeravao pocetak komentara
 		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnije
 
@@ -173,18 +183,20 @@ std::string getKomentar( std::ifstream& dat )
 	return retVal;
 }
 
-std::string getDeclaration( std::ifstream& dat )
+std::string getDeclaration( std::fstream& dat )
 {
 	char c;
 	while( dat >> c ) if( isalpha( c ) )	break;	// preskoci whitespace
 	dat.seekg( -1, std::ios::cur );
 	std::string line;
 	dat >> line;
+	while( dat.peek() != ')' )	dat.seekg( -1, std::ios::cur );
+	dat.seekg( 1, std::ios::cur );
 	bool pocetakTijelaFun = line.at( line.size() - 3 ) == '{';
 	return std::string( line.begin(), line.end() - pocetakTijelaFun - 1 ); // -1 zbog '\n' znaka
 }
 
-std::string getFuncBody( std::ifstream& dat )
+std::string getFuncBody( std::fstream& dat )
 {
 	std::string retVal;
 	size_t stack = 0;
@@ -201,8 +213,8 @@ std::string getFuncBody( std::ifstream& dat )
 	return retVal;
 }
 
-void skipFuncBody( std::ifstream& dat );
-std::optional<size_t> ParseFile::getPositionOfFunction( std::ifstream& dat, const char* imeFunkcije )
+void skipFuncBody( std::fstream& dat );
+std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const char* imeFunkcije )
 {
 	while( bool is_eof = findStartOfAFunction( dat ) )
 	{
@@ -242,7 +254,7 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::ifstream& dat, cons
 	return {};
 }
 
-void skipFuncBody( std::ifstream& dat )
+void skipFuncBody( std::fstream& dat )
 {
 	size_t stack = 0;
 	while( !dat.eof() )
