@@ -1,5 +1,8 @@
 /// Zbog jednostavnosti, citat ce specijalne datoteke koje ne sadrze nista vise nego samo funkcije koje te zanimaju
 ///  - u svakom projektu nalazi se "FilesToParse" -> potrebna <- mapa koja sadrzi sve bitne datoteke
+/// 
+/// TRENUTACNO NE PODRZAVA TEKST ZADATAKA SA VISE LINIJSKIM KOMENTAROM!! /* */
+
 #pragma once
 #include <iostream>
 #include <fstream>
@@ -53,7 +56,7 @@ public:
 public:
 	/// citaj
 	///  - nije potrebno reci za koji je projekt jer m_datoteka vec govori o kojem se projektu radi (po indexu)
-	std::vector<Zadatak*> readFile( std::fstream& dat );
+	std::vector<Zadatak*> readFile( std::fstream& dat, const bool DEBUG_FLAG = false );
 	//
 	std::optional<size_t> getPositionOfFunction( std::fstream& dat, const char* imeFunkcije );
 

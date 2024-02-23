@@ -221,7 +221,7 @@ void Master::init()
 			}
 		}
 
-		std::cout << "Parsing files...\n";
+		std::cout << "Parsing files...\n--------------------------------------------\n";
 		std::vector<ParseFile> pfs;
 		std::vector<std::vector<Zadatak*>> zadaci( paths.size() );
 		for( size_t idx = 0; idx < paths.size(); ++idx )
@@ -231,7 +231,9 @@ void Master::init()
 			for( const auto& fName : imenaDatoteka[idx] )
 			{
 				// BUG: readFile ne vraca informacije zadataka
-				zadaci[idx] = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ) ) );
+				std::cout << fName << "\n";
+				bool DEBUG_FLAG = fName == "Cjelina101.cpp";
+				zadaci[idx] = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
 		// popuni JSON objekt kako parsira datoteke
 				++idxOfFile;
 			}

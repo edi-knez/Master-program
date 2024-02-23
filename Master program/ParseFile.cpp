@@ -59,31 +59,58 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 	}
 
 }
+//////////////////////////////////////////// DEBUG //////////////////////////////////////////////////
+static size_t DEBUG_IDX = 1;
+static const bool _DEBUG_FLAG = true;
 
-bool findStartOfAFunction( std::fstream& dat );
-std::string getKomentar( std::fstream& dat );
-std::string getDeclaration( std::fstream& dat );
-std::string getFuncBody( std::fstream& dat );
-std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat )
+
+#define DUMP_FILE() \
+if( DEBUG_FLAG ) \
+{ \
+	std::string line2; \
+	while( std::getline( dat, line2 ) ) \
+	{ \
+		std::cout << "LINE: " << line2 << "\n"; \
+		line2.clear(); \
+	} \
+int a = 5; \
+}									
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG = false );
+std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG = false );
+std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG = false );
+std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG = false );
+std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_FLAG )
 {
 
 	std::vector<Zadatak*> retVal;
 	while( !dat.eof() )
 	{
+#if true	
+//		if( (DEBUG_IDX & 1) == 1 )	// dumpaj samo neparne
+		{
+			DUMP_FILE();
+		}
+#endif
+		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 4 )
+			std::cout << "\nBreAkPoint\n";
 		bool is_eof = findStartOfAFunction( dat );
 		if( !is_eof )
 		{
 			auto zad = new Zadatak;
-			zad->tekst = getKomentar( dat );
-			zad->deklaracija = getDeclaration( dat );
-			zad->kod = getFuncBody( dat );
+			zad->tekst = getKomentar( dat, DEBUG_FLAG );
+			zad->deklaracija = getDeclaration( dat, DEBUG_FLAG );
+			zad->kod = getFuncBody( dat, DEBUG_FLAG );
 			retVal.push_back( std::move( zad ) );
 		}
 	}
+	++DEBUG_IDX;
 	return retVal;
 }
 
-bool findStartOfAFunction( std::fstream& dat )
+bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
 {
 	auto ignoreRestOfALine = []( std::fstream& dat )
 		{
@@ -93,10 +120,8 @@ bool findStartOfAFunction( std::fstream& dat )
 	firstWord.reserve( 30 );
 	// TODO: mjesto za razmislit u buducnosti
 	std::string funRetType = "void";
-	while( !dat.eof() )
+	while( dat >> firstWord )
 	{
-		dat >> firstWord;
-
 		if( firstWord == funRetType )
 		{
 			dat.seekg( -1 * ( firstWord.size() + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
@@ -111,7 +136,7 @@ bool findStartOfAFunction( std::fstream& dat )
 
 void vratiSeZa1ZnakUnazad( std::fstream& dat )
 {
-	dat.seekg( -1, std::ios::cur );
+	dat.seekg( -1 * ( dat.tellg() > 0 ), std::ios::cur );
 }
 
 /// <summary>
@@ -126,8 +151,20 @@ void vratiSeZa1ZnakUnazad( std::fstream& dat )
 /// </summary>
 /// <param name="dat"> datoteka koja se cita </param>
 /// <returns> Cijeli tekst zadatka (ukoliko ga ima) </returns>
-std::string getKomentar( std::fstream& dat )
+std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 {
+#if false
+	std::string line2;
+	if( DEBUG_FLAG )
+	{
+		while( std::getline( dat, line2 ) )	std::cout << "LINE: " << line2 << "\n";
+		int a = 5;
+	}
+#endif
+
+	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )
+		std::cout << "\n----------------------\nLokacija u datoteci: " << dat.tellg() << "\n------------------------------\n";
+
 	size_t currentPosInFile = dat.tellg();
 	size_t currentPosInComment = dat.tellg();
 	size_t previousPosInComment = dat.tellg();
@@ -158,10 +195,13 @@ std::string getKomentar( std::fstream& dat )
 
 	auto spremiLinijuUString = [ & ]()
 		{
+			previousPosInComment = currentPosInComment;
+			currentPosInComment = dat.tellg();
+			if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 && currentPosInComment == 29 )
+				std::cout << "\n----------------------\nLokacija trenutacna3: " << dat.tellg() << "\n------------------------------\n";
 			size_t brojZnakovaULiniji = previousPosInComment - dat.tellg();
 			std::getline( dat, line );
 			if( !tekstZadatka.empty() )	line += '\n';	// dodaj newline svima osim zadnjoj liniji
-			line += '\0';
 			tekstZadatka.push_front( line );
 			dat.seekg( brojZnakovaULiniji * -1, std::ios::cur );	// vrati ga na mjesto prije nego je pocelo citat znakove u string
 
@@ -170,6 +210,8 @@ std::string getKomentar( std::fstream& dat )
 
 	while( bool notBeginingOfFile = dat.tellg() != 0 )
 	{
+	//	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 && currentPosInComment == 29 )
+		//	std::cout << "\n----------------------\nLokacija \"currentPosInComment\" : " << currentPosInComment << "\n------------------------------\n";
 		char trenutniZnak = dat.peek();
 		vratiSeZa1ZnakUnazad( dat );	// vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
 
@@ -180,8 +222,14 @@ std::string getKomentar( std::fstream& dat )
 			{
 				dat.get();
 			}
+	//		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 && currentPosInComment == 29 )
+		//		std::cout << "\n----------------------\nLokacija trenutacna1: " << dat.tellg() << "\n------------------------------\n";
 			while( isspace( dat.get() ) ) {}
+	//		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 && currentPosInComment == 29 )
+		//		std::cout << "\n----------------------\nLokacija trenutacna2: " << dat.tellg() << "\n------------------------------\n";
 			vratiSeZa1ZnakUnazad( dat );
+	//		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 && currentPosInComment == 29 )
+		//		std::cout << "\n----------------------\nLokacija trenutacna3: " << dat.tellg() << "\n------------------------------\n";
 			spremiLinijuUString();
 			break;
 		}
@@ -197,8 +245,9 @@ std::string getKomentar( std::fstream& dat )
 			if( bool notEndingofNextine = dat.peek() == '\n' )	break;
 			vratiSeZa1ZnakUnazad( dat );
 		}
-		previousPosInComment = currentPosInComment;
-		currentPosInComment = dat.tellg();
+
+		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )
+			std::cout << "\n----------------------\nLokacija \"currentPosInComment\" : " << currentPosInComment << "\n------------------------------\n";
 	}
 
 	std::string retVal;	// dodaj sve linije teksta u jednu cjelinu
@@ -207,15 +256,24 @@ std::string getKomentar( std::fstream& dat )
 		retVal += tekstZadatka.front();
 		tekstZadatka.pop_front();
 	}
-	
+
+	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )
+		std::cout << "\n----------------------\nLokacija u datoteci: " << dat.tellg() << "\n------------------------------\n";
+	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )	DUMP_FILE();
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
+	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )
+		std::cout << "\n----------------------\nLokacija u datoteci: " << dat.tellg() << "\n------------------------------\n";
 	return retVal;
 }
 
-std::string getDeclaration( std::fstream& dat )
+std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 {
-	char c;
-	while( isspace( dat.get() ) ) {};	// preskoci whitespace
+	std::string line2;
+	//if( DEBUG_FLAG )	while( std::getline( dat, line2 ) )	std::cout << "LINE: " << line2 <<"\n";
+	while( isspace( dat.get() ) )
+	{
+		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )	std::cout << dat.peek() << '\n';
+	}	// preskoci whitespace
 	vratiSeZa1ZnakUnazad( dat );
 	std::string line;
 	std::getline( dat, line );
@@ -224,12 +282,12 @@ std::string getDeclaration( std::fstream& dat )
 	while( dat.peek() != ')' )	vratiSeZa1ZnakUnazad( dat );
 	dat.get();
 	size_t pomakDoKrajaDeklaracije = krajLinije - dat.tellg();
-	while( dat.get() != '{'){}
+	while( dat.get() != '{' ) {}
 	vratiSeZa1ZnakUnazad( dat );
 	return std::string( line.begin(), line.end() - pomakDoKrajaDeklaracije );
 }
 
-std::string getFuncBody( std::fstream& dat )
+std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )
 {
 	std::string retVal = "";
 	std::string line = "";
@@ -247,7 +305,7 @@ std::string getFuncBody( std::fstream& dat )
 		if( stack == 0 )	break;
 		retVal += '\n';
 	}
-	std::cout << retVal;
+	//std::cout << retVal;
 	return retVal;
 }
 
