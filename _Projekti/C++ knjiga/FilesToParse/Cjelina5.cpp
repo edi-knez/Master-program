@@ -4,6 +4,7 @@
 ///		Implementacija zadataka iz cjeline 5
 /// </summary>
 
+// tekst ove funkcije nemoze procitat jer se komentar ne nalazi 1 liniju iznad deklaracije!!
 void Cjelina5::zad2()
 {
 	Krug* k = new Krug();
@@ -25,7 +26,7 @@ void Cjelina5::zad2()
 
 /// <summary>
 ///		Racunanje sume niza uz pomoc druge klase
-/// 
+///
 ///		Ispisi sve brojeve koje niz sadrzi i provjeri sa rezultatom koji metoda daje
 /// </summary>
 void Cjelina5::zad3()
