@@ -85,6 +85,10 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat )
 
 bool findStartOfAFunction( std::fstream& dat )
 {
+	auto ignoreRestOfALine = []( std::fstream& dat )
+		{
+			while( dat.get() != '\n' ) {};
+		};
 	std::string firstWord;
 	firstWord.reserve( 30 );
 	// TODO: mjesto za razmislit u buducnosti
@@ -95,19 +99,24 @@ bool findStartOfAFunction( std::fstream& dat )
 
 		if( firstWord == funRetType )
 		{
-			dat.seekg( -1 * ( firstWord.size() + 1 ), std::ios::cur );	 // + 1 da se vrati ispred 1. znaka u toj liniji
+			dat.seekg( -1 * ( firstWord.size() + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
 			break;
 		}
-		while( dat.get() != '\n' ) {};
+		ignoreRestOfALine( dat );
 		firstWord.clear();
 	}
 	return dat.eof();
 }
 
+
+void vratiSeZa1ZnakUnazad( std::fstream& dat )
+{
+	dat.seekg( -1, std::ios::cur );
+}
+
 /// <summary>
 ///		test komentar
 
-// BUG: neradi ispravno!!
 /// <summary>
 ///		Da bi bio siguran da citas komentar od funkcije, a ne neki random, moras pocet citat od deklaracije te funkcije.
 ///		Citas od kraja linije prema pocetku dok nenaides na pocetak komentara "//" ili dok do dodes do kraja cijelog komentara "\n\n".
@@ -124,22 +133,20 @@ std::string getKomentar( std::fstream& dat )
 	size_t previousPosInComment = dat.tellg();
 	std::list<std::string> tekstZadatka;
 	std::string line;
-	bool firstTime = true;
-	while( bool notBeginingOfFile = dat.tellg() > 0 )
-	{
-		dat.seekg( -2, std::ios::cur );	// vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
-	//	dat.seekg( -1, std::ios::cur );
-	//	dat.seekg( -1, std::ios::cur );
-		std::cout << "nalazi se na znaku: " << dat.peek() << "\t, a sljedeci znak je: " << dat.get() << "\n\n";
-		if( bool notBeginingOfFile = dat.tellg()/* - static_cast<std::streampos>( 1 ) */; dat.peek() == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )	break;	// doslo je do pocetka teksta zadatka
-		dat.seekg( -1, std::ios::cur ); // vrati se unazad za znak za koji si sada provjeravao pocetak komentara
-		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnije
 
-		while( bool notBeginingOfFile = dat.tellg() > 0 )
+
+	auto pronadiPocetakKomentara = [&]()
 		{
-			if( dat.peek() == '/' && dat.get() == '/' )	break;	// doslo je do pocetka linije
-			dat.seekg( -1, std::ios::cur ); // vrati se unazad za znak za koji si sada provjeravao pocetak linije i vrati se 1 znak da nastavi dalji pregledavat
-		}
+			while( bool notBeginingOfFile = dat.tellg() > 0 )
+			{
+				char trenutniZnak = dat.peek();
+				vratiSeZa1ZnakUnazad( dat );
+				if( trenutniZnak == '/' && dat.peek() == '/' )
+					break;	// doslo je do pocetka linije
+			}
+			dat.get();
+			dat.get();	/// preskoci '//' , znakove komentara
+		};
 
 /////////////////////
 // ovo je test
@@ -147,42 +154,72 @@ std::string getKomentar( std::fstream& dat )
 // currentPosInComment -> 5
 // brojZnakova -> 15 - 4 = 11
 /////////////////////
-
-		// preskoci sve whitspace od pocetka komentara
-		char c;
-		while( dat >> c ) if( isalpha( c ) ) break; // ide jedan znak previse,
-		dat.seekg( -1, std::ios::cur );		// vrati ga
-
-		// doslo je do pocetka komentara, spremi liniju u string
-		size_t brojZnakova = previousPosInComment - dat.tellg();
-		line.reserve( brojZnakova + 1 );
-		for( int cnt = 0; cnt < brojZnakova; ++cnt )
+	auto preskociWhiteSpace = [ & ]()
 		{
-			dat >> c;
-			if( c == '\n' )	break;
-			line += c;
-		}
-		if( !tekstZadatka.empty() )	line += '\n';	// dodaj newline svima osim zadnjoj liniji
-		line += '\0';
-		tekstZadatka.push_front( line );
-		dat.seekg( brojZnakova * -1, std::ios::cur );	// vrati ga na mjesto prije nego je pocelo citat znakove u string
+			char c;
+			while( dat >> c )
+			{
+				if( isspace( c ) ) continue; // ide jedan znak previse,
+				break;
+			}
+			vratiSeZa1ZnakUnazad( dat );
+		};
 
+	auto spremiLinijuUString = [ & ]()
+		{
+			size_t brojZnakovaULiniji = previousPosInComment - dat.tellg();
+			std::getline( dat, line );
+			if( !tekstZadatka.empty() )	line += '\n';	// dodaj newline svima osim zadnjoj liniji
+			line += '\0';
+			tekstZadatka.push_front( line );
+			dat.seekg( brojZnakovaULiniji * -1, std::ios::cur );	// vrati ga na mjesto prije nego je pocelo citat znakove u string
+
+		};
+
+	while( bool notBeginingOfFile = dat.tellg() != 0 )
+	{
+		char trenutniZnak = dat.peek();
+		vratiSeZa1ZnakUnazad( dat );	// vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
+
+		if( bool notBeginingOfFile = dat.tellg(); trenutniZnak == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )// doslo je do pocetka teksta zadatka
+		{
+			dat.get(); // preskoci znak '\n'
+			while( dat.peek() == '/' )
+			{
+				dat.get();
+			}
+			preskociWhiteSpace();
+			spremiLinijuUString();
+			break;
+		}
+		vratiSeZa1ZnakUnazad( dat ); // vrati se unazad za znak za koji si sada provjeravao pocetak komentara
+		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnije
+
+		pronadiPocetakKomentara();
+		preskociWhiteSpace();
+		spremiLinijuUString();
 		while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
 		{
-			if( bool notEndingofNextine = dat.peek() == '\n' )
-				break;
-			dat.seekg( -1, std::ios::cur );
+			if( bool notEndingofNextine = dat.peek() == '\n' )	break;
+			vratiSeZa1ZnakUnazad( dat );
 		}
 		previousPosInComment = currentPosInFile;
 		currentPosInFile = dat.tellg();
-
 	}
-	std::string retVal;	// dodaj sve liniju u jednu cjelinu
-	for( const auto& linijaTekstaZadatka : tekstZadatka )	retVal += linijaTekstaZadatka;
+
+	std::string retVal;	// dodaj sve linije teksta u jednu cjelinu
+	while( !tekstZadatka.empty() )
+	{
+		std::cout << tekstZadatka.front();
+		retVal += tekstZadatka.front();
+		tekstZadatka.pop_front();
+	}
+
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
 	return retVal;
 }
 
+// BUG: neradi ispravno!!
 std::string getDeclaration( std::fstream& dat )
 {
 	char c;
@@ -201,9 +238,8 @@ std::string getFuncBody( std::fstream& dat )
 	std::string retVal;
 	size_t stack = 0;
 	char c;
-	while( !dat.eof() )
+	while( dat >> c )
 	{
-		dat >> c;
 		retVal += c;
 		stack += c == '{';
 		stack -= c == '}';
@@ -257,11 +293,11 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 void skipFuncBody( std::fstream& dat )
 {
 	size_t stack = 0;
-	while( !dat.eof() )
+	char c;
+	while( dat >> c )
 	{
-		dat.seekg( 1, std::ios::cur );
-		stack += dat.peek() == '{';
-		stack -= dat.peek() == '}';
+		stack += c == '{';
+		stack -= c == '}';
 		if( stack == 0 )	break;
 	}
 }
