@@ -134,8 +134,15 @@ std::string getKomentar( std::fstream& dat )
 	std::list<std::string> tekstZadatka;
 	std::string line;
 
+/////////////////////
+// ovo je test
+// previousPosInComment -> 16 - 1 = 15  (- 1 zbog toga sto je zadnja linija komentara)
+// currentPosInComment -> 5
+// brojZnakova -> 15 - 4 = 11
+/////////////////////
 
-	auto pronadiPocetakKomentara = [&]()
+
+	auto pronadiPocetakKomentara = [ & ]()
 		{
 			while( bool notBeginingOfFile = dat.tellg() > 0 )
 			{
@@ -148,22 +155,6 @@ std::string getKomentar( std::fstream& dat )
 			dat.get();	/// preskoci '//' , znakove komentara
 		};
 
-/////////////////////
-// ovo je test
-// previousPosInComment -> 16 - 1 = 15  (- 1 zbog toga sto je zadnja linija komentara)
-// currentPosInComment -> 5
-// brojZnakova -> 15 - 4 = 11
-/////////////////////
-	auto preskociWhiteSpace = [ & ]()
-		{
-			char c;
-			while( dat >> c )
-			{
-				if( isspace( c ) ) continue; // ide jedan znak previse,
-				break;
-			}
-			vratiSeZa1ZnakUnazad( dat );
-		};
 
 	auto spremiLinijuUString = [ & ]()
 		{
@@ -175,6 +166,7 @@ std::string getKomentar( std::fstream& dat )
 			dat.seekg( brojZnakovaULiniji * -1, std::ios::cur );	// vrati ga na mjesto prije nego je pocelo citat znakove u string
 
 		};
+
 
 	while( bool notBeginingOfFile = dat.tellg() != 0 )
 	{
@@ -188,7 +180,8 @@ std::string getKomentar( std::fstream& dat )
 			{
 				dat.get();
 			}
-			preskociWhiteSpace();
+			while( isspace( dat.get() ) ) {}
+			vratiSeZa1ZnakUnazad( dat );
 			spremiLinijuUString();
 			break;
 		}
@@ -196,7 +189,8 @@ std::string getKomentar( std::fstream& dat )
 		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnije
 
 		pronadiPocetakKomentara();
-		preskociWhiteSpace();
+		while( isspace( dat.get() ) ) {}
+		vratiSeZa1ZnakUnazad( dat );
 		spremiLinijuUString();
 		while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
 		{
@@ -210,7 +204,6 @@ std::string getKomentar( std::fstream& dat )
 	std::string retVal;	// dodaj sve linije teksta u jednu cjelinu
 	while( !tekstZadatka.empty() )
 	{
-	//	std::cout << tekstZadatka.front();
 		retVal += tekstZadatka.front();
 		tekstZadatka.pop_front();
 	}
@@ -223,15 +216,16 @@ std::string getKomentar( std::fstream& dat )
 std::string getDeclaration( std::fstream& dat )
 {
 	char c;
-	while( dat >> c ) if( isalpha( c ) )	break;	// preskoci whitespace
-	dat.seekg( -1, std::ios::cur );
+	while( isspace( dat.get() ) ) {};	// preskoci whitespace
+	vratiSeZa1ZnakUnazad( dat);
 	std::string line;
-	std::getline( dat, line);
-	std::cout << line;
-	while( dat.peek() != ')' )	dat.seekg( -1, std::ios::cur );
-	dat.seekg( 1, std::ios::cur );
-	bool pocetakTijelaFun = line.at( line.size() - 3 ) == '{';
-	return std::string( line.begin(), line.end() - pocetakTijelaFun - 1 ); // -1 zbog '\n' znaka
+	std::getline( dat, line );
+	while( dat.peek() != '\n' )	vratiSeZa1ZnakUnazad( dat );
+	size_t krajLinije = dat.tellg();
+	while( dat.peek() != ')' )	vratiSeZa1ZnakUnazad( dat );
+	dat.get();
+	size_t pomakDoKrajaDeklaracije = krajLinije - dat.tellg();
+	return std::string( line.begin(), line.end() - pomakDoKrajaDeklaracije);
 }
 
 std::string getFuncBody( std::fstream& dat )

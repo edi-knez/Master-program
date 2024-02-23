@@ -17,7 +17,7 @@ double Cjelina1::_kvadPovrsina( double funX ) {
 void Cjelina1::zad4_kvadrat() {
 	using std::cout;
 	double x = 5.5;
-	double x2 = _kvadPovrsina( x );	// kvadriraj x		da dobijes x^2
+	double x2 = _kvadPovrsina( x );		// kvadriraj x		da dobijes x^2
 	double x4 = _kvadPovrsina( x2 );	// kvadriraj x^2	da dobijes x^4
 	cout << "x: " << x << '\n';
 	cout << "x2: " << x2 << '\n';
