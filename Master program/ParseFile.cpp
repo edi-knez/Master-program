@@ -94,7 +94,7 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_F
 			DUMP_FILE();
 		}
 #endif
-		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 6 )
+		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 9 )
 			std::cout << "\nBreAkPoint\n";
 		bool is_eof = findStartOfAFunction( dat );
 		if( !is_eof )
@@ -114,7 +114,8 @@ bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
 {
 	auto ignoreRestOfALine = []( std::fstream& dat )
 		{
-			while( dat.get() != '\n' ) {};
+			char c;
+			while( dat >> c ) if( c == '\n' )	break;;
 		};
 	std::string firstWord;
 	firstWord.reserve( 30 );
@@ -200,7 +201,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 		{
 			previousPosInComment = currentPosInComment;
 			currentPosInComment = dat.tellg();
-			
+
 			std::getline( dat, line );
 			if( !tekstZadatka.empty() )	line += '\n';	// dodaj newline svima osim zadnjoj liniji
 			tekstZadatka.push_front( line );
