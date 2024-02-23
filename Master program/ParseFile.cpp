@@ -203,14 +203,14 @@ std::string getKomentar( std::fstream& dat )
 			if( bool notEndingofNextine = dat.peek() == '\n' )	break;
 			vratiSeZa1ZnakUnazad( dat );
 		}
-		previousPosInComment = currentPosInFile;
-		currentPosInFile = dat.tellg();
+		previousPosInComment = currentPosInComment;
+		currentPosInComment = dat.tellg();
 	}
 
 	std::string retVal;	// dodaj sve linije teksta u jednu cjelinu
 	while( !tekstZadatka.empty() )
 	{
-		std::cout << tekstZadatka.front();
+	//	std::cout << tekstZadatka.front();
 		retVal += tekstZadatka.front();
 		tekstZadatka.pop_front();
 	}
@@ -226,7 +226,8 @@ std::string getDeclaration( std::fstream& dat )
 	while( dat >> c ) if( isalpha( c ) )	break;	// preskoci whitespace
 	dat.seekg( -1, std::ios::cur );
 	std::string line;
-	dat >> line;
+	std::getline( dat, line);
+	std::cout << line;
 	while( dat.peek() != ')' )	dat.seekg( -1, std::ios::cur );
 	dat.seekg( 1, std::ios::cur );
 	bool pocetakTijelaFun = line.at( line.size() - 3 ) == '{';
