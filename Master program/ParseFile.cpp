@@ -207,17 +207,16 @@ std::string getKomentar( std::fstream& dat )
 		retVal += tekstZadatka.front();
 		tekstZadatka.pop_front();
 	}
-
+	
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
 	return retVal;
 }
 
-// BUG: neradi ispravno!!
 std::string getDeclaration( std::fstream& dat )
 {
 	char c;
 	while( isspace( dat.get() ) ) {};	// preskoci whitespace
-	vratiSeZa1ZnakUnazad( dat);
+	vratiSeZa1ZnakUnazad( dat );
 	std::string line;
 	std::getline( dat, line );
 	while( dat.peek() != '\n' )	vratiSeZa1ZnakUnazad( dat );
@@ -225,22 +224,30 @@ std::string getDeclaration( std::fstream& dat )
 	while( dat.peek() != ')' )	vratiSeZa1ZnakUnazad( dat );
 	dat.get();
 	size_t pomakDoKrajaDeklaracije = krajLinije - dat.tellg();
-	return std::string( line.begin(), line.end() - pomakDoKrajaDeklaracije);
+	while( dat.get() != '{'){}
+	vratiSeZa1ZnakUnazad( dat );
+	return std::string( line.begin(), line.end() - pomakDoKrajaDeklaracije );
 }
 
 std::string getFuncBody( std::fstream& dat )
 {
-	std::string retVal;
+	std::string retVal = "";
+	std::string line = "";
+	line.reserve( 255 );
 	size_t stack = 0;
-	char c;
-	while( dat >> c )
+	while( true )
 	{
-		retVal += c;
-		stack += c == '{';
-		stack -= c == '}';
+		std::getline( dat, line );
+		for( const char c : line )
+		{
+			retVal += c;
+			stack += c == '{';
+			stack -= c == '}';
+		}
 		if( stack == 0 )	break;
+		retVal += '\n';
 	}
-
+	std::cout << retVal;
 	return retVal;
 }
 
