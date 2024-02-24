@@ -94,8 +94,10 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_F
 			DUMP_FILE();
 		}
 #endif
+#if false
 		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 9 )
 			std::cout << "\nBreAkPoint\n";
+#endif
 		bool is_eof = findStartOfAFunction( dat );
 		if( !is_eof )
 		{
@@ -112,11 +114,16 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_F
 
 bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
 {
-	auto ignoreRestOfALine = []( std::fstream& dat )
+	auto ignoreRestOfALine = [ & ]()
 		{
 			char c;
-			while( dat >> c ) if( c == '\n' )	break;;
+			while( c = dat.get() )
+			{
+				if( dat.eof() || c == '\n' )	break;
+			}
+			//dat.get();
 		};
+
 	std::string firstWord;
 	firstWord.reserve( 30 );
 	// TODO: mjesto za razmislit u buducnosti
@@ -128,9 +135,11 @@ bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
 			dat.seekg( -1 * ( firstWord.size() + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
 			break;
 		}
-		ignoreRestOfALine( dat );
+		ignoreRestOfALine();
 		firstWord.clear();
+
 	}
+
 	return dat.eof();
 }
 
@@ -189,9 +198,10 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 				if( trenutniZnak == '/' && dat.peek() == '/' )
 					break;	// doslo je do pocetka linije
 			}
-	//		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 6 && currentPosInComment == 740 )
-	//			std::cout << "\n----------------------\nTrenutni znak: " << dat.peek() << "\n------------------------------\n";
-
+#if false
+			if( ::_DEBUG_FLAG && ::DEBUG_IDX == 6 && currentPosInComment == 740 )
+				std::cout << "\n----------------------\nTrenutni znak: " << dat.peek() << "\n------------------------------\n";
+#endif
 			dat.get(); /// preskoci '//' , znakove komentara
 			dat.get();
 		};
@@ -216,7 +226,8 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 		char trenutniZnak = dat.peek();
 		vratiSeZa1ZnakUnazad( dat );	// vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
 
-		if( bool notBeginingOfFile = dat.tellg(); trenutniZnak == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )// doslo je do pocetka teksta zadatka
+		// doslo je do pocetka teksta zadatka
+		if( bool notBeginingOfFile = dat.tellg(); trenutniZnak == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )
 		{
 			dat.get(); // preskoci znak '\n'
 			while( dat.peek() == '/' )
@@ -229,6 +240,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 			spremiLinijuUString();
 			break;
 		}
+
 		vratiSeZa1ZnakUnazad( dat ); // vrati se unazad za znak za koji si sada provjeravao pocetak komentara
 		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnije
 

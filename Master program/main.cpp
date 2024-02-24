@@ -191,7 +191,7 @@ void Master::init()
 	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
 	if( !JSON_datoteka.is_open() )
 	{
-		//std::ofstream dat( "InformacijeOZadacima.json", std::ios::out );
+	//	std::ofstream dat( "dummy.json", std::ios::out );
 		nlohmann::json jsonData = _INTERNAL::buildJSON_structure();
 
 		std::vector<std::string_view> paths =
@@ -221,23 +221,27 @@ void Master::init()
 			}
 		}
 
-		std::cout << "Parsing files...\n--------------------------------------------\n";
+		std::cout << "Parsing files...";
 		std::vector<ParseFile> pfs;
-		std::vector<std::vector<Zadatak*>> zadaci( paths.size() );
+		std::vector<Zadatak*> zadaci( paths.size() );
 		for( size_t idx = 0; idx < paths.size(); ++idx )
 		{
+			puts( "\n--------------------------------------------" );
 			pfs.push_back( ParseFile( paths[idx], imenaDatoteka[idx] ) );
 			size_t idxOfFile = 0;
 			for( const auto& fName : imenaDatoteka[idx] )
 			{
-				// BUG: readFile ne vraca informacije zadataka
-				std::cout << fName << "\n";
-				bool DEBUG_FLAG = fName == "Cjelina101.cpp";
-				zadaci[idx] = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
+				std::cout << fName;
+				bool DEBUG_FLAG = false; /*	DEBUG_FLAG = fName == "Cjelina101.cpp"; */
+
+				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
 		// popuni JSON objekt kako parsira datoteke
+				/// zadaci stizu po cjelinama u kojima se nalaze
+				puts( "" );
 				++idxOfFile;
 			}
 		}
+		puts( "\n--------------------------------------------" );
 		std::cout << "\nDONE!\nRecompile the program to proceed to the next stage!\nExiting...\n";
 		exit( EXIT_SUCCESS );
 	}
