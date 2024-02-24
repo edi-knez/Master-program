@@ -234,6 +234,7 @@ void Master::init()
 				std::cout << fName;
 				bool DEBUG_FLAG = false; /*	DEBUG_FLAG = fName == "Cjelina101.cpp"; */
 
+
 				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
 		// popuni JSON objekt kako parsira datoteke
 				/// zadaci stizu po cjelinama u kojima se nalaze

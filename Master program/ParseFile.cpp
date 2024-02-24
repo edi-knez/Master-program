@@ -73,9 +73,16 @@ if( DEBUG_FLAG ) \
 		std::cout << "LINE: " << line2 << "\n"; \
 		line2.clear(); \
 	} \
-int a = 5; \
 }									
 
+#define DEBUG_LOG(IDX_OF_FILE) \
+if( _DEBUG_FLAG && DEBUG_IDX == DEBUG_IDX ) \
+{ \
+	std::cout << "\n----------------------\n"; \
+	std::cout << "Nalazim se na znaku: " << static_cast<char>( dat.peek() ) << '\n'; \
+	std::cout << "Trenutacna lokacija: " << dat.tellg(); \
+	std::cout << "\n----------------------\n"; \
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG = false );
@@ -229,15 +236,6 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 		// doslo je do pocetka teksta zadatka
 		if( bool notBeginingOfFile = dat.tellg(); trenutniZnak == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )
 		{
-			dat.get(); // preskoci znak '\n'
-			while( dat.peek() == '/' )
-			{
-				dat.get();
-			}
-
-			while( isspace( dat.get() ) ) {}
-			vratiSeZa1ZnakUnazad( dat );
-			spremiLinijuUString();
 			break;
 		}
 
@@ -246,11 +244,9 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 
 		pronadiPocetakKomentara();
 		char c;
-//		if( ::_DEBUG_FLAG && ::DEBUG_IDX == 6 ) // nalazi se na znaku '\n'
-//		{
-//			c = dat.peek();
-//			std::cout << "\n----------------------\nLokacija trenutacna1: " << dat.tellg() << "---" << c << "---\n------------------------------\n";
-//		}
+#if false
+		DEBUG_LOG( 1 );
+#endif
 
 		while( isspace( dat.peek() ) ) { dat.get(); } // nalazi se na znaku '/'
 	//	vratiSeZa1ZnakUnazad( dat );	// nalazi se na znaku '\n'
@@ -270,9 +266,10 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 		tekstZadatka.pop_front();
 	}
 
-//	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )
-//		std::cout << "\n----------------------\nLokacija u datoteci: " << dat.tellg() << "\n------------------------------\n";
+#if false
 //	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )	DUMP_FILE();
+#endif
+
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
 
 	return retVal;
