@@ -32,6 +32,17 @@ struct Zadatak
 	std::string kod; // tijelo funkcije
 };
 
+
+/*
+std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
+{
+	dat << "TEKST ZADATKA: " << zad.tekst << '\n'
+		<< "DEKLARACIJA: " << zad.deklaracija << '\n'
+		<< "KOD:\n" << zad.kod << '\n';
+	return dat;
+}
+*/
+
 /// <summary>
 ///		Ova klasa je zaduzena za prelazak preko zeljenih datoteka i uzimanja informacija za pojedini zadatak.
 /// </summary>

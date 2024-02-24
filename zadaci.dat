@@ -1,0 +1,1953 @@
+===================================================
+TEKST ZADATKA: <summary>
+Ispisi i izracunaj x, x^2, x^4
+</summary>
+DEKLARACIJA: void Cjelina1::zad4_kvadrat()
+KOD:
+{
+	using std::cout;
+	double x = 5.5;
+	double x2 = _kvadPovrsina( x );		// kvadriraj x		da dobijes x^2
+	double x4 = _kvadPovrsina( x2 );	// kvadriraj x^2	da dobijes x^4
+	cout << "x: " << x << '\n';
+	cout << "x2: " << x2 << '\n';
+	cout << "x4: " << x4 << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Ispis teksta u konzolu
+</summary>
+DEKLARACIJA: void Cjelina1::zad5_ispis()
+KOD:
+{
+	using std::cout;
+	cout << "\nI like to write \n before I've read it. \n\n";
+	cout << "Then, with my pen, I always edit.\n";
+	cout << "But, with computer\s, now I type ";
+	cout << "and never, ever get it right.\n";
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Pozovi funkciju iz druge cpp datoteke
+</summary>
+DEKLARACIJA: void Cjelina1::vj1_2datoteke()
+KOD:
+{
+	std::cout << "Ovo je moj C++ program\n";
+	z121_datoteka();
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Izracunaj i ispisi povrsinu kruga u konzolu
+</summary>
+DEKLARACIJA: void Cjelina1::vj3_krug()
+KOD:
+{
+	double r, kvadrat, area;
+	r = 2;
+	kvadrat = r * r;
+	area = kvadrat * 3.14;
+	std::cout << "Povrsina kruga = " << area << " m" << std::endl;
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+U ovom testu se koriste izvedene klase pomocu heap memorije koje se pristupaju pomocu base klase pointera
+</summary>
+DEKLARACIJA: void Cjelina10::zad1()
+KOD:
+{
+    /*   LP* a = new LP;
+   CD* b = new CD;
+   DVD* c = new DVD;
+
+   a->ispis();
+   b->ispis();
+   c->ispis();
+
+   delete a, b, c;*/
+
+    LP* a = new LP;
+    CD* b = new CD;
+    DVD* c = new DVD;
+    Ploca* A[3];
+
+    A[0] = a;
+    A[1] = b;
+    A[2] = c;
+
+    for (int i = 0; i < 3; i++) {
+        A[i]->_ispisi();
+    }
+
+    delete A[0], A[1], A[2];
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+U ovom testu se takoder pristupa objektima pomoce base klase pointera za koristenje metode ispisa, a i brisanja heap memorije
+</summary>
+DEKLARACIJA: void Cjelina10::zad2()
+KOD:
+{
+    Roditelj* a = new Roditelj("Janko", 1);
+    Dijete* b = new Dijete("Ana", true);
+    Clan_obitelji* c[2];
+
+    c[0] = a;
+    c[1] = b;
+
+    for (int i = 0; i < 2; i++)  c[i]->_ispis();
+
+    for (int i = 0; i < 2; i++)  delete c[i];
+
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+ispisi integer
+</summary>
+<param name="lr">integer koji zelis ispisat</param>
+DEKLARACIJA: void Cjelina2::ispis(int lr) { std::cout << "(int funkcij
+KOD:
+{ std::cout << "(double funkcija): " << lrDouble << '\n'; }
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void Cjelina2::Krug::operator=(double 
+KOD:
+{ this->m_radijus = x; }
+--------------------------------
+TEKST ZADATKA: <summary>
+Provjeri hoce li se pozvat pravi overload
+</summary>
+DEKLARACIJA: void Cjelina2::zad1()
+KOD:
+{
+    int r;
+    double rDouble;
+
+    r = 2;
+    rDouble = 2.7;
+
+    ispis(r);
+    ispis(rDouble);
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+testiraj setRadijus metodu
+</summary>
+DEKLARACIJA: void Cjelina2::zad2()
+KOD:
+{
+    Krug k;
+    Krug* k2 = new Krug;
+    double d;
+
+    d = 1.3;
+    k.SetRadijus(d);
+    k = d;
+
+    std::cout << "Radijus kruga: " << k.getRadijus() << '\n';
+    delete k2;
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Testiraj setRadijus metodu sa vise vrijednosti i ispisi povrsinu pripadajucih krugova
+</summary>
+DEKLARACIJA: void Cjelina2::zad3()
+KOD:
+{
+    using std::cout;
+    Krug k1;
+    Krug k2;
+    double d;
+    Krug k3;
+    //k3.radijus = 2;
+    k3.SetRadijus(2);
+    Krug k4;
+    //k4.radijus = -2;
+    k4.SetRadijus(-2);
+    cout << "Upisite radijus prvog kruga: ";
+    std::cin >> d;
+    //k1.radijus = d;
+    k1.SetRadijus(d);
+    cout << "Upisi radijus drugog kruga: ";
+    std::cin >> d;
+    //k2.radijus = d;
+    k2.SetRadijus(d);
+
+    cout << "Povrsina prvog kruga: " << k1.Povrsina() << std::endl;
+    cout << "Povrsina drugog kruga " << k2.Povrsina() << std::endl;
+    cout << "Povrsina 3. kruga: " << k3.Povrsina() << std::endl;
+    cout << "Povrsina 4. kruga " << k4.Povrsina() << std::endl;
+
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Opet ispisi radijus i povrsinu kruga
+</summary>
+DEKLARACIJA: void Cjelina2::zad4()
+KOD:
+{
+    using std::cout;
+    Krug k1;
+    double d;
+    cout << "Upisi radijus kruga: ";
+    std::cin >> d;
+    k1.SetRadijus(d);
+    cout << "Radijus kruga je:\t" << k1.getRadijus() << std::endl;
+    cout << "Povrsina kruga je:\t" << k1.Povrsina() << std::endl;
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Ispisi decimalnu vrijednost razlomka ako je vazeci
+</summary>
+DEKLARACIJA: void Cjelina2::zad5()
+KOD:
+{
+    Razlomak raz;
+    int br, nz;
+    std::cout << "Upisi Brojnik pa nazivnik: ";
+    std::cin >> br >> nz;
+
+    if (raz.Set(br, nz))
+        std::cout << "Vrijednost razlomka je: " << raz.GetDecimal() << '\n';
+    
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Ispisi string, promijeni mu vrijednost pa opet ispisi te mu ispisi broj znakova koje sadrzi
+</summary>
+DEKLARACIJA: void Cjelina2::zad6()
+KOD:
+{
+    std::string naziv = "Objektno orijentirano programiranje";
+    std::string noviStr;
+    std::cin >> noviStr;
+    std::cout << '\n' << naziv << '\n';
+    naziv = noviStr;
+    std::cout << naziv << '\n';
+
+    std::cout << "duljina stringa je: " << naziv.length() << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Primjer upotrebe pointera i referenca u funkcijama
+</summary>
+DEKLARACIJA: void Cjelina3::zad1()
+KOD:
+{
+	double rad, pPov, refPov;
+	double povrsina, opseg;
+
+	std::cout << "Upisi radijus kruga: ";
+	std::cin >> rad;
+
+	std::cout << "Povrsina kruga = " << povrsinaVrijednost( rad ) << " m2\n";
+
+	povrsinaPokazivac( rad, &pPov );
+	std::cout << "Povrsina kruga (pok)= " << pPov << " m2\n";
+
+	povrsinaReferenca( rad, refPov );
+	std::cout << "Povrsina kruga (ref)= " << refPov << " m2\n";
+
+	povrsinaOpseg( povrsina, opseg, rad );
+	std::cout << "Radijus: " << rad << "\nPovrsina = " << povrsina << " m2\n" << "Opseg = " << opseg << " m2\n";
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Racuna povrsinu pravokutnika
+</summary>
+DEKLARACIJA: void Cjelina3::zad3()
+KOD:
+{
+	float width = 2.5, height = 3.1, area = 0.0;
+	rect_area( width, height, area );
+	std::cout << "Povrsina pravokutnika je= " << area << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Racunanje opsega za trokut, kvadrat ili kruga zavisno o inputu
+</summary>
+DEKLARACIJA: void Cjelina3::zad4()
+KOD:
+{
+	using std::cin; using std::cout;
+	uint32_t izbor = 0;
+	float opseg;
+	cout << "Upisi broj:\n1 - za opseg trokuta\n2 - za opseg kvadrata\n3 - za opseg kruga\n";
+	cin >> izbor;
+	switch( izbor )
+	{
+	case 1:
+	{
+		float str1, str2, str3;
+		cout << "Unesi stranice trokuta: (str1 str2 str3): ";
+		cin >> str1 >> str2 >> str3;
+		trokut_Opseg( opseg, str1, str2, str3 );
+		cout << "Opseg trokuta = " << opseg << '\n';
+		break;
+	}
+	case 2:
+	{
+		float str;
+		cout << "Unesi stranicu kvadrata: ";
+		cin >> str;
+		kvadrat_Opseg( opseg, str );
+		cout << "Opseg kvadrata = " << opseg << '\n';
+		break;
+	}
+	case 3:
+	{
+		float rad;
+		cout << "Unesi radijus kruga: ";
+		cin >> rad;
+		krug_Opseg( &opseg, &rad );
+		cout << "Opseg kruga = " << opseg;
+		break;
+	}
+	default:
+		cout << "Pogresan odabir!";
+		break;
+	}
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Testiranje funkcionalnosti klase Registracija
+</summary>
+DEKLARACIJA: void Cjelina3::zad5()
+KOD:
+{
+	Registracija r1( 534, 234 );
+	Registracija r2;
+	Registracija r3;
+	r2.ispisi();
+	r1.ispisi();
+	r1.Set( 999, 544 );
+	r1.ispisi();
+	//r3.Set(1001, 1000);
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Racuna i ispisuje povrsinu pravokutnika. Rezultat se sprema u referencu larea parametar.
+</summary>
+<param name="lwidth">sirina stranice</param>
+<param name="lheight">visina stranice</param>
+<param name="larea">varijabla za rezultat</param>
+DEKLARACIJA: void rect_area( float lwidth, float lheight, float& larea )
+KOD:
+{
+	larea = lwidth * lheight;
+	std::cout << "Povrsina funkcije je= " << larea << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Racuna opseg trokuta
+</summary>
+<param name="o">varijabla za rezultat</param>
+<param name="s1">stranica a</param>
+<param name="s2">stranica b</param>
+<param name="s3">stranica c</param>
+DEKLARACIJA: void trokut_Opseg( float& o, const float& s1, const float& s2, const float& s3 )
+KOD:
+{
+	o = s1 + s2 + s3;
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Racuna opseg kvadrata uz koristenje referenca
+</summary>
+<param name="o">varijabla za rezultat</param>
+<param name="s"></param>
+DEKLARACIJA: void kvadrat_Opseg( float& o, const float& s )
+KOD:
+{
+	o = 4 * s;
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+racuna opseg kruga uz koristenje pointera
+</summary>
+<param name="o">varijabla za rezultat</param>
+<param name="s">radijus</param>
+DEKLARACIJA: void krug_Opseg( float* o, const float* s )
+KOD:
+{
+	*o = 2 * ( *s ) * 3.14;
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Ispisuje povrsinu i opseg kruga
+</summary>
+DEKLARACIJA: void Cjelina4::zad1()
+KOD:
+{
+    Krug k(10);
+
+    std::cout << "Povrsina: " << k.izracunajPovrsinu() << '\n';
+    std::cout << "Opseg: " << k.izracunajOpseg() << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Ispisuje udaljenost dvije tocke iz obadvije perspektive
+</summary>
+DEKLARACIJA: void Cjelina4::zad3()
+KOD:
+{
+        Tocka t1(1.0, 1.0);
+        Tocka t2(4.0, 1.0);
+
+        std::cout << "Udaljenost izmedu t1 i t2 = " << t1.Udaljenost(t2) << '\n';
+        std::cout << "Udaljenost izmedu t2 i t1 = " << t2.Udaljenost(t1) << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Ispisuje udaljenost dvije tocke postavljene sa metodom setTocka iz obadvije perspektive
+</summary>
+DEKLARACIJA: void Cjelina4::zad4()
+KOD:
+{
+        Tocka2 t1;
+        Tocka2 t2;
+        t1.setTocka(1, 1);
+        t2.setTocka(1, 4);
+
+        std::cout << "Udaljenost izmedu t1 i t2 = " << Udaljenost(t1, t2) << '\n';
+        std::cout << "Udaljenost izmedu t2 i t1 = " << Udaljenost(t2, t1) << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Ispisuje rjesenje kriptiranog izraza
+</summary>
+DEKLARACIJA: void Cjelina4::zad5()
+KOD:
+{
+    int i = 0, a = 2, b;
+
+    while (i < 3) {
+        std::cout << (i++ - a == (b = 0));
+    }
+}
+--------------------------------
+TEKST ZADATKA: tekst ove funkcije nemoze procitat jer se komentar ne nalazi 1 liniju iznad deklaracije!!
+DEKLARACIJA: void Cjelina5::zad2()
+KOD:
+{
+	Krug* k = new Krug();
+	if (k->SetRadijus(1.0))
+	{
+		std::cout << "Povrsina: " << k->izracunajPovrsinu() << '\n';
+		std::cout << "Opseg: " << k->izracunajOpseg() << '\n';
+	}
+	else { std::cout << "Greska\n"; }
+	if (k->SetRadijus(-1.0))
+	{
+		std::cout << "Povrsina: " << k->izracunajPovrsinu() << '\n';
+		std::cout << "Opseg: " << k->izracunajOpseg() << '\n';
+	}
+	else { std::cout << "Greska pri unosu radijusa\n"; }
+
+	delete k;
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Racunanje sume niza uz pomoc druge klase
+///		Ispisi sve brojeve koje niz sadrzi i provjeri sa rezultatom koji metoda daje
+Ispisi sve brojeve koje niz sadrzi i provjeri sa rezultatom koji metoda daje
+</summary>
+DEKLARACIJA: void Cjelina5::zad3()
+KOD:
+{
+	KlNiz kn1;
+
+	for (int i = 0; i < 10; i++) {
+		std::cout << "A[ " << i << "] = " << kn1[i] << '\n';
+	}
+	std::cout << "suma niza: " << kn1.sumaNiza() << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Testiranje funkcionalnost klase Kompleks sa parametiziranim vrijednostima
+</summary>
+DEKLARACIJA: void Cjelina6::zad1()
+KOD:
+{
+    using std::cout;
+    Kompleks a(6.6, 4.7);
+    Kompleks b(2.6, 3.4);
+
+    Kompleks c;
+
+    cout << "a = " << a.getReal() << " + i * " << a.getImag() << '\n';
+    cout << "b = " << b.getReal() << " + i * " << b.getImag() << '\n';
+
+    c = a + b;
+
+    cout << "c = a + b" << '\n';
+    cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
+
+    c = a - b;
+
+    cout << "c = a - b" << '\n';
+    cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Testiranje funkcionalnost klase Kompleks sa vrijednostima unesenim sa tipkovnice
+</summary>
+DEKLARACIJA: void Cjelina6::zad2()
+KOD:
+{
+    using std::cout; using std::cin;
+    Kompleks a, b;
+
+    cout << "Upisite 2 kompleksna broja (dva para vrijednosti): " << '\n';
+
+    cin >> a;
+    cin >> b;
+
+    cout << "Upisali ste brojeve" << '\n';
+    cout << "a = " << a.getReal() << " + i * " << a.getImag() << '\n';
+    cout << "b = " << b.getReal() << " + i * " << b.getImag() << '\n';
+
+    if (a < b) {
+        cout << "a je manji od b!" << '\n';
+    }
+    else {
+        cout << "a je veci ili jednak c!" << '\n';
+    }
+
+    Kompleks c;
+
+    c = a;
+
+    cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
+
+    c.setReal(3.0);
+    cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
+
+    if (c > a) {
+        cout << "c je veci od a!" << '\n';
+    }
+    else {
+        cout << "c je manji ili jednak a!" << '\n';
+    }
+
+    c += a;
+    cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Testiranje funkcionalnost klase iArray
+</summary>
+DEKLARACIJA: void Cjelina6::zad3()
+KOD:
+{
+    using std::cout;
+
+    int arr[] = { 1, 2, 3, 4, 5 };
+    int arr2[] = { 1, 2, 3, 4, 5, 6 };
+    //iarray d;
+    iarray i1{};
+    iarray i2(arr, 5);
+    iarray i3(i2);
+
+    cout << "i1:\t" << i1.size() << '\n';
+    cout << "i2:\t" << i2.size() << '\n';
+    cout << "i3:\t" << i3.size() << '\n';
+
+    i3 += 2;
+    i2 += 5;
+    cout << "i2:\t" << i2.size() << '\n';
+    cout << "i3:\t" << i3.size() << '\n';
+
+    i3 = iarray(arr2, 6);
+    std::cout << "i3:\t" << i3.size() << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Racunanje potencije broja sa unosom sa tipkovnice
+</summary>
+DEKLARACIJA: void Cjelina6::zad4()
+KOD:
+{
+    int i = 0;
+    int p;
+    double b, r;
+
+    std::cout << "Upisi bazu: ";
+    std::cin >> b;
+    std::cout << "Upisi potenciju: ";
+    std::cin >> p;
+
+    r = rekurzija(p, b);
+
+    std::cout << b << " na " << p << " je: " << r << '\n';
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Filtriraj gradove u filter.txt datoteku koja se otvara za citanje i brise sav sadrzaj pri pozivu funkcije
+///		Gradovi se nalaze u datoteci cities.txt
+Gradovi se nalaze u datoteci cities.txt
+</summary>
+DEKLARACIJA: void Cjelina7::zad1()
+KOD:
+{
+	//// napravi datoteku i popuni je gradovima
+	//std::ofstream out_file("cities.txt");
+
+	//out_file << "Atlanta" << " " << "Baltimore";
+	//out_file << " " << "Cincinnati" << " " << "Dallas";
+	//out_file << " " << " " << "zzz" << " " << "zzz";
+
+	//out_file.close();
+
+
+
+	std::ifstream in_file("cities.txt", std::ios::in);
+	std::ofstream filter("filter.txt", std::ios::out | std::ios::trunc);
+	char c;
+	std::string result = "";
+	// dohvati karakter
+	while (in_file.get(c))
+	{
+		// grad je spremljen u varijabli
+		if (c == ' ')
+		{
+			if (result != "zzz" && result != "")	// ako se nalazi deliminator zzz ili je varijabla prazna, preskoci taj input
+				filter << result << "\n";
+
+			result = "";	// resetiraj string
+			continue;
+		}
+
+		result += c;
+	}
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Spremi u memoriji prvih 1000 float vrijednosti drugog korijena u niz
+Onda iz tog niza zapisi u datoteku kompleks.txt
+///		Nakon toga otvori binaernu datoteku kompleks.bin i zapisi rezultate
+Nakon toga otvori binaernu datoteku kompleks.bin i zapisi rezultate
+Da provjeris uspjeh binaernog zapisa stvori novi niz od 1000 kompleksnih brojeva i procitaj podatke iz binaerne datoteke
+</summary>
+DEKLARACIJA: void Cjelina7::zad2()
+KOD:
+{
+    //kompleks a, b;
+//std::cout << "Upisite 2 kompleksna broja (dva para vrijednosti): \n";
+//std::cin >> a;
+//std::cin >> b;
+
+//std::cout << "Upisali ste brojeve\n";
+//std::cout << a;
+//std::cout << b;
+
+//if (a < b)
+//    std::cout << "a je manji od b!\n";
+//else
+//    std::cout << "a je veci od b!\n";
+
+    Kompleks A[1000];
+    int i;
+    // izracunaj i zapisi u memoriju
+    for (i = 0; i < 1000; ++i)
+    {
+        A[i].setReal(sqrt(static_cast<float>(i)));
+        A[i].setImag(A[i].getReal());
+    }
+
+    // zapisi u datoteku iz memorije
+    std::ofstream fTxt("kompleks.txt");
+    for (i = 0; i < 1000; ++i)
+        fTxt << A[i] << std::endl;
+    fTxt.close();
+
+    // zapisi u binarnom obliku
+    std::ofstream fBin("kompleks.bin", std::ios::binary);
+    fBin.write(reinterpret_cast<char*>(A), 1000 * sizeof(Kompleks));
+    fBin.close();
+
+    Kompleks B[1000];
+    std::stringstream ss;
+    std::ifstream bin_ulaz("kompleks.bin", std::ios::in | std::ios::binary);
+    if (bin_ulaz)
+    {
+        // zapisi u memoriju iz binarne datoteke
+        bin_ulaz.read(reinterpret_cast<char*>(&B), 1000 * sizeof(Kompleks));
+        bin_ulaz.close();
+        std::cout << "Citanje iz kompleks.bin:\n";
+        for (i = 0; i < 1000; ++i)
+            ss << B[i];
+        std::cout << ss.view();
+        std::cout << "\t\tEND\n";
+    }
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void Cjelina7::zad4()
+KOD:
+{
+    std::ifstream datoteka("datoteka.txt", std::ios::in);
+    //pisi_u_consolu_iz_datoteke(datoteka);
+    pisi_u_consolu_iz_datoteke("datoteka", "dat");
+
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Ispisi datoteku u konzolu uz pomoc buffera
+</summary>
+<param name="datoteka">datoteka iz koje citas</param>
+DEKLARACIJA: void pisi_u_consolu_iz_datoteke(std::ifstream& datoteka)
+KOD:
+{
+    std::string blob;
+    blob.reserve(512);
+    if (datoteka.is_open()) {
+        char c;
+        for (int i = 0; datoteka.get(c); ++i) {
+            if (i < 511)
+                blob += c;
+            else {
+                std::cout << blob << ' ';
+                blob = "";
+                i = 0;
+            }
+        }
+        std::cout << blob;
+    }
+    else {
+        std::cout << "Nema datoteke :(\n";
+    }
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+REDUDANTNA FUNKCIJA
+</summary>
+<param name="naziv"></param>
+<param name="ekstenzija"></param>
+DEKLARACIJA: void pisi_u_consolu_iz_datoteke(const std::string& naziv, const std::string& ekstenzija)
+KOD:
+{
+    std::string blob;
+    blob.reserve(512);
+    std::ifstream datoteka((naziv + '.' + ekstenzija), std::ios::in);
+    if (datoteka.is_open()) {
+        char c;
+        for (int i = 0; datoteka.get(c); ++i) {
+            if (i < 511)
+                blob += c;
+            else {
+                std::cout << blob;
+                blob = "";
+                i = 0;
+            }
+        }
+        std::cout << blob;
+    }
+    else {
+        std::cout << "Nema datoteke :(\n";
+    }
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Razlika izmedu rada sa C i C++ stringom
+</summary>
+DEKLARACIJA: void Cjelina8::zad1()
+KOD:
+{
+	// C
+	char ime[50] = "Ivan";
+	char prezime[50] = "Peras";
+	char ImePrezime[100] = "";
+	char kopija[100] = "";
+
+	// C++
+	using std::string; using std::cout;
+	string sIme = "Ivan";
+	string sPrezime = "Peras";
+	string sImePrezime = "";
+	string sKopija = "";
+
+	cout << "Kopiranje:\n";
+
+	strcpy_s( ImePrezime, ime );
+	cout << "C:\t" << ImePrezime << '\n';
+
+	sImePrezime = sIme;
+	cout << "C++:\t" << sImePrezime << '\n';
+
+	cout << "Spajanje:\n";
+
+	strcat_s( ImePrezime, " " );
+	strcat_s( ImePrezime, prezime );
+	cout << "C:\t" << ImePrezime << '\n';
+
+	sImePrezime = sImePrezime + " " + sPrezime;
+	cout << "C++:\t" << sImePrezime << '\n';
+
+	cout << "Mjerenje duljine:\n";
+
+	cout << "C:\t" << strlen( ImePrezime ) << '\n';
+
+	cout << "C++:\t" << sImePrezime.length() << '\n';
+
+	cout << "Usporedba:\n";
+
+	cout << "C:\t" << !strcmp( ImePrezime, ime ) << '\n';
+
+	cout << "C++:\t" << ( sImePrezime == sIme ) << '\n';
+
+
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Unos zeljenih brojeva u vektor pod strukturu sve dok se ne upise slovo
+Onda izracunaj i ispisi sumu pa prosjecnu vrijednost
+Nakon toga prikazi sve unesene brojeve
+</summary>
+DEKLARACIJA: void Cjelina8::zad2()
+KOD:
+{
+	using std::cout; using std::cin; using std::vector;
+	vector<double> vec;
+	vector<double> revVec;
+	double val;
+
+	cout << "Unos proizvoljnog niza brojeva u vektor.\n";
+	cout << "Unos zavrsava kada se otkuca neko slovo!\n";
+
+	while( cin >> val )
+	{
+		vec.push_back( val );
+	}
+	cin.clear();	// ocisti failbit zastavicu
+	cin.ignore();	// ignoriraj zadnji pritisnuti enter
+	double sum = 0;
+
+	for( vector<double>::const_iterator it = vec.begin(); it != vec.end(); it++ )
+	{
+		sum += *it;
+	}
+
+	for( int i = vec.size() - 1; i > -1; i-- )
+	{
+		revVec.push_back( vec[i] );
+	}
+
+	double avg = sum / vec.size();
+
+	cout << "Suma od " << vec.size()
+		<< " elemenata: " << sum
+		<< ". Srednja vrijednost: " << avg << '\n';
+
+	for( vector<double>::iterator it = revVec.begin(); it != revVec.end(); it++ )
+	{
+		cout << *it << '\n';
+	}
+}
+--------------------------------
+TEKST ZADATKA: <summary>
+Testiranje template funkcije maximum sa integerima i double
+Testiranje template funkcije apsolutnaVrijednost sa integerom i double
+Testiranje palindrom funkcije
+</summary>
+DEKLARACIJA: void Cjelina8::zad3()
+KOD:
+{
+	using std::cout; using std::string;
+	int a = 3,
+		b = 5;
+
+	double c = 3.1,
+		d = 5.2;
+
+	cout << "maximum(int): " << maximum( a, b ) << '\n';
+	cout << "maximum(double): " << maximum( c, d ) << '\n';
+
+	cout << "apsolutno a: " << apsolutnaVrijednost( a ) << '\n';;
+	cout << "apsolutno -6.77: " << apsolutnaVrijednost( -6.77 ) << '\n';
+
+
+	string s1 = "bob",
+		s2 = "jabuka",
+		s3 = "anavolimilovana";
+
+	cout << "palindrom(bob): " << palindrom( s1 ) << '\n'
+		<< "palindrom(jabuka): " << palindrom( s2 ) << '\n'
+		<< "palindrom(anavolimilovana): " << palindrom( s3 ) << '\n';
+
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void Cjelina9::zad1()
+KOD:
+{
+    using std::cin; using std::cout; using std::string; using std::list;
+    string str;
+    list<string> lst;
+    list<string>::const_iterator it;
+
+    std::ofstream izlaz("lista.txt");
+
+    cin >> str;
+    while (str != "kraj") {
+        lst.push_back(str);
+        cin >> str;
+    }
+
+    cout << '\n';
+    izlaz << "Lista:\n";
+
+    for (it = lst.begin(); it != lst.end(); it++) {
+        cout << *it << '\n';
+        izlaz << *it << '\n';
+    }
+    cout << '\n';
+    izlaz << '\n';
+
+    lst.reverse();
+    izlaz << "Obrnuto:\n";
+    for (it = lst.begin(); it != lst.end(); it++) {
+        izlaz << *it << '\n';
+        cout << *it << '\n';
+    }
+
+    izlaz.close();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void Cjelina9::zad2()
+KOD:
+{
+    using std::vector; using std::cout;
+    int a;
+    vector<int> v;
+    vector<int>::iterator iter;
+
+    std::cin >> a;
+    while (a != 0) {
+        v.push_back(a);
+        std::cin >> a;
+    }
+    cout << '\n';
+
+    sort(v.begin(), v.end());
+
+    iter = find(v.begin(), v.end(), 55);
+    if (iter != v.end()) {
+        cout << "iter: " << *iter << '\n';
+    }
+    else {
+        cout << "Not found!\n";
+    }
+
+    for (iter = v.begin(); iter != v.end(); iter++) {
+        cout << *iter << '\n';
+    }
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void Cjelina9::zad3()
+KOD:
+{
+    LP* a = new LP;
+    CD* b = new CD;
+    DVD* c = new DVD;
+
+    a->_ispisi();
+    b->_ispisi();
+    c->_ispisi();
+
+    delete a, b, c;
+
+    MP3CD d;
+    d._ispisi();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void Cjelina9::zad4()
+KOD:
+{
+    using std::cout;
+    Tocka2D t1(1, 1);
+    cout << t1.getX() << ", " << t1.getY() << '\n';
+
+    Tocka3D t11(2, 2, 2);
+    cout << "t11" << t11 << '\n';
+
+    Tocka3D t12(-2, -2, -2);
+    cout << "t12" << t12 << '\n';
+
+    cout << "t11" << t11 << " == t12" << t12 << ": " << t11.operator==(t12) << '\n';
+
+    /* t12.setX(2);
+     t12.setY(2);
+     t12.setZ(2);*/
+
+    std::cout << "t12 = t11\n";
+    t12 = t11;
+    cout << "t12" << t12 << '\n';
+    cout << "t11" << t11 << " == t12" << t12 << ": " << (t11 == t12) << '\n';
+
+    t12.setZ(3);
+    cout << "t12" << t12 << '\n';
+    cout << "t11" << t11 << " == t12" << t12 << ": " << (t11 == t12) << '\n';
+
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void Cjelina9::zad6()
+KOD:
+{
+    O_O_P o1;
+
+    o1.setOcjenuPredavanja(4);
+    o1.setIspraljenaOcjenaPredavanja(5, 0);
+    o1.ispisiOcjenePredavanja();
+}
+--------------------------------
+====================================================
+TEKST ZADATKA: vježba 7
+DEKLARACIJA: void vj7_ispisVrijednostiVarijabla( int y )
+KOD:
+{
+	int sati, minute, sekunde;
+
+	bool jeRanijeVrijemeOd( const Vrijeme& other )
+	{
+		if( this->sati > other.sati )	return 1;
+		else if( this->sati == other.sati )
+		{
+			if( this->minute > other.minute )	return 1;
+			else if( this->minute == other.minute )
+			{
+				if( this->sekunde > other.sekunde )	return 1;
+			}
+		}
+		return 0;
+	}
+};
+--------------------------------
+TEKST ZADATKA: vježba 7
+vježba 8
+vježba 9
+DEKLARACIJA: void v9_ispisVremena( struct Vrijeme* v
+KOD:
+{
+	int godina, mjesec, dan;
+
+	/// <summary>
+	///		usporeduje 2 datuma
+	/// </summary>
+	/// <param name="other">Datum sa kojim provjeravas</param>
+	/// <returns>1 ako je datum raniji
+	///			 0 ako su isti datumi
+	///			-1 ako je datum kasniji</returns>
+	int usporedbaSaDatumom( const Datum& other )
+	{
+		if( this->godina > other.godina )	return 1;
+		else if( this->godina == other.godina )
+		{
+			if( this->mjesec > other.mjesec )	return 1;
+			else if( this->mjesec == other.mjesec )
+			{
+				if( this->dan > other.dan )	return 1;
+				else if( this->dan == other.dan )	return 0;
+			}
+		}
+		return -1;
+	}
+};
+--------------------------------
+TEKST ZADATKA: vježba 8
+vježba 9
+-1 ako je datum kasniji</returns>
+DEKLARACIJA: void v9_ispisDatuma( struct Datum* d
+KOD:
+{
+	char ime[20], prezime[20];
+	Vrijeme rodenaU;
+	Datum rodenaNa;
+
+	/// <summary>
+	///		Ova funkcija govori je li osoba starija od one sa kojom je usporedujes
+	///		
+	///		koristi obrnutu logiku da se rijesi slucaja 
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns>1 ako je osoba od koje usporedujes mlada, 0 ako su jednake dobi ili -1 ako je osoba od koje usporedujes starija</returns>
+	int compareWith( const Osoba& other )
+	{
+		int usporedbaDatuma = this->rodenaNa.usporedbaSaDatumom( other.rodenaNa );
+		if( usporedbaDatuma > 0 )	return true;
+		else if( usporedbaDatuma == 0 )	return  this->rodenaU.jeRanijeVrijemeOd( other.rodenaU );
+		else return -1;
+	}
+	void ispisOsobe()
+	{
+		printf( "Ime: %s\n", this->ime );
+		printf( "Prezime: %s\n", this->prezime );
+		printf( "Godina: %d\n", this->rodenaNa.godina );
+		printf( "Mjesec: %d\n", this->rodenaNa.mjesec );
+		printf( "Dan: %d\n", this->rodenaNa.dan );
+		printf( "Sat: %d\n", this->rodenaU.sati );
+		printf( "Minute: %d\n", this->rodenaU.minute );
+		printf( "Sekunde: %d\n", this->rodenaU.sekunde );
+	}
+};
+--------------------------------
+TEKST ZADATKA: <summary>
+-1 ako je datum kasniji</returns>
+<returns>1 ako je osoba od koje usporedujes mlada, 0 ako su jednake dobi ili -1 ako je osoba od koje usporedujes starija</returns>
+DEKLARACIJA: void v9_prvaOsobaPoAbecedi_ime_pa_prezime( struct Osoba osobe[], int kolicina )
+KOD:
+{
+	printf( "Lokalna varijabla: %d\n", y );
+	printf( "Globalna varijabla: %d\n", vj7_globalnaVarijabla );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void vj8_unosElemenataMatrice( int a[][3], unsigned int velicina )
+KOD:
+{
+	int temp;
+	for( int i = 0; i < velicina; ++i )
+	{
+		for( int j = 0; j < velicina; ++j )
+		{
+			printf( "A[%d][%d]: ", i, j );
+			scanf_s( "%d", &temp );
+			a[i][j] = temp;
+		}
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void vj8_my_strcpy( char* tekst_destination, const char* tekst_source )
+KOD:
+{
+	size_t duljina = vj8_my_strlen( tekst_source ) + 1;
+	for( int i = 0; i < duljina; ++i )
+	{
+		tekst_destination[i] = tekst_source[i];
+	}
+	tekst_destination[duljina - 1] = '\0';
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void v9_ispisVremena( struct Vrijeme* v )
+KOD:
+{
+	printf( "%d : %d : %d", v->sati, v->minute, v->sekunde );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void v9_ispisDatuma( struct Datum* d )
+KOD:
+{
+	printf( "dan prije unesenog dana je: %d\n", v9_proracunDatuma( d, -1 ) );
+	printf( "dan poslije unesenog dana je: %d\n\n", v9_proracunDatuma( d, 1 ) );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void v9_unosPodatakaOsobe( struct Osoba* o, int index )
+KOD:
+{
+	printf( "Unesi ime %d. osobe: ", index );
+	scanf_s( "%s", o->ime );
+	printf( "Unesi prezime %d. osobe: ", index );
+	scanf_s( "%s", o->prezime );
+	printf( "%d. Unesi datum rodenja (dan): ", index );
+	scanf_s( "%d", &o->rodenaNa.dan );
+	printf( "%d. Unesi datum rodenja (mjesec): ", index );
+	scanf_s( "%d", &o->rodenaNa.mjesec );
+	printf( "%d. Unesi datum rodenja (godinu): ", index );
+	scanf_s( "%d", &o->rodenaNa.godina );
+	printf( "%d. Unesi vrijeme rodenja (sat): ", index );
+	scanf_s( "%d", &o->rodenaU.sati );
+	printf( "%d. Unesi vrijeme rodenja (minutu): ", index );
+	scanf_s( "%d", &o->rodenaU.minute );
+	printf( "%d. Unesi vrijeme rodenja (sekundu): ", index );
+	scanf_s( "%d", &o->rodenaU.sekunde );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void v9_prvaOsobaPoAbecedi_ime_pa_prezime( struct Osoba osobe[], int kolicina )
+KOD:
+{
+	struct Osoba prva = osobe[0];
+	for( int i = 1; i < kolicina; ++i )
+	{
+		if( _strcmpi( osobe[i].ime, prva.ime ) < 0 )
+		{
+			prva = osobe[i];
+		}
+		else if( _strcmpi( osobe[i].ime, prva.ime ) == 0 )
+		{
+			if( _strcmpi( osobe[i].prezime, prva.prezime ) < 0 )
+			{
+				prva = osobe[i];
+			}
+		}
+	}
+	printf( "Prva osoba po abecedi:\n" );
+	prva.ispisOsobe();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void v9_najstarijaOsoba( struct Osoba osobe[], const int brOSOBA )
+KOD:
+{
+	struct Osoba najstarija = osobe[0];
+	for( int i = 1; i < brOSOBA; ++i )
+	{
+		if( najstarija.compareWith( osobe[i] ) == 1 )		najstarija = osobe[i];
+	}
+	printf( "najstarija osoba je:\n" );
+	najstarija.ispisOsobe();
+}
+--------------------------------
+TEKST ZADATKA: Vježba 10
+DEKLARACIJA: void vracanjeVrijednosti_3_varijableUfunkciji( int* suma, int* produkt, int* razlika, int br1, int br2 )
+KOD:
+{
+	*suma = br1 + br2;
+	*razlika = br1 - br2;
+	*produkt = br1 * br2;
+}
+--------------------------------
+TEKST ZADATKA: Vježba 11
+DEKLARACIJA: void vj11_kopiranjeDatoteke( FILE* fp, FILE* fp_copy, char* naziv1, char* naziv2 )
+KOD:
+{
+	fopen_s( &fp, naziv1, "r" );
+	if( fp == NULL )
+		printf( "Greska pri otvaranju datoteke" );
+	else
+	{
+		fopen_s( &fp_copy, naziv2, "w" );
+		if( fp_copy == NULL )
+			printf( "Greska pri otvaranju datoteke" );
+		else
+		{
+			char znak = fgetc( fp );
+			while( znak != EOF )
+			{
+				fputc( znak, fp_copy );
+				znak = fgetc( fp );
+			}
+			fclose( fp_copy );
+		}
+		fclose( fp );
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void vj11_citanjeDatoteke( FILE* fp )
+KOD:
+{
+	int brojac = 0;
+	while( fgetc( fp ) != EOF )
+	{
+		fseek( fp, -1, SEEK_CUR );
+		vj11_brojacImenaAna( fp, &brojac );
+	}
+	printf( "Ime \"Ana\" se pojavilo %d puta u datoteci.\n", brojac );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void vj11_brojacImenaAna( FILE* fp, int* brojac )
+KOD:
+{
+	char ime[15];
+	fgets( ime, 15, fp );
+	if( _strcmpi( ime, "Ana\n" ) == 0 )
+		++( *brojac );
+
+	fgets( ime, 15, fp );
+	fgets( ime, 15, fp );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void vj11_citanjeDatoteke2( FILE* fp )
+KOD:
+{
+	char tekst[128] = { 0 };
+	while( fgetc( fp ) != EOF )
+	{
+		fseek( fp, -1, SEEK_CUR );
+		vj11_ispisRijec_po_Rijec( fgets( tekst, 128, fp ) );
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void vj11_ispisRijec_po_Rijec( char* tekst )
+KOD:
+{
+	char rijec[128] = { 0 };
+	int index = 0;
+	for( int i = 0; i < strlen( tekst ) + 1; ++i )
+	{
+		if( tekst[i] != ' ' && tekst[i] != '.' && tekst[i] != ',' && tekst[i] != ':' )
+		{
+			rijec[index] = tekst[i];
+			++index;
+		}
+		else if( rijec[0] == '\0' || rijec[0] == '\\' )
+		{
+			index = 0; continue;	// preskoci praznu rijec
+		}
+		else
+		{
+			rijec[index] = '\0';
+			printf( "%s\n", rijec );
+			index = 0;
+		}
+	}
+	rijec[index] = '\0';
+	printf( "%s\n", rijec );
+	index = 0;
+}
+--------------------------------
+TEKST ZADATKA: sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+Vježba 11
+preskoci praznu rijec
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+DEKLARACIJA: void FESB::vj7_1()
+KOD:
+{
+	char odabir = { 0 };
+	int rez, x, y, z;
+	printf( "x = " );
+	scanf_s( "%d", &x );
+	printf( "y = " );
+	scanf_s( "%d", &y );
+	printf( "z = " );
+	scanf_s( "%d", &z );
+	printf( "Unesi slovo za zeljenu operciju:\na) rez = x + y + z\nb) rez = x * y * z\nc) rez = x / y + z\nd) rez = (x / y - z)na1 / 2\n" );
+	scanf_s( " %c", &odabir );
+	switch( tolower( odabir ) )
+	{
+	case 'a':
+		rez = x + y + z;
+		printf( "rez = %d", rez );
+		break;
+	case 'b':
+		rez = x * y * z;
+		printf( "rez = %d", rez );
+		break;
+	case 'c':
+		rez = x / y + z;
+		printf( "rez = %d", rez );
+		break;
+	case 'd':
+	{
+		int temp = sqrt( x / y - z );
+		if( temp < 0 )
+		{
+			printf( "Greska! izraz je < 0\n" );
+		}
+		else
+		{
+			rez = temp;
+			printf( "rez = %d", rez );
+		}
+		break;
+	}
+	default:
+		printf( "Greska! krivi unos\n" );
+		break;
+	}
+}
+--------------------------------
+TEKST ZADATKA: sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+Vježba 10
+Vježba 11
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+DEKLARACIJA: void FESB::vj7_2()
+KOD:
+{
+	int Y = 5;
+	vj7_ispisVrijednostiVarijabla( Y );
+}
+--------------------------------
+TEKST ZADATKA: Vježba 10
+Vježba 11
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+DEKLARACIJA: void FESB::vj7_3()
+KOD:
+{
+	int rezultat = vj7_faktorijele( 3 );
+	printf( "Rezultat 3! = %d\n", rezultat );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj7_4()
+KOD:
+{
+	printf( "(moj) exp(5): %e\nexp(5): %e\n", vj7_exp( 1, 5 ), exp( 1 ) );
+	printf( "(moj) exp(5): %e\nexp(5): %e\n", vj7_exp( 5, 5 ), exp( 5 ) );
+	printf( "(moj) exp(10): %e\nexp(10): %e\n", vj7_exp( 5, 10 ), exp( 5 ) );
+	printf( "(moj) exp(50): %e\nexp(50): %e\n", vj7_exp( 5, 50 ), exp( 5 ) );
+}
+--------------------------------
+TEKST ZADATKA: /*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+DEKLARACIJA: void FESB::vj8_1()
+KOD:
+{
+	const int BROJ_ELEMENATA = 6;
+	int testBroj1 = 4, testBroj2 = 5;
+	int A[BROJ_ELEMENATA] = { 3, 5, 7, 8, 9, 10 };
+	printf( "niz: " );
+	for( const auto br : A )
+		printf( "%d ", br );
+	printf( "\n\ntestBroj1(%d) se ", testBroj1 );
+	( vj8_postoji_li_element( A, BROJ_ELEMENATA, testBroj1 ) ) ? printf( "nalazi u nizu\n" ) : printf( "ne nalazi u nizu\n" );
+	printf( "testBroj2(%d) se ", testBroj2 );
+	( vj8_postoji_li_element( A, BROJ_ELEMENATA, testBroj2 ) ) ? printf( "nalazi u nizu\n" ) : printf( "ne nalazi u nizu\n" );
+}
+--------------------------------
+TEKST ZADATKA: sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+2. Napisati program koji računa produkt svih elemenata matrice dimenzija 3x3. Program ne smije
+sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
+DEKLARACIJA: void FESB::vj8_2()
+KOD:
+{
+	const int vel = 3;
+	int matricaA[vel][vel];
+	vj8_unosElemenataMatrice( matricaA, vel );
+	printf( "produkt = %d", vj8_produktElemenataMatrice( matricaA, vel ) );
+}
+--------------------------------
+TEKST ZADATKA: sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
+3. Napisati program koji sadrži f-je my_strlen i my_strcpy, koje rade isto što i f-je strlen i strcpy.
+Ispravnost funkcija provjeriti usporedbom sa stvarnim f-jama strlen i strcpy.
+*/
+DEKLARACIJA: void FESB::vj8_3()
+KOD:
+{
+	const char* a = { "ovojekratkitest" };
+	printf( "my_strlen: %zd\nstrlen: %zd\n", vj8_my_strlen( a ), strlen( a ) );
+
+	const char* c = { "tesktZaKopirat" };
+	char* d = (char*) malloc( vj8_my_strlen( c ) + 1 );
+	size_t duljina = strlen( c );
+	char* e = (char*) malloc( duljina + 1 );
+	if( d )	vj8_my_strcpy( d, c );
+	if( e )	strcpy_s( e, duljina, c );
+	printf( "c: %s\nd: %s\ne: %s", c, d, e );
+}
+--------------------------------
+TEKST ZADATKA: sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+*/
+DEKLARACIJA: void FESB::vj8_4()
+KOD:
+{
+	int n;
+	printf( "Unesi broj: " );
+	scanf_s( "%d", &n );
+	printf( "%d! = %d\n", n, vj8_rekurzija_faktorijele( n ) );
+}
+--------------------------------
+TEKST ZADATKA: ne podrzava negativne brojeve
+dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+*/
+DEKLARACIJA: void FESB::vj8_5()
+KOD:
+{
+	int niz[5] = { 3, 5, 1, 7, 2 };
+	printf( "najmanji element niza je: %d\n", vj8_rekurzija_minMax_elementNiza( niz, 4 ) );
+	printf( "najmanji element niza je: %d\n", vj8_rekurzija_minMax_elementNiza( niz, 4, false ) );	// 0 - min, 1 - max
+	printf( "najveci element niza je: %d\n", vj8_rekurzija_minMax_elementNiza( niz, 4, true ) );
+}
+--------------------------------
+TEKST ZADATKA: 0 - min, 1 - max
+DEKLARACIJA: void FESB::vj8_6()
+KOD:
+{
+	unsigned int deka;
+	printf( "Unesi dekadski broj: " );
+	scanf_s( "%d", &deka );
+	unsigned int baza;
+	printf( "Odaberi sustav u koji zelis pretvorit:\n2 -> binarni\n8 -> oktalni\n16 -> heksadecimalni\n\n" );
+	scanf_s( "%d", &baza );
+
+	printf( "%d(10) = %s(%d)\n", deka, vj8_deka_u_bin_okt_heksa( deka, baza ), baza );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj9_1()
+KOD:
+{
+	Vrijeme v1 = { 2, 35, 45 };
+	Vrijeme v2{ 3, 50, 30 };
+	Vrijeme v3 = v9_zbrajanjeVremena( &v1, &v2 );
+	v9_ispisVremena( &v3 );
+}
+--------------------------------
+TEKST ZADATKA: sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+2. Napisati program koji računa produkt svih elemenata matrice dimenzija 3x3. Program ne smije
+0 - min, 1 - max
+DEKLARACIJA: void FESB::vj9_2()
+KOD:
+{
+	struct Datum d1 { 2000, 6, 5 };
+	struct Datum d2 { 2003, 3, 31 };
+	struct Datum d3 { 2000, 4, 30 };
+	struct Datum d4 { 2004, 2, 1 };
+	v9_ispisDatuma( &d1 );
+	v9_ispisDatuma( &d2 );
+	v9_ispisDatuma( &d3 );
+	v9_ispisDatuma( &d4 );
+}
+--------------------------------
+TEKST ZADATKA: ne podrzava negativne brojeve
+dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
+gornji limit broja je ogranicen operatorom %
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+0 - min, 1 - max
+DEKLARACIJA: void FESB::vj9_3()
+KOD:
+{
+	const int BROJ_OSOBA = 5;
+	struct Osoba osobe[BROJ_OSOBA];
+	osobe[0] = { "Marko", "Marulic", { 15, 5, 0 }, { 2003, 5, 12  } };
+	osobe[1] = { "Ana", "Marelica", {20, 51, 50 }, { 2001, 5, 17 } };
+	osobe[2] = { "Pero", "Grgulj", { 10, 0, 7 }, { 2000, 8, 1 } };
+	osobe[3] = { "Marta", "Marulic", { 15, 5, 0 }, { 2003, 5, 12 } };
+	osobe[4] = { "Marko", "Marulic", { 15, 5, 0 }, { 2003, 5, 12 } };
+
+	struct Osoba prva = osobe[0];
+	v9_prvaOsobaPoAbecedi_ime_pa_prezime( osobe, BROJ_OSOBA );
+	puts( "" );
+	v9_najstarijaOsoba( osobe, BROJ_OSOBA );	// popravi
+}
+--------------------------------
+TEKST ZADATKA: ne podrzava negativne brojeve
+dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
+sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+0 - min, 1 - max
+popravi
+DEKLARACIJA: void FESB::vj10_1()
+KOD:
+{
+	const int LIMIT_ELEMENATA = 10;
+	int niz[LIMIT_ELEMENATA];
+	printf( "Unesi 10 cijelih brojeva\n" );
+	for( int i = 0; i < LIMIT_ELEMENATA; i++ )
+	{
+		printf( "Unesi %d. el: ", i );
+		scanf_s( "%d", niz + i );
+	}
+	puts( "" );
+	for( int i = 0; i < LIMIT_ELEMENATA; i++ )
+	{
+		printf( "niz[%d] = %d	na lokaciji %p\n", i, *( niz + i ), niz + i );
+	}
+}
+--------------------------------
+TEKST ZADATKA: sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+0 - min, 1 - max
+popravi
+DEKLARACIJA: void FESB::vj10_2()
+KOD:
+{
+	int suma, produkt, razlika;
+	vracanjeVrijednosti_3_varijableUfunkciji( &suma, &produkt, &razlika, 25, 5 );
+	printf( "broj1: %d\nbroj2: %d\nsuma: %d\nrazlika: %d\nprodukt: %d", 25, 5, suma, razlika, produkt );
+}
+--------------------------------
+TEKST ZADATKA: sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
+0 - min, 1 - max
+popravi
+DEKLARACIJA: void FESB::vj10_3()
+KOD:
+{
+	struct Datum d1 { 2000, 6, 5 };
+	struct Datum d2 { 2003, 3, 31 };
+	struct Datum d3 { 2005, 4, 30 };
+	struct Datum d4 { 2004, 2, 1 };
+
+	printf( "dan prije unesenog dana je: %d\n", v9_proracunDatuma( &d1, -1 ) );
+	printf( "dan poslije unesenog dana je: %d\n\n", v9_proracunDatuma( &d1, 1 ) );
+	printf( "dan prije unesenog dana je: %d\n", v9_proracunDatuma( &d2, -1 ) );
+	printf( "dan poslije unesenog dana je: %d\n\n", v9_proracunDatuma( &d2, 1 ) );
+	printf( "dan prije unesenog dana je: %d\n", v9_proracunDatuma( &d3, -1 ) );
+	printf( "dan poslije unesenog dana je: %d\n\n", v9_proracunDatuma( &d3, 1 ) );
+	printf( "dan prije unesenog dana je: %d\n", v9_proracunDatuma( &d4, -1 ) );
+	printf( "dan poslije unesenog dana je: %d\n\n", v9_proracunDatuma( &d4, 1 ) );
+}
+--------------------------------
+TEKST ZADATKA: ne podrzava negativne brojeve
+dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
+gornji limit broja je ogranicen operatorom %
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+*/
+0 - min, 1 - max
+popravi
+DEKLARACIJA: void FESB::vj10_4()
+KOD:
+{
+	const int BUFFER_LIMIT = 128;
+	char tekst[BUFFER_LIMIT] = { "Kratka prica je oblik kratke narativne proze. Kratke price su sazetije u usporedbi s duzim djelima fikcije, kao sto su novele\0" };
+	char podstring[BUFFER_LIMIT - 1];	// inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+	printf( "broj ponavljanja podstringa: %d", vj10_brPonavljanja_podstringa_u_stringu( tekst, BUFFER_LIMIT, podstring ) );
+}
+--------------------------------
+TEKST ZADATKA: ne podrzava negativne brojeve
+dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+*/
+0 - min, 1 - max
+popravi
+inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+DEKLARACIJA: void FESB::vj11_1()
+KOD:
+{
+	FILE* fp;
+	FILE* fp_copy{};
+	char naziv1[20], naziv2[20];
+	printf( "Upisi puni naziv datoteke .txt: " );
+	scanf_s( "%s", naziv1 );
+	printf( "Upisi puni naziv za kopiju datoteke .txt: " );
+	scanf_s( "%s", naziv2 );
+
+	fopen_s( &fp, naziv1, "w" );
+	if( fp == NULL )
+		printf( "Greska pri otvaranju datoteke" );
+	else
+	{
+		fprintf( fp, "Hello World!\n" );
+		fprintf( fp, "Hello World drugi put!" );
+		fclose( fp );
+	}
+	vj11_kopiranjeDatoteke( fp, fp_copy, naziv1, naziv2 );
+}
+--------------------------------
+TEKST ZADATKA: 0 - min, 1 - max
+popravi
+inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+DEKLARACIJA: void FESB::vj11_2()
+KOD:
+{
+	FILE* fp;
+	fopen_s( &fp, "vj11_zad2.txt", "r" );
+
+	if( fp == NULL )
+		printf( "GRESKA\n" );
+	else
+	{
+		char broj;
+		int rezultat = 0;
+		while( ( broj = fgetc( fp ) ) != EOF && ( broj >= '0' && broj <= '9' ) )
+		{
+			rezultat *= 10;
+			rezultat += broj - '0';
+		}
+		fclose( fp );
+
+		printf( "%d", rezultat );
+	}
+}
+--------------------------------
+TEKST ZADATKA: sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+2. Napisati program koji računa produkt svih elemenata matrice dimenzija 3x3. Program ne smije
+0 - min, 1 - max
+popravi
+inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+DEKLARACIJA: void FESB::vj11_3()
+KOD:
+{
+	FILE* fp;
+	fopen_s( &fp, "vj11_zad3.txt", "r" );	// provjeri postoji li
+	if( fp )
+	{
+		vj11_citanjeDatoteke( fp );	// samo procitaj iz nje
+		fclose( fp );
+	}
+	else
+	{
+		fopen_s( &fp, "vj11_zad3.txt", "w" );	// stvori je
+		if( fp )
+		{
+			fprintf( fp, "Ana\nA\n2000\n" );	// i popuni vrijednostima
+			fprintf( fp, "Ana\nB\n2000\n" );
+			fprintf( fp, "Mirko\nA\n2000\n" );
+			fprintf( fp, "Ana\nC\n2000\n" );
+			fprintf( fp, "Boro\nA\n2000\n" );
+			fprintf( fp, "Grga\nA\n2000\n" );
+			fprintf( fp, "Ana\nD\n2000\n" );
+			fprintf( fp, "Pero\nA\n2000\n" );
+			fprintf( fp, "Ana\nE\n2000\n" );
+			fclose( fp );
+
+			fopen_s( &fp, "vj11_zad3.txt", "r" );
+			if( fp )
+			{
+				vj11_citanjeDatoteke( fp );					// te procitaj je
+				fclose( fp );
+			}
+			else	printf( "GRESKA PRILIKOM OTVARANJA \"vj11_zad3.txt\" datoteke\n" );
+		}
+		else	printf( "GRESKA PRILIKOM OTVARANJA \"vj11_zad3.txt\" datoteke\n" );
+	}
+}
+--------------------------------
+TEKST ZADATKA: sve podrzane baze koje sadrze znakove
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+0 - min, 1 - max
+popravi
+inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+provjeri postoji li
+samo procitaj iz nje
+stvori je
+te procitaj je
+DEKLARACIJA: void FESB::vj11_4()
+KOD:
+{
+	FILE* fp;
+	fopen_s( &fp, "vj11_zad4.txt", "r" );
+	if( fp )
+	{
+		vj11_citanjeDatoteke2( fp );
+		fclose( fp );
+		fp = NULL;
+	}
+	else printf( "GRESKA\nNapravi datoteku imena \"vj11_zad4.txt\" i zapisi nesto u nju u programu za obradu teksta" );
+
+}
+--------------------------------
+TEKST ZADATKA: sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
+0 - min, 1 - max
+popravi
+inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+te procitaj je
+DEKLARACIJA: void FESB::vj12_1()
+KOD:
+{
+	int brStudenata = 0;
+	int sumaBodova = 0;
+	int zelimJosStudenata = -1;
+	do
+	{
+		zelimJosStudenata = -1;
+		while( zelimJosStudenata == -1 )
+		{
+			printf( "Imas li jos studenata na popisu?( stisni Esc - ne ili Tab - da )\n" );
+			char znak = _getch();
+			if( znak == 27 ) { zelimJosStudenata = false; }
+			else if( znak == '\t' ) { zelimJosStudenata = true; }
+		}
+		if( !zelimJosStudenata )	break;
+		puts( "" );
+		do
+		{
+			int bodovi = -2;
+			while( bodovi < -1 || bodovi > 100 )
+			{
+				printf( "Ako zelis prekinut unos bodova, unesi -1\n" );
+				printf( "Unesi bodove [0-100]: " );
+				scanf_s( "%d", &bodovi );
+				puts( "" );
+			}
+			if( bodovi == -1 )	break;
+			sumaBodova += bodovi;
+			++brStudenata;
+		} while( 1 );
+		puts( "----" );
+	} while( 1 );
+
+	if( brStudenata > 0 ) printf( "\nProsjecni broj bodova svih studenata: %f\n", float( sumaBodova / float( brStudenata ) ) );
+	else printf( "\nNisi unio bodove za niti jednog studenta!" );
+}
+--------------------------------
+TEKST ZADATKA: ne podrzava negativne brojeve
+dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
+gornji limit broja je ogranicen operatorom %
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+*/
+0 - min, 1 - max
+popravi
+inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+te procitaj je
+DEKLARACIJA: void FESB::vj12_2()
+KOD:
+{
+	int broj;
+	printf( "Unesi broj: " );
+	scanf_s( "%d", &broj );
+	int tempBr = broj;
+	int velicina = tempBr > 0 ? 1 : 2;
+	while( tempBr > 0 )
+	{
+		velicina++;
+		tempBr /= 10;
+	}
+	char* str = (char*) malloc( velicina * sizeof( char ) );
+	if( str )
+	{
+		for( int i = 1; i < velicina; ++i )
+		{
+			*( str + velicina - i - 1 ) = broj % 10 + '0';
+			broj /= 10;
+		}
+		*( str + velicina - 1 ) = '\0';
+		printf( "string: %s\n", str );
+		free( str );
+	}
+}
+--------------------------------
+TEKST ZADATKA: ne podrzava negativne brojeve
+dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
+gornji limit broja je ogranicen operatorom %
+sve podrzane baze koje sadrze samo brojeve
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+*/
+0 - min, 1 - max
+popravi
+te procitaj je
+DEKLARACIJA: void FESB::vj12_3()
+KOD:
+{
+	FILE* fp;
+	fopen_s( &fp, "vj12_zad3_imena.txt", "w" );
+	if( fp == NULL )
+		printf( "Greska pri otvaranju datoteke" );
+	else
+	{
+		fprintf( fp, "Iva\n" );
+		fprintf( fp, "Marko\n" );
+		fprintf( fp, "Luka\n" );
+		fprintf( fp, "Grga\n" );
+		fclose( fp );
+	}
+	char imeStudenta[15];
+	int bodovi;
+	fopen_s( &fp, "vj12_zad3_imena.txt", "r" );
+	if( fp )
+	{
+		while( fgets( imeStudenta, 15, fp ) != NULL )
+		{
+			printf( "%s", imeStudenta );
+			int ukupno = 0;
+			for( int i = 0; i < 3; i++ )
+			{
+				bool isValidScore = false;
+				while( !isValidScore )
+				{
+					printf( "unesi bodove %d. kolokvija: ", i + 1 );
+					scanf_s( "%d", &bodovi );
+					if( bodovi >= 0 && bodovi <= 100 )
+					{
+						ukupno += bodovi;
+						isValidScore = true;
+					}
+				}
+			}
+			ukupno /= 3;
+			if( ukupno > 87 && ukupno <= 100 )
+			{
+				printf( "\nOcjena: 5, sa %d ukupnih bodova\n\n", ukupno );
+			}
+			else if( ukupno > 74 )
+			{
+				printf( "\nOcjena: 4, sa %d ukupnih bodova\n\n", ukupno );
+			}
+			else if( ukupno > 59 )
+			{
+				printf( "\nOcjena: 3, sa %d ukupnih bodova\n\n", ukupno );
+			}
+			else if( ukupno > 48 )
+			{
+				printf( "\nOcjena: 2, sa %d ukupnih bodova\n\n", ukupno );
+			}
+			else if( ukupno >= 0 )
+			{
+				printf( "\nOcjena: 1, sa %d ukupnih bodova\n\n", ukupno );
+			}
+			else
+			{
+				printf( "\nGRESKA!\n\n" );
+			}
+		}
+		fclose( fp );
+	}
+	else printf( "\nNemogu otvorit datoteku za citanje!" );
+}
+--------------------------------
+TEKST ZADATKA: ne podrzava negativne brojeve
+dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
+gornji limit broja je ogranicen operatorom %
+edge case: sljedeci dan na mjesece koji imaju 31 dan
+/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+0 - min, 1 - max
+popravi
+te procitaj je
+DEKLARACIJA: void FESB::vj12_4()
+KOD:
+{
+	int n;
+	printf( "Unesi velicinu nizova: " );
+	scanf_s( "%d", &n );
+	int* niz1 = (int*) malloc( n * sizeof( int ) );
+	int* niz2 = (int*) malloc( n * sizeof( int ) );
+	if( niz1 == NULL )	return;
+	if( niz2 == NULL ) { free( niz1 ); return; }
+
+	for( int i = 0; i < n; i++ )	// napuni nizove vrijednostima
+	{
+		*( niz1 + i ) = i;
+		*( niz2 + i ) = ( i + 1 ) * 10;
+	}
+
+	int* rep1 = niz1 + n - 1;
+	int* rep2 = niz2 + n - 1;
+
+	while( 

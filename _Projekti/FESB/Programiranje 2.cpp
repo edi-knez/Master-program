@@ -13,7 +13,6 @@ using namespace FESB;
 //int main()
 //{
 	/* -------------------------------------------------------  Vježba 1: --------------------------------------------------- */
-
 	/*
 	1. Napisati program koji definira 4 varijable(char, int, float, double).Ispisati sve četiri varijable,
 	zajedno s njihovim adresama i izračunati koliko su bajtova u memoriji sve te varijable zajedno zauzele.
@@ -93,7 +92,6 @@ void FESB::vj1_5()
 
 
 	/*---------------------------------------------------------  Vježba 2: ------------------------------------------------*/
-
 	/*
 	1. Napisati program koji pretvara uneseni realni broj u cijeli na način da ako je prva znamenka iza decimalne točke >= 5
 	zaokružuje se na prvi veći. Program mora raditi i za pozitivne i za negativne brojeve.
@@ -194,7 +192,6 @@ void FESB::vj2_5()
 
 
 /*------------------------------------------------      Vježba 3     --------------------------------------------------  */
-
 /*
 1. Napisati program koji računa aritmetičku sumu brojeva. Nije unaprijed poznato koliko će se brojeva unijeti,
 program prestaje s radom kad se unese 0, ali nju netreba računati za prosjek.
@@ -287,8 +284,7 @@ void FESB::vj3_4()
 }
 
 
-	/*-------------------------------------------------------     Vjezba 4    -------------------------------------------------------*/
-
+	/*-------------------------------------------------------     Vjezba 4    ---------------------------------------------------------*/
 	/*
 	1. Napisati program koji s tastature unosi dva cijela broja i matematičku operaciju
 	(+, -, * ili /). Ovisno o operaciji je potrebno izračunati i ispisati rezultat.
@@ -416,8 +412,7 @@ void FESB::vj4_3()
 }
 
 
-/*  ------------------------------------------------------  Vježba 5    ---------------------------------------------------/*
-
+/*  ------------------------------------------------------  Vježba 5    ---------------------------------------------------
 /*
 1. Napravi program koji uzima znakove s tastature (sa ili bez prikaza tih znakova na
 ekranu) sve dok se ne unese znak ESC. Tada se izlazi iz programa.
@@ -515,7 +510,6 @@ void FESB::vj5_4()
 
 
 /*-------------------------------------------------     Vježba 6    --------------------------------------------------------*/
-
 /*
 1. Napisati program koji unosi jednu matricu (A dimenzija 3x3) i iz te matrice
 računa matricu B = 5*A. Matricu B je potrebno ispisati.

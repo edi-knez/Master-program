@@ -12,9 +12,17 @@
 /// da bi se automatizirao postupak, ParserFile klasa se ucitat sve informacije o funkcijama, te ce dodat sva imena funkcija u "Functions.cpp" datoteku 
 /// za koju je potrebna jos jedna kompilacija da bi mogao koristit funkcionalnosti koju si dodao
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// OGRANICENJA:
+/// - podrzava samo jedno linijske komentare za tekst zadataka
+/// - funkcije koje te zanimaju moraju biti u namespaceu / 
+///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TODO za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
 /// - koristi wxWidgets za GUI kod rucnog nacina
+/// - ucitavanje funkcija sa nazivima iz datoteke whitelist
+/// - blokiranje funkcija sa nazivima iz datoteke blacklist
+/// - podrzavanje viselinijskih komentara 
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 
 #include <cstdlib>
@@ -183,7 +191,13 @@ void rucno()
 
 
 }
-
+std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
+{
+	dat << "TEKST ZADATKA: " << zad.tekst << '\n'
+		<< "DEKLARACIJA: " << zad.deklaracija << '\n'
+		<< "KOD:\n" << zad.kod << '\n';
+	return dat;
+}
 void Master::init()
 {
 	std::cout << "DOBRODOSAO!!\n";
@@ -191,7 +205,13 @@ void Master::init()
 	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
 	if( !JSON_datoteka.is_open() )
 	{
-	//	std::ofstream dat( "dummy.json", std::ios::out );
+		std::ofstream JSONdat( "dummy.json", std::ios::out );
+		if( !JSONdat.is_open() )
+		{
+			std::cout << "Nisam mogao otvorit \"InformacijeOZadacima.json\" datoteku!"
+				<< "\Izlazim...\n";
+			exit( EXIT_FAILURE );
+		}
 		nlohmann::json jsonData = _INTERNAL::buildJSON_structure();
 
 		std::vector<std::string_view> paths =
@@ -224,6 +244,16 @@ void Master::init()
 		std::cout << "Parsing files...";
 		std::vector<ParseFile> pfs;
 		std::vector<Zadatak*> zadaci( paths.size() );
+
+		std::ofstream dat( "zadaci.dat", std::ios::out );
+		if( !dat.is_open() )
+		{
+			std::cout << "Nisam mogao otvorit \"InformacijeOZadacima.json\" datoteku!"
+				<< "\Izlazim...\n";
+			exit( EXIT_FAILURE );
+		}
+		dat << "===================================================\n";
+
 		for( size_t idx = 0; idx < paths.size(); ++idx )
 		{
 			puts( "\n--------------------------------------------" );
@@ -236,11 +266,16 @@ void Master::init()
 
 
 				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
+				for( const auto zadatak : zadaci )
+				{
+					dat << *zadatak << "--------------------------------\n";
+				}
 		// popuni JSON objekt kako parsira datoteke
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );
 				++idxOfFile;
 			}
+			dat << "====================================================\n";
 		}
 		puts( "\n--------------------------------------------" );
 		std::cout << "\nDONE!\nRecompile the program to proceed to the next stage!\nExiting...\n";
