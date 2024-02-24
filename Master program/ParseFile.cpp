@@ -253,7 +253,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 //		}
 
 		while( isspace( dat.peek() ) ) { dat.get(); } // nalazi se na znaku '/'
-		vratiSeZa1ZnakUnazad( dat );	// nalazi se na znaku '\n'
+	//	vratiSeZa1ZnakUnazad( dat );	// nalazi se na znaku '\n'
 
 		spremiLinijuUString();
 		while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
