@@ -1,4 +1,50 @@
 
+#include <iostream>
+#include <array>
+#include <vector>
+#include <string>
+#include <climits>
+
+#include "Parsity.hpp"
+#include "Checkbook.hpp"
+#include "Queue.hpp"
+#include "Small_set.hpp"
+#include "FlashCards.hpp"
+
+//#include "ShareFile1.hpp"
+//#include "ShareFile2_.hpp"
+#include "ShareFileInterface.hpp"
+#include "Horses.hpp"
+#include "Pigs.hpp"
+#include "Dogs.hpp"
+#include "Stack_Instance.hpp"
+#include "Line_number.hpp"
+
+#include "File_16C.hpp"
+
+#include "Razlomak.hpp"
+#include "Decimal.hpp"
+#include "Time.hpp"
+
+#include "StringDouble.hpp"
+#include "String_matcher.hpp"
+#include "Word_match.hpp"
+#include "d_Number_mather.hpp"
+#include "d_BlankStr_matcher.hpp"
+#include "b_Oblik.hpp"
+#include "d_Krug.hpp"
+#include "d_Kvadrat.hpp"
+#include "d_Trokut.hpp"
+#include "b_Number.hpp"
+#include "d_Dek.hpp"
+#include "d_Okt.hpp"
+#include "d_Hex.hpp"
+
+#include "PageFormatting.hpp"
+#include "SymbolTable.hpp"
+
+#include "List.hpp"
+#include "Mail_label.hpp"
 /*
 	Zad 1:
 */

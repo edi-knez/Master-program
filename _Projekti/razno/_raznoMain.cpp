@@ -45,9 +45,171 @@
 #include <string>
 #include <climits>
 
-#include "../razno/_helperFunc_raznoMain.hpp"
 
 #include "../../Master program/PotrebneDatotekeIDeklaracijeFunkcija.hpp"
+
+/*
+	Zad 1:
+*/
+#define TRUE 1
+#define FALSE 0
+#define BOLEAN int
+
+/*
+	Zad 2:
+*/
+#define divisibleBy10(number) (number % 10 == 0)
+
+/*
+	Zad 3:
+*/
+#define is_digit(c) (c >= 0 && c <= 9)
+#define is_hex(c) (is_digit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))
+
+/*
+	Zad 4:
+*/
+
+#define swap(num, num2, temp) ((temp = num, num = num2, num2 = temp))
+
+#define swap2(num, num2) num += num2; num2 = num - num2; num -= num2
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+const int X_SIZE = 10;
+const int Y_SIZE = 10;
+static bool grid[Y_SIZE][X_SIZE]{ { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true },
+								  { true, false, false, false, false, false, false, false, false, true } };
+
+/*
+	Zad 1:
+*/
+
+inline void set_bit( size_t x, size_t y, bool bit );
+inline void clear_bit( size_t x, size_t y );
+inline bool test_bit( size_t x, size_t y, bool bit );
+void crtaj_grid();
+
+/*
+	Zad 2:
+*/
+
+template <class T> size_t numOfBits( T number );
+
+/*
+	Zad 3:
+*/
+
+std::array<short, 8> podijeliIntegerU8Dijela( int broj );
+
+/*
+	Zad 4:
+*/
+
+char shiftBitsLeft( char broj );
+
+/*
+	str 227, zad1
+*/
+
+bool is_using_file1();
+bool is_using_file1( const int );
+
+int ukupanBrojZivotinja();
+
+/*
+	poglavlje 15:
+	zad 1:
+*/
+
+void postavi_niz_na_nulu( std::array<int, 15>& niz );
+const char* prvi_alfa_num( const char* word );
+
+/*
+	Poglavlje 17
+	zad 2:
+*/
+
+struct matrica_t {
+	matrica_t() = delete;
+	matrica_t( size_t x, size_t y, const int* niz )
+		: m_x( x )
+		, m_y( y )
+		, m_niz( niz )
+	{
+	}
+
+	size_t m_x;
+	size_t m_y;
+	const int* m_niz;
+};
+
+void matrixMultiply( std::array<std::array<int, 2>, 2>& niz );
+void matrixMultiply( std::array<std::array<int, 3>, 3>& niz );
+void matrixMultiply( std::array<std::array<int, 3>, 3>& niz, int m );
+std::vector<int> matrixMultiply( struct matrica_t, struct matrica_t );
+
+/*
+	zad 5
+*/
+
+void moj_memcpy( const char from[], char to[], size_t n );
+
+/*
+	Poglavlje 22
+	Zad 5:
+*/
+
+void count_letter( const char* cstring ) noexcept( false );
+
+/*
+	Poglavlje 23
+	Zad 2:
+*/
+
+std::fstream search_open( const std::array<const char*, 5>& imenaDatoteka );
+
+/*
+	Poglavlje 24
+	Zad 1:
+*/
+
+template <typename T> T min( T el1, T el2 ) { return ( el1 < el2 ) * el1 + ( el2 < el1 ) * el2; }
+
+const char* min( const char* el1, const char* el2 )
+{
+	int res1 = strcmp( el1, el2 );
+	if( res1 < 0 )
+		return el1;
+	else
+		return el2;
+}
+
+/*
+	Poglavlje 26
+	Zad 1:
+*/
+
+int32_t haveDoubleWords( const std::string_view imeDatoteke );
+
+/*
+	Poglavlje 26
+	Zad 5:
+*/
+
+void ispisi_datoteku_u_konzolu( std::fstream& datoteka, const std::string& imeDatoteke );
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -691,6 +853,3 @@ void PracticalCppProg::pog26_5()
 	std::fstream datoteka;
 	ispisi_datoteku_u_konzolu( datoteka, ime );
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -7,12 +7,12 @@
 #include <conio.h>
 
 #include "../_helperFunc_Programiranje2.1.hpp"
+#include "../../Master program/PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
 
-#include "../../Master program/PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 /*
 	1. Napisati program koji unese 3 broja i zatim po želji korisnika (ovisno o tome koje se slovo unese) računa:

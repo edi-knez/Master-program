@@ -244,7 +244,8 @@ void Master::init()
 		std::cout << "Parsing files...";
 		std::vector<ParseFile> pfs;
 		std::vector<Zadatak*> zadaci( paths.size() );
-
+#define SPREMAN_ZA_SLJEDECI_KORAK true
+#if SPREMAN_ZA_SLJEDECI_KORAK
 		std::ofstream dat( "zadaci.dat", std::ios::out );
 		if( !dat.is_open() )
 		{
@@ -253,7 +254,7 @@ void Master::init()
 			exit( EXIT_FAILURE );
 		}
 		dat << "===================================================\n";
-
+#endif
 		for( size_t idx = 0; idx < paths.size(); ++idx )
 		{
 			puts( "\n--------------------------------------------" );
@@ -266,16 +267,20 @@ void Master::init()
 
 
 				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
+#if SPREMAN_ZA_SLJEDECI_KORAK
 				for( const auto zadatak : zadaci )
 				{
 					dat << *zadatak << "--------------------------------\n";
 				}
+#endif
 		// popuni JSON objekt kako parsira datoteke
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );
 				++idxOfFile;
 			}
+#if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
+#endif
 		}
 		puts( "\n--------------------------------------------" );
 		std::cout << "\nDONE!\nRecompile the program to proceed to the next stage!\nExiting...\n";

@@ -1006,315 +1006,7 @@ KOD:
 }
 --------------------------------
 ====================================================
-TEKST ZADATKA: vježba 7
-DEKLARACIJA: void vj7_ispisVrijednostiVarijabla( int y )
-KOD:
-{
-	int sati, minute, sekunde;
-
-	bool jeRanijeVrijemeOd( const Vrijeme& other )
-	{
-		if( this->sati > other.sati )	return 1;
-		else if( this->sati == other.sati )
-		{
-			if( this->minute > other.minute )	return 1;
-			else if( this->minute == other.minute )
-			{
-				if( this->sekunde > other.sekunde )	return 1;
-			}
-		}
-		return 0;
-	}
-};
---------------------------------
-TEKST ZADATKA: vježba 7
-vježba 8
-vježba 9
-DEKLARACIJA: void v9_ispisVremena( struct Vrijeme* v
-KOD:
-{
-	int godina, mjesec, dan;
-
-	/// <summary>
-	///		usporeduje 2 datuma
-	/// </summary>
-	/// <param name="other">Datum sa kojim provjeravas</param>
-	/// <returns>1 ako je datum raniji
-	///			 0 ako su isti datumi
-	///			-1 ako je datum kasniji</returns>
-	int usporedbaSaDatumom( const Datum& other )
-	{
-		if( this->godina > other.godina )	return 1;
-		else if( this->godina == other.godina )
-		{
-			if( this->mjesec > other.mjesec )	return 1;
-			else if( this->mjesec == other.mjesec )
-			{
-				if( this->dan > other.dan )	return 1;
-				else if( this->dan == other.dan )	return 0;
-			}
-		}
-		return -1;
-	}
-};
---------------------------------
-TEKST ZADATKA: vježba 8
-vježba 9
--1 ako je datum kasniji</returns>
-DEKLARACIJA: void v9_ispisDatuma( struct Datum* d
-KOD:
-{
-	char ime[20], prezime[20];
-	Vrijeme rodenaU;
-	Datum rodenaNa;
-
-	/// <summary>
-	///		Ova funkcija govori je li osoba starija od one sa kojom je usporedujes
-	///		
-	///		koristi obrnutu logiku da se rijesi slucaja 
-	/// </summary>
-	/// <param name="other"></param>
-	/// <returns>1 ako je osoba od koje usporedujes mlada, 0 ako su jednake dobi ili -1 ako je osoba od koje usporedujes starija</returns>
-	int compareWith( const Osoba& other )
-	{
-		int usporedbaDatuma = this->rodenaNa.usporedbaSaDatumom( other.rodenaNa );
-		if( usporedbaDatuma > 0 )	return true;
-		else if( usporedbaDatuma == 0 )	return  this->rodenaU.jeRanijeVrijemeOd( other.rodenaU );
-		else return -1;
-	}
-	void ispisOsobe()
-	{
-		printf( "Ime: %s\n", this->ime );
-		printf( "Prezime: %s\n", this->prezime );
-		printf( "Godina: %d\n", this->rodenaNa.godina );
-		printf( "Mjesec: %d\n", this->rodenaNa.mjesec );
-		printf( "Dan: %d\n", this->rodenaNa.dan );
-		printf( "Sat: %d\n", this->rodenaU.sati );
-		printf( "Minute: %d\n", this->rodenaU.minute );
-		printf( "Sekunde: %d\n", this->rodenaU.sekunde );
-	}
-};
---------------------------------
-TEKST ZADATKA: <summary>
--1 ako je datum kasniji</returns>
-<returns>1 ako je osoba od koje usporedujes mlada, 0 ako su jednake dobi ili -1 ako je osoba od koje usporedujes starija</returns>
-DEKLARACIJA: void v9_prvaOsobaPoAbecedi_ime_pa_prezime( struct Osoba osobe[], int kolicina )
-KOD:
-{
-	printf( "Lokalna varijabla: %d\n", y );
-	printf( "Globalna varijabla: %d\n", vj7_globalnaVarijabla );
-}
---------------------------------
 TEKST ZADATKA: 
-DEKLARACIJA: void vj8_unosElemenataMatrice( int a[][3], unsigned int velicina )
-KOD:
-{
-	int temp;
-	for( int i = 0; i < velicina; ++i )
-	{
-		for( int j = 0; j < velicina; ++j )
-		{
-			printf( "A[%d][%d]: ", i, j );
-			scanf_s( "%d", &temp );
-			a[i][j] = temp;
-		}
-	}
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void vj8_my_strcpy( char* tekst_destination, const char* tekst_source )
-KOD:
-{
-	size_t duljina = vj8_my_strlen( tekst_source ) + 1;
-	for( int i = 0; i < duljina; ++i )
-	{
-		tekst_destination[i] = tekst_source[i];
-	}
-	tekst_destination[duljina - 1] = '\0';
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void v9_ispisVremena( struct Vrijeme* v )
-KOD:
-{
-	printf( "%d : %d : %d", v->sati, v->minute, v->sekunde );
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void v9_ispisDatuma( struct Datum* d )
-KOD:
-{
-	printf( "dan prije unesenog dana je: %d\n", v9_proracunDatuma( d, -1 ) );
-	printf( "dan poslije unesenog dana je: %d\n\n", v9_proracunDatuma( d, 1 ) );
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void v9_unosPodatakaOsobe( struct Osoba* o, int index )
-KOD:
-{
-	printf( "Unesi ime %d. osobe: ", index );
-	scanf_s( "%s", o->ime );
-	printf( "Unesi prezime %d. osobe: ", index );
-	scanf_s( "%s", o->prezime );
-	printf( "%d. Unesi datum rodenja (dan): ", index );
-	scanf_s( "%d", &o->rodenaNa.dan );
-	printf( "%d. Unesi datum rodenja (mjesec): ", index );
-	scanf_s( "%d", &o->rodenaNa.mjesec );
-	printf( "%d. Unesi datum rodenja (godinu): ", index );
-	scanf_s( "%d", &o->rodenaNa.godina );
-	printf( "%d. Unesi vrijeme rodenja (sat): ", index );
-	scanf_s( "%d", &o->rodenaU.sati );
-	printf( "%d. Unesi vrijeme rodenja (minutu): ", index );
-	scanf_s( "%d", &o->rodenaU.minute );
-	printf( "%d. Unesi vrijeme rodenja (sekundu): ", index );
-	scanf_s( "%d", &o->rodenaU.sekunde );
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void v9_prvaOsobaPoAbecedi_ime_pa_prezime( struct Osoba osobe[], int kolicina )
-KOD:
-{
-	struct Osoba prva = osobe[0];
-	for( int i = 1; i < kolicina; ++i )
-	{
-		if( _strcmpi( osobe[i].ime, prva.ime ) < 0 )
-		{
-			prva = osobe[i];
-		}
-		else if( _strcmpi( osobe[i].ime, prva.ime ) == 0 )
-		{
-			if( _strcmpi( osobe[i].prezime, prva.prezime ) < 0 )
-			{
-				prva = osobe[i];
-			}
-		}
-	}
-	printf( "Prva osoba po abecedi:\n" );
-	prva.ispisOsobe();
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void v9_najstarijaOsoba( struct Osoba osobe[], const int brOSOBA )
-KOD:
-{
-	struct Osoba najstarija = osobe[0];
-	for( int i = 1; i < brOSOBA; ++i )
-	{
-		if( najstarija.compareWith( osobe[i] ) == 1 )		najstarija = osobe[i];
-	}
-	printf( "najstarija osoba je:\n" );
-	najstarija.ispisOsobe();
-}
---------------------------------
-TEKST ZADATKA: Vježba 10
-DEKLARACIJA: void vracanjeVrijednosti_3_varijableUfunkciji( int* suma, int* produkt, int* razlika, int br1, int br2 )
-KOD:
-{
-	*suma = br1 + br2;
-	*razlika = br1 - br2;
-	*produkt = br1 * br2;
-}
---------------------------------
-TEKST ZADATKA: Vježba 11
-DEKLARACIJA: void vj11_kopiranjeDatoteke( FILE* fp, FILE* fp_copy, char* naziv1, char* naziv2 )
-KOD:
-{
-	fopen_s( &fp, naziv1, "r" );
-	if( fp == NULL )
-		printf( "Greska pri otvaranju datoteke" );
-	else
-	{
-		fopen_s( &fp_copy, naziv2, "w" );
-		if( fp_copy == NULL )
-			printf( "Greska pri otvaranju datoteke" );
-		else
-		{
-			char znak = fgetc( fp );
-			while( znak != EOF )
-			{
-				fputc( znak, fp_copy );
-				znak = fgetc( fp );
-			}
-			fclose( fp_copy );
-		}
-		fclose( fp );
-	}
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void vj11_citanjeDatoteke( FILE* fp )
-KOD:
-{
-	int brojac = 0;
-	while( fgetc( fp ) != EOF )
-	{
-		fseek( fp, -1, SEEK_CUR );
-		vj11_brojacImenaAna( fp, &brojac );
-	}
-	printf( "Ime \"Ana\" se pojavilo %d puta u datoteci.\n", brojac );
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void vj11_brojacImenaAna( FILE* fp, int* brojac )
-KOD:
-{
-	char ime[15];
-	fgets( ime, 15, fp );
-	if( _strcmpi( ime, "Ana\n" ) == 0 )
-		++( *brojac );
-
-	fgets( ime, 15, fp );
-	fgets( ime, 15, fp );
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void vj11_citanjeDatoteke2( FILE* fp )
-KOD:
-{
-	char tekst[128] = { 0 };
-	while( fgetc( fp ) != EOF )
-	{
-		fseek( fp, -1, SEEK_CUR );
-		vj11_ispisRijec_po_Rijec( fgets( tekst, 128, fp ) );
-	}
-}
---------------------------------
-TEKST ZADATKA: 
-DEKLARACIJA: void vj11_ispisRijec_po_Rijec( char* tekst )
-KOD:
-{
-	char rijec[128] = { 0 };
-	int index = 0;
-	for( int i = 0; i < strlen( tekst ) + 1; ++i )
-	{
-		if( tekst[i] != ' ' && tekst[i] != '.' && tekst[i] != ',' && tekst[i] != ':' )
-		{
-			rijec[index] = tekst[i];
-			++index;
-		}
-		else if( rijec[0] == '\0' || rijec[0] == '\\' )
-		{
-			index = 0; continue;	// preskoci praznu rijec
-		}
-		else
-		{
-			rijec[index] = '\0';
-			printf( "%s\n", rijec );
-			index = 0;
-		}
-	}
-	rijec[index] = '\0';
-	printf( "%s\n", rijec );
-	index = 0;
-}
---------------------------------
-TEKST ZADATKA: sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-Vježba 11
-preskoci praznu rijec
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
 DEKLARACIJA: void FESB::vj7_1()
 KOD:
 {
@@ -1362,13 +1054,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-Vježba 10
-Vježba 11
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj7_2()
 KOD:
 {
@@ -1376,9 +1062,7 @@ KOD:
 	vj7_ispisVrijednostiVarijabla( Y );
 }
 --------------------------------
-TEKST ZADATKA: Vježba 10
-Vježba 11
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj7_3()
 KOD:
 {
@@ -1396,7 +1080,7 @@ KOD:
 	printf( "(moj) exp(50): %e\nexp(50): %e\n", vj7_exp( 5, 50 ), exp( 5 ) );
 }
 --------------------------------
-TEKST ZADATKA: /*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj8_1()
 KOD:
 {
@@ -1412,14 +1096,7 @@ KOD:
 	( vj8_postoji_li_element( A, BROJ_ELEMENATA, testBroj2 ) ) ? printf( "nalazi u nizu\n" ) : printf( "ne nalazi u nizu\n" );
 }
 --------------------------------
-TEKST ZADATKA: sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-2. Napisati program koji računa produkt svih elemenata matrice dimenzija 3x3. Program ne smije
-sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj8_2()
 KOD:
 {
@@ -1448,13 +1125,7 @@ KOD:
 	printf( "c: %s\nd: %s\ne: %s", c, d, e );
 }
 --------------------------------
-TEKST ZADATKA: sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-*/
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj8_4()
 KOD:
 {
@@ -1464,13 +1135,7 @@ KOD:
 	printf( "%d! = %d\n", n, vj8_rekurzija_faktorijele( n ) );
 }
 --------------------------------
-TEKST ZADATKA: ne podrzava negativne brojeve
-dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-*/
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj8_5()
 KOD:
 {
@@ -1480,7 +1145,7 @@ KOD:
 	printf( "najveci element niza je: %d\n", vj8_rekurzija_minMax_elementNiza( niz, 4, true ) );
 }
 --------------------------------
-TEKST ZADATKA: 0 - min, 1 - max
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj8_6()
 KOD:
 {
@@ -1504,14 +1169,7 @@ KOD:
 	v9_ispisVremena( &v3 );
 }
 --------------------------------
-TEKST ZADATKA: sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-2. Napisati program koji računa produkt svih elemenata matrice dimenzija 3x3. Program ne smije
-0 - min, 1 - max
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj9_2()
 KOD:
 {
@@ -1525,12 +1183,7 @@ KOD:
 	v9_ispisDatuma( &d4 );
 }
 --------------------------------
-TEKST ZADATKA: ne podrzava negativne brojeve
-dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
-gornji limit broja je ogranicen operatorom %
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-0 - min, 1 - max
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj9_3()
 KOD:
 {
@@ -1548,14 +1201,7 @@ KOD:
 	v9_najstarijaOsoba( osobe, BROJ_OSOBA );	// popravi
 }
 --------------------------------
-TEKST ZADATKA: ne podrzava negativne brojeve
-dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
-sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-0 - min, 1 - max
-popravi
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj10_1()
 KOD:
 {
@@ -1574,13 +1220,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-0 - min, 1 - max
-popravi
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj10_2()
 KOD:
 {
@@ -1589,9 +1229,7 @@ KOD:
 	printf( "broj1: %d\nbroj2: %d\nsuma: %d\nrazlika: %d\nprodukt: %d", 25, 5, suma, razlika, produkt );
 }
 --------------------------------
-TEKST ZADATKA: sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
-0 - min, 1 - max
-popravi
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj10_3()
 KOD:
 {
@@ -1610,14 +1248,7 @@ KOD:
 	printf( "dan poslije unesenog dana je: %d\n\n", v9_proracunDatuma( &d4, 1 ) );
 }
 --------------------------------
-TEKST ZADATKA: ne podrzava negativne brojeve
-dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
-gornji limit broja je ogranicen operatorom %
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-*/
-0 - min, 1 - max
-popravi
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj10_4()
 KOD:
 {
@@ -1627,16 +1258,7 @@ KOD:
 	printf( "broj ponavljanja podstringa: %d", vj10_brPonavljanja_podstringa_u_stringu( tekst, BUFFER_LIMIT, podstring ) );
 }
 --------------------------------
-TEKST ZADATKA: ne podrzava negativne brojeve
-dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-*/
-0 - min, 1 - max
-popravi
-inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj11_1()
 KOD:
 {
@@ -1660,9 +1282,7 @@ KOD:
 	vj11_kopiranjeDatoteke( fp, fp_copy, naziv1, naziv2 );
 }
 --------------------------------
-TEKST ZADATKA: 0 - min, 1 - max
-popravi
-inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj11_2()
 KOD:
 {
@@ -1686,16 +1306,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-2. Napisati program koji računa produkt svih elemenata matrice dimenzija 3x3. Program ne smije
-0 - min, 1 - max
-popravi
-inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj11_3()
 KOD:
 {
@@ -1734,19 +1345,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: sve podrzane baze koje sadrze znakove
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-omogucava provjeru nepodrzane baze tako sto provjeris 2. znak ako nista ne ispise
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-0 - min, 1 - max
-popravi
-inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
-provjeri postoji li
-samo procitaj iz nje
-stvori je
-te procitaj je
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj11_4()
 KOD:
 {
@@ -1762,11 +1361,7 @@ KOD:
 
 }
 --------------------------------
-TEKST ZADATKA: sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
-0 - min, 1 - max
-popravi
-inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
-te procitaj je
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj12_1()
 KOD:
 {
@@ -1806,16 +1401,7 @@ KOD:
 	else printf( "\nNisi unio bodove za niti jednog studenta!" );
 }
 --------------------------------
-TEKST ZADATKA: ne podrzava negativne brojeve
-dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
-gornji limit broja je ogranicen operatorom %
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-*/
-0 - min, 1 - max
-popravi
-inicijalizacija u funkciji vj10_brPonavljanja_podStringa_u_stringu
-te procitaj je
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj12_2()
 KOD:
 {
@@ -1843,16 +1429,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: ne podrzava negativne brojeve
-dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
-gornji limit broja je ogranicen operatorom %
-sve podrzane baze koje sadrze samo brojeve
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-*/
-0 - min, 1 - max
-popravi
-te procitaj je
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj12_3()
 KOD:
 {
@@ -1922,14 +1499,7 @@ KOD:
 	else printf( "\nNemogu otvorit datoteku za citanje!" );
 }
 --------------------------------
-TEKST ZADATKA: ne podrzava negativne brojeve
-dovoljno prostora za najvecu pretvorbu, 32 bita za binaerni izraz
-gornji limit broja je ogranicen operatorom %
-edge case: sljedeci dan na mjesece koji imaju 31 dan
-/*---------------------------------------------------------		Vježba 7:	----------------------------------------------------------- */
-0 - min, 1 - max
-popravi
-te procitaj je
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj12_4()
 KOD:
 {
@@ -1950,4 +1520,1943 @@ KOD:
 	int* rep1 = niz1 + n - 1;
 	int* rep2 = niz2 + n - 1;
 
-	while( 
+	while( _getch() != 27 )	// update na pritisak tipke, zavrsi kada se stisne Esc
+	{
+		Sleep( 50 );
+		for( int i = 0; i < n; i++ )	// ispisi stanje nizova
+		{
+			printf( "%d ", *( niz1 + i ) );
+		}
+		for( int i = 0; i < n; i++ )
+		{
+			printf( "%d ", *( niz2 + i ) );
+		}
+		printf( "\n" );
+
+		int glava1 = *niz1;
+		int glava2 = *niz2;
+		for( int i = 0; i < n - 1; ++i )	// pomakni sve el u niz1 ulijevo
+		{
+			*( niz1 + i ) = *( niz1 + i + 1 );
+		}
+		*rep1 = glava2; // premjesti el sa niz od glave2 na niz repa1
+
+		for( int i = 0; i < n - 1; ++i )
+		{
+			*( niz2 + i ) = *( niz2 + i + 1 );	// pomakni sve el u nizu za ulijevo
+		}
+		*rep2 = glava1; // premjesti el sa niz od glave1 na niz repa2
+	}
+	free( niz1 );
+	free( niz2 );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj1_1()
+KOD:
+{
+	char a = 'a';
+	int b = 5;
+	float c = 6.4;
+	double d = 7.444444444;
+
+	int mem = sizeof( a ) + sizeof( b ) + sizeof( c ) + sizeof( d );
+	printf( "%c %p\n", a, &a );
+	printf( "%d %p\n", b, &b );
+	printf( "%f %p\n", c, &c );
+	printf( "%e %p\n", d, &d );
+	printf( "Varijable su zauzele %d bajtova\n", mem );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj1_2()
+KOD:
+{
+	char a = '0', b = '9', c = a + b;
+	printf( "a: %c b: %c c: %c\n", a, b, c );
+	printf( "a: %d b: %d c: %d\n", a, b, c );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj1_3()
+KOD:
+{
+	int a = 15, b = 5;
+	printf( "suma: %d\n", a + b );
+	printf( "razlika: %d\n", a - b );
+	printf( "produkt: %d\n", a * b );
+	printf( "kvocijent: %d\n", a / b );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj1_4()
+KOD:
+{
+	int suma = 0;
+	for( int i = 0; i < 50; ++i )
+		suma += i;
+	printf( "suma: %d\n", suma );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj1_5()
+KOD:
+{
+	const int SIRINA = 5;
+	const int VISINA = 5;
+	char slovo = 'E';
+	for( int redak = 0; redak < VISINA; ++redak )
+	{
+		for( int brojPonavljanja = SIRINA - redak; brojPonavljanja > 0; --brojPonavljanja )
+		{
+			printf( "%c ", slovo - redak );	// Umanjuj ASCII vrijednost tako da dobijes zeljeno slovo
+		}
+		printf( "\n" );
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj2_1()
+KOD:
+{
+	int cijeliBr;
+	float realniBr;
+	printf( "unesi realni broj: " );
+	scanf_s( "%f", &realniBr );
+	cijeliBr = ( (int) ( realniBr * 10 ) % 10 >= 5 ) ? realniBr + 1 : realniBr;	// OPTIMIZACIJA: koristi znanje o prikazu float brojeva u memoriji i uz pomoc pravih bitova utvrdi treba li povecat broj
+	printf( "cijeli broj: %d\n", cijeliBr );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj2_2()
+KOD:
+{
+	const int INPUT_LIMIT = 10;
+	int broj, brojac = 0;
+	while( brojac < INPUT_LIMIT )
+	{
+		printf( "unesi broj: " );
+		scanf_s( "%d", &broj );
+		if( broj % 2 == 1 )	// OPTIMIZACIJA: koristi znanje o reprezentaciji inta u memoriji i provjeri tocan bit
+		{
+			printf( "%d\n", broj );
+		}
+		++brojac;
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj2_3()
+KOD:
+{
+	const int INPUT_LIMIT = 10;
+	int broj, brojac = 0, brojacNeparan = 0;
+	while( brojac < INPUT_LIMIT )
+	{
+		printf( "unesi broj: " );
+		scanf_s( "%d", &broj );
+		if( broj % 3 == 0 )
+		{
+			++brojacNeparan;
+		}
+		++brojac;
+	}
+	printf( "%d broja je djeljivo sa 3\n", brojacNeparan );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj2_4()
+KOD:
+{
+	const int INPUT_LIMIT = 10;
+	char slovo;
+	int  brojac = 0, brojac_MalihSlova = 0, brojac_H = 0;
+	while( brojac < INPUT_LIMIT )
+	{
+		printf( "unesi slovo: " );
+		scanf_s( " %c", &slovo, 2 );
+		printf( "\n" );
+		if( slovo >= 'a' && slovo <= 'z' )
+		{
+			brojac_MalihSlova++;
+		}
+		else if( slovo == 'H' )
+		{
+			++brojac_H;
+		}
+		++brojac;
+	}
+	printf( "\nMalih slova ima: %d\nNjih %d je bilo = H", brojac_MalihSlova, brojac_H );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj2_5()
+KOD:
+{
+	const int BROJ_UCENIKA = 5;
+	int bodovi, sumaBodova = 0, prolaz = 0;
+	for( int i = 0; i < BROJ_UCENIKA; ++i )
+	{
+		printf( "Unesi bodove %d. ucenika\n", i + 1 );
+		scanf_s( "%d", &bodovi );
+		if( bodovi > 50 )	// TODO: OPTIMIZACIJA: branchless increment
+			prolaz++;
+		sumaBodova += bodovi;
+	}
+	printf( "Kolokvij je proslo %d ucenika\nProsjecni broj bodova je %d\n", prolaz, sumaBodova / BROJ_UCENIKA );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj3_1()
+KOD:
+{
+	int broj, suma = 0, brojac = 0;
+	printf( "Unesi brojeve razlicite od 0 za daljnji unos\n" );
+	do
+	{
+		scanf_s( "%d", &broj );
+		if( broj != 0 )
+		{
+			suma += broj;
+			++brojac;
+		}
+		else
+		{
+			break;
+		}
+
+	} while( true );
+	printf( "Arihmeticka sredina: %f", (float) suma / brojac );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj3_2()
+KOD:
+{
+	int broj, reverseBroj = 0;
+	printf( "Unesi broj: " );
+	scanf_s( "%d", &broj );
+	while( broj > 0 )
+	{
+		reverseBroj *= 10;
+		reverseBroj += broj % 10;
+		broj /= 10;
+	}
+	printf( "Obrnuti redoslijed znamenaka: %d\n", reverseBroj );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj3_3()
+KOD:
+{
+	int generiraniBroj, korisnikBroj, pokusaj = 0;
+	srand( (unsigned) time( NULL ) );
+	generiraniBroj = rand() % 1000;
+	do
+	{
+		printf( "Unesi broj o kojem mislis da odgovara izabranom broju: " );
+		scanf_s( "%d", &korisnikBroj );
+		printf( "\n" );
+
+		++pokusaj;
+		if( korisnikBroj > generiraniBroj ) { printf( "Generirani broj je manji od unesenog!\n" ); }
+		else if( korisnikBroj < generiraniBroj ) { printf( "Generirani broj je veci od unesenog!\n" ); }
+		else
+		{
+			printf( "Pogodak iz %d. pokusaja!\n", pokusaj );
+			break;
+		}
+	} while( 1 );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj3_4()
+KOD:
+{
+	//for( int i = 1; i <= 100; ++i )
+	//{
+	//	bool primitivan = false;
+	//	for( int j = 2; j < i / 2 + 1; ++j )	// svi brojevi koji su veci od i / 2 + 1 nemogu biti primitivni
+	//	{
+	//		if( i % j == 0 )
+	//		{
+	//			primitivan = true;
+	//			break;
+	//		}
+	//	}
+	//	if( primitivan )	printf( "Broj %d je primitivan\n", i );
+	//}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj4_1()
+KOD:
+{
+	int broj, broj2;
+	char operacija = 0;
+	while( !operacija )
+	{
+		printf( "Unesi broj: " );
+		scanf_s( "%d", &broj );
+		printf( "Unesi operaciju: " );
+		scanf_s( " %c", &operacija, 2 );
+		printf( "Unesi broj: " );
+		scanf_s( "%d", &broj2 );
+		switch( operacija )
+		{
+		case '+':
+			printf( "Rezultat operacije %d %c %d = %d", broj, operacija, broj2, broj + broj2 );
+			break;
+		case '-':
+			printf( "Rezultat operacije %d %c %d = %d", broj, operacija, broj2, broj - broj2 );
+			break;
+		case '*':
+			printf( "Rezultat operacije %d %c %d = %d", broj, operacija, broj2, broj * broj2 );
+			break;
+		case '/':
+			printf( "Rezultat operacije %d %c %d = %d", broj, operacija, broj2, broj / broj2 );
+			break;
+		case '^':
+		{
+			int rezultat = pow( broj, broj2 );
+			printf( "Rezultat operacije %d %c %d = %d", broj, operacija, broj2, rezultat );
+		}
+		break;
+		case '%':
+			printf( "Rezultat operacije %d %c %d = %d", broj, operacija, broj2, broj % broj2 );
+			break;
+		case '<':
+			printf( "Jednakost %d %c %d je %s", broj, operacija, broj2, ( broj < broj2 ) ? "tocna" : "netocna" );
+			break;
+		case '>':
+			printf( "Jednakost %d %c %d je %s", broj, operacija, broj2, ( broj > broj2 ) ? "tocna" : "netocna" );
+			break;
+		default:
+			printf( "Kriv unos, pokusaj ponovno\n" );
+			operacija = 0;
+			break;
+		}
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj4_2()
+KOD:
+{
+	const int INPUT_LIMIT = 20;
+	int ocjeneKolokvija[20];
+	int histogram[6] = {};
+	int ocjena = 0;
+	printf( "Unesi 20 ocjena\n" );
+	for( int i = 0; i < INPUT_LIMIT; ++i )
+	{
+		while( ocjena < 1 || ocjena > 5 )
+		{
+			printf( "Unesi ocjenu (1-5): " );
+			scanf_s( "%d", &ocjena );
+		}
+		ocjeneKolokvija[i] = ocjena;
+		++histogram[ocjena];
+		ocjena = 0;
+	}
+	printf( "5 - %d\n4 - %d\n3 - %d\n2 - %d\n1 - %d", histogram[5], histogram[4], histogram[3], histogram[2], histogram[1] );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj4_3()
+KOD:
+{
+	const int BROJ_ELEMENATA = 10;
+	int niz[BROJ_ELEMENATA];
+	int broj;
+	for( int el = 0; el < BROJ_ELEMENATA; ++el )
+	{
+		printf( "Unesi broj: " );
+		scanf_s( "%d", &broj );
+		niz[el] = broj;
+	}
+
+	int min = niz[0], max = niz[0];
+	for( int i = 1; i < 10; ++i )
+	{
+		if( min > niz[i] )			min = niz[i];
+		else if( max < niz[i] )	max = niz[i];
+	}
+
+	for( int i = 0; i < BROJ_ELEMENATA; ++i )
+	{
+		for( int j = i; j < BROJ_ELEMENATA; ++j )
+		{
+			if( niz[i] > niz[j] )
+			{
+				int temp = niz[i];
+				niz[i] = niz[j];
+				niz[j] = temp;
+			}
+		}
+	}
+
+	printf( "min: %d\nmax: %d\n", min, max );
+	for( int el = 0; el < BROJ_ELEMENATA; ++el )
+	{
+		printf( "%d ", niz[el] );
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj5_1()
+KOD:
+{
+	char znak = 0;
+	while( znak != 27 )
+		znak = _getche();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj5_2()
+KOD:
+{
+	const int STRING_LIMIT = 20;
+	char str1[STRING_LIMIT] = { 0 };
+	char str2[STRING_LIMIT] = { 0 };
+	printf( "Unesi tekst u varijablu: " );
+	scanf( " %s", &str1 );
+	for( int idx = 0; str1[idx] != '\0' && idx < STRING_LIMIT; ++idx )
+	{
+		if( !( isdigit( str1[idx] ) ) ) { str2[idx] += str1[idx]; }
+		else { str2[idx] += ' '; }
+	}
+	str2[STRING_LIMIT - 1] = '\0';	// forsiraj zadnji karakter drugog stringa da bude 0 terminator (sprijecava citanje memorije koje mu ne pripada ako korisnik unese vise znakova od STRING_LIMITA)
+	printf( "str1: %s\nstr2: %s", str1, str2 );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj5_3()
+KOD:
+{
+	const int STRING_LIMIT = 20;
+	char str[STRING_LIMIT] = { 0 };
+	printf( "Unesi tekst: " );
+	scanf_s( " %s", &str );
+	str[STRING_LIMIT - 1] = '\0';	// forsiraj kraj stringa
+	for( int idx = 0; str[idx] != '\0'; ++idx )
+	{
+		if( isdigit( str[idx] ) )	str[idx] = ' ';
+	}
+	printf( "str: %s\n", str );
+	//
+	for( int idx = 0; str[idx] != '\0'; ++idx )
+	{
+		if( str[idx] == 'a' || str[idx] == 'e' || str[idx] == 'i' || str[idx] == 'o' || str[idx] == 'u' ||
+			str[idx] == 'A' || str[idx] == 'E' || str[idx] == 'I' || str[idx] == 'O' || str[idx] == 'U' )
+			str[idx] = ' ';
+	}
+	printf( "str: %s\n", str );
+	//
+	for( int idx = 0; str[idx] != '\0'; ++idx )
+	{
+		if( islower( str[idx] ) )		str[idx] = str[idx] - 'a' + 'A';
+		else if( isupper( str[idx] ) )	str[idx] = str[idx] - 'A' + 'a';
+	}
+	printf( "str: %s\n", str );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj5_4()
+KOD:
+{
+	unsigned int deka;
+	char heksa[9] = { '0', '0', '0', '0', '0', '0', '0', '0', '\0' };
+	unsigned int pozicija = 0;
+	printf( "Unesi dekadski broj: " );
+	scanf_s( "%d", &deka );
+	while( deka > 0 )
+	{
+		int temp = deka % 16;
+		switch( temp )
+		{
+		case 10: case 11: case 12: case 13: case 14: case 15:
+			heksa[pozicija] = temp - 10 + 'A';	// koristi 10 kao offset 0, 11 kao offset 1, ...
+			break;
+		default:
+			heksa[pozicija] = temp + '0';
+			break;
+		}
+		++pozicija;
+		deka /= 16;
+	}
+	for( int i = 7; i >= 0; --i )
+		printf( "%c\n", heksa[i] );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj6_1()
+KOD:
+{
+	int A[3][3], B[3][3];
+	int broj;
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			printf( "A[%d][%d]: ", i, j );
+			scanf( "%d", &broj );
+			A[i][j] = broj;
+			B[i][j] = 5 * A[i][j];
+		}
+	}
+	//
+	printf( "matrica B\n" );
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			printf( "%d ", B[i][j] );
+		}
+		printf( "\n" );
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj6_2()
+KOD:
+{
+	int A[3][3], B[3][3];
+	int broj;
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			printf( "A[%d][%d]: ", i, j );
+			scanf( "%d", &broj );
+			A[i][j] = broj;
+		}
+	}
+
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			B[i][j] = A[j][i];
+		}
+	}
+
+	printf( "matrica B\n" );
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			printf( "%d ", B[i][j] );
+		}
+		printf( "\n" );
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj6_3()
+KOD:
+{
+	int A[3][3], B[3][3], C[3][3], D[3][3] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
+	int broj;
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			printf( "A[%d][%d]: ", i, j );
+			scanf( "%d", &broj );
+			A[i][j] = broj;
+			printf( "B[%d][%d]: ", i, j );
+			scanf( "%d", &broj );
+			B[i][j] = broj;
+		}
+	}
+
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			C[i][j] = A[i][j] + B[i][j];
+		}
+	}
+
+
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			for( int k = 0; k < 3; ++k )
+			{
+				D[i][j] += A[i][k] * B[k][j];
+			}
+		}
+	}
+
+	printf( "matrica C\n" );
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			printf( "%d ", C[i][j] );
+		}
+		printf( "\n" );
+	}
+	printf( "matrica D\n" );
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+		{
+			printf( "%d ", D[i][j] );
+		}
+		printf( "\n" );
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void FESB::vj6_4()
+KOD:
+{
+	const unsigned int BROJ_LJUDI = 5;
+	const unsigned int NAME_LIMIT = 20;
+	char imena[BROJ_LJUDI][NAME_LIMIT];
+	for( int idx = 0; idx < BROJ_LJUDI; ++idx )
+	{
+		printf( "Unesi %d. ime: ", idx + 1 );
+		gets_s( imena[idx] );
+		//imena[idx][NAME_LIMIT - 1] = '\0';	// forsiraj kraj stringa
+	}
+	//
+	int idx1 = 0, idx2 = 0;
+	for( int tempIdx = 0; tempIdx < BROJ_LJUDI - 1; ++tempIdx )
+	{
+		idx1 = ( _strcmpi( imena[tempIdx + 1], imena[idx1] ) < 0 ) ? tempIdx + 1 : idx1;
+		if( _strcmpi( imena[tempIdx + 1], imena[idx2] ) > 0 )
+		{
+			idx2 = tempIdx + 1;
+		}
+
+	}
+	printf( "Prvi po abecedi je: %s, index: %d\nZadnji po abecedi je: %s, index: %d\n", imena[idx1], idx1, imena[idx2], idx2 );
+	//
+	//sortiranje (Selection sort - vrlo efikasan jer nema puno kopiranja stringa)
+	for( unsigned int i = 0; i < BROJ_LJUDI; ++i )
+	{
+		unsigned int j = i + 1;		// potreban izvan unutarnje petlje
+		unsigned int tempIdx = i;	// potreban izvan unutarnje petlje
+		bool foundBetterResult = false;
+		for( ; j < BROJ_LJUDI; ++j )
+		{
+			for( unsigned int k = 0; k < NAME_LIMIT && imena[tempIdx][k] != '\0' && imena[j][k] != '\0'; ++k )
+			{
+				char curr = tolower( imena[j][k] );
+				char candidate = tolower( imena[tempIdx][k] );
+				if( curr < candidate )
+				{
+					tempIdx = j;
+					break;
+				}
+				else if( curr > candidate )	break;
+			}
+		}
+		if( bool foundBetterResult = tempIdx != i )
+		{
+			char temp[NAME_LIMIT];
+			strcpy_s( temp, NAME_LIMIT, imena[i] );
+			strcpy_s( imena[i], NAME_LIMIT, imena[tempIdx] );
+			strcpy_s( imena[tempIdx], NAME_LIMIT, temp );
+		}
+	}
+	puts( "\nSortiran ispis:" );
+	for( unsigned int idx = 0; idx < BROJ_LJUDI; ++idx )
+		printf_s( "%d. %s\n", idx + 1, imena[idx] );
+}
+--------------------------------
+====================================================
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog10_1()
+KOD:
+{
+	BOLEAN b = TRUE;
+	if( b )  	std::cout << "TEST MACRO\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog10_2()
+KOD:
+{
+	BOLEAN isIstina = divisibleBy10( 10 );
+	std::cout << "Broj: " << 10 << ( ( isIstina == 1 ) ? " je" : " nije" ) << " djeljiv sa 10!\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog10_3()
+KOD:
+{
+	std::cout << is_digit( 5 );
+	std::cout << is_hex( 5 );
+	std::cout << is_hex( 'b' );
+	std::cout << is_hex( 'g' );
+	std::cout << is_hex( 'F' );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog10_4()
+KOD:
+{
+	int a = 5, b = 14, temp = 0;
+	std::cout << "swap varijabli putem MACRO:\n";
+	swap( a, b, temp );
+	std::cout << "sa temp varijablom: " << a << " " << b << "\n";
+	swap2( a, b );
+	std::cout << "bez temp varijable: " << a << " " << b << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog11_1()
+KOD:
+{
+	puts( "PRIJE:" );
+	crtaj_grid();
+	for( int i = 0; i < X_SIZE; ++i )
+	{
+		set_bit( i, 0, true );
+		set_bit( i, Y_SIZE - 1, 1 );
+	}
+	std::cout << "\nPoslije:\n";
+	crtaj_grid();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog11_2()
+KOD:
+{
+	puts( "PRIJE:" );
+	crtaj_grid();
+	for( int i = 0; i < X_SIZE; ++i )
+	{
+		clear_bit( i, 0 );
+	}
+	std::cout << "\nPoslije:\n";
+	crtaj_grid();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog11_3()
+KOD:
+{
+	std::cout << numOfBits( 5 ) << "\n"
+		<< numOfBits( 10 ) << "\n"
+		<< numOfBits( 15 ) << "\n";
+	std::cout << numOfBits( -5 ) << "\n"
+		<< numOfBits( -15 ) << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog11_4()
+KOD:
+{
+	int broj;
+	int temp;
+	char postavljeniBitoviBroja[sizeof( broj ) + 1] = { 0 };
+	std::cin >> broj;
+	temp = broj;
+	size_t idx = 0;
+	for( ; temp > 0; ++idx )
+	{
+		postavljeniBitoviBroja[sizeof( broj ) - idx] = ( temp & 0x1 ) + '0';	// OPTIMIZACIJA: spremi rezultat u bufer umjesto zvat funkciju za ispis za svaki broj
+		temp >>= 1;
+	}
+	std::cout << postavljeniBitoviBroja << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog11_5()
+KOD:
+{
+	int broj;
+	std::cin >> broj;
+	std::array<short, 8> odvojeno;
+	char bitoviDijelaBroja[5] = { 0 };
+	odvojeno = podijeliIntegerU8Dijela( broj );
+	for( int i = 0; i < 8; ++i )
+	{
+		for( int j = 0; j < 4; ++j )
+		{
+			bitoviDijelaBroja[4 - j] = ( odvojeno[i] & 0x01 ) + '0';
+			odvojeno[i] >>= 1;
+		}
+		std::cout << bitoviDijelaBroja << "\n";
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog11_6()
+KOD:
+{
+	char broj = 54;
+	char result = shiftBitsLeft( broj );
+	char bitoviBroja[sizeof( broj ) + 1] = { 0 };
+	const char MSG = 1 << sizeof( broj );	// Most Significant Bit
+	std::cout << "\nBroj: ";
+	size_t idx = 0;
+	do
+	{
+		bitoviBroja[idx] = ( broj & MSG ) + '0';
+		broj <<= 1;
+		++idx;
+	} while( broj > 0 );
+	std::cout << bitoviBroja
+		<< "(2)\nRezultat: ";
+
+	idx = 0;
+	do
+	{
+		bitoviBroja[idx] = ( result & MSG ) + '0';
+		result <<= 1;
+		++idx;
+	} while( result > 0 );
+	std::cout << bitoviBroja << "(2)";	// po bazi 2
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog13_1()
+KOD:
+{
+	Parsity primjer;
+	primjer.put();
+	std::cout << primjer.test() << "\n";
+	primjer.put();
+	std::cout << primjer.test() << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog13_2()
+KOD:
+{
+	Checkbook book1;
+	book1.addItem( 5 );
+	book1.addItem( 100 );
+	book1.addItem( 100 );
+	std::cout << book1.total();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog13_3()
+KOD:
+{
+	Queue q;
+	q.addItem( 1 );
+	q.addItem( 2 );
+	q.addItem( 3 );
+	std::cout << q.get() << "\n";
+	std::cout << q.get() << "\n";
+	q.addItem( 10 );
+	std::cout << q.get() << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog13_4()
+KOD:
+{
+	Small_set small_set;
+	small_set.set( 3 );
+	small_set.set( 5 );
+	small_set.set( 5 );
+	std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
+	std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
+	small_set.clear( 5 );                             // Set contains [3]
+	Small_set another_set( small_set );
+	small_set.set( 0 );
+	std::cout << small_set.test( 3 ) << '\n';      // Prints "1"
+	std::cout << small_set.test( 0 ) << '\n';        // Prints "0"
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog13_5()
+KOD:
+{
+  ////todo: FlachCards klasa
+	std::vector<FlashCards::single_card> cards = {	// dodavanje kartica dinamicki
+		{ "test1", "test11" },
+		{ "test2", "test2" },
+		{ "test3", "test3" },
+		{ "test4", "test4" },
+		{ "test5", "test5" }
+	};
+
+	FlashCards fc( cards.data(), cards.size() );
+	fc.izbornik();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog14_1()
+KOD:
+{
+	ShareFile1 test;
+	std::cout << "ShareFile1: " << is_using_file1() << "\n";
+	ShareFile2_ test2;
+	std::cout << "ShareFile2: " << is_using_file1( 0 ) << "\n";
+	std::cout << "----------------\n";
+
+	test.otvori_datoteku();
+	std::cout << "ShareFile1: " << is_using_file1() << "\n";
+	test2.otvori_datoteku();
+	std::cout << "ShareFile2: " << is_using_file1( 0 ) << "\n";
+	std::cout << "----------------\n";
+
+	test.zatvori_datoteku();
+	test2.zatvori_datoteku();
+	test2.otvori_datoteku();
+	std::cout << "ShareFile2: " << is_using_file1( 0 ) << "\n";
+	test.otvori_datoteku();
+	std::cout << "ShareFile1: " << is_using_file1() << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog14_2()
+KOD:
+{
+	std::array<Pigs, 5> pigs;
+	std::array<Dogs, 2> dogs;
+	std::array<Horses, 3> horses;
+	std::cout << ukupanBrojZivotinja() << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog14_3()
+KOD:
+{
+	std::array<Stack_Instance, 5> stacks;
+	std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
+	stacks[0].take_control();
+	std::cout << Stack_Instance::who_is_owner( &stacks[0], 5 ) << "\n";
+	stacks[4].pop();
+	stacks[0].push_back( 10 );
+	std::cout << "stack[0] size: " << stacks[0].size()
+		<< "\nstack[1] size: " << stacks[1].size()
+		<< '\n';
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog14_4()
+KOD:
+{
+  //227. stranica
+	char ime[] = "Dogs.hpp";
+	Line_number test( ime );
+	if( test.getCurrentLine() == std::numeric_limits<size_t>::max() )	return; // failed to open
+	Line_number test2( ime );
+	if( test2.getCurrentLine() == std::numeric_limits<size_t>::max() )	return;	// failed to open
+
+	std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
+	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
+	test.goto_line( 5 );
+	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
+	test.goto_line( 2 );
+	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
+	test2.goto_line( 2 );
+	std::cout << "\ntest - test2: " << test.getFileRef().tellg() << " - " << test2.getFileRef().tellg() << "\n";
+	std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
+	std::cout << "test.getFileRef().tellg(): " << test.getFileRef().tellg() << '\n';
+	test2.goto_line( 6 );
+	test.goto_line( 6 );
+	std::cout << "test.getCurrentLine(): " << test.getCurrentLine() << '\n';
+	std::cout << "test2.getCurrentLine(): " << test2.getCurrentLine() << '\n';
+	test2.getFileRef().seekg( 5, std::ios::cur );
+	std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
+	test2.goto_line( 0 );
+	test2.getFileRef().seekg( 5, std::ios::cur );
+	std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
+}
+--------------------------------
+TEKST ZADATKA: 254. stranica
+DEKLARACIJA: void PracticalCppProg::pog15_1()
+KOD:
+{
+	std::array<int, 15> niz;
+	niz.fill( 15 );
+	for( const auto& n : niz )
+		std::cout << n << " ";
+	std::cout << "\n";
+	postavi_niz_na_nulu( niz );
+	for( const auto& n : niz )
+		std::cout << n << " ";
+	std::cout << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog15_2()
+KOD:
+{
+	const char str1[] = " \ttest ";
+	const char str2[] = "  \t ";
+	const char* c = prvi_alfa_num( str1 );
+	const char* d = prvi_alfa_num( str2 );
+	if( c )
+		std::cout << c << "\n";
+	else
+		std::cout << "nullptr\n";
+	if( d )
+		std::cout << d << "\n";
+	else
+		std::cout << "nullptr\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog16_1()
+KOD:
+{
+	File_16C f1( "linije.dat" );
+	std::cout << "broj linija: " << f1.numOfLinesInFile() << " u datoteci: \"" << f1.getName() << "\"\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog16_2()
+KOD:
+{
+	File_16C f2( "linija.dat" );
+	f2.copy_file( "copy-linija.dat" );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog16_3()
+KOD:
+{
+	File_16C f3;
+	std::fstream lista( "lista.dat", std::ios::out );
+	lista << 3 << " " << 6 << " " << 9 << " " << 10 << " " << 11 << " " << 12;
+	lista.close();
+	lista.open( "lista.dat", std::ios::out | std::ios::in | std::ios::ate );
+	lista.seekg( std::ios::beg );
+	std::cout << "\"lista.dat\": ";
+	f3.ispis( lista );
+	std::cout << "\n";
+	f3.listOfNumbers( lista );
+
+	std::fstream sa3( "djeljivi sa 3.dat", std::ios::in | std::ios::app );
+	std::cout << "\"djeljivi sa 3.dat\": ";
+	f3.ispis( sa3 );
+	std::cout << "\n";
+
+	std::fstream ostali( "svi ostali.dat", std::ios::in | std::ios::app );
+	std::cout << "\"svi ostali.dat\": ";
+	f3.ispis( ostali );
+	std::cout << "\n";
+
+	lista.close();
+	sa3.close();
+	ostali.close();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog16_4()
+KOD:
+{
+	File_16C f4( "File_16C remove high bit.txt" );
+	typedef const unsigned char cuc;
+	cuc podaci[] = { static_cast<cuc>( 192 ), static_cast<cuc>( 168 ), static_cast<cuc>( 128 ), static_cast<cuc>( 125 ), '\0' };
+	std::fstream in( f4.getName(), std::ios::out | std::ios::app | std::ios::trunc );
+	in << podaci;
+	in.close();
+	f4.removeHighBit();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog16_5()
+KOD:
+{
+	File_16C f5( "pretvorba ASCI u bin.dat" );
+	std::cout << "PRIJE: ";
+	f5.ispis();
+
+	if( f5.ASCI_to_bin() )
+	{
+		std::cout << "\nPretvorba uspjesna!\n";
+		f5.bin_to_ASCI();
+		std::cout << "\nPOSLIJE: ";
+		f5.ispis();
+	}
+	else
+		std::cout << "Nista nece da radi\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog16_6()
+KOD:
+{
+	File_16C f6( "osobe.inf" );
+	f6.read_info_o_osobi();
+	f6.ispis_osoba();
+}
+--------------------------------
+TEKST ZADATKA: 317. stranica
+void PracticalCppProg::pog17_2__1()
+DEKLARACIJA: void PracticalCppProg::pog17_2__1()
+KOD:
+{
+	std::cout << "2x2:\n";
+	std::array<std::array<int, 2>, 2> matrix = { { {{ 2, 1 }},
+												{{ 1, 1 }} } };
+	matrixMultiply( matrix );
+	for( int i = 0; i < 2; ++i )
+	{
+		for( int j = 0; j < 2; ++j )
+			std::cout << matrix[i][j] << " ";
+
+		std::cout << "\n";
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog17_2__2()
+KOD:
+{
+	std::array<std::array<int, 3>, 3> matrix = { {{{ 2, 1, 1 }},
+											   {{ 2, 2, 2 }},
+											   {{ 2, 1, 1 }}} };
+	matrixMultiply( matrix, 5 );
+	for( int i = 0; i < 3; ++i )
+	{
+		for( int j = 0; j < 3; ++j )
+			std::cout << matrix[i][j] << " ";
+
+		std::cout << "\n";
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog17_2__3()
+KOD:
+{
+	std::cout << "vec2x2:\n";
+	size_t x = 3;
+	size_t y = 2;
+
+	int niz[6] = { 2, 1, 1,
+				  1, 1, 1 };
+
+	std::vector<int> matricaRez = matrixMultiply( matrica_t{ x, y, niz }, matrica_t{ y, x, niz } );
+	for( int i = 0; i < y; ++i )
+	{
+		for( int j = 0; j < y; ++j )
+			std::cout << matricaRez[i * y + j] << " ";
+
+		std::cout << "\n";
+	}
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog17_5()
+KOD:
+{
+	char str[] = "tesaaaaaaaat\0";
+	char noviStr[10];
+	moj_memcpy( str, noviStr, 10 );
+	std::cout << "novi string: " << noviStr << '\n';
+}
+--------------------------------
+TEKST ZADATKA: //	341. stranica
+341. stranica
+DEKLARACIJA: void PracticalCppProg::pog18_1()
+KOD:
+{
+	Razlomak raz1( 1, 3, '+' );
+	Razlomak raz2( 3, 8, '=' );
+	Razlomak rezultat = raz1 + raz2;
+	std::cout << raz1 << raz2 << rezultat;
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog18_2()
+KOD:
+{
+	Decimal dec;
+	dec.setBase( 500000 );
+	dec.setDecimal( -15 );
+	std::cout << dec << '\n';
+	dec.setBase( 16 );
+	dec.setDecimal( 32 );
+	std::cout << dec;
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog18_4()
+KOD:
+{
+	Time t1( 0, 0, 59, 0 );
+	Time t2( 0, 25, 3, 1 );
+	Time t3 = t1 - t2;
+	std::cout << "  " << t1
+		<< "- " << t2
+		<< "----------------------\n"
+		<< t3;
+}
+--------------------------------
+TEKST ZADATKA: 355. stranica
+DEKLARACIJA: void PracticalCppProg::pog19_1()
+KOD:
+{
+	StringDouble sd1( "5.55" );
+	StringDouble sd2( "2" );
+	std::cout << sd1 << "+ " << sd2 << "= " << sd1 + sd2 << '\n'
+		<< sd1 << "- " << sd2 << "= " << sd1 - sd2 << '\n'
+		<< sd1 << "* " << sd2 << "= " << sd1 * sd2 << '\n'
+		<< sd1 << "/ " << sd2 << "= " << sd1 / sd2 << '\n';
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog21_1()
+KOD:
+{
+	Checkbook* cb = new Checkbook;
+	cb->total();
+	cb->addItem( 1 );
+	cb->addItem( 2 );
+	cb->addItem( 3 );
+	cb->addItem( 4 );
+	cb->addItem( 5 );
+	cb->addItem( 6 );
+	cb->addItem( 7 );
+	//cb->addItem( 8 );
+	//cb->addItem( 9 );
+	//cb->addItem( 10 );
+	//cb->addItem( 11 );
+	//cb->addItem( 12 );
+	//cb->addItem( 13 );
+	//cb->addItem( 14 );
+	std::array<int, 10> items = static_cast<Queue*>( cb )->get10();
+	for( const auto& item : items )
+		std::cout << item << "\n";
+	delete cb;
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog21_2()
+KOD:
+{
+	Word_match wm;
+	d_Number_mather nm;
+	d_BlankStr_matcher bsm;
+	std::cout << "Word_match: 43, was: " << wm.match( "43" ) << wm.match( "was" )
+		<< "\nNumber_match 43, was: " << nm.match( "43" ) << nm.match( "was" )
+		<< "\nBlankStr_match 43,  , was: " << bsm.match( "43" ) << bsm.match( "  " ) << bsm.match( "was" );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog21_3()
+KOD:
+{
+	d_Krug krug( 4 );
+	d_Kvadrat kvad( 4 );
+	d_Trokut trok( 4, 4 );
+	std::cout << "Krug: " << krug.v_povrsina()
+		<< "\nKvad: " << kvad.v_povrsina()
+		<< "\nTrok: " << trok.v_povrsina() << "\n";
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog21_5()
+KOD:
+{
+	d_Dek dek( 42 );
+	d_Okt okt( 8 );
+	d_Hex hex( 16 );
+	dek.print_it();
+	okt.print_it();
+	hex.print_it();
+
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog22_4()
+KOD:
+{
+	count_letter( "HelloWorld" );
+	count_letter( "Hello World" );
+}
+--------------------------------
+TEKST ZADATKA: 435. stranica
+void PracticalCppProg::pog23_1()
+DEKLARACIJA: void PracticalCppProg::pog23_1()
+KOD:
+{
+	PageFormatting pf;
+	std::string input;
+	input.reserve( 32 );
+	std::cout << "Unesi ime datoteke: ";
+	std::getline( std::cin, input );
+	pf.open_file( input.c_str() );
+	std::cout << "Unesi naslov datoteke: ";
+	std::getline( std::cin, input );
+	pf.page();
+
+	pf.define_header( input.c_str() );
+	pf.define_header( input.c_str() );
+	std::cout << "Unesi tekst:\n";
+	std::getline( std::cin, input );
+	pf.print_line( input.c_str() );
+	pf.print_line( input.c_str() );
+	pf.page();
+	pf.print_line( input.c_str() );
+	pf.print_line( input.c_str() );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog23_2()
+KOD:
+{
+	std::array<const char*, 5> imenaDatoteka = { {{"Time.cpp"}, {"test"}, {"aaaaaaa"}, {"raznoMain.cpp"}, {"razno.hpp"} } };
+	std::fstream datoteka = search_open( imenaDatoteka );
+	std::string stream;
+	stream.reserve( 256 );
+	if( datoteka.is_open() )
+	{
+		while( std::getline( datoteka, stream ) )
+		{
+			std::cout << stream << '\n';
+		}
+	}
+}
+--------------------------------
+TEKST ZADATKA: -> Koristi indexe kada brises vise stvari za redom iz vektora jer se moze preselit u memoriji
+Zato kad sam 1. put pisa kod i testira nema gresaka i sad kad opet pokrenem errori neki
+DEKLARACIJA: void PracticalCppProg::pog23_3()
+KOD:
+{
+	SymbolTable st;
+	st.enter( "test" );
+	st.enter( "test" );
+	st.enter( "test2" );
+	st.enter( "test" );
+	std::cout << ( st.lookup( "test" ) ? "Nasao sam test\n" : "Nema ga :(\n" );
+	st.remove( "test" );
+
+	std::cout << ( st.lookup( "test" ) ? "Nasao sam test\n" : "Nema ga :(\n" );
+}
+--------------------------------
+TEKST ZADATKA: 446. stranica
+DEKLARACIJA: void PracticalCppProg::pog24_1()
+KOD:
+{
+	std::cout << "min(2, 5): " << min( 2, 5 )
+		<< "\nmin(2.5, 1.05): " << min( 2.5, 1.05 )
+		<< "\nmin('a', 'A'): " << min( 'a', 'A' )
+		<< "\nmin(\"aA\", \"Aa\"): " << min( "aA\0", "Aa\0" ) << '\n';
+}
+--------------------------------
+TEKST ZADATKA: 484. stranica
+DEKLARACIJA: void PracticalCppProg::pog26_1()
+KOD:
+{
+	std::string imeDatoteke{};
+	std::cout << "Unesi ime datoteke: ";
+	std::cin >> imeDatoteke; // npr. raznoMain.cpp
+	std::cout << haveDoubleWords( imeDatoteke );
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog26_3()
+KOD:
+{
+	Mail_label test( "7", "t", "e", "S", "t" );
+	Mail_label test2( "6", "t", "e", "S", "t" );
+	Mail_label test3( "2", "t", "e", "S", "t" );
+	Mail_label test4;
+	std::cin >> test4;
+	List* head = new List( test );
+	List* el2 = new List( test2 );
+	List* el3 = new List( test3 );
+	List* el4 = new List( test4 );
+	head->insert( el2 );
+	el2->insert( el3 );
+	el3->insert( el4 );
+	std::cout << "HEAD:\n" << head->getContent()
+		<< "EL2:\n" << el2->getContent()
+		<< "EL3:\n" << el3->getContent()
+		<< "EL4:\n" << el4->getContent();
+	List::sortByID( head );
+	std::cout << "\nSORTED!\nHEAD:\n" << head->getContent()
+		<< "EL2:\n" << head->gotoNext()->getContent()
+		<< "EL3:\n" << head->gotoNext()->gotoNext()->getContent()
+		<< "EL4:\n" << head->gotoNext()->gotoNext()->gotoNext()->getContent();
+}
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void PracticalCppProg::pog26_5()
+KOD:
+{
+	const std::string ime = "raznoMain.cpp";
+	std::fstream datoteka;
+	ispisi_datoteku_u_konzolu( datoteka, ime );
+}
+--------------------------------
+====================================================
+TEKST ZADATKA: 
+DEKLARACIJA: void vj6_append( struct StringLLAdv& advNode, char slovo )
+KOD:
+{
+void ThinkLAP::printSidewaysTriangle()
+{
+	Poglavlje2 pog2;
+	pog2.printSidewaysTriangle();
+	pog2.printSidewaysTriangleRec();
+}
+
+void ThinkLAP::luhnFormulaPrecomputed_and_Expression()
+{
+	Poglavlje2 pog2;
+	pog2.luhnFormulaPrecomputed();
+	pog2.luhnFormulaExpression();
+}
+
+void ThinkLAP::decodeMessage()
+{
+	Poglavlje2 pog2;
+	pog2.decodeMessage();
+	std::cout << "\nRjesenje:\n";
+	pog2.decodeMessageRjesenje();
+
+	// slova
+	// -      -> promijeni mod
+	// ' '    -> razmak
+	//
+	//		  R, -	, i , g ,  h  , t  , -, ? ,' ', -, Y ,-, e,  s  , -, !
+	// input: 18,12312,171,763,98423,1208,216,11,500,18,241,0,32,20620,27,10
+}
+
+
+	// vjezbe
+void ThinkLAP::pog2vj1()
+{
+	Poglavlje2 pog2;
+	pog2.vj1();
+}
+void ThinkLAP::pog2vj2()
+{
+	Poglavlje2 pog2;
+	pog2.vj2();
+}
+void ThinkLAP::pog2vj2version2()
+{
+	Poglavlje2 pog2;
+	pog2.vj2_version2();
+}
+void ThinkLAP::pog2vj3()
+{
+	Poglavlje2 pog2;
+	//// input: 9780306406157 (978-0-306-40615-7)
+	pog2.vj3();
+}
+void ThinkLAP::pog2vj5_check()
+{
+	Poglavlje2 pog2;
+	pog2.vj5_check();
+	//// input: 978030640615 (978-0-306-40615-?)
+}
+void ThinkLAP::pog2vj5_generate()
+{
+	Poglavlje2 pog2;
+	pog2.vj5_generate();
+}
+
+void ThinkLAP::pog2vj6()
+{
+	try
+	{
+		Poglavlje2 pog2;
+		std::cout << pog2.vj6_bin_to_dec() << '\n';
+	}
+	catch( const char* poruka )
+	{
+		std::cout << poruka;
+	}
+	catch( ... )
+	{
+		std::cout << "--GRESKA!--\n";
+	}
+}
+void ThinkLAP::pog2vj6_2()
+{
+	Poglavlje2 pog2;
+	int bin = pog2.vj6_dec_to_bin();
+	pog2.vj6_ispisi_bin( bin );
+	////std::cout << bin;
+}
+void ThinkLAP::pog2vj7()
+{
+	struct testCase
+	{							// b									d				h
+		int test1 = 0;			// 0									0				0x0
+		int test2 = 5;			// 101								5				0x5
+		int test3 = -5;			// 11111111111111111111111111111011		-5				0xFFFC
+		int test4 = INT32_MIN;	// 10000000000000000000000000000000		-2147483648		0x8000
+	};
+
+	Poglavlje2 pog2;
+	pog2.vj7_pretvorba_sa_hex();
+}
+void ThinkLAP::pog2vj8()
+{
+	Poglavlje2 pog2;
+////--------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>(neg brojevi)
+	pog2.vj8_pretvorba_sve_baze();
+}
+
+void ThinkLAP::pog2vj9()
+{
+	//test cases :
+	//rE,
+	//Ree,
+	//aaaaaa Uhhhhh,
+	//bbboKKK,
+
+	Poglavlje2 pog2;
+	std::string str;
+	std::cout << "Unesi liniju teksta:\n";
+	getline( std::cin, str );
+	pog2.vj9_unos_string_info( str );
+}
+
+///////////////////////////////////////////////////////////////////////////
+/// Poglavlje 3:
+
+void ThinkLAP::pog3_finding_the_mode()
+{
+	Poglavlje3 pog3;
+	pog3.finding_the_mode();
+}
+
+void ThinkLAP::pog3_vj1_sorting()
+{
+	Poglavlje3 pog3;
+	pog3.vj1_sorting();
+}
+
+void ThinkLAP::pog3_highestSales_zadano()
+{
+	Poglavlje3 pog3;
+	pog3.highestSales_zadano();
+}
+
+void ThinkLAP::pog3_vj2_median()
+{
+	Poglavlje3 pog3;
+	pog3.vj2_median();
+}
+
+void ThinkLAP::pog3_vj3_issorted()
+{
+	Poglavlje3 pog3;
+	std::array<int, 20> niz1{ 5865, 5456, 3983, 6464, 9957, 4785, 3875, 3838, 4959, 1122, 7766, 2534, 23, 55, 67, 99, 265, 376, 232, 223 };
+	std::array<int, 20> niz2{ 23, 55, 67, 99, 223, 232, 265, 376, 1122, 2534, 3838, 3875, 3983, 4785, 4959, 5456, 5865, 6464,  7766, 9957 };
+	std::cout << "niz1:\n";
+	for( const int el : niz1 )	std::cout << el << " "; std::cout << '\n';
+	std::cout << ( ( pog3.vj3_issorted( niz1 ) == true ) ? "sortiran\n" : "nije sortiran\n" );
+	std::cout << "\nniz2:\n";
+	for( const int el : niz2 )	std::cout << el << " "; std::cout << '\n';
+	std::cout << ( ( pog3.vj3_issorted( niz2 ) == true ) ? "sortiran\n" : "nije sortiran\n" );
+}
+
+void ThinkLAP::pog3_vj4_encode_and_vj5_decode()
+{
+	try
+	{
+	/// ( za trenutacni nacin kriptiranja znakova )
+	/// cipher:		┼ ( ? I ž 0 _ ) = E 5 ! ╣ < ' ╦ $ » ╩ 8 U ▀ ď Ó ─ ╝
+	/// slova:		a b c d e f g h i j k l m n o p q r s t u v w x y z
+		Poglavlje3 pog3;
+		const char* plainText = "roses are red, sky is blue. code is gud and so no need to be pulled.";
+		auto encoded = pog3.vj4_cipher_encode( plainText );
+		std::cout.setf( std::ios::left ); std::cout.width( 12 ); std::cout << "plainText:" << plainText << '\n';
+		std::cout.setf( std::ios::left ); std::cout.width( 12 ); std::cout << "encoded:" << encoded << '\n';
+
+		std::cout << "\nNakon dekriptiranja:\n";
+
+		char cipherText[57];
+		strcpy_s( cipherText, encoded.get() );
+		auto decode = pog3.vj5_cipher_decode( std::move( encoded ) );
+		std::cout.setf( std::ios::left ); std::cout.width( 12 ); std::cout << "cipherText:" << cipherText << '\n';
+		std::cout.setf( std::ios::left ); std::cout.width( 12 ); std::cout << "decode:" << decode << '\n';
+	}
+	catch( const char* str )
+	{
+		std::cout << str;
+	}
+	catch( ... )
+	{
+		std::cout << "--GRESKA--\n";
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////// TODO: PROVJERI da li daje tocne rezultate
+void ThinkLAP::pog3_vj8_grade_better_than()
+{
+	Poglavlje3 pog3;
+	const auto rezultati = pog3.vj8_grade_better_than();
+	std::cout << "Od trazenog ucenika bolji je postotak studenata sa sljedecim ocjenama:\n"
+		<< "25%: " << static_cast<uint8_t>( rezultati[0] != UINT8_MAX ? ( rezultati[0] + 'A' ) : '\\' ) << '\n'
+		<< "50%: " << static_cast<uint8_t>( rezultati[1] != UINT8_MAX ? ( rezultati[1] + 'A' ) : '\\' ) << '\n'
+		<< "75%: " << static_cast<uint8_t>( rezultati[2] != UINT8_MAX ? ( rezultati[2] + 'A' ) : '\\' ) << '\n';
+}
+
+void ThinkLAP::pog3_vj9_modified_median()
+{
+	Poglavlje3 pog3;
+	pog3.vj9_modified_median();
+}
+
+//////////////////////////////////////////////
+/// poglavlje 4:
+
+void ThinkLAP::pog4_osnovne_operacije_stringa()
+{
+	Poglavlje4 pog4;
+	const char* string = "";
+	std::cout << "string: " << string;
+	std::cout << "\nAppendig \"a\"\n";
+	pog4.append( string, 'a' );
+	std::cout << "string: " << string << '\n';
+	std::cout << "Concatenating \" test\"\n";
+	pog4.concatenate( string, " test" );
+	std::cout << "string: " << string << '\n';
+	std::cout << "\nAppendig \".\"\n";
+	pog4.append( string, '.' );
+	std::cout << "string: " << string << '\n';
+	std::cout << "Concatenating \" This is\"\n";
+	pog4.concatenate( string, " This is." );
+	std::cout << "string: " << string << '\n';
+	std::cout << "\n";
+	std::cout << "string sa characterAt funkcijom:\n";
+	for( std::pair<uint8_t, const char*> data = { 1, string }; *data.second != '\0'; ++data.first, ++data.second )
+		std::cout << pog4.characterAt( string, data.first ) << '\n';
+	delete[] string;
+}
+void ThinkLAP::pog4_prosjek_ocjena_studenata()
+{
+	Poglavlje4 pog4;
+	Poglavlje4::StudentRecord* record = nullptr;
+	pog4.addRecord( record, { 1, 'A' } ); // 1
+	pog4.addRecord( record, { 1, 'B' } ); // 2
+	pog4.addRecord( record, { 1, 'C' } ); // 6
+	pog4.addRecord( record, { 1, 'F' } ); // 6
+	pog4.addRecord( record, { 3, 'C' } ); // 3
+	pog4.addRecord( record, { 3, 'E' } ); // 5
+	pog4.addRecord( record, { 3, 'E' } ); // 5
+	pog4.addRecord( record, { 3, 'E' } ); // 5
+	pog4.addRecord( record, { 3, 'E' } ); // 5
+	std::cout << "Prosjek ocjena u rekordu je: " << static_cast<char>( pog4.averageRecord( record ) ) << '\n';
+	delete record;
+}
+
+void ThinkLAP::pog4_vj1()
+{
+	Poglavlje4 pog4;
+	pog4.vj1_(); ///////////////////////////////////////////////////////////////////////////////////////// TODO	pogledaj za zadatak koji se moze rjesit sa dinamicnom memorijom
+}
+
+void ThinkLAP::pog4_vj2_jos_operacija_nad_stringom()
+{
+	Poglavlje4 pog4;
+	const char* test1 = "\0";
+	const char* sub1 = pog4.vj2_sub_string( test1, 0, 5 );
+	const char* sub2 = pog4.vj2_sub_string( test1, 5, 2 );
+	const char* sub3 = pog4.vj2_sub_string( test1, 0, 1 );
+	std::cout << "test1: \"" << sub1 << "\"" << ", " << "\"" << sub2 << "\"" << ", " << "\"" << sub3 << "\"\n";
+	const char* test2 = "test2";
+	const char* sub4 = pog4.vj2_sub_string( test2, 0, 5 );
+	const char* sub5 = pog4.vj2_sub_string( test2, 3, 2 );
+	const char* sub6 = pog4.vj2_sub_string( test2, 0, 1 );
+	const char* sub7 = pog4.vj2_sub_string( test2, 4, 3 );
+	const char* sub8 = pog4.vj2_sub_string( test2, -1, 3 );
+	std::cout << "test2: \"" << sub4 << "\"" << ", " << "\"" << sub5 << "\"" << ", " << "\"" << sub6 << "\"" << ", " << "\"" << sub7 << "\"" << ", " << "\"" << sub8 << "\"\n";
+	delete[] sub1, delete[] sub2, delete[] sub3, delete[] sub4, delete[] sub5, delete[] sub6, delete[] sub7, delete[] sub8;
+}
+
+/// TODO: pogledaj ima li greske, zasto je 5 puta komentirano
+//////const char* test1 = new char[1]{ "" };
+//////const char* tar1 = "";
+//////const char* repl1 = "";
+//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar1 << "\"\nReplaceText: " << "\"" << repl1 << "\"\n";
+//////pog4.vj3_replaceString(test1, tar1, repl1);
+//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 << "\"\n\n";
+//////const char* tar2 = "";
+//////const char* repl2 = "da";
+//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar2 << "\"\nReplaceText: " << "\"" << repl2 << "\"\n";
+//////pog4.vj3_replaceString(test1, tar2, repl2);
+//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 << "\"\n\n";
+//////pog4.concatenate(test1, "dodaj");
+//////const char* tar3 = "do";
+//////const char* repl3 = "XYZ";
+//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar3 << "\"\nReplaceText: " << "\"" << repl3 << "\"\n";
+//////pog4.vj3_replaceString(test1, tar3, repl3);
+//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 <<  "\"\n\n";
+//////pog4.concatenate(test1, " mi dorucak");
+//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar3 << "\"\nReplaceText: " << "\"" << repl3 << "\"\n";
+//////pog4.vj3_replaceString(test1, tar3, repl3);
+//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 << "\"\n\n";
+
+//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar3 << "\"\nReplaceText: " << "\"" << repl3 << "\"\n";
+//////pog4.vj3_replaceString( test1, "test", repl1 );
+//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 << "\"\n\n";
+
+//////delete[] test1;
+////////////////////////
+
+void ThinkLAP::pog4_myCharPtr_klasa_testiranje()
+{
+	Poglavlje4 pog4;
+	Poglavlje4::myCharptr string1( 12, "Konstruktor!" ), string2( 14, "Konstruktor2!a" );
+	std::cout << "string1: " << string1 << '\n';
+	std::cout << "string2: " << string2 << '\n';
+	Poglavlje4::myCharptr string3( string1 );
+	std::cout << "string3(copy konstruktor string1): " << string3 << ", string1: " << string1 << '\n';
+	Poglavlje4::myCharptr string4( std::move( string2 ) );
+	std::cout << "string4(move konstruktor string2): " << string4 << '\n';
+	std::cout << "string2(nakon move): " << string2 << '\n';
+	string1 = string3;
+	std::cout << "string1(nakon =string3): " << string1 << ", string3: " << string3 << '\n';
+	string3 = std::move( string1 );
+	std::cout << "string3 mov =string1: " << string3 << ", string1: " << string1 << '\n';
+	//////
+	pog4.vj4_append( string1, 'a' ); pog4.vj4_append( string1, 'p' ); pog4.vj4_append( string1, 'p' ); pog4.vj4_append( string1, 'e' ); pog4.vj4_append( string1, 'n' ); pog4.vj4_append( string1, 'd' );
+	pog4.vj4_concatenate( string2, "concatenate" );
+	uint8_t len = std::max( { string1.getLength(), string2.getLength(), string3.getLength(), string4.getLength() } );
+	for( uint8_t i = 1; i <= len; ++i )
+		std::cout << pog4.vj4_characterAt( string1, i ) << '\t' << pog4.vj4_characterAt( string2, i ) << '\t' << pog4.vj4_characterAt( string3, i ) << '\t' << pog4.vj4_characterAt( string4, i ) << '\n' << '\n';
+}
+
+void ThinkLAP::pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda()
+{
+	Poglavlje4 pog4;
+	Poglavlje4::StudentRecord* record = nullptr;
+	pog4.addRecord( record, { 1, 'A' } ); // 1
+	pog4.addRecord( record, { 1, 'B' } ); // 2
+	pog4.addRecord( record, { 1, 'C' } ); // 6
+	char kriterij;
+	uint8_t mode;
+	std::cout << "Unesi po kojem kriteriju zelis uklonit iz rekorda: ";
+	std::cin >> kriterij;	// 1
+	std::cout << "Unesi koji mode zelis(0-> ID, 1-> ocjena): ";
+	std::cin >> mode;	// 0
+	pog4.vj5_remove_record( record, kriterij, mode );
+	std::cout << "Unesi po kojem kriteriju zelis uklonit iz rekorda: ";
+	std::cin >> kriterij;	// 'C'
+	std::cout << "Unesi koji mode zelis(0-> ID, 1-> ocjena): ";
+	std::cin >> mode;	// 1
+	pog4.vj5_remove_record( record, kriterij, mode );
+	std::cout << "Unesi po kojem kriteriju zelis uklonit iz rekorda: ";
+	std::cin >> kriterij;	// 'A'
+	std::cout << "Unesi koji mode zelis(0-> ID, 1-> ocjena): ";
+	std::cin >> mode;	// 1
+	pog4.vj5_remove_record( record, kriterij, mode );
+	delete record;
+}
+
+StringLLAdv testVal1()
+{
+	struct StringLLAdv advNode {};
+	StringLinkedList::vj6_append( advNode, 'a' );
+	StringLinkedList::vj6_append( advNode, 'p' );
+	StringLinkedList::vj6_append( advNode, 'p' );
+	return advNode;
+}
+
+StringLLAdv testVal2()
+{
+	struct StringLLAdv advNode2 {};
+	StringLinkedList::vj6_append( advNode2, '&' );
+	StringLinkedList::vj6_append( advNode2, 'c' );
+	StringLinkedList::vj6_append( advNode2, 'o' );
+	StringLinkedList::vj6_append( advNode2, 'n' );
+	return advNode2;
+}
+
+void ThinkLAP::pog4_vj6()
+{
+	struct StringLLAdv advNode = testVal1();
+	std::cout << "nakon append advNode:\n";
+	for( int i = 0; i < advNode.head.slovo; ++i )
+		std::cout << StringLinkedList::vj6_characterAt( advNode, i ) << '\n';
+	StringLinkedList::del( advNode );
+}
+
+void ThinkLAP::pog4_vj7()
+{
+	StringLLAdv advNode = testVal1();
+	StringLLAdv advNode2 = testVal2();
+	StringLinkedList::vj7_concatenate( advNode, advNode2 );
+	std::cout << "\nnakon contatenate advNode:\n";
+	for( int i = 0; i < advNode.head.slovo; ++i )
+		std::cout << StringLinkedList::vj6_characterAt( advNode, i ) << '\n';
+	StringLinkedList::del( advNode );
+	StringLinkedList::del( advNode2 );
+}
+
+void ThinkLAP::pog4_vj8()
+{
+	StringLLAdv advNode = testVal1();
+	StringLLAdv advNode2 = testVal2();
+	StringLinkedList::vj7_concatenate( advNode, advNode2 );
+	std::cout << "\nnakon contatenate advNode:\n";
+	StringLinkedList::vj8_rmvchar( advNode, 5, 3 );
+	std::cout << "\nnakon rmvchar advNode:\n";
+	for( int i = 0; i < advNode.head.slovo; ++i )
+		std::cout << StringLinkedList::vj6_characterAt( advNode, i ) << '\n';
+	StringLinkedList::vj8_rmvchar( advNode, 0, 2 );
+	std::cout << "\nnakon rmvchar advNode:\n";
+	for( int i = 0; i < advNode.head.slovo; ++i )
+		std::cout << StringLinkedList::vj6_characterAt( advNode, i ) << '\n';
+	StringLinkedList::vj8_rmvchar( advNode2, 1, 3 );
+	std::cout << "\nnakon rmvchar advNode2:\n";
+	for( int i = 0; i < advNode2.head.slovo; ++i )
+		std::cout << StringLinkedList::vj6_characterAt( advNode2, i ) << '\n';
+	StringLinkedList::vj8_rmvchar( advNode2, 0, 1 );
+	std::cout << "\nnakon rmvchar advNode2:\n";
+	for( int i = 0; i < advNode2.head.slovo; ++i )
+		std::cout << StringLinkedList::vj6_characterAt( advNode2, i ) << '\n';
+	StringLinkedList::del( advNode );
+	StringLinkedList::del( advNode2 );
+}
+
+void ThinkLAP::pog4_vj9()
+{
+//inp: 12233344445555566666677777778888888899999999910101010101010101010
+	std::cout << "Unesi bilo koji pozitivan broj: ";
+	StringLLAdv advNode = StringLinkedList::vj9_intToList();
+	std::cout.width( 33 );  std::cout.setf( std::ios::left ); std::cout << "\nBroj unutar advNode: ";
+	for( int i = 0; i < advNode.head.slovo; ++i )
+		std::cout << StringLinkedList::vj6_characterAt( advNode, i );
+	StringLinkedList::del( advNode );
+}
+
+void ThinkLAP::pog4_vj10()
+{
+	std::cout << "Unesi bilo koji pozitivan broj: ";
+	StringLLAdv advNode = StringLinkedList::vj9_intToList();
+	std::cout << "\nUnesi bilo koji pozitivan broj: ";
+	StringLLAdv advNode2 = StringLinkedList::vj9_intToList();
+	std::cout << "\nadvNode + advNode2 = ";
+	StringLLAdv advNodeRez = StringLinkedList::vj10_add_2_int_lists( advNode, advNode2 );
+	for( int i = 0; i < advNodeRez.head.slovo; ++i )
+		std::cout << StringLinkedList::vj6_characterAt( advNodeRez, i );
+	StringLinkedList::del( advNode );
+	StringLinkedList::del( advNode2 );
+	StringLinkedList::del( advNodeRez );
+}
+
+//////////////////////////////////////
+/// poglavlje5:
+
+void ThinkLAP::pog5_vj1()
+{
+	Poglavlje5 pog5;
+	pog5.vj_studentRecords();
+}
+
+void ThinkLAP::pog5_zad1()
+{
+	Poglavlje5 pog5;
+	pog5.zad1_printCarInfo();
+}
+
+void ThinkLAP::pog5_zad2()
+{
+	Poglavlje5 pog5;
+	pog5.zad2_printCarsAge();
+}
+
+void ThinkLAP::pog5_zad3_i_4()
+{
+	Poglavlje5 pog5;
+	pog5.zad3i4_myCharPtr_class();
+}
+
+void ThinkLAP::pog5_zad5()
+{
+	Poglavlje5 pog5;
+	pog5.zad5_remove();
+}
+//TODO zavrsi 2 zad
+
+///////////////////////////////////////////////////////////////////
+//////pog5.zad6(); // student records
+//////pog5.zad7(); // stud rec with range
+
+
+
+///////////////////////////////////////////
+/// poglavlje 6:
+
+void ThinkLAP::pog6_vj1()
+{
+	Poglavlje6 pog6;
+	pog6.vj1_parrots();
+}
+
+void ThinkLAP::pog6_vj2()
+{
+	Poglavlje6 pog6;
+	pog6.vj2_salary();
+}
+
+void ThinkLAP::pog6_vj3()
+{
+	Poglavlje6 pog6;
+	pog6.vj3_sum();
+}
+
+void ThinkLAP::pog6_vj4()
+{
+	Poglavlje6 pog6;
+	pog6.vj4_count_negative_numbers();
+}
+
+void ThinkLAP::pog6_vj5()
+{
+	Poglavlje6 pog6;
+	pog6.vj5_biggest_num_tree();
+}
+
+void ThinkLAP::pog6_zad1()
+{
+	Poglavlje6 pog6;
+	pog6.zad1_sum_of_positive_numbers();
+}
+
+void ThinkLAP::pog6_zad2()
+{
+	Poglavlje6 pog6;
+	pog6.zad2_binary_str_even_odd();
+}
+
+void ThinkLAP::pog6_zad3()
+{
+	Poglavlje6 pog6;
+	pog6.zad3_target_appeard();
+}
+
+void ThinkLAP::pog6_zad4()
+{
+	Poglavlje6 pog6;
+	pog6.zad4_tree_is_heap();
+}
+
+void ThinkLAP::pog6_zad5()
+{
+	Poglavlje6 pog6;
+	pog6.zad5_is_binary_search_tree();
+}
+
+void ThinkLAP::pog6_zad6()
+{
+	Poglavlje6 pog6;
+	pog6.zad6_insert_value_in_binary_search_tree();
+}
+
+/* //TODO zavrsi zadatke Think like a programmer knjige?
+Poglavlje7 pog7;
+
+
+return 0;
+}
+--------------------------------
+====================================================

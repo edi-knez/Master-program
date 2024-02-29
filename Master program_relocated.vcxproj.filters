@@ -162,9 +162,6 @@
     <ClCompile Include="_projekti\razno\Razlomak.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\raznoMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="_projekti\razno\ShareFile1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -286,6 +283,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_Projekti\FESB\FilesToParse\Programiranje 2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\razno\FilesToParse\raznoMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -537,6 +537,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Master program\ParseFile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_Projekti\razno\_helperFunc_raznoMain.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_Projekti\FESB\_helperFunc_Programiranje2.1.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_Projekti\ThinkLAP\_helperFunc_ThinkLAP.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
