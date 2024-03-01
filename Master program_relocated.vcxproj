@@ -123,7 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="Master program\Functions.cpp" />
     <ClCompile Include="master program\main.cpp" />
     <ClCompile Include="Master program\ParseFile.cpp" />
     <ClCompile Include="Master program\setup.cpp" />
@@ -199,6 +199,7 @@
     <ClCompile Include="_projekti\razno\Time.cpp" />
     <ClCompile Include="_projekti\razno\Word_match.cpp" />
     <ClCompile Include="_projekti\thinklap\Automobile.cpp" />
+    <ClCompile Include="_Projekti\ThinkLAP\FilesToParse\ThinkLAPmain.cpp" />
     <ClCompile Include="_projekti\thinklap\myCharPtr.cpp" />
     <ClCompile Include="_projekti\thinklap\Poglavlje2.cpp" />
     <ClCompile Include="_projekti\thinklap\Poglavlje3.cpp" />
@@ -210,7 +211,6 @@
     <ClCompile Include="_projekti\thinklap\StringLinkedList.cpp" />
     <ClCompile Include="_projekti\thinklap\Student.cpp" />
     <ClCompile Include="_projekti\thinklap\test_Zadaci_array.cpp" />
-    <ClCompile Include="_projekti\thinklap\ThinkLAPmain.cpp" />
     <ClCompile Include="_projekti\thinklap\Vjezbe.cpp" />
     <ClCompile Include="_projekti\thinklap\Zadaci_array.cpp" />
     <ClCompile Include="_projekti\thinklap\Zadaci_List.cpp" />

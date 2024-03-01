@@ -228,9 +228,6 @@
     <ClCompile Include="_projekti\thinklap\test_Zadaci_array.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\thinklap\ThinkLAPmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="_projekti\thinklap\Vjezbe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -241,9 +238,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Master program\setup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Master program\ParseFile.cpp">
@@ -286,6 +280,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_Projekti\razno\FilesToParse\raznoMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Master program\Functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\ThinkLAP\FilesToParse\ThinkLAPmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

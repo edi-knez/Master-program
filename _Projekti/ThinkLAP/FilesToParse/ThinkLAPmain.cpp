@@ -1,27 +1,13 @@
 ﻿#include <iostream>
-#include "Poglavlje2.h"
-#include "Poglavlje3.h"
-#include "Poglavlje4.h"
-#include "StringLLAdv.h"
-#include "Poglavlje5.h"
-#include "Poglavlje6.h"
-#include "Poglavlje7.h"
+#include "../Poglavlje2.h"
+#include "../Poglavlje3.h"
+#include "../Poglavlje4.h"
+#include "../StringLLAdv.h"
+#include "../Poglavlje5.h"
+#include "../Poglavlje6.h"
+#include "../Poglavlje7.h"
 
-
-///////////////////////////////////// pog4
-namespace StringLinkedList {
-	void vj6_append( struct StringLLAdv& advNode, char slovo );
-	char vj6_characterAt( const struct StringLLAdv& advNode, uint8_t pos );
-	void vj7_concatenate( struct StringLLAdv& advNode, const struct StringLLAdv& advNode2 );
-	void vj8_rmvchar( struct StringLLAdv& advNode, uint8_t pos, uint8_t kolicina );
-	StringLLAdv vj9_intToList();
-	StringLLAdv vj10_add_2_int_lists( const StringLLAdv& advNode1, const StringLLAdv& advNode2 );
-	void del( struct StringLLAdv& advNode );
-	void del( struct StringLL* head );
-};
-//////////////////////////////////////
-
-
+#include "../../ThinkLAP/_helperFunc_ThinkLAP.hpp"
 #include "../../Master program/PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 //* int main()
@@ -62,28 +48,33 @@ void ThinkLAP::pog2vj1()
 	Poglavlje2 pog2;
 	pog2.vj1();
 }
+
 void ThinkLAP::pog2vj2()
 {
 	Poglavlje2 pog2;
 	pog2.vj2();
 }
+
 void ThinkLAP::pog2vj2version2()
 {
 	Poglavlje2 pog2;
 	pog2.vj2_version2();
 }
+
 void ThinkLAP::pog2vj3()
 {
 	Poglavlje2 pog2;
 	//// input: 9780306406157 (978-0-306-40615-7)
 	pog2.vj3();
 }
+
 void ThinkLAP::pog2vj5_check()
 {
 	Poglavlje2 pog2;
 	pog2.vj5_check();
 	//// input: 978030640615 (978-0-306-40615-?)
 }
+
 void ThinkLAP::pog2vj5_generate()
 {
 	Poglavlje2 pog2;
@@ -106,6 +97,7 @@ void ThinkLAP::pog2vj6()
 		std::cout << "--GRESKA!--\n";
 	}
 }
+
 void ThinkLAP::pog2vj6_2()
 {
 	Poglavlje2 pog2;
@@ -113,6 +105,7 @@ void ThinkLAP::pog2vj6_2()
 	pog2.vj6_ispisi_bin( bin );
 	////std::cout << bin;
 }
+
 void ThinkLAP::pog2vj7()
 {
 	struct testCase
@@ -126,6 +119,8 @@ void ThinkLAP::pog2vj7()
 	Poglavlje2 pog2;
 	pog2.vj7_pretvorba_sa_hex();
 }
+
+
 void ThinkLAP::pog2vj8()
 {
 	Poglavlje2 pog2;
@@ -262,6 +257,7 @@ void ThinkLAP::pog4_osnovne_operacije_stringa()
 		std::cout << pog4.characterAt( string, data.first ) << '\n';
 	delete[] string;
 }
+
 void ThinkLAP::pog4_prosjek_ocjena_studenata()
 {
 	Poglavlje4 pog4;

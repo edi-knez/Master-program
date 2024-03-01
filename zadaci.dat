@@ -2890,25 +2890,28 @@ KOD:
 }
 --------------------------------
 ====================================================
-TEKST ZADATKA: 
-DEKLARACIJA: void vj6_append( struct StringLLAdv& advNode, char slovo )
-KOD:
+TEKST ZADATKA: * int main()
 {
-void ThinkLAP::printSidewaysTriangle()
+DEKLARACIJA: void ThinkLAP::printSidewaysTriangle()
+KOD:
 {
 	Poglavlje2 pog2;
 	pog2.printSidewaysTriangle();
 	pog2.printSidewaysTriangleRec();
 }
-
-void ThinkLAP::luhnFormulaPrecomputed_and_Expression()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::luhnFormulaPrecomputed_and_Expression()
+KOD:
 {
 	Poglavlje2 pog2;
 	pog2.luhnFormulaPrecomputed();
 	pog2.luhnFormulaExpression();
 }
-
-void ThinkLAP::decodeMessage()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::decodeMessage()
+KOD:
 {
 	Poglavlje2 pog2;
 	pog2.decodeMessage();
@@ -2922,43 +2925,60 @@ void ThinkLAP::decodeMessage()
 	//		  R, -	, i , g ,  h  , t  , -, ? ,' ', -, Y ,-, e,  s  , -, !
 	// input: 18,12312,171,763,98423,1208,216,11,500,18,241,0,32,20620,27,10
 }
-
-
-	// vjezbe
-void ThinkLAP::pog2vj1()
+--------------------------------
+TEKST ZADATKA: vjezbe
+DEKLARACIJA: void ThinkLAP::pog2vj1()
+KOD:
 {
 	Poglavlje2 pog2;
 	pog2.vj1();
 }
-void ThinkLAP::pog2vj2()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj2()
+KOD:
 {
 	Poglavlje2 pog2;
 	pog2.vj2();
 }
-void ThinkLAP::pog2vj2version2()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj2version2()
+KOD:
 {
 	Poglavlje2 pog2;
 	pog2.vj2_version2();
 }
-void ThinkLAP::pog2vj3()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj3()
+KOD:
 {
 	Poglavlje2 pog2;
 	//// input: 9780306406157 (978-0-306-40615-7)
 	pog2.vj3();
 }
-void ThinkLAP::pog2vj5_check()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj5_check()
+KOD:
 {
 	Poglavlje2 pog2;
 	pog2.vj5_check();
 	//// input: 978030640615 (978-0-306-40615-?)
 }
-void ThinkLAP::pog2vj5_generate()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj5_generate()
+KOD:
 {
 	Poglavlje2 pog2;
 	pog2.vj5_generate();
 }
-
-void ThinkLAP::pog2vj6()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj6()
+KOD:
 {
 	try
 	{
@@ -2974,14 +2994,20 @@ void ThinkLAP::pog2vj6()
 		std::cout << "--GRESKA!--\n";
 	}
 }
-void ThinkLAP::pog2vj6_2()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj6_2()
+KOD:
 {
 	Poglavlje2 pog2;
 	int bin = pog2.vj6_dec_to_bin();
 	pog2.vj6_ispisi_bin( bin );
 	////std::cout << bin;
 }
-void ThinkLAP::pog2vj7()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj7()
+KOD:
 {
 	struct testCase
 	{							// b									d				h
@@ -2994,14 +3020,19 @@ void ThinkLAP::pog2vj7()
 	Poglavlje2 pog2;
 	pog2.vj7_pretvorba_sa_hex();
 }
-void ThinkLAP::pog2vj8()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj8()
+KOD:
 {
 	Poglavlje2 pog2;
 ////--------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>(neg brojevi)
 	pog2.vj8_pretvorba_sve_baze();
 }
-
-void ThinkLAP::pog2vj9()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog2vj9()
+KOD:
 {
 	//test cases :
 	//rE,
@@ -3015,35 +3046,42 @@ void ThinkLAP::pog2vj9()
 	getline( std::cin, str );
 	pog2.vj9_unos_string_info( str );
 }
-
-///////////////////////////////////////////////////////////////////////////
-/// Poglavlje 3:
-
-void ThinkLAP::pog3_finding_the_mode()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog3_finding_the_mode()
+KOD:
 {
 	Poglavlje3 pog3;
 	pog3.finding_the_mode();
 }
-
-void ThinkLAP::pog3_vj1_sorting()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog3_vj1_sorting()
+KOD:
 {
 	Poglavlje3 pog3;
 	pog3.vj1_sorting();
 }
-
-void ThinkLAP::pog3_highestSales_zadano()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog3_highestSales_zadano()
+KOD:
 {
 	Poglavlje3 pog3;
 	pog3.highestSales_zadano();
 }
-
-void ThinkLAP::pog3_vj2_median()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog3_vj2_median()
+KOD:
 {
 	Poglavlje3 pog3;
 	pog3.vj2_median();
 }
-
-void ThinkLAP::pog3_vj3_issorted()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog3_vj3_issorted()
+KOD:
 {
 	Poglavlje3 pog3;
 	std::array<int, 20> niz1{ 5865, 5456, 3983, 6464, 9957, 4785, 3875, 3838, 4959, 1122, 7766, 2534, 23, 55, 67, 99, 265, 376, 232, 223 };
@@ -3055,8 +3093,10 @@ void ThinkLAP::pog3_vj3_issorted()
 	for( const int el : niz2 )	std::cout << el << " "; std::cout << '\n';
 	std::cout << ( ( pog3.vj3_issorted( niz2 ) == true ) ? "sortiran\n" : "nije sortiran\n" );
 }
-
-void ThinkLAP::pog3_vj4_encode_and_vj5_decode()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog3_vj4_encode_and_vj5_decode()
+KOD:
 {
 	try
 	{
@@ -3086,9 +3126,10 @@ void ThinkLAP::pog3_vj4_encode_and_vj5_decode()
 		std::cout << "--GRESKA--\n";
 	}
 }
-
-/////////////////////////////////////////////////////////////////////////////////////// TODO: PROVJERI da li daje tocne rezultate
-void ThinkLAP::pog3_vj8_grade_better_than()
+--------------------------------
+TEKST ZADATKA: TODO: PROVJERI da li daje tocne rezultate
+DEKLARACIJA: void ThinkLAP::pog3_vj8_grade_better_than()
+KOD:
 {
 	Poglavlje3 pog3;
 	const auto rezultati = pog3.vj8_grade_better_than();
@@ -3097,17 +3138,18 @@ void ThinkLAP::pog3_vj8_grade_better_than()
 		<< "50%: " << static_cast<uint8_t>( rezultati[1] != UINT8_MAX ? ( rezultati[1] + 'A' ) : '\\' ) << '\n'
 		<< "75%: " << static_cast<uint8_t>( rezultati[2] != UINT8_MAX ? ( rezultati[2] + 'A' ) : '\\' ) << '\n';
 }
-
-void ThinkLAP::pog3_vj9_modified_median()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog3_vj9_modified_median()
+KOD:
 {
 	Poglavlje3 pog3;
 	pog3.vj9_modified_median();
 }
-
-//////////////////////////////////////////////
-/// poglavlje 4:
-
-void ThinkLAP::pog4_osnovne_operacije_stringa()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_osnovne_operacije_stringa()
+KOD:
 {
 	Poglavlje4 pog4;
 	const char* string = "";
@@ -3130,7 +3172,10 @@ void ThinkLAP::pog4_osnovne_operacije_stringa()
 		std::cout << pog4.characterAt( string, data.first ) << '\n';
 	delete[] string;
 }
-void ThinkLAP::pog4_prosjek_ocjena_studenata()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_prosjek_ocjena_studenata()
+KOD:
 {
 	Poglavlje4 pog4;
 	Poglavlje4::StudentRecord* record = nullptr;
@@ -3146,14 +3191,18 @@ void ThinkLAP::pog4_prosjek_ocjena_studenata()
 	std::cout << "Prosjek ocjena u rekordu je: " << static_cast<char>( pog4.averageRecord( record ) ) << '\n';
 	delete record;
 }
-
-void ThinkLAP::pog4_vj1()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_vj1()
+KOD:
 {
 	Poglavlje4 pog4;
 	pog4.vj1_(); ///////////////////////////////////////////////////////////////////////////////////////// TODO	pogledaj za zadatak koji se moze rjesit sa dinamicnom memorijom
 }
-
-void ThinkLAP::pog4_vj2_jos_operacija_nad_stringom()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_vj2_jos_operacija_nad_stringom()
+KOD:
 {
 	Poglavlje4 pog4;
 	const char* test1 = "\0";
@@ -3170,38 +3219,10 @@ void ThinkLAP::pog4_vj2_jos_operacija_nad_stringom()
 	std::cout << "test2: \"" << sub4 << "\"" << ", " << "\"" << sub5 << "\"" << ", " << "\"" << sub6 << "\"" << ", " << "\"" << sub7 << "\"" << ", " << "\"" << sub8 << "\"\n";
 	delete[] sub1, delete[] sub2, delete[] sub3, delete[] sub4, delete[] sub5, delete[] sub6, delete[] sub7, delete[] sub8;
 }
-
-/// TODO: pogledaj ima li greske, zasto je 5 puta komentirano
-//////const char* test1 = new char[1]{ "" };
-//////const char* tar1 = "";
-//////const char* repl1 = "";
-//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar1 << "\"\nReplaceText: " << "\"" << repl1 << "\"\n";
-//////pog4.vj3_replaceString(test1, tar1, repl1);
-//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 << "\"\n\n";
-//////const char* tar2 = "";
-//////const char* repl2 = "da";
-//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar2 << "\"\nReplaceText: " << "\"" << repl2 << "\"\n";
-//////pog4.vj3_replaceString(test1, tar2, repl2);
-//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 << "\"\n\n";
-//////pog4.concatenate(test1, "dodaj");
-//////const char* tar3 = "do";
-//////const char* repl3 = "XYZ";
-//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar3 << "\"\nReplaceText: " << "\"" << repl3 << "\"\n";
-//////pog4.vj3_replaceString(test1, tar3, repl3);
-//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 <<  "\"\n\n";
-//////pog4.concatenate(test1, " mi dorucak");
-//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar3 << "\"\nReplaceText: " << "\"" << repl3 << "\"\n";
-//////pog4.vj3_replaceString(test1, tar3, repl3);
-//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 << "\"\n\n";
-
-//////std::cout << "PRIJE:\ntest1: \"" << test1 << "\"\nTarget: " << "\"" << tar3 << "\"\nReplaceText: " << "\"" << repl3 << "\"\n";
-//////pog4.vj3_replaceString( test1, "test", repl1 );
-//////std::cout << "-----------------------------------------\nPOSLIJE:\ntest1: \"" << test1 << "\"\n\n";
-
-//////delete[] test1;
-////////////////////////
-
-void ThinkLAP::pog4_myCharPtr_klasa_testiranje()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_myCharPtr_klasa_testiranje()
+KOD:
 {
 	Poglavlje4 pog4;
 	Poglavlje4::myCharptr string1( 12, "Konstruktor!" ), string2( 14, "Konstruktor2!a" );
@@ -3223,8 +3244,10 @@ void ThinkLAP::pog4_myCharPtr_klasa_testiranje()
 	for( uint8_t i = 1; i <= len; ++i )
 		std::cout << pog4.vj4_characterAt( string1, i ) << '\t' << pog4.vj4_characterAt( string2, i ) << '\t' << pog4.vj4_characterAt( string3, i ) << '\t' << pog4.vj4_characterAt( string4, i ) << '\n' << '\n';
 }
-
-void ThinkLAP::pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda()
+KOD:
 {
 	Poglavlje4 pog4;
 	Poglavlje4::StudentRecord* record = nullptr;
@@ -3250,27 +3273,10 @@ void ThinkLAP::pog4_vj4_dodavanje_and_vj5_uklananje_studentkih_rekorda()
 	pog4.vj5_remove_record( record, kriterij, mode );
 	delete record;
 }
-
-StringLLAdv testVal1()
-{
-	struct StringLLAdv advNode {};
-	StringLinkedList::vj6_append( advNode, 'a' );
-	StringLinkedList::vj6_append( advNode, 'p' );
-	StringLinkedList::vj6_append( advNode, 'p' );
-	return advNode;
-}
-
-StringLLAdv testVal2()
-{
-	struct StringLLAdv advNode2 {};
-	StringLinkedList::vj6_append( advNode2, '&' );
-	StringLinkedList::vj6_append( advNode2, 'c' );
-	StringLinkedList::vj6_append( advNode2, 'o' );
-	StringLinkedList::vj6_append( advNode2, 'n' );
-	return advNode2;
-}
-
-void ThinkLAP::pog4_vj6()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_vj6()
+KOD:
 {
 	struct StringLLAdv advNode = testVal1();
 	std::cout << "nakon append advNode:\n";
@@ -3278,8 +3284,10 @@ void ThinkLAP::pog4_vj6()
 		std::cout << StringLinkedList::vj6_characterAt( advNode, i ) << '\n';
 	StringLinkedList::del( advNode );
 }
-
-void ThinkLAP::pog4_vj7()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_vj7()
+KOD:
 {
 	StringLLAdv advNode = testVal1();
 	StringLLAdv advNode2 = testVal2();
@@ -3290,8 +3298,10 @@ void ThinkLAP::pog4_vj7()
 	StringLinkedList::del( advNode );
 	StringLinkedList::del( advNode2 );
 }
-
-void ThinkLAP::pog4_vj8()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_vj8()
+KOD:
 {
 	StringLLAdv advNode = testVal1();
 	StringLLAdv advNode2 = testVal2();
@@ -3316,8 +3326,10 @@ void ThinkLAP::pog4_vj8()
 	StringLinkedList::del( advNode );
 	StringLinkedList::del( advNode2 );
 }
-
-void ThinkLAP::pog4_vj9()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_vj9()
+KOD:
 {
 //inp: 12233344445555566666677777778888888899999999910101010101010101010
 	std::cout << "Unesi bilo koji pozitivan broj: ";
@@ -3327,8 +3339,10 @@ void ThinkLAP::pog4_vj9()
 		std::cout << StringLinkedList::vj6_characterAt( advNode, i );
 	StringLinkedList::del( advNode );
 }
-
-void ThinkLAP::pog4_vj10()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog4_vj10()
+KOD:
 {
 	std::cout << "Unesi bilo koji pozitivan broj: ";
 	StringLLAdv advNode = StringLinkedList::vj9_intToList();
@@ -3342,121 +3356,133 @@ void ThinkLAP::pog4_vj10()
 	StringLinkedList::del( advNode2 );
 	StringLinkedList::del( advNodeRez );
 }
-
-//////////////////////////////////////
-/// poglavlje5:
-
-void ThinkLAP::pog5_vj1()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog5_vj1()
+KOD:
 {
 	Poglavlje5 pog5;
 	pog5.vj_studentRecords();
 }
-
-void ThinkLAP::pog5_zad1()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog5_zad1()
+KOD:
 {
 	Poglavlje5 pog5;
 	pog5.zad1_printCarInfo();
 }
-
-void ThinkLAP::pog5_zad2()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog5_zad2()
+KOD:
 {
 	Poglavlje5 pog5;
 	pog5.zad2_printCarsAge();
 }
-
-void ThinkLAP::pog5_zad3_i_4()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog5_zad3_i_4()
+KOD:
 {
 	Poglavlje5 pog5;
 	pog5.zad3i4_myCharPtr_class();
 }
-
-void ThinkLAP::pog5_zad5()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog5_zad5()
+KOD:
 {
 	Poglavlje5 pog5;
 	pog5.zad5_remove();
 }
-//TODO zavrsi 2 zad
-
-///////////////////////////////////////////////////////////////////
-//////pog5.zad6(); // student records
-//////pog5.zad7(); // stud rec with range
-
-
-
-///////////////////////////////////////////
-/// poglavlje 6:
-
-void ThinkLAP::pog6_vj1()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_vj1()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.vj1_parrots();
 }
-
-void ThinkLAP::pog6_vj2()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_vj2()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.vj2_salary();
 }
-
-void ThinkLAP::pog6_vj3()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_vj3()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.vj3_sum();
 }
-
-void ThinkLAP::pog6_vj4()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_vj4()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.vj4_count_negative_numbers();
 }
-
-void ThinkLAP::pog6_vj5()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_vj5()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.vj5_biggest_num_tree();
 }
-
-void ThinkLAP::pog6_zad1()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_zad1()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.zad1_sum_of_positive_numbers();
 }
-
-void ThinkLAP::pog6_zad2()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_zad2()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.zad2_binary_str_even_odd();
 }
-
-void ThinkLAP::pog6_zad3()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_zad3()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.zad3_target_appeard();
 }
-
-void ThinkLAP::pog6_zad4()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_zad4()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.zad4_tree_is_heap();
 }
-
-void ThinkLAP::pog6_zad5()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_zad5()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.zad5_is_binary_search_tree();
 }
-
-void ThinkLAP::pog6_zad6()
+--------------------------------
+TEKST ZADATKA: 
+DEKLARACIJA: void ThinkLAP::pog6_zad6()
+KOD:
 {
 	Poglavlje6 pog6;
 	pog6.zad6_insert_value_in_binary_search_tree();
-}
-
-/* //TODO zavrsi zadatke Think like a programmer knjige?
-Poglavlje7 pog7;
-
-
-return 0;
 }
 --------------------------------
 ====================================================

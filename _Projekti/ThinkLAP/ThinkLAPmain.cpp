@@ -48,28 +48,33 @@ void ThinkLAP::pog2vj1()
 	Poglavlje2 pog2;
 	pog2.vj1();
 }
+
 void ThinkLAP::pog2vj2()
 {
 	Poglavlje2 pog2;
 	pog2.vj2();
 }
+
 void ThinkLAP::pog2vj2version2()
 {
 	Poglavlje2 pog2;
 	pog2.vj2_version2();
 }
+
 void ThinkLAP::pog2vj3()
 {
 	Poglavlje2 pog2;
 	//// input: 9780306406157 (978-0-306-40615-7)
 	pog2.vj3();
 }
+
 void ThinkLAP::pog2vj5_check()
 {
 	Poglavlje2 pog2;
 	pog2.vj5_check();
 	//// input: 978030640615 (978-0-306-40615-?)
 }
+
 void ThinkLAP::pog2vj5_generate()
 {
 	Poglavlje2 pog2;
@@ -92,6 +97,7 @@ void ThinkLAP::pog2vj6()
 		std::cout << "--GRESKA!--\n";
 	}
 }
+
 void ThinkLAP::pog2vj6_2()
 {
 	Poglavlje2 pog2;
@@ -99,6 +105,7 @@ void ThinkLAP::pog2vj6_2()
 	pog2.vj6_ispisi_bin( bin );
 	////std::cout << bin;
 }
+
 void ThinkLAP::pog2vj7()
 {
 	struct testCase
@@ -112,6 +119,8 @@ void ThinkLAP::pog2vj7()
 	Poglavlje2 pog2;
 	pog2.vj7_pretvorba_sa_hex();
 }
+
+
 void ThinkLAP::pog2vj8()
 {
 	Poglavlje2 pog2;
@@ -248,6 +257,7 @@ void ThinkLAP::pog4_osnovne_operacije_stringa()
 		std::cout << pog4.characterAt( string, data.first ) << '\n';
 	delete[] string;
 }
+
 void ThinkLAP::pog4_prosjek_ocjena_studenata()
 {
 	Poglavlje4 pog4;
