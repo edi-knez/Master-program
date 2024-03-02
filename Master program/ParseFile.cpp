@@ -112,7 +112,7 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_F
 			DUMP_FILE();
 		}
 #endif
-		
+
 		bool is_eof = findStartOfAFunction( dat );
 		if( !is_eof )
 		{
@@ -136,7 +136,6 @@ bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
 			{
 				if( dat.eof() || c == '\n' )	break;
 			}
-			//dat.get();
 		};
 
 	std::string firstWord;
@@ -147,12 +146,33 @@ bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
 	{
 		if( firstWord == funRetType )
 		{
-			dat.seekg( -1 * ( firstWord.size() + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
+			size_t brojProvjereZnakovaDeklaracije = 0;
+			char c;
+			while( c = dat.get() )
+			{
+				++brojProvjereZnakovaDeklaracije;
+				if( c == '\n' )
+				{
+					while( !dat.eof() )	// moze se dogodit da je deklaracija na zadnjoj liniji koda
+					{
+						c = dat.get();
+						if( !isspace( c ) )	break;
+						++brojProvjereZnakovaDeklaracije;
+					}
+					if( c == '{' )	goto success;
+					else			goto failed;	// ako nije pocetak funkcije, znaci da je kraj deklaracije. Provjeri ima li vise uspjeha u sljedecoj liniji
+				}
+				if( c == '{' )	goto success;	// pocetna zagrada funkcije se nalazi u istoj liniji
+			}
+
+		success:
+			dat.seekg( -1 * ( firstWord.size() + 1 + brojProvjereZnakovaDeklaracije + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
 			break;
 		}
-		ignoreRestOfALine();
-		firstWord.clear();
 
+		ignoreRestOfALine();
+	failed:
+		firstWord.clear();
 	}
 
 	return dat.eof();
@@ -223,7 +243,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 #endif
 			dat.get(); /// preskoci '//' , znakove komentara
 			dat.get();
-		};
+				};
 
 
 	auto spremiLinijuUString = [ & ]()
@@ -274,7 +294,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 			if( bool notEndingofNextine = dat.peek() == '\n' )	break;
 			vratiSeZa1ZnakUnazad( dat );
 		}
-	}
+		}
 
 	std::string retVal;	// dodaj sve linije teksta u jednu cjelinu
 	while( !tekstZadatka.empty() )
@@ -290,7 +310,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
 
 	return retVal;
-}
+	}
 
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 {

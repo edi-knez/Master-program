@@ -1,5 +1,8 @@
 #include "../Cjelina1.hpp"
 
+// test findStartOfAFunction funkcije¡¡
+void test();
+
 /// <summary>
 ///		napisi funkciju koja racuna povrsinu kvadrata
 /// </summary>

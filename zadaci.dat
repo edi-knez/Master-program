@@ -14,9 +14,7 @@ KOD:
 	cout << "x4: " << x4 << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Ispis teksta u konzolu
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina1::zad5_ispis()
 KOD:
 {
@@ -27,9 +25,7 @@ KOD:
 	cout << "and never, ever get it right.\n";
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Pozovi funkciju iz druge cpp datoteke
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina1::vj1_2datoteke()
 KOD:
 {
@@ -37,9 +33,7 @@ KOD:
 	z121_datoteka();
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Izracunaj i ispisi povrsinu kruga u konzolu
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina1::vj3_krug()
 KOD:
 {
@@ -50,9 +44,7 @@ KOD:
 	std::cout << "Povrsina kruga = " << area << " m" << std::endl;
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-U ovom testu se koriste izvedene klase pomocu heap memorije koje se pristupaju pomocu base klase pointera
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina10::zad1()
 KOD:
 {
@@ -82,9 +74,7 @@ KOD:
     delete A[0], A[1], A[2];
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-U ovom testu se takoder pristupa objektima pomoce base klase pointera za koristenje metode ispisa, a i brisanja heap memorije
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina10::zad2()
 KOD:
 {
@@ -114,9 +104,7 @@ DEKLARACIJA: void Cjelina2::Krug::operator=(double
 KOD:
 { this->m_radijus = x; }
 --------------------------------
-TEKST ZADATKA: <summary>
-Provjeri hoce li se pozvat pravi overload
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina2::zad1()
 KOD:
 {
@@ -130,9 +118,7 @@ KOD:
     ispis(rDouble);
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-testiraj setRadijus metodu
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina2::zad2()
 KOD:
 {
@@ -148,9 +134,7 @@ KOD:
     delete k2;
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Testiraj setRadijus metodu sa vise vrijednosti i ispisi povrsinu pripadajucih krugova
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina2::zad3()
 KOD:
 {
@@ -180,9 +164,7 @@ KOD:
 
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Opet ispisi radijus i povrsinu kruga
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina2::zad4()
 KOD:
 {
@@ -196,9 +178,7 @@ KOD:
     cout << "Povrsina kruga je:\t" << k1.Povrsina() << std::endl;
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Ispisi decimalnu vrijednost razlomka ako je vazeci
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina2::zad5()
 KOD:
 {
@@ -212,9 +192,7 @@ KOD:
     
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Ispisi string, promijeni mu vrijednost pa opet ispisi te mu ispisi broj znakova koje sadrzi
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina2::zad6()
 KOD:
 {
@@ -228,9 +206,7 @@ KOD:
     std::cout << "duljina stringa je: " << naziv.length() << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Primjer upotrebe pointera i referenca u funkcijama
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina3::zad1()
 KOD:
 {
@@ -252,9 +228,7 @@ KOD:
 	std::cout << "Radijus: " << rad << "\nPovrsina = " << povrsina << " m2\n" << "Opseg = " << opseg << " m2\n";
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Racuna povrsinu pravokutnika
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina3::zad3()
 KOD:
 {
@@ -263,9 +237,7 @@ KOD:
 	std::cout << "Povrsina pravokutnika je= " << area << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Racunanje opsega za trokut, kvadrat ili kruga zavisno o inputu
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina3::zad4()
 KOD:
 {
@@ -309,9 +281,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Testiranje funkcionalnosti klase Registracija
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina3::zad5()
 KOD:
 {
@@ -373,9 +343,7 @@ KOD:
 	*o = 2 * ( *s ) * 3.14;
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Ispisuje povrsinu i opseg kruga
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina4::zad1()
 KOD:
 {
@@ -385,9 +353,7 @@ KOD:
     std::cout << "Opseg: " << k.izracunajOpseg() << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Ispisuje udaljenost dvije tocke iz obadvije perspektive
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina4::zad3()
 KOD:
 {
@@ -398,9 +364,7 @@ KOD:
         std::cout << "Udaljenost izmedu t2 i t1 = " << t2.Udaljenost(t1) << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Ispisuje udaljenost dvije tocke postavljene sa metodom setTocka iz obadvije perspektive
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina4::zad4()
 KOD:
 {
@@ -413,9 +377,7 @@ KOD:
         std::cout << "Udaljenost izmedu t2 i t1 = " << Udaljenost(t2, t1) << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Ispisuje rjesenje kriptiranog izraza
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina4::zad5()
 KOD:
 {
@@ -426,7 +388,7 @@ KOD:
     }
 }
 --------------------------------
-TEKST ZADATKA: tekst ove funkcije nemoze procitat jer se komentar ne nalazi 1 liniju iznad deklaracije!!
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina5::zad2()
 KOD:
 {
@@ -447,11 +409,7 @@ KOD:
 	delete k;
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Racunanje sume niza uz pomoc druge klase
-///		Ispisi sve brojeve koje niz sadrzi i provjeri sa rezultatom koji metoda daje
-Ispisi sve brojeve koje niz sadrzi i provjeri sa rezultatom koji metoda daje
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina5::zad3()
 KOD:
 {
@@ -463,9 +421,7 @@ KOD:
 	std::cout << "suma niza: " << kn1.sumaNiza() << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Testiranje funkcionalnost klase Kompleks sa parametiziranim vrijednostima
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina6::zad1()
 KOD:
 {
@@ -489,9 +445,7 @@ KOD:
     cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Testiranje funkcionalnost klase Kompleks sa vrijednostima unesenim sa tipkovnice
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina6::zad2()
 KOD:
 {
@@ -534,9 +488,7 @@ KOD:
     cout << "c = " << c.getReal() << " + i * " << c.getImag() << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Testiranje funkcionalnost klase iArray
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina6::zad3()
 KOD:
 {
@@ -562,9 +514,7 @@ KOD:
     std::cout << "i3:\t" << i3.size() << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Racunanje potencije broja sa unosom sa tipkovnice
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina6::zad4()
 KOD:
 {
@@ -582,11 +532,7 @@ KOD:
     std::cout << b << " na " << p << " je: " << r << '\n';
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Filtriraj gradove u filter.txt datoteku koja se otvara za citanje i brise sav sadrzaj pri pozivu funkcije
-///		Gradovi se nalaze u datoteci cities.txt
-Gradovi se nalaze u datoteci cities.txt
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina7::zad1()
 KOD:
 {
@@ -622,13 +568,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Spremi u memoriji prvih 1000 float vrijednosti drugog korijena u niz
-Onda iz tog niza zapisi u datoteku kompleks.txt
-///		Nakon toga otvori binaernu datoteku kompleks.bin i zapisi rezultate
-Nakon toga otvori binaernu datoteku kompleks.bin i zapisi rezultate
-Da provjeris uspjeh binaernog zapisa stvori novi niz od 1000 kompleksnih brojeva i procitaj podatke iz binaerne datoteke
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina7::zad2()
 KOD:
 {
@@ -692,10 +632,7 @@ KOD:
 
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Ispisi datoteku u konzolu uz pomoc buffera
-</summary>
-<param name="datoteka">datoteka iz koje citas</param>
+TEKST ZADATKA: 
 DEKLARACIJA: void pisi_u_consolu_iz_datoteke(std::ifstream& datoteka)
 KOD:
 {
@@ -719,11 +656,7 @@ KOD:
     }
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-REDUDANTNA FUNKCIJA
-</summary>
-<param name="naziv"></param>
-<param name="ekstenzija"></param>
+TEKST ZADATKA: 
 DEKLARACIJA: void pisi_u_consolu_iz_datoteke(const std::string& naziv, const std::string& ekstenzija)
 KOD:
 {
@@ -748,9 +681,7 @@ KOD:
     }
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Razlika izmedu rada sa C i C++ stringom
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina8::zad1()
 KOD:
 {
@@ -799,11 +730,7 @@ KOD:
 
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Unos zeljenih brojeva u vektor pod strukturu sve dok se ne upise slovo
-Onda izracunaj i ispisi sumu pa prosjecnu vrijednost
-Nakon toga prikazi sve unesene brojeve
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina8::zad2()
 KOD:
 {
@@ -845,11 +772,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: <summary>
-Testiranje template funkcije maximum sa integerima i double
-Testiranje template funkcije apsolutnaVrijednost sa integerom i double
-Testiranje palindrom funkcije
-</summary>
+TEKST ZADATKA: 
 DEKLARACIJA: void Cjelina8::zad3()
 KOD:
 {
@@ -1106,10 +1029,7 @@ KOD:
 	printf( "produkt = %d", vj8_produktElemenataMatrice( matricaA, vel ) );
 }
 --------------------------------
-TEKST ZADATKA: sadržavati ni jednu globalnu varijablu, unos i proračun napraviti u odvojenim funkcijama.
-3. Napisati program koji sadrži f-je my_strlen i my_strcpy, koje rade isto što i f-je strlen i strcpy.
-Ispravnost funkcija provjeriti usporedbom sa stvarnim f-jama strlen i strcpy.
-*/
+TEKST ZADATKA: 
 DEKLARACIJA: void FESB::vj8_3()
 KOD:
 {
@@ -2468,7 +2388,7 @@ KOD:
 	std::cout << "test2.getCharPos(): " << test2.getCharPos() << '\n';
 }
 --------------------------------
-TEKST ZADATKA: 254. stranica
+TEKST ZADATKA: 
 DEKLARACIJA: void PracticalCppProg::pog15_1()
 KOD:
 {
@@ -2588,8 +2508,7 @@ KOD:
 	f6.ispis_osoba();
 }
 --------------------------------
-TEKST ZADATKA: 317. stranica
-void PracticalCppProg::pog17_2__1()
+TEKST ZADATKA: 
 DEKLARACIJA: void PracticalCppProg::pog17_2__1()
 KOD:
 {
@@ -2654,8 +2573,7 @@ KOD:
 	std::cout << "novi string: " << noviStr << '\n';
 }
 --------------------------------
-TEKST ZADATKA: //	341. stranica
-341. stranica
+TEKST ZADATKA: 
 DEKLARACIJA: void PracticalCppProg::pog18_1()
 KOD:
 {
@@ -2691,7 +2609,7 @@ KOD:
 		<< t3;
 }
 --------------------------------
-TEKST ZADATKA: 355. stranica
+TEKST ZADATKA: 
 DEKLARACIJA: void PracticalCppProg::pog19_1()
 KOD:
 {
@@ -2774,8 +2692,7 @@ KOD:
 	count_letter( "Hello World" );
 }
 --------------------------------
-TEKST ZADATKA: 435. stranica
-void PracticalCppProg::pog23_1()
+TEKST ZADATKA: 
 DEKLARACIJA: void PracticalCppProg::pog23_1()
 KOD:
 {
@@ -2817,8 +2734,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: -> Koristi indexe kada brises vise stvari za redom iz vektora jer se moze preselit u memoriji
-Zato kad sam 1. put pisa kod i testira nema gresaka i sad kad opet pokrenem errori neki
+TEKST ZADATKA: 
 DEKLARACIJA: void PracticalCppProg::pog23_3()
 KOD:
 {
@@ -2833,7 +2749,7 @@ KOD:
 	std::cout << ( st.lookup( "test" ) ? "Nasao sam test\n" : "Nema ga :(\n" );
 }
 --------------------------------
-TEKST ZADATKA: 446. stranica
+TEKST ZADATKA: 
 DEKLARACIJA: void PracticalCppProg::pog24_1()
 KOD:
 {
@@ -2843,7 +2759,7 @@ KOD:
 		<< "\nmin(\"aA\", \"Aa\"): " << min( "aA\0", "Aa\0" ) << '\n';
 }
 --------------------------------
-TEKST ZADATKA: 484. stranica
+TEKST ZADATKA: 
 DEKLARACIJA: void PracticalCppProg::pog26_1()
 KOD:
 {
@@ -2890,8 +2806,7 @@ KOD:
 }
 --------------------------------
 ====================================================
-TEKST ZADATKA: * int main()
-{
+TEKST ZADATKA: 
 DEKLARACIJA: void ThinkLAP::printSidewaysTriangle()
 KOD:
 {
@@ -2926,7 +2841,7 @@ KOD:
 	// input: 18,12312,171,763,98423,1208,216,11,500,18,241,0,32,20620,27,10
 }
 --------------------------------
-TEKST ZADATKA: vjezbe
+TEKST ZADATKA: 
 DEKLARACIJA: void ThinkLAP::pog2vj1()
 KOD:
 {
@@ -3127,7 +3042,7 @@ KOD:
 	}
 }
 --------------------------------
-TEKST ZADATKA: TODO: PROVJERI da li daje tocne rezultate
+TEKST ZADATKA: 
 DEKLARACIJA: void ThinkLAP::pog3_vj8_grade_better_than()
 KOD:
 {
