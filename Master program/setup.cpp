@@ -88,7 +88,7 @@ void Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( std::unordered_map<std:
 	container.insert( { funcName, funID } );
 }
 
-// citanje iz JSON datoteke nakon 2. kompilacije
+// citanje iz JSON objekta nakon 1. kompilacije
 void popuniPopisFunkcijaZa( const enum class projekt proj )
 {
 //	std::pair<std::string, std::string> name;
@@ -103,8 +103,16 @@ void popuniPopisFunkcijaZa( const enum class projekt proj )
 */
 
 	std::string brojCjeline;
-//	ParseFile pf;
+
+	const char* path( "D:\__EDUKACIJA\PROGRAMIRANJE\C++\TEST\Master program\Master program" );
+	std::vector<std::string> imenaDatoteka;
+	imenaDatoteka.push_back( std::string( "Functions.cpp" ) );
 	// otvori datoteku naziva "Functions.cpp" i odi na liniju
+	ParseFile pf( std::string_view( path ), imenaDatoteka );
+	std::fstream& dat = pf.getDatoteku( 0 );
+	pf.getPositionOfFunction( dat, imenaDatoteka[0].c_str() );
+	
+
 	brojCjeline = "Cjelina1";
 	std::unordered_map<std::string, size_t> Cjelina1;
 	Master::popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].insert( { brojCjeline, std::move( Cjelina1 ) } );
@@ -223,7 +231,7 @@ nlohmann::json Master::_INTERNAL::buildJSON_structure()
 	nizProjekata.push_back( imeProjekta );
 
 */
-	data["projekti"] = nizProjekata;
+	data["projekt"] = nizProjekata;
 	return data;
 }
 

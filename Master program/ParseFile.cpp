@@ -89,6 +89,7 @@ if( _DEBUG_FLAG && DEBUG_IDX == DEBUG_IDX ) \
 #define DEBUG_PRTLINE(DEBUG_ACTIVE) \
 { \
 	std::string _line; \
+	std::getline( dat, _line ); \
 	if( _DEBUG_FLAG && DEBUG_ACTIVE )	std::cout << "LINE: " << _line <<"\n"; \
 }
 

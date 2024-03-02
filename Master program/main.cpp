@@ -42,7 +42,7 @@ extern struct Zadatak;
 
 extern void popuniCijeliPopisFunkcija();
 
-static std::vector popisProjekata{ "C++ knjiga", "FESB", "razno", "ThinkLAP" };
+static std::vector<std::string> popisProjekata;
 
 
 ///extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
@@ -200,6 +200,20 @@ std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
 }
 void Master::init()
 {
+	const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath )
+		{
+			for( const auto& entry : fs::directory_iterator( fullPath ) )
+			{
+				std::string pathToItems = entry.path().string();
+				std::string::reverse_iterator itStart = pathToItems.rbegin();
+				std::string::reverse_iterator itEnd;
+				itEnd = std::find( itStart, pathToItems.rend(), '\\' );
+				size_t itemNameLen = itEnd - itStart;
+				std::string fileName( pathToItems.begin() + pathToItems.size() - itemNameLen, pathToItems.end() );
+				container.push_back( fileName );
+			}
+		};
+
 	std::cout << "DOBRODOSAO!!\n";
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
 	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
@@ -214,29 +228,26 @@ void Master::init()
 		}
 		nlohmann::json jsonData = _INTERNAL::buildJSON_structure();
 
-		std::vector<std::string_view> paths =
+		// dodaj imena projekata u vektor
+		dodajItemeUVektor( popisProjekata, "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti" );
+
+		std::vector<std::string> paths;
+		// popuni pathove dinamicki sa svim projektima
+		for( const auto& entry : fs::directory_iterator( "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti" ) )
 		{
-			"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\C++ knjiga\\FilesToParse\\",
-			"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\FESB\\FilesToParse\\",
-			"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\razno\\FilesToParse\\",
-			"D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\ThinkLAP\\FilesToParse\\"
-		};
+			std::string pathToItems = entry.path().string();
+			pathToItems += "\\FilesToParse\\";
+			paths.push_back( std::move( pathToItems ) );
+		}
+
 		std::vector<std::vector<std::string>> imenaDatoteka;
+		// popuni imena datoteka dinamicki sa svim datotekama na tom pathu
 		{
 			size_t idx = 0;
 			for( const auto path : paths )
 			{
 				imenaDatoteka.push_back( {} );
-				for( const auto& entry : fs::directory_iterator( path ) )
-				{
-					std::string pathToFile = entry.path().string();
-					std::string::reverse_iterator itStart = pathToFile.rbegin();
-					std::string::reverse_iterator itEnd;
-					itEnd = std::find( itStart, pathToFile.rend(), '\\' );
-					size_t fileNameLen = itEnd - itStart;
-					std::string fileName( pathToFile.begin() + pathToFile.size() - fileNameLen, pathToFile.end() );
-					imenaDatoteka[idx].push_back( fileName );
-				}
+				dodajItemeUVektor( imenaDatoteka[idx], path.data() );
 				++idx;
 			}
 		}
