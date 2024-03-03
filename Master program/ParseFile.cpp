@@ -356,7 +356,6 @@ std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )
 	return retVal;
 }
 
-void skipFuncBody( std::fstream& dat );
 std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const char* imeFunkcije )
 {
 	while( bool is_eof = findStartOfAFunction( dat ) )
@@ -397,7 +396,7 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 	return {};
 }
 
-void skipFuncBody( std::fstream& dat )
+void ParseFile::skipFuncBody( std::fstream& dat )
 {
 	size_t stack = 0;
 	char c;

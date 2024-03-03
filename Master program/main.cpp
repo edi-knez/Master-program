@@ -19,10 +19,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TODO za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
-/// - koristi wxWidgets za GUI kod rucnog nacina
 /// - ucitavanje funkcija sa nazivima iz datoteke whitelist
 /// - blokiranje funkcija sa nazivima iz datoteke blacklist
 /// - podrzavanje viselinijskih komentara 
+/// - koristi wxWidgets za GUI kod rucnog nacina
+/// - spawnanje zadataka na novom threadu
+/// - vremenski ogranicit izvrsavanje zadatka
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 
 #include <cstdlib>
@@ -42,17 +44,13 @@ extern struct Zadatak;
 
 extern void popuniCijeliPopisFunkcija();
 
-static std::vector<std::string> popisProjekata;
 
-
-///extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
-//extern std::array<std::vector<std::string>, popisProjekata.size()> opisZadatka;
-///extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
 
 
 namespace Master
 {
-	// niz projekata koji sadrzi umap stringova cjelina koji sadrzi umap stringova naziva funkcija
+	std::vector<std::string> popisProjekata;
+		// niz projekata koji sadrzi umap stringova cjelina koji sadrzi umap stringova naziva funkcija
 	extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
 	extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
 
@@ -81,7 +79,7 @@ int main( const size_t args, const char* argv[] )
 	std::cout << "Unesi broj za projekt iz cijeg zelis pokrenut funkciju:\n";
 	{
 		size_t idx = 1;
-		for( const auto proj : popisProjekata )
+		for( const auto proj : Master::popisProjekata )
 			std::cout << idx++ << ") " << proj << '\n';
 		puts( "" );
 	}
@@ -99,7 +97,7 @@ int main( const size_t args, const char* argv[] )
 			odabirProjekta = -1;
 		}
 	} while( odabirProjekta < 0 );
-	std::cout << "\nOdabrao si projekt " << popisProjekata[odabirProjekta]
+	std::cout << "\nOdabrao si projekt " << Master::popisProjekata[odabirProjekta]
 		<< "\n\Iz koje cjeline zelis pokrenut funkciju?\n\n";
 	for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta] )
 		std::cout << str.first << '\n';
@@ -114,7 +112,7 @@ int main( const size_t args, const char* argv[] )
 		}
 		else	break;
 	} while( true );
-	std::cout << "\nOdabrao si projekt " << popisProjekata[odabirProjekta] << " - " << odabirCjeline
+	std::cout << "\nOdabrao si projekt " << Master::popisProjekata[odabirProjekta] << " - " << odabirCjeline
 		<< "\n\Izaberi jednu od ponudenih funkcija koju zelis pokrenut:\n\n";
 	for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second )
 	{
@@ -191,6 +189,8 @@ void rucno()
 
 
 }
+
+
 std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
 {
 	dat << "TEKST ZADATKA: " << zad.tekst << '\n'
@@ -198,6 +198,8 @@ std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
 		<< "KOD:\n" << zad.kod << '\n';
 	return dat;
 }
+
+
 void Master::init()
 {
 	const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath )
@@ -229,7 +231,7 @@ void Master::init()
 		nlohmann::json jsonData = _INTERNAL::buildJSON_structure();
 
 		// dodaj imena projekata u vektor
-		dodajItemeUVektor( popisProjekata, "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti" );
+		dodajItemeUVektor( Master::popisProjekata, "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti" );
 
 		std::vector<std::string> paths;
 		// popuni pathove dinamicki sa svim projektima
@@ -294,6 +296,7 @@ void Master::init()
 #endif
 		}
 		puts( "\n--------------------------------------------" );
+		/// // popuni datoteku Functions.cpp iz JSON objekta
 		std::cout << "\nDONE!\nRecompile the program to proceed to the next stage!\nExiting...\n";
 		exit( EXIT_SUCCESS );
 	}
@@ -304,7 +307,7 @@ void Master::init()
 		std::cin >> odabir;
 		if( odabir == '1' )
 		{
-			for( size_t i = 0; i < popisProjekata.size(); ++i )
+			for( size_t i = 0; i < Master::popisProjekata.size(); ++i )
 			{
 				popisImenaFunkcijaPoCjelinama.push_back( {} );
 				popisFunkcija.push_back( {} );

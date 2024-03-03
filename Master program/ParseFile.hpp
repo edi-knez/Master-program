@@ -70,7 +70,7 @@ public:
 	std::vector<Zadatak*> readFile( std::fstream& dat, const bool DEBUG_FLAG = false );
 	//
 	std::optional<size_t> getPositionOfFunction( std::fstream& dat, const char* imeFunkcije );
-
+	void skipFuncBody( std::fstream& dat );
 /////////////////////////////////////////////////////////
 private:
 	std::vector<std::fstream> m_datoteke;
