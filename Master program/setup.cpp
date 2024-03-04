@@ -58,9 +58,24 @@ void Master::_INTERNAL::processZadatke( nlohmann::json& json )
 
 }
 
+/// // kod za zapisivanje potrebnih podataka u Functions.cpp datoteku
+void a()
+{
+	const char* path{ "D:\__EDUKACIJA\PROGRAMIRANJE\C++\TEST\Master program\Master program" };
+	std::vector<std::string> imenaDatoteka;
+	imenaDatoteka.push_back( std::string( "Functions.cpp" ) );
+	// otvori datoteku naziva "Functions.cpp" i odi na liniju
+	ParseFile pf( std::string_view( path ), imenaDatoteka );
+	std::fstream& dat = pf.getDatoteku( 0 );
+	pf.getPositionOfFunction( dat, imenaDatoteka[0].c_str() );
+	pf.skipFuncBody( dat );
+	dat.seekg( -1, std::ios::cur );
+}
+
 void popuniCijeliPopisFunkcija()
 {
 	size_t projIdx = 0;
+	// citanje iz json objekta
 	for( const auto thisProj : Master::popisProjekata )
 	{
 		popuniPopisFunkcijaZa( projIdx++ );
@@ -93,16 +108,6 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 */
 
 	std::string brojCjeline;
-
-	const char* path{ "D:\__EDUKACIJA\PROGRAMIRANJE\C++\TEST\Master program\Master program" };
-	std::vector<std::string> imenaDatoteka;
-	imenaDatoteka.push_back( std::string( "Functions.cpp" ) );
-	// otvori datoteku naziva "Functions.cpp" i odi na liniju
-	ParseFile pf( std::string_view( path ), imenaDatoteka );
-	std::fstream& dat = pf.getDatoteku( 0 );
-	pf.getPositionOfFunction( dat, imenaDatoteka[0].c_str() );
-	pf.skipFuncBody( dat );
-	dat.seekg( -1, std::ios::cur );
 
 
 	brojCjeline = "Cjelina1";
@@ -178,10 +183,10 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 json:
 
 {
-	"projekti": [
+	"projekt": [
 		{
 			"Cpp knjiga": {
-				"pathProj1": "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\Cpp knjiga",
+				"pathProj": "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\Cpp knjiga",
 				[
 					"Cjelina1": {
 						"Zadaci": [

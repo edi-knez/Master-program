@@ -315,23 +315,24 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 {
-	std::string line2;
-	//if( DEBUG_FLAG )	while( std::getline( dat, line2 ) )	std::cout << "LINE: " << line2 <<"\n";
-	while( isspace( dat.get() ) )
+	while( isspace( dat.peek() ) )
 	{
+		dat.get();
 	//	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )	std::cout << dat.peek() << '\n';
 	}	// preskoci whitespace
-	vratiSeZa1ZnakUnazad( dat );
-	std::string line;
-	std::getline( dat, line );
-	while( dat.peek() != '\n' )	vratiSeZa1ZnakUnazad( dat );
-	size_t krajLinije = dat.tellg();
-	while( dat.peek() != ')' )	vratiSeZa1ZnakUnazad( dat );
+	bool startOfArguments = false;
+	size_t stack = 0;
+	std::string deklaracija;
+
+	while( startOfArguments == false || stack != 0 )
+	{
+		stack += dat.peek() == '(';
+		stack -= dat.peek() == ')';
+		startOfArguments |= stack;
+		deklaracija += dat.get();
+	}
 	dat.get();
-	size_t pomakDoKrajaDeklaracije = krajLinije - dat.tellg();
-	while( dat.get() != '{' ) {}
-	vratiSeZa1ZnakUnazad( dat );
-	return std::string( line.begin(), line.end() - pomakDoKrajaDeklaracije );
+	return deklaracija;
 }
 
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )

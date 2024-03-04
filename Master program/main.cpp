@@ -202,6 +202,8 @@ std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
 
 void Master::init()
 {
+	/// // ODVOJI CIJELI OVAJ SCOPE U SVOJU FUNKCIJU JER JE POTREBNA ISTA SVRHA U SLUCAJU AKO VEC RADI, A ZELIS IZMIJENIT FUNKCIJE ZA IZVRSAVANJE
+
 	const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath )
 		{
 			for( const auto& entry : fs::directory_iterator( fullPath ) )
@@ -317,6 +319,7 @@ void Master::init()
 		}
 		else if( odabir == '0' )
 		{
+			/// // popuni datoteku Functions.cpp iz JSON objekta
 			std::cout << "Pravim kopiju JSON datoteke i brisem je!\n";
 			std::cout << "Da bi primjenio promjene, rekompaliraj program\n";
 			auto copy_file = []( std::ifstream& copyFrom, std::ofstream& copyTo )
