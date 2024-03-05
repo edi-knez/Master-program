@@ -357,6 +357,12 @@ std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )
 	return retVal;
 }
 
+/// <summary>
+///		Pretrazuje ostatak datoteke od lokacije na kojemu se referenca trenutacno nalazi
+/// </summary>
+/// <param name="dat"></param>
+/// <param name="imeFunkcije"></param>
+/// <returns></returns>
 std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const char* imeFunkcije )
 {
 	while( bool is_eof = findStartOfAFunction( dat ) )
@@ -397,6 +403,12 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 	return {};
 }
 
+/// <summary>
+///		Preskace tijelo funkcije. Nekoristi nepotrebno dodatnu memoriju i vrijeme za bufere, te ne vraca nikakav string za razliku od funkcije getFuncBody
+/// 
+///		SMATRA SE da je pokazivac trenutne lokacije u datoteci na znaku za pocetak funkcije koje zelis preskocit ( '{' )
+/// </summary>
+/// <param name="dat"> referenca datotecnog objekta gdje preskaces tijelo funkcije </param>
 void ParseFile::skipFuncBody( std::fstream& dat )
 {
 	size_t stack = 0;

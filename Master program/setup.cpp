@@ -48,18 +48,85 @@ namespace Master
 	namespace _INTERNAL
 	{
 		nlohmann::json buildJSON_structure();
-		void processZadatke( nlohmann::json& jsonData );
+		std::string_view getFuncReturnType( const Zadatak& zad, size_t& offset );
+		std::string_view getNamespace( const Zadatak& zad, size_t& offset );
+		std::string_view getFuncName( const Zadatak& zad, size_t& offset );
+		std::string_view getFuncArguments( const Zadatak& zad, size_t& offset );
+		void processZadatak( nlohmann::json::object_t& jsonObj, std::vector<Zadatak*>& zad );
 		void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline );
 	}
 }
 
-void Master::_INTERNAL::processZadatke( nlohmann::json& json )
+std::string_view Master::_INTERNAL::getFuncReturnType( const Zadatak& zad, size_t& offset )
 {
+	//zad.deklaracija
+	auto startIt = zad.deklaracija.begin() + offset;
+	auto curIt = startIt;
+	std::string::const_iterator temp = startIt;
 
+	bool endOfReturnType;
+	do
+	{
+		temp = std::find_if( startIt, zad.deklaracija.end(), [ & ]( const char c )
+							 {
+								 endOfReturnType = c == ':' || c == '(';
+								 return isspace( c ) || endOfReturnType;
+							 } );
+
+
+		if( !endOfReturnType )	curIt = temp;
+		else break;
+	} while( true );
+
+	offset += curIt - startIt;
+	return std::string_view( startIt, curIt );
 }
 
-/// // kod za zapisivanje potrebnih podataka u Functions.cpp datoteku
-void a()
+std::string_view Master::_INTERNAL::getNamespace( const Zadatak& zad, size_t& offset )
+{
+	return getFuncReturnType( zad, offset );	// zbog univerzalnosti, vrijedi isti kod
+}
+
+std::string_view Master::_INTERNAL::getFuncName( const Zadatak& zad, size_t& offset )
+{
+	return getFuncReturnType( zad, offset );	// zbog univerzalnosti, vrijedi isti kod
+}
+
+std::string_view Master::_INTERNAL::getFuncArguments( const Zadatak& zad, size_t& offset )
+{
+	return std::string_view( zad.deklaracija.begin() + offset, zad.deklaracija.end() );
+}
+
+
+void Master::_INTERNAL::processZadatak( nlohmann::json::object_t& jsonObj, std::vector<Zadatak*>& zadaci )
+{
+	json::array_t zadaci = json::array();
+	for( const Zadatak* zad : zadaci )
+	{
+		std::string a{ "aaaaaaaaaa aaaaaaaaaaaaaaaaa::aaaaaaaaaaaa()" };
+		std::string_view( a.begin(), a.end() );
+		std::string a;
+		size_t idx = 0;
+		size_t brojPreskocenihZnakova = 0;
+		std::string funcReturntype = std::string( getFuncReturnType( *zad, brojPreskocenihZnakova ) );
+		std::string namespaceName = std::string( getNamespace( *zad, brojPreskocenihZnakova ) );
+		std::string funcName = std::string( getFuncName( *zad, brojPreskocenihZnakova ) );
+		std::string_view funcArguments = getFuncReturnType( *zad, brojPreskocenihZnakova );	// garantirano da je terminiran
+
+		/// process whitelisting
+		///...
+		/// process blacklisting
+		/// ...
+
+		json::object_t zadatak = json::object();
+		zadatak["tekst zadatka"] = zad->tekst;
+		zadatak["deklaracija"] = zad->deklaracija;
+		zadatak["kod"] = zad->kod;
+		jsonObj[namespaceName] = zadatak;
+	}
+}
+
+void zapisiNaziveFunkcijaU_Functions__cpp()
 {
 	const char* path{ "D:\__EDUKACIJA\PROGRAMIRANJE\C++\TEST\Master program\Master program" };
 	std::vector<std::string> imenaDatoteka;

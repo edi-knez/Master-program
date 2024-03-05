@@ -37,6 +37,7 @@ namespace fs = std::filesystem;
 #include <unordered_map>
 
 #include "../_Includes/json.hpp"
+using namespace nlohmann;
 
 #include "ParseFile.hpp"
 
@@ -259,7 +260,7 @@ void Master::init()
 		std::cout << "Parsing files...";
 		std::vector<ParseFile> pfs;
 		std::vector<Zadatak*> zadaci( paths.size() );
-#define SPREMAN_ZA_SLJEDECI_KORAK true
+#define SPREMAN_ZA_SLJEDECI_KORAK false		// kod ispravno radi, sacuvano radi lakseg debugiranja u buducnosti
 #if SPREMAN_ZA_SLJEDECI_KORAK
 		std::ofstream dat( "zadaci.dat", std::ios::out );
 		if( !dat.is_open() )
@@ -282,13 +283,17 @@ void Master::init()
 
 
 				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
-#if SPREMAN_ZA_SLJEDECI_KORAK
+
+				json::object_t brojCjeline = json::object();
 				for( const auto zadatak : zadaci )
 				{
+#if SPREMAN_ZA_SLJEDECI_KORAK
 					dat << *zadatak << "--------------------------------\n";
-				}
 #endif
-		// popuni JSON objekt kako parsira datoteke
+					// popuni JSON objekt kako parsira datoteke
+					processZadatak();
+				}
+				
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );
 				++idxOfFile;
@@ -348,3 +353,5 @@ void Master::init()
 		}
 	}
 }
+
+#undef SPREMAN_ZA_SLJEDECI_KORAK;
