@@ -56,6 +56,7 @@ namespace Master
 	extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
 
 	void init();
+	void a();
 	namespace _INTERNAL
 	{
 		nlohmann::json buildJSON_structure();
@@ -203,8 +204,63 @@ std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
 
 void Master::init()
 {
-	/// // ODVOJI CIJELI OVAJ SCOPE U SVOJU FUNKCIJU JER JE POTREBNA ISTA SVRHA U SLUCAJU AKO VEC RADI, A ZELIS IZMIJENIT FUNKCIJE ZA IZVRSAVANJE
+	std::cout << "DOBRODOSAO!!\n";
+	std::string nazivJSONdat = "InformacijeOZadacima.json";
+	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
+	if( !JSON_datoteka.is_open() )
+	{
+		a();
+	}
+	else
+	{
+		std::cout << "Ako zelis nastavit sa trenatacnom verzijom upisi broj 1, inace 0: ";
+		char odabir;
+		std::cin >> odabir;
+		if( odabir == '1' )
+		{
+			for( size_t i = 0; i < Master::popisProjekata.size(); ++i )
+			{
+				popisImenaFunkcijaPoCjelinama.push_back( {} );
+				popisFunkcija.push_back( {} );
+			}
+			popuniCijeliPopisFunkcija();
+			for( auto& vec : popisFunkcija )	vec.shrink_to_fit();
+		}
+		else if( odabir == '0' )
+		{
+			/// // popuni datoteku Functions.cpp iz JSON objekta
+			a();
+			std::cout << "Pravim kopiju JSON datoteke i brisem je!\n";
+			std::cout << "Da bi primjenio promjene, rekompaliraj program\n";
+			auto copy_file = []( std::ifstream& copyFrom, std::ofstream& copyTo )
+				{
+					std::stringbuf buf;
+					char c;
+					while( copyFrom >> c )
+					{
+						buf.sputbackc( c );
+					}
+					for( const char c : buf.str() )
+					{
+						copyTo.put( c );
+					}
+				};
+			std::ifstream curJSON( nazivJSONdat, std::ios::in );
+			std::ofstream backup( nazivJSONdat + ".bak", std::ios::out );
+			if( !curJSON.is_open() || !backup.is_open() )
+			{
+				std::cout << "Nemogu zavrsit postupak!!\n"
+					<< "Ako problem je i dalje tu, obrisi JSON datoteku rucno\n\n";
+			}
+			copy_file( curJSON, backup );
+			std::remove( nazivJSONdat.c_str() );
+			exit( EXIT_SUCCESS );
+		}
+	}
+}
 
+void Master::a()
+{
 	const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath )
 		{
 			for( const auto& entry : fs::directory_iterator( fullPath ) )
@@ -219,7 +275,6 @@ void Master::init()
 			}
 		};
 
-	std::cout << "DOBRODOSAO!!\n";
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
 	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
 	if( !JSON_datoteka.is_open() )
@@ -293,7 +348,7 @@ void Master::init()
 					// popuni JSON objekt kako parsira datoteke
 					processZadatak();
 				}
-				
+
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );
 				++idxOfFile;
@@ -307,51 +362,9 @@ void Master::init()
 		std::cout << "\nDONE!\nRecompile the program to proceed to the next stage!\nExiting...\n";
 		exit( EXIT_SUCCESS );
 	}
-	else
-	{
-		std::cout << "Ako zelis nastavit sa trenatacnom verzijom upisi broj 1, inace 0: ";
-		char odabir;
-		std::cin >> odabir;
-		if( odabir == '1' )
-		{
-			for( size_t i = 0; i < Master::popisProjekata.size(); ++i )
-			{
-				popisImenaFunkcijaPoCjelinama.push_back( {} );
-				popisFunkcija.push_back( {} );
-			}
-			popuniCijeliPopisFunkcija();
-			for( auto& vec : popisFunkcija )	vec.shrink_to_fit();
-		}
-		else if( odabir == '0' )
-		{
-			/// // popuni datoteku Functions.cpp iz JSON objekta
-			std::cout << "Pravim kopiju JSON datoteke i brisem je!\n";
-			std::cout << "Da bi primjenio promjene, rekompaliraj program\n";
-			auto copy_file = []( std::ifstream& copyFrom, std::ofstream& copyTo )
-				{
-					std::stringbuf buf;
-					char c;
-					while( copyFrom >> c )
-					{
-						buf.sputbackc( c );
-					}
-					for( const char c : buf.str() )
-					{
-						copyTo.put( c );
-					}
-				};
-			std::ifstream curJSON( nazivJSONdat, std::ios::in );
-			std::ofstream backup( nazivJSONdat + ".bak", std::ios::out );
-			if( !curJSON.is_open() || !backup.is_open() )
-			{
-				std::cout << "Nemogu zavrsit postupak!!\n"
-					<< "Ako problem je i dalje tu, obrisi JSON datoteku rucno\n\n";
-			}
-			copy_file( curJSON, backup );
-			std::remove( nazivJSONdat.c_str() );
-			exit( EXIT_SUCCESS );
-		}
-	}
+
+
 }
+
 
 #undef SPREMAN_ZA_SLJEDECI_KORAK;
