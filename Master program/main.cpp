@@ -16,6 +16,7 @@
 /// - podrzava samo jedno linijske komentare za tekst zadataka
 /// - funkcije koje te zanimaju moraju biti u namespaceu / 
 ///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
+/// - funkcije moraju imat povratni tip "void"
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TODO za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
@@ -60,8 +61,8 @@ namespace Master
 	namespace _INTERNAL
 	{
 		nlohmann::json buildJSON_structure();
-		void processZadatke( nlohmann::json& jsonData );
-	}
+		void processZadatke( nlohmann::json& jsonData, std::vector<Zadatak*>& zadaci );
+	};
 
 }
 
@@ -271,21 +272,22 @@ void Master::a()
 				itEnd = std::find( itStart, pathToItems.rend(), '\\' );
 				size_t itemNameLen = itEnd - itStart;
 				std::string fileName( pathToItems.begin() + pathToItems.size() - itemNameLen, pathToItems.end() );
-				container.push_back( fileName );
+				container.emplace_back( fileName );
 			}
 		};
 
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
-	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
+	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );	// ************** pogledaj ova 2 ifa ( kako handle-at ako nemoze otvorit json datoteku?? )
 	if( !JSON_datoteka.is_open() )
 	{
-		std::ofstream JSONdat( "dummy.json", std::ios::out );
-		if( !JSONdat.is_open() )
+		std::ofstream JSONdat_try2( "dummy.json", std::ios::out );
+		if( !JSONdat_try2.is_open() )
 		{
 			std::cout << "Nisam mogao otvorit \"InformacijeOZadacima.json\" datoteku!"
 				<< "\Izlazim...\n";
 			exit( EXIT_FAILURE );
 		}
+		
 		nlohmann::json jsonData = _INTERNAL::buildJSON_structure();
 
 		// dodaj imena projekata u vektor

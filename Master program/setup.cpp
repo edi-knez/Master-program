@@ -51,8 +51,8 @@ namespace Master
 		std::string_view getFuncReturnType( const Zadatak& zad, size_t& offset );
 		std::string_view getNamespace( const Zadatak& zad, size_t& offset );
 		std::string_view getFuncName( const Zadatak& zad, size_t& offset );
-		std::string_view getFuncArguments( const Zadatak& zad, size_t& offset );
-		void processZadatak( nlohmann::json::object_t& jsonObj, std::vector<Zadatak*>& zad );
+		std::string_view getFuncArguments( const Zadatak& zad, size_t& offset ); 
+		void processZadatke( nlohmann::json& jsonObj, std::vector<Zadatak*>& zad );
 		void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline );
 	}
 }
@@ -98,14 +98,14 @@ std::string_view Master::_INTERNAL::getFuncArguments( const Zadatak& zad, size_t
 }
 
 
-void Master::_INTERNAL::processZadatak( nlohmann::json::object_t& jsonObj, std::vector<Zadatak*>& zadaci )
+void Master::_INTERNAL::processZadatke( nlohmann::json& jsonObj, std::vector<Zadatak*>& zadaci )
 {
-	json::array_t zadaci = json::array();
+	//json::array_t zadaci = json::array();
 	for( const Zadatak* zad : zadaci )
 	{
 		std::string a{ "aaaaaaaaaa aaaaaaaaaaaaaaaaa::aaaaaaaaaaaa()" };
 		std::string_view( a.begin(), a.end() );
-		std::string a;
+		//std::string a;
 		size_t idx = 0;
 		size_t brojPreskocenihZnakova = 0;
 		std::string funcReturntype = std::string( getFuncReturnType( *zad, brojPreskocenihZnakova ) );
@@ -298,6 +298,8 @@ nlohmann::json Master::_INTERNAL::buildJSON_structure()
 	data["projekt"] = nizProjekata;
 	return data;
 }
+
+
 
 
 
