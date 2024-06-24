@@ -9,14 +9,15 @@
 /// ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// RAZLOG:
-/// da bi se automatizirao postupak, ParserFile klasa se ucitat sve informacije o funkcijama, te ce dodat sva imena funkcija u "Functions.cpp" datoteku 
+/// da bi se automatizirao postupak, ParserFile klasa se ucitat sve informacije o funkcijama, te ce dodat sve deklaracije funkcija u "Functions.cpp" datoteku 
 /// za koju je potrebna jos jedna kompilacija da bi mogao koristit funkcionalnosti koju si dodao
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// OGRANICENJA:
 /// - podrzava samo jedno linijske komentare za tekst zadataka
 /// - funkcije koje te zanimaju moraju biti u namespaceu / 
 ///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
-/// - funkcije moraju imat povratni tip "void"
+/// - funkcije moraju imat povratni tip "void" (trenutacno)
+/// - nepodrzava template funkcije
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TODO za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
@@ -342,14 +343,9 @@ void Master::a()
 				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
 
 				json::object_t brojCjeline = json::object();
-				for( const auto zadatak : zadaci )
-				{
-#if SPREMAN_ZA_SLJEDECI_KORAK
-					dat << *zadatak << "--------------------------------\n";
-#endif
 					// popuni JSON objekt kako parsira datoteke
-					processZadatak();
-				}
+				processZadatke( jsonData, zadaci );
+				
 
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );

@@ -33,7 +33,7 @@ void finish_Functions_cpp_file()
 	}
 }
 
-void addFunctionsFromFiles()
+void autoAddeedFunctionsFromFiles()
 {
 
 }

@@ -35,7 +35,7 @@ using json = nlohmann::json;
 
 void popuniCijeliPopisFunkcija();
 void popuniPopisFunkcijaZa( const size_t projIdx );
-extern void addFunctionsFromFiles();
+extern void autoAddedFunctionsFromFiles();
 ////////////////////////////////////////////////////////////////////////////////////
 namespace Master
 {
@@ -101,6 +101,7 @@ std::string_view Master::_INTERNAL::getFuncArguments( const Zadatak& zad, size_t
 void Master::_INTERNAL::processZadatke( nlohmann::json& jsonObj, std::vector<Zadatak*>& zadaci )
 {
 	//json::array_t zadaci = json::array();
+	std::vector<std::pair<std::string, std::string>> a;
 	for( const Zadatak* zad : zadaci )
 	{
 		std::string a{ "aaaaaaaaaa aaaaaaaaaaaaaaaaa::aaaaaaaaaaaa()" };
@@ -124,9 +125,10 @@ void Master::_INTERNAL::processZadatke( nlohmann::json& jsonObj, std::vector<Zad
 		zadatak["kod"] = zad->kod;
 		jsonObj[namespaceName] = zadatak;
 	}
+	zapisiDeklaracijeFunkcijaU_Functions__cpp( zadaci );
 }
 
-void zapisiNaziveFunkcijaU_Functions__cpp()
+void zapisiDeklaracijeFunkcijaU_Functions__cpp( std::vector<Zadatak*>& vecZadataka )
 {
 	const char* path{ "D:\__EDUKACIJA\PROGRAMIRANJE\C++\TEST\Master program\Master program" };
 	std::vector<std::string> imenaDatoteka;
@@ -137,6 +139,12 @@ void zapisiNaziveFunkcijaU_Functions__cpp()
 	pf.getPositionOfFunction( dat, imenaDatoteka[0].c_str() );
 	pf.skipFuncBody( dat );
 	dat.seekg( -1, std::ios::cur );
+
+	for( const auto zad : vecZadataka )
+	{
+		dat << zad->deklaracija << '\n';	//TODO: ->>>>>>>>>>>>>>>>>>>>>>>>>>> procitaj filtrirano iz json datoteke
+	}
+	dat << '}' << '\n';
 }
 
 void popuniCijeliPopisFunkcija()
@@ -160,7 +168,7 @@ void Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( std::unordered_map<std:
 	container.insert( { funcName, funID } );
 }
 
-/// citanje iz JSON objekta nakon 1. kompilacije
+/// citanje iz JSON objekta nakon 2. kompilacije
 void popuniPopisFunkcijaZa( const size_t projIdx )
 {
 //	std::pair<std::string, std::string> name;
@@ -187,7 +195,7 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 		DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );
 
 	}
-	addFunctionsFromFiles();
+	//autoAddedFunctionsFromFiles(); ????????????????????????????????????
 
 
 	switch( projIdx )

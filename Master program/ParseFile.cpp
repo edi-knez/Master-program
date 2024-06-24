@@ -292,7 +292,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 		spremiLinijuUString();
 		while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
 		{
-			if( bool notEndingofNextine = dat.peek() == '\n' )	break;
+			if( bool notEndingOfNextine = dat.peek() == '\n' )	break;
 			vratiSeZa1ZnakUnazad( dat );
 		}
 		}
