@@ -1,16 +1,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// UPOTREBA:
-/// 1)  Konstruiraj pf objekt sa potrebnim informacijama u funkciji init unutar namespace Master.
+/// 1)  Stavi datoteke koje zelis testirat na lokaciju ".../Projekti/imeProjekta/FilesToParse/"
 /// 2)  Kompajlaj program (stvorit ce JSON datoteku)
-/// 3)  Da bi mogao pokrenut funkcije iz tih datoteka, kompajlaj opet
-/// 4)  Pokreni program
+/// 3)  Pokreni program
 /// ////////////////////////////////////////////////////////////////
 /// nakon toga ako zelis promijenit (dodat/uklonit) datoteke iz kojih citas informacije o funkcijama, moras ponovit cijeli postupak
 /// ////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// RAZLOG:
-/// da bi se automatizirao postupak, ParserFile klasa se ucitat sve informacije o funkcijama, te ce dodat sve deklaracije funkcija u "Functions.cpp" datoteku 
-/// za koju je potrebna jos jedna kompilacija da bi mogao koristit funkcionalnosti koju si dodao
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// OGRANICENJA:
 /// - podrzava samo jedno linijske komentare za tekst zadataka
@@ -171,6 +166,7 @@ int main( const size_t args, const char* argv[] )
 
 	return EXIT_SUCCESS;
 }
+
 
 void automatizirano()
 {
@@ -356,9 +352,6 @@ void Master::a()
 #endif
 		}
 		puts( "\n--------------------------------------------" );
-		/// // popuni datoteku Functions.cpp iz JSON objekta
-		std::cout << "\nDONE!\nRecompile the program to proceed to the next stage!\nExiting...\n";
-		exit( EXIT_SUCCESS );
 	}
 
 

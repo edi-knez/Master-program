@@ -123,7 +123,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Master program\Functions.cpp" />
     <ClCompile Include="master program\main.cpp" />
     <ClCompile Include="Master program\ParseFile.cpp" />
     <ClCompile Include="Master program\setup.cpp" />

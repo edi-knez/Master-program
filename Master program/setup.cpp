@@ -35,7 +35,6 @@ using json = nlohmann::json;
 
 void popuniCijeliPopisFunkcija();
 void popuniPopisFunkcijaZa( const size_t projIdx );
-extern void autoAddedFunctionsFromFiles();
 ////////////////////////////////////////////////////////////////////////////////////
 namespace Master
 {
@@ -104,9 +103,6 @@ void Master::_INTERNAL::processZadatke( nlohmann::json& jsonObj, std::vector<Zad
 	std::vector<std::pair<std::string, std::string>> a;
 	for( const Zadatak* zad : zadaci )
 	{
-		std::string a{ "aaaaaaaaaa aaaaaaaaaaaaaaaaa::aaaaaaaaaaaa()" };
-		std::string_view( a.begin(), a.end() );
-		//std::string a;
 		size_t idx = 0;
 		size_t brojPreskocenihZnakova = 0;
 		std::string funcReturntype = std::string( getFuncReturnType( *zad, brojPreskocenihZnakova ) );
@@ -125,7 +121,7 @@ void Master::_INTERNAL::processZadatke( nlohmann::json& jsonObj, std::vector<Zad
 		zadatak["kod"] = zad->kod;
 		jsonObj[namespaceName] = zadatak;
 	}
-	zapisiDeklaracijeFunkcijaU_Functions__cpp( zadaci );
+//	zapisiDeklaracijeFunkcijaU_Functions__cpp( zadaci );
 }
 
 void zapisiDeklaracijeFunkcijaU_Functions__cpp( std::vector<Zadatak*>& vecZadataka )
@@ -184,6 +180,7 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 
 	std::string brojCjeline;
 
+	// radi sljedeci postupak pomocu json datoteke ¢¢
 
 	brojCjeline = "Cjelina1";
 	std::unordered_map<std::string, size_t> Cjelina1;

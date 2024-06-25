@@ -282,9 +282,6 @@
     <ClCompile Include="_Projekti\razno\FilesToParse\raznoMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Master program\Functions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="_Projekti\ThinkLAP\FilesToParse\ThinkLAPmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
