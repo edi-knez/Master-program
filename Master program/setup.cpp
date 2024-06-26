@@ -51,7 +51,7 @@ namespace Master
 		std::string_view getNamespace( const Zadatak& zad, size_t& offset );
 		std::string_view getFuncName( const Zadatak& zad, size_t& offset );
 		std::string_view getFuncArguments( const Zadatak& zad, size_t& offset ); 
-		void processZadatke( nlohmann::json& jsonObj, std::vector<Zadatak*>& zad );
+		void processZadatke( nlohmann::json::object_t& imeProjekta, std::vector<Zadatak*>& zad );
 		void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline );
 	}
 }
@@ -97,14 +97,17 @@ std::string_view Master::_INTERNAL::getFuncArguments( const Zadatak& zad, size_t
 }
 
 
-void Master::_INTERNAL::processZadatke( nlohmann::json& jsonObj, std::vector<Zadatak*>& zadaci )
+void Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, std::vector<Zadatak*>& vecZadaci )
 {
-	//json::array_t zadaci = json::array();
-	std::vector<std::pair<std::string, std::string>> a;
-	for( const Zadatak* zad : zadaci )
+	size_t idx = 0;
+	size_t brojPreskocenihZnakova = 0;
+
+	json::object_t brojCjeline = json::object();
+	json::array_t zadaci = json::array();
+	json::object_t zadatak = json::object();
+
+	for( const Zadatak* zad : vecZadaci )
 	{
-		size_t idx = 0;
-		size_t brojPreskocenihZnakova = 0;
 		std::string funcReturntype = std::string( getFuncReturnType( *zad, brojPreskocenihZnakova ) );
 		std::string namespaceName = std::string( getNamespace( *zad, brojPreskocenihZnakova ) );
 		std::string funcName = std::string( getFuncName( *zad, brojPreskocenihZnakova ) );
@@ -115,32 +118,46 @@ void Master::_INTERNAL::processZadatke( nlohmann::json& jsonObj, std::vector<Zad
 		/// process blacklisting
 		/// ...
 
-		json::object_t zadatak = json::object();
-		zadatak["tekst zadatka"] = zad->tekst;
+		// zadatak = { { "tekst", "pokrece zad1" }, { "deklaracija", "void zad2()" }, {"func body", "{ int i = 5; }" } };
+		zadatak["tekst"] = zad->tekst;
 		zadatak["deklaracija"] = zad->deklaracija;
 		zadatak["kod"] = zad->kod;
-		jsonObj[namespaceName] = zadatak;
+
+		zadaci.push_back( zadatak );
+
+		brojCjeline[namespaceName] = zadaci;
+
+		json::object_t nazivCjeline = json::object();
+		nazivCjeline[namespaceName];
+	//	jsonObj[namespaceName] = zadatak;
 	}
-//	zapisiDeklaracijeFunkcijaU_Functions__cpp( zadaci );
+//	popuni 
 }
 
-void zapisiDeklaracijeFunkcijaU_Functions__cpp( std::vector<Zadatak*>& vecZadataka )
+nlohmann::json Master::_INTERNAL::buildJSON_structure()
 {
-	const char* path{ "D:\__EDUKACIJA\PROGRAMIRANJE\C++\TEST\Master program\Master program" };
-	std::vector<std::string> imenaDatoteka;
-	imenaDatoteka.push_back( std::string( "Functions.cpp" ) );
-	// otvori datoteku naziva "Functions.cpp" i odi na liniju
-	ParseFile pf( std::string_view( path ), imenaDatoteka );
-	std::fstream& dat = pf.getDatoteku( 0 );
-	pf.getPositionOfFunction( dat, imenaDatoteka[0].c_str() );
-	pf.skipFuncBody( dat );
-	dat.seekg( -1, std::ios::cur );
+	using namespace nlohmann;
+	json data;
 
-	for( const auto zad : vecZadataka )
-	{
-		dat << zad->deklaracija << '\n';	//TODO: ->>>>>>>>>>>>>>>>>>>>>>>>>>> procitaj filtrirano iz json datoteke
-	}
-	dat << '}' << '\n';
+	// postavi temelje
+	json::array_t nizProjekata = json::array();
+	json::object_t imeProjekta = json::object();
+	json::object_t brojCjeline = json::object();
+	json::array_t zadaci = json::array();
+	json::object_t zadatak = json::object();
+
+	/*
+
+		zadatak = { { "tekst", "pokrece zad1" }, { "deklaracija", "void zad2()" }, {"func body", "{ int i = 5; }" } };
+		zadaci.push_back( zadatak );
+		brojCjeline["cjelina X"] = zadaci;
+		imeProjekta["project X"]["pathProj1"] = json::value_type::string_t{};
+		imeProjekta["project X"]["brCjeline"] = brojCjeline;
+		nizProjekata.push_back( imeProjekta );
+
+	*/
+	data["projekt"] = nizProjekata;
+	return data;
 }
 
 void popuniCijeliPopisFunkcija()
@@ -164,7 +181,7 @@ void Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( std::unordered_map<std:
 	container.insert( { funcName, funID } );
 }
 
-/// citanje iz JSON objekta nakon 2. kompilacije
+/// citanje iz JSON objekta nakon kompilacije
 void popuniPopisFunkcijaZa( const size_t projIdx )
 {
 //	std::pair<std::string, std::string> name;
@@ -192,7 +209,7 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 		DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );
 
 	}
-	//autoAddedFunctionsFromFiles(); ????????????????????????????????????
+	//autoAddedFunctionsFromFiles(); nepotrebno, pronaden bolji nacin
 
 
 	switch( projIdx )
@@ -257,8 +274,8 @@ json:
 {
 	"projekt": [
 		{
+			"pathToProj": "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\Cpp knjiga",
 			"Cpp knjiga": {
-				"pathProj": "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti\\Cpp knjiga",
 				[
 					"Cjelina1": {
 						"Zadaci": [
@@ -278,7 +295,7 @@ json:
 	... ostali projekti
 }
 */
-nlohmann::json Master::_INTERNAL::buildJSON_structure()
+/*nlohmann::json Master::_INTERNAL::buildJSON_structure()
 {
 	using namespace nlohmann;
 	json data;
@@ -299,10 +316,10 @@ nlohmann::json Master::_INTERNAL::buildJSON_structure()
 	imeProjekta["project X"]["brCjeline"] = brojCjeline;
 	nizProjekata.push_back( imeProjekta );
 
-*/
+// 
 	data["projekt"] = nizProjekata;
 	return data;
-}
+}*/
 
 
 

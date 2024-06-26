@@ -23,6 +23,7 @@
 /// - spawnanje zadataka na novom threadu
 /// - vremenski ogranicit izvrsavanje zadatka
 /// - dinamicki containeri za bilo kakvu konfiguraciju
+/// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
 
 #include <cstdlib>
 #include <iostream>
@@ -285,20 +286,37 @@ void Master::a()
 			exit( EXIT_FAILURE );
 		}
 		
-		nlohmann::json jsonData = _INTERNAL::buildJSON_structure();
+		nlohmann::json jsonData;
+		json::array_t nizProjekata = json::array();
+		std::vector<json::object_t> imeProjekta{};
 
 		// dodaj imena projekata u vektor
-		dodajItemeUVektor( Master::popisProjekata, "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti" );
+		dodajItemeUVektor( Master::popisProjekata, "_Projekti" );
+
+		for ( const auto& imeProj : Master::popisProjekata )
+		{
+		///	nizProjekata.push_back( imeProj );
+		}
+		///jsonData["projekt"] = nizProjekata;
 
 		std::vector<std::string> paths;
-		// popuni pathove dinamicki sa svim projektima
-		for( const auto& entry : fs::directory_iterator( "D:\\__EDUKACIJA\\PROGRAMIRANJE\\C++\\TEST\\Master program\\_Projekti" ) )
 		{
-			std::string pathToItems = entry.path().string();
-			pathToItems += "\\FilesToParse\\";
-			paths.push_back( std::move( pathToItems ) );
+			// popuni pathove dinamicki sa svim projektima
+			uint32_t idx = 0;
+			for( const auto& entry : fs::directory_iterator( "_Projekti" ))
+			{
+				std::string pathToItem = entry.path().string();
+				imeProjekta.push_back({});
+				imeProjekta[idx][Master::popisProjekata[idx]]["pathToProj"] = pathToItem;
+				nizProjekata.push_back(imeProjekta[idx]);
+				++idx;
+				pathToItem += "\\FilesToParse\\";
+				paths.push_back( std::move( pathToItem ));
+			}
 		}
-
+		jsonData["projekt"] = nizProjekata;
+		std::clog << "jsonData stage1:\n" << jsonData << '\n';
+		
 		std::vector<std::vector<std::string>> imenaDatoteka;
 		// popuni imena datoteka dinamicki sa svim datotekama na tom pathu
 		{
@@ -306,11 +324,11 @@ void Master::a()
 			for( const auto path : paths )
 			{
 				imenaDatoteka.push_back( {} );
+				///TODO: dodaj kod za unosenje imena datoteka u json 
 				dodajItemeUVektor( imenaDatoteka[idx], path.data() );
 				++idx;
 			}
 		}
-
 		std::cout << "Parsing files...";
 		std::vector<ParseFile> pfs;
 		std::vector<Zadatak*> zadaci( paths.size() );
@@ -340,13 +358,15 @@ void Master::a()
 
 				json::object_t brojCjeline = json::object();
 					// popuni JSON objekt kako parsira datoteke
-				processZadatke( jsonData, zadaci );
+			//	processZadatke( jsonData, zadaci );
 				
 
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );
 				++idxOfFile;
 			}
+		//	imeProjekta["project X"]["brCjeline"] = brojCjeline;
+
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
 #endif
