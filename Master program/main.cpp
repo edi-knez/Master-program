@@ -13,6 +13,7 @@
 ///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
 /// - funkcije moraju imat povratni tip "void" (trenutacno)
 /// - nepodrzava template funkcije
+/// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TODO za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
@@ -24,6 +25,7 @@
 /// - vremenski ogranicit izvrsavanje zadatka
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 /// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
+/// - fixaj bug nepodrzavanja vise nivoa nemaspace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije
 
 #include <cstdlib>
 #include <iostream>
@@ -58,7 +60,7 @@ namespace Master
 	namespace _INTERNAL
 	{
 		nlohmann::json buildJSON_structure();
-		void processZadatke( nlohmann::json& jsonData, std::vector<Zadatak*>& zadaci );
+		void processZadatke( nlohmann::json::object_t& jsonData, std::vector<Zadatak*>& zadaci );
 	};
 
 }
@@ -308,14 +310,11 @@ void Master::a()
 				std::string pathToItem = entry.path().string();
 				imeProjekta.push_back({});
 				imeProjekta[idx][Master::popisProjekata[idx]]["pathToProj"] = pathToItem;
-				nizProjekata.push_back(imeProjekta[idx]);
 				++idx;
 				pathToItem += "\\FilesToParse\\";
 				paths.push_back( std::move( pathToItem ));
 			}
 		}
-		jsonData["projekt"] = nizProjekata;
-		std::clog << "jsonData stage1:\n" << jsonData << '\n';
 		
 		std::vector<std::vector<std::string>> imenaDatoteka;
 		// popuni imena datoteka dinamicki sa svim datotekama na tom pathu
@@ -337,12 +336,13 @@ void Master::a()
 		std::ofstream dat( "zadaci.dat", std::ios::out );
 		if( !dat.is_open() )
 		{
-			std::cout << "Nisam mogao otvorit \"InformacijeOZadacima.json\" datoteku!"
+			std::cout << "Nisam mogao otvorit \"zadaci.dat\" datoteku!"
 				<< "\Izlazim...\n";
 			exit( EXIT_FAILURE );
 		}
 		dat << "===================================================\n";
 #endif
+		jsonData["projekt"] = nizProjekata;
 		for( size_t idx = 0; idx < paths.size(); ++idx )
 		{
 			puts( "\n--------------------------------------------" );
@@ -356,16 +356,16 @@ void Master::a()
 
 				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
 
-				json::object_t brojCjeline = json::object();
 					// popuni JSON objekt kako parsira datoteke
-			//	processZadatke( jsonData, zadaci );
-				
+				imeProjekta[idx]["BrCjeline"] = nlohmann::json::object_t();
+				Master::_INTERNAL::processZadatke( imeProjekta[idx], zadaci);
+				nizProjekata[idx].push_back( imeProjekta[idx] );
 
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );
 				++idxOfFile;
 			}
-		//	imeProjekta["project X"]["brCjeline"] = brojCjeline;
+			std::clog << "jsonData stage1:\n" << jsonData << '\n';
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";

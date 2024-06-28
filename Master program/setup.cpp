@@ -66,10 +66,10 @@ std::string_view Master::_INTERNAL::getFuncReturnType( const Zadatak& zad, size_
 	bool endOfReturnType;
 	do
 	{
-		temp = std::find_if( startIt, zad.deklaracija.end(), [ & ]( const char c )
+		temp = std::find_if( temp, zad.deklaracija.end(), [ & ]( const char c )
 							 {
-								 endOfReturnType = c == ':' || c == '(';
-								 return isspace( c ) || endOfReturnType;
+								 endOfReturnType = c == ':' || c == '(' || isspace( c );
+								 return endOfReturnType;
 							 } );
 
 
@@ -126,12 +126,9 @@ void Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, std::vector
 		zadaci.push_back( zadatak );
 
 		brojCjeline[namespaceName] = zadaci;
-
-		json::object_t nazivCjeline = json::object();
-		nazivCjeline[namespaceName];
-	//	jsonObj[namespaceName] = zadatak;
 	}
 //	popuni 
+	imeProjekta["BrCjeline"] = brojCjeline;
 }
 
 nlohmann::json Master::_INTERNAL::buildJSON_structure()
@@ -268,7 +265,7 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 }
 /// ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
+/* PROTOTIP STRUKTURE JSON DATOTEKE
 json:
 
 {
