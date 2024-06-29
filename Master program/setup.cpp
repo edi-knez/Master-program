@@ -144,7 +144,7 @@ void popuniCijeliPopisFunkcija()
 {
 	size_t projIdx = 0;
 	// citanje iz json objekta
-	for( const auto thisProj : Master::popisProjekata )
+	for( const auto& thisProj : Master::popisProjekata )
 	{
 		popuniPopisFunkcijaZa( projIdx++ );
 	}
@@ -154,14 +154,14 @@ void popuniCijeliPopisFunkcija()
 void Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline )
 {
 	size_t funID = 0;
-	for( auto cjeline : popisImenaFunkcijaPoCjelinama[projIdx] )
+	for( const auto& cjeline : popisImenaFunkcijaPoCjelinama[projIdx] )
 	{
 		funID += cjeline.second.size();
 	}
 	container.insert( { funcName, funID } );
 }
 
-/// citanje iz JSON objekta nakon kompilacije
+/// citanje iz JSON objekta
 void popuniPopisFunkcijaZa( const size_t projIdx )
 {
 //	std::pair<std::string, std::string> name;
