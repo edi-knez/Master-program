@@ -46,7 +46,6 @@ namespace Master
 
 	namespace _INTERNAL
 	{
-		nlohmann::json buildJSON_structure();
 		std::string_view getFuncReturnType( const Zadatak& zad, size_t& offset );
 		std::string_view getNamespace( const Zadatak& zad, size_t& offset );
 		std::string_view getFuncName( const Zadatak& zad, size_t& offset );
@@ -101,7 +100,9 @@ std::string_view Master::_INTERNAL::getFuncName( const Zadatak& zad, size_t& off
 
 std::string_view Master::_INTERNAL::getFuncArguments( const Zadatak& zad, size_t& offset )
 {
-	return std::string_view( zad.deklaracija.begin() + offset, zad.deklaracija.end() );
+	std::string_view retVal( zad.deklaracija.begin() + offset, zad.deklaracija.end() );
+	offset = 0;
+	return retVal;
 }
 
 
@@ -114,12 +115,14 @@ void Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, std::vector
 	json::array_t zadaci = json::array();
 	json::object_t zadatak = json::object();
 
+	std::string namespaceName;
+
 	for( const Zadatak* zad : vecZadaci )
 	{
 		std::string funcReturntype = std::string( getFuncReturnType( *zad, brojPreskocenihZnakova ) );
-		std::string namespaceName = std::string( getNamespace( *zad, brojPreskocenihZnakova ) );
+		namespaceName = std::string( getNamespace( *zad, brojPreskocenihZnakova ) );
 		std::string funcName = std::string( getFuncName( *zad, brojPreskocenihZnakova ) );
-		std::string_view funcArguments = getFuncReturnType( *zad, brojPreskocenihZnakova );	// garantirano da je terminiran
+		std::string_view funcArguments = getFuncArguments( *zad, brojPreskocenihZnakova );	// garantirano da je terminiran
 
 		/// process whitelisting
 		///...
@@ -132,37 +135,9 @@ void Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, std::vector
 		zadatak["kod"] = zad->kod;
 
 		zadaci.push_back( zadatak );
-
-		brojCjeline[namespaceName] = zadaci;
 	}
-//	popuni 
+	brojCjeline[namespaceName] = zadaci;
 	imeProjekta["BrCjeline"] = brojCjeline;
-}
-
-nlohmann::json Master::_INTERNAL::buildJSON_structure()
-{
-	using namespace nlohmann;
-	json data;
-
-	// postavi temelje
-	json::array_t nizProjekata = json::array();
-	json::object_t imeProjekta = json::object();
-	json::object_t brojCjeline = json::object();
-	json::array_t zadaci = json::array();
-	json::object_t zadatak = json::object();
-
-	/*
-
-		zadatak = { { "tekst", "pokrece zad1" }, { "deklaracija", "void zad2()" }, {"func body", "{ int i = 5; }" } };
-		zadaci.push_back( zadatak );
-		brojCjeline["cjelina X"] = zadaci;
-		imeProjekta["project X"]["pathProj1"] = json::value_type::string_t{};
-		imeProjekta["project X"]["brCjeline"] = brojCjeline;
-		nizProjekata.push_back( imeProjekta );
-
-	*/
-	data["projekt"] = nizProjekata;
-	return data;
 }
 
 void popuniCijeliPopisFunkcija()
@@ -299,32 +274,7 @@ json:
 	],
 	... ostali projekti
 }
-*/
-/*nlohmann::json Master::_INTERNAL::buildJSON_structure()
-{
-	using namespace nlohmann;
-	json data;
 
-	// postavi temelje
-	json::array_t nizProjekata = json::array();
-	json::object_t imeProjekta = json::object();
-	json::object_t brojCjeline = json::object();
-	json::array_t zadaci = json::array();
-	json::object_t zadatak = json::object();
-
-/*
-
-	zadatak = { { "tekst", "pokrece zad1" }, { "deklaracija", "void zad2()" }, {"func body", "{ int i = 5; }" } };
-	zadaci.push_back( zadatak );
-	brojCjeline["cjelina X"] = zadaci;
-	imeProjekta["project X"]["pathProj1"] = json::value_type::string_t{};
-	imeProjekta["project X"]["brCjeline"] = brojCjeline;
-	nizProjekata.push_back( imeProjekta );
-
-// 
-	data["projekt"] = nizProjekata;
-	return data;
-}*/
 
 
 

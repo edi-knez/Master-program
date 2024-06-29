@@ -14,6 +14,7 @@
 /// - funkcije moraju imat povratni tip "void" (trenutacno)
 /// - nepodrzava template funkcije
 /// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije
+/// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TODO za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
@@ -25,7 +26,7 @@
 /// - vremenski ogranicit izvrsavanje zadatka
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 /// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
-/// - fixaj bug nepodrzavanja vise nivoa nemaspace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije
+/// - pogledaj iznad ove odjelka popis ogranicenja
 
 #include <cstdlib>
 #include <iostream>
@@ -59,7 +60,6 @@ namespace Master
 	void a();
 	namespace _INTERNAL
 	{
-		nlohmann::json buildJSON_structure();
 		void processZadatke( nlohmann::json::object_t& jsonData, std::vector<Zadatak*>& zadaci );
 	};
 
@@ -89,12 +89,14 @@ int main( const size_t args, const char* argv[] )
 	do
 	{
 		std::cin >> odabirProjekta;
-		switch( odabirProjekta )
+
+		if ( ( odabirProjekta -= '0' ) < Master::popisProjekata.size() )
 		{
-		case '1': case '2': case '3': case '4':
-			odabirProjekta -= '0' + 1;
+			odabirProjekta += 1;	// pocinje od rednog broja 1, a ne od broja 0
 			break;
-		default:
+		}
+		else
+		{
 			puts( "Krivi unos!!" );
 			odabirProjekta = -1;
 		}
