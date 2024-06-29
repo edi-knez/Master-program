@@ -56,39 +56,47 @@ namespace Master
 	}
 }
 
-std::string_view Master::_INTERNAL::getFuncReturnType( const Zadatak& zad, size_t& offset )
+static std::string_view universallyExtractFromDeclaration( const Zadatak& zad, size_t& offset )
 {
 	//zad.deklaracija
 	auto startIt = zad.deklaracija.begin() + offset;
 	auto curIt = startIt;
-	std::string::const_iterator temp = startIt;
+	//std::string::const_iterator temp = startIt;
 
-	bool endOfReturnType;
+	bool endOfExtractedInfo;
 	do
 	{
-		temp = std::find_if( temp, zad.deklaracija.end(), [ & ]( const char c )
-							 {
-								 endOfReturnType = c == ':' || c == '(' || isspace( c );
-								 return endOfReturnType;
-							 } );
-
-
-		if( !endOfReturnType )	curIt = temp;
-		else break;
-	} while( true );
+		curIt = std::find_if( curIt, zad.deklaracija.end(), [&]( const char c )
+			{
+				endOfExtractedInfo = isspace(c) || c == ':' || c == '(' || c == ')';
+				return endOfExtractedInfo;
+			});
+	} while ( !endOfExtractedInfo );
 
 	offset += curIt - startIt;
 	return std::string_view( startIt, curIt );
 }
 
+std::string_view Master::_INTERNAL::getFuncReturnType( const Zadatak& zad, size_t& offset )
+{
+	std::string_view retVal = universallyExtractFromDeclaration( zad, offset );
+	++offset; // preskoci razmak ' '
+	return retVal;
+}
+
 std::string_view Master::_INTERNAL::getNamespace( const Zadatak& zad, size_t& offset )
 {
-	return getFuncReturnType( zad, offset );	// zbog univerzalnosti, vrijedi isti kod
+	std::string_view retVal = universallyExtractFromDeclaration(zad, offset);
+	++offset; // za svaki ':' znak
+	++offset;
+	return retVal;
 }
 
 std::string_view Master::_INTERNAL::getFuncName( const Zadatak& zad, size_t& offset )
 {
-	return getFuncReturnType( zad, offset );	// zbog univerzalnosti, vrijedi isti kod
+	std::string_view retVal = universallyExtractFromDeclaration(zad, offset);
+	offset;
+	return retVal;
 }
 
 std::string_view Master::_INTERNAL::getFuncArguments( const Zadatak& zad, size_t& offset )
