@@ -50,7 +50,7 @@ namespace Master
 		std::string_view getNamespace( const Zadatak& zad, size_t& offset );
 		std::string_view getFuncName( const Zadatak& zad, size_t& offset );
 		std::string_view getFuncArguments( const Zadatak& zad, size_t& offset ); 
-		void processZadatke( nlohmann::json::object_t& imeProjekta, std::vector<Zadatak*>& zad );
+		json::object_t processZadatke( nlohmann::json::object_t& imeProjekta, std::vector<Zadatak*>& zad );
 		void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline );
 	}
 }
@@ -67,7 +67,7 @@ static std::string_view universallyExtractFromDeclaration( const Zadatak& zad, s
 	{
 		curIt = std::find_if( curIt, zad.deklaracija.end(), [&]( const char c )
 			{
-				endOfExtractedInfo = isspace(c) || c == ':' || c == '(' || c == ')';
+				endOfExtractedInfo = isspace( c ) || c == ':' || c == '(' || c == ')';
 				return endOfExtractedInfo;
 			});
 	} while ( !endOfExtractedInfo );
@@ -106,7 +106,7 @@ std::string_view Master::_INTERNAL::getFuncArguments( const Zadatak& zad, size_t
 }
 
 
-void Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, std::vector<Zadatak*>& vecZadaci )
+json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, std::vector<Zadatak*>& vecZadaci )
 {
 	size_t idx = 0;
 	size_t brojPreskocenihZnakova = 0;
@@ -134,16 +134,15 @@ void Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, std::vector
 		zadatak["deklaracija"] = zad->deklaracija;
 		zadatak["kod"] = zad->kod;
 
-		zadaci.push_back( zadatak );
+		zadaci.emplace_back( zadatak );
 	}
-	brojCjeline[namespaceName] = zadaci;
-	imeProjekta["BrCjeline"] = brojCjeline;
+	brojCjeline[namespaceName]["Zadaci"] = zadaci;
+	return brojCjeline;
 }
 
 void popuniCijeliPopisFunkcija()
 {
 	size_t projIdx = 0;
-	// citanje iz json objekta
 	for( const auto& thisProj : Master::popisProjekata )
 	{
 		popuniPopisFunkcijaZa( projIdx++ );
@@ -154,9 +153,9 @@ void popuniCijeliPopisFunkcija()
 void Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline )
 {
 	size_t funID = 0;
-	for( const auto& cjeline : popisImenaFunkcijaPoCjelinama[projIdx] )
+	for( const auto& cjelina : popisImenaFunkcijaPoCjelinama[projIdx] )
 	{
-		funID += cjeline.second.size();
+		funID += cjelina.second.size();
 	}
 	container.insert( { funcName, funID } );
 }
@@ -189,8 +188,7 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 		DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );
 
 	}
-	//autoAddedFunctionsFromFiles(); nepotrebno, pronaden bolji nacin
-
+	///---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	switch( projIdx )
 	{

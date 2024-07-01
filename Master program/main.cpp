@@ -60,7 +60,7 @@ namespace Master
 	void a();
 	namespace _INTERNAL
 	{
-		void processZadatke( nlohmann::json::object_t& jsonData, std::vector<Zadatak*>& zadaci );
+		json::object_t processZadatke( nlohmann::json::object_t& jsonData, std::vector<Zadatak*>& zadaci );
 	};
 
 }
@@ -279,11 +279,11 @@ void Master::a()
 		};
 
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
-	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );	// ************** pogledaj ova 2 ifa ( kako handle-at ako nemoze otvorit json datoteku?? )
-	if( !JSON_datoteka.is_open() )
+	std::ifstream JSON_existingDatoteka( nazivJSONdat, std::ios::in  );	// ************** pogledaj ova 2 ifa ( kako handle-at ako nemoze otvorit json datoteku?? )
+	if( !JSON_existingDatoteka.is_open() )
 	{
-		std::ofstream JSONdat_try2( "dummy.json", std::ios::out );
-		if( !JSONdat_try2.is_open() )
+		std::ofstream JSON_newDatoteka( nazivJSONdat, std::ios::out );
+		if( !JSON_newDatoteka.is_open() )
 		{
 			std::cout << "Nisam mogao otvorit \"InformacijeOZadacima.json\" datoteku!"
 				<< "\Izlazim...\n";
@@ -296,12 +296,6 @@ void Master::a()
 
 		// dodaj imena projekata u vektor
 		dodajItemeUVektor( Master::popisProjekata, "_Projekti" );
-
-		for ( const auto& imeProj : Master::popisProjekata )
-		{
-		///	nizProjekata.push_back( imeProj );
-		}
-		///jsonData["projekt"] = nizProjekata;
 
 		std::vector<std::string> paths;
 		{
@@ -344,12 +338,12 @@ void Master::a()
 		}
 		dat << "===================================================\n";
 #endif
-		jsonData["projekt"] = nizProjekata;
 		for( size_t idx = 0; idx < paths.size(); ++idx )
 		{
 			puts( "\n--------------------------------------------" );
 			pfs.push_back( ParseFile( paths[idx], imenaDatoteka[idx] ) );
 			size_t idxOfFile = 0;
+			nizProjekata.emplace_back( nlohmann::json::object_t() );
 			for( const auto& fName : imenaDatoteka[idx] )
 			{
 				std::cout << fName;
@@ -358,22 +352,30 @@ void Master::a()
 
 				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
 
-					// popuni JSON objekt kako parsira datoteke
-				imeProjekta[idx]["BrCjeline"] = nlohmann::json::object_t();
-				Master::_INTERNAL::processZadatke( imeProjekta[idx], zadaci);
-				nizProjekata[idx].push_back( imeProjekta[idx] );
-
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );
 				++idxOfFile;
+
+					// popuni JSON objekt kako parsira datoteke
+				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( imeProjekta[idx], zadaci);
+				imeProjekta[idx][Master::popisProjekata[idx]]["Broj cjeline"].emplace_back( zadaciCjeline );
+				nizProjekata[idx] = imeProjekta[idx];
+			//		jsonData["projekt"] = nizProjekata;
+			//		std::clog << "jsonData:\n" << jsonData.dump(1) << "\n\n\n\n";
 			}
-			std::clog << "jsonData stage1:\n" << jsonData << '\n';
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
 #endif
 		}
 		puts( "\n--------------------------------------------" );
+		jsonData["projekt"] = nizProjekata;
+		JSON_newDatoteka << jsonData;
+
+		std::cout << "\n=====================================================================\n"
+			<< "\t\t Zadaci su serializirani u json datoteku"
+			<< "\n=====================================================================\n";
+	//	std::clog << "jsonData:\n" << jsonData.dump(1) << '\n';
 	}
 
 
