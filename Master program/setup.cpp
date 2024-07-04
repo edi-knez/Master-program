@@ -52,6 +52,7 @@ namespace Master
 		std::string_view getFuncArguments( const Zadatak& zad, size_t& offset ); 
 		json::object_t processZadatke( nlohmann::json::object_t& imeProjekta, std::vector<Zadatak*>& zad );
 		void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline );
+		json::object_t getJSONFromFile();
 	}
 }
 
@@ -85,7 +86,7 @@ std::string_view Master::_INTERNAL::getFuncReturnType( const Zadatak& zad, size_
 
 std::string_view Master::_INTERNAL::getNamespace( const Zadatak& zad, size_t& offset )
 {
-	std::string_view retVal = universallyExtractFromDeclaration(zad, offset);
+	std::string_view retVal = universallyExtractFromDeclaration( zad, offset );
 	++offset; // za svaki ':' znak
 	++offset;
 	return retVal;
@@ -93,7 +94,7 @@ std::string_view Master::_INTERNAL::getNamespace( const Zadatak& zad, size_t& of
 
 std::string_view Master::_INTERNAL::getFuncName( const Zadatak& zad, size_t& offset )
 {
-	std::string_view retVal = universallyExtractFromDeclaration(zad, offset);
+	std::string_view retVal = universallyExtractFromDeclaration( zad, offset );
 	offset;
 	return retVal;
 }
@@ -160,9 +161,29 @@ void Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( std::unordered_map<std:
 	container.insert( { funcName, funID } );
 }
 
+json::object_t Master::_INTERNAL::getJSONFromFile()
+{
+	std::ifstream jsonDat( "InformacijeOZadacima.json" );
+	json retVal;
+	jsonDat >> retVal;
+	return retVal;
+}
+
 /// citanje iz JSON objekta
 void popuniPopisFunkcijaZa( const size_t projIdx )
 {
+	json jsonData = Master::_INTERNAL::getJSONFromFile();
+	for ( const auto& projektEntry : jsonData["projekt"][projIdx] )
+	{
+		for ( const auto& brCjelineEntry : projektEntry["Broj cjeline"] )
+		{
+			for ( const auto& zadaciEntry : brCjelineEntry["Zadaci"] )
+			{
+
+			}
+		}
+
+	}
 //	std::pair<std::string, std::string> name;
 /*
 	//while( name = getName() )
