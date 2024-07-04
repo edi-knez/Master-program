@@ -226,22 +226,22 @@ void Master::init()
 				popisImenaFunkcijaPoCjelinama.push_back( {} );
 				popisFunkcija.push_back( {} );
 			}
-			popuniCijeliPopisFunkcija();
+			popuniCijeliPopisFunkcija();	// ucitaj informacije iz JSON datoteke
 			for( auto& vec : popisFunkcija )	vec.shrink_to_fit();
+			// isprobaj zeljenu funkciju
 		}
 		else if( odabir == '0' )
 		{
-			/// // popuni datoteku Functions.cpp iz JSON objekta
 			a();
-			std::cout << "Pravim kopiju JSON datoteke i brisem je!\n";
-			std::cout << "Da bi primjenio promjene, rekompaliraj program\n";
+			std::cout << "Pravim kopiju JSON datoteke i brisem original!\n";
+			std::cout << "Da bi primjenio promjene, ponovno pokreni program\n";
 			auto copy_file = []( std::ifstream& copyFrom, std::ofstream& copyTo )
 				{
 					std::stringbuf buf;
 					char c;
 					while( copyFrom >> c )
 					{
-						buf.sputbackc( c );
+						buf.sputc( c );
 					}
 					for( const char c : buf.str() )
 					{
