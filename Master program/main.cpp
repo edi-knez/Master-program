@@ -210,7 +210,7 @@ void Master::init()
 	std::cout << "DOBRODOSAO!!\n";
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
 	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
-	if( !JSON_datoteka.is_open() )
+	if( !JSON_datoteka.is_open() || std::filesystem::file_size( nazivJSONdat ) == 0 )
 	{
 		a();
 	}
@@ -235,7 +235,7 @@ void Master::init()
 			a();
 			std::cout << "Pravim kopiju JSON datoteke i brisem original!\n";
 			std::cout << "Da bi primjenio promjene, ponovno pokreni program\n";
-			auto copy_file = []( std::ifstream& copyFrom, std::ofstream& copyTo )
+			auto copy_file = []( std::fstream& copyFrom, std::ofstream& copyTo )
 				{
 					std::stringbuf buf;
 					char c;
@@ -248,7 +248,7 @@ void Master::init()
 						copyTo.put( c );
 					}
 				};
-			std::ifstream curJSON( nazivJSONdat, std::ios::in );
+			std::fstream curJSON( nazivJSONdat, std::ios::in );
 			std::ofstream backup( nazivJSONdat + ".bak", std::ios::out );
 			if( !curJSON.is_open() || !backup.is_open() )
 			{
@@ -256,7 +256,7 @@ void Master::init()
 					<< "Ako problem je i dalje tu, obrisi JSON datoteku rucno\n\n";
 			}
 			copy_file( curJSON, backup );
-			std::remove( nazivJSONdat.c_str() );
+			std::ofstream deleteJSON( nazivJSONdat, std::ios::trunc );
 			exit( EXIT_SUCCESS );
 		}
 	}
@@ -279,8 +279,8 @@ void Master::a()
 		};
 
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
-	std::ifstream JSON_existingDatoteka( nazivJSONdat, std::ios::in  );	// ************** pogledaj ova 2 ifa ( kako handle-at ako nemoze otvorit json datoteku?? )
-	if( !JSON_existingDatoteka.is_open() )
+	std::ifstream JSON_existingDatoteka( nazivJSONdat, std::ios::in  );
+	if( !JSON_existingDatoteka.is_open() || std::filesystem::file_size(nazivJSONdat) == 0 )
 	{
 		std::ofstream JSON_newDatoteka( nazivJSONdat, std::ios::out );
 		if( !JSON_newDatoteka.is_open() )
