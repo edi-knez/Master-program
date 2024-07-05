@@ -173,13 +173,26 @@ json::object_t Master::_INTERNAL::getJSONFromFile()
 void popuniPopisFunkcijaZa( const size_t projIdx )
 {
 	json jsonData = Master::_INTERNAL::getJSONFromFile();
-	for ( const auto& projektEntry : jsonData["projekt"][projIdx] )
+	
+	//std::vector<std::string> projektEntry << jsonData["projekt"][projIdx][Master::popisProjekata[projIdx]];
+	for ( const auto& projektEntry : jsonData["projekt"] )
 	{
-		for ( const auto& brCjelineEntry : projektEntry["Broj cjeline"] )
+		// problem extraktanja podataka iz json objekta
+		// sadrzi sve ispod podatkovne strukture
+		const auto& test = jsonData["projekt"].find( Master::popisProjekata[projIdx] );
+		std::clog << "projektEntry -> " << projektEntry << "\n\n";
+		for ( const auto& brCjelineEntry : projektEntry[projIdx]["Broj cjeline"])
 		{
+		/*	std::string brojCjeline;
+			brojCjeline = "Cjelina1";
+			std::unordered_map<std::string, size_t> Cjelina1;
+			Master::popisImenaFunkcijaPoCjelinama[projIdx].insert({ brojCjeline, std::move( Cjelina1 ) });	*/
 			for ( const auto& zadaciEntry : brCjelineEntry["Zadaci"] )
 			{
-
+			/*	auto& iter = Master::popisImenaFunkcijaPoCjelinama[projIdx].find(brojCjeline)->second;
+				std::string imeZadatka = "cj1.zad4_kvadrat";
+				Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( iter, projIdx, imeZadatka, brojCjeline );
+				DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );	*/
 			}
 		}
 
@@ -195,6 +208,7 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 	}
 */
 
+/*
 	std::string brojCjeline;
 
 	// radi sljedeci postupak pomocu json datoteke ¢¢
@@ -209,13 +223,17 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 		DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );
 
 	}
+
+	*/
+
+
 	///---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	switch( projIdx )
-	{
+//	switch( projIdx )
+//	{
 //		using enum projekt;
-	case /*CppKnjiga*/0:
-	{
+//	case /*CppKnjiga*/0:
+	//{
 /*
 		brojCjeline = "Cjelina1";
 		std::unordered_map<std::string, size_t> Cjelina1;
@@ -263,8 +281,8 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad5 );
 
 	}*/
-	}
-}
+//	}
+//}
 /// ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 /* PROTOTIP STRUKTURE JSON DATOTEKE

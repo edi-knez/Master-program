@@ -204,6 +204,19 @@ std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
 	return dat;
 }
 
+const auto dodajItemeUVektor = [](std::vector<std::string>& container, const char* fullPath)
+	{
+		for (const auto& entry : fs::directory_iterator(fullPath))
+		{
+			std::string pathToItems = entry.path().string();
+			std::string::reverse_iterator itStart = pathToItems.rbegin();
+			std::string::reverse_iterator itEnd;
+			itEnd = std::find(itStart, pathToItems.rend(), '\\');
+			size_t itemNameLen = itEnd - itStart;
+			std::string fileName(pathToItems.begin() + pathToItems.size() - itemNameLen, pathToItems.end());
+			container.emplace_back(fileName);
+		}
+	};
 
 void Master::init()
 {
@@ -221,6 +234,8 @@ void Master::init()
 		std::cin >> odabir;
 		if( odabir == '1' )
 		{
+			// dodaj imena projekata u vektor
+			dodajItemeUVektor(Master::popisProjekata, "_Projekti");
 			for( size_t i = 0; i < Master::popisProjekata.size(); ++i )
 			{
 				popisImenaFunkcijaPoCjelinama.push_back( {} );
@@ -264,20 +279,6 @@ void Master::init()
 
 void Master::a()
 {
-	const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath )
-		{
-			for( const auto& entry : fs::directory_iterator( fullPath ) )
-			{
-				std::string pathToItems = entry.path().string();
-				std::string::reverse_iterator itStart = pathToItems.rbegin();
-				std::string::reverse_iterator itEnd;
-				itEnd = std::find( itStart, pathToItems.rend(), '\\' );
-				size_t itemNameLen = itEnd - itStart;
-				std::string fileName( pathToItems.begin() + pathToItems.size() - itemNameLen, pathToItems.end() );
-				container.emplace_back( fileName );
-			}
-		};
-
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
 	std::ifstream JSON_existingDatoteka( nazivJSONdat, std::ios::in  );
 	if( !JSON_existingDatoteka.is_open() || std::filesystem::file_size(nazivJSONdat) == 0 )
