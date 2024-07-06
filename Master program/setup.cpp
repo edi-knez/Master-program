@@ -174,13 +174,15 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 {
 	json jsonData = Master::_INTERNAL::getJSONFromFile();
 	
-	//std::vector<std::string> projektEntry << jsonData["projekt"][projIdx][Master::popisProjekata[projIdx]];
 	for ( const auto& projektEntry : jsonData["projekt"] )
 	{
-		// problem extraktanja podataka iz json objekta
 		// sadrzi sve ispod podatkovne strukture
-		const auto& test = jsonData["projekt"].find( Master::popisProjekata[projIdx] );
-		std::clog << "projektEntry -> " << projektEntry << "\n\n";
+
+		json::object_t projEntryObj = projektEntry;
+		const auto& extractedProjektEntryValue = projEntryObj.extract(Master::popisProjekata[projIdx]); // nazivi projekata su spremljeni u std::map pod. strukturu u json objektu, znaci sortirani su
+		std::pair<std::string, json::object_t> projektInfo;
+		projektInfo = extractedProjektEntryValue._Getptr()->_Myval;
+		std::clog << "projektEntry -> " << projektInfo << "\n\n";
 		for ( const auto& brCjelineEntry : projektEntry[projIdx]["Broj cjeline"])
 		{
 		/*	std::string brojCjeline;
