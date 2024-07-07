@@ -1,20 +1,21 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// UPOTREBA:
 /// 1)  Stavi datoteke koje zelis testirat na lokaciju ".../Projekti/imeProjekta/FilesToParse/"
-/// 2)  Kompajlaj program (stvorit ce JSON datoteku)
+/// 2)  Kompajlaj program
 /// 3)  Pokreni program
+/// -- Prilikom prvog pokretanja programa stvorit ce se json datoteka iz koje ce se citat sve informacije.
 /// ////////////////////////////////////////////////////////////////
 /// nakon toga ako zelis promijenit (dodat/uklonit) datoteke iz kojih citas informacije o funkcijama, moras ponovit cijeli postupak
 /// ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// OGRANICENJA:
-/// - podrzava samo jedno linijske komentare za tekst zadataka
+/// - podrzava samo jedno linijske komentare za tekst zadataka	<-
 /// - funkcije koje te zanimaju moraju biti u namespaceu / 
 ///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
-/// - funkcije moraju imat povratni tip "void" (trenutacno)
+/// - funkcije moraju imat povratni tip "void" (trenutacno)	<-
 /// - nepodrzava template funkcije
-/// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije
-/// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )
+/// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije	<-
+/// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )	<-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// TODO za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
@@ -27,6 +28,8 @@
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 /// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
 /// - pogledaj iznad ove odjelka popis ogranicenja
+/// - podijelit kod u klase
+/// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
 
 #include <cstdlib>
 #include <iostream>
@@ -210,7 +213,7 @@ void Master::pokretanjeFunkcija()
 			Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second]();
 			std::cout << "\n\nAko zelis vidjeti kod za ovaj zadatak unesi enter";
 			char c = getchar();
-			if( c == '\n' || c == '\r' )	// kod za ispisat taj zadatak	
+			if (c == '\n' || c == '\r')		; // kod za ispisat taj zadatak	
 		}
 	}
 }
@@ -268,6 +271,8 @@ void Master::init()
 	if( !JSON_datoteka.is_open() || std::filesystem::file_size( nazivJSONdat ) == 0 )
 	{
 		_INTERNAL::create_json_Object();
+		popuniCijeliPopisFunkcija();	// ucitaj informacije iz JSON datoteke
+		for (auto& vec : popisFunkcija)	vec.shrink_to_fit();
 	}
 	else
 	{
@@ -313,6 +318,8 @@ void Master::init()
 			}
 			copy_file( curJSON, backup );
 			std::ofstream deleteJSON( nazivJSONdat, std::ios::trunc );
+			popuniCijeliPopisFunkcija();	// ucitaj informacije iz JSON datoteke
+			for (auto& vec : popisFunkcija)	vec.shrink_to_fit();
 		}
 	}
 }
