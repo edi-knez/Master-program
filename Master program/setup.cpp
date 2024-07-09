@@ -24,17 +24,9 @@
 using json = nlohmann::json;
 
 
-#define DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( IME_NAMESPACE::ime_funkcije )
-#define DODAJ_FUNKCIJU2( ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( ime_funkcije )
 
-///////////////////////////////////
-/// ////////////////////////////////
-///////////////////////////////////
-
-
-
-void popuniCijeliPopisFunkcija();
-void popuniPopisFunkcijaZa( const size_t projIdx );
+void popuniCijeliPopisFunkcija( nlohmann::json& jsonData );
+void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx );
 ////////////////////////////////////////////////////////////////////////////////////
 namespace Master
 {
@@ -49,10 +41,11 @@ namespace Master
 		std::string_view getFuncReturnType( const Zadatak& zad, size_t& offset );
 		std::string_view getNamespace( const Zadatak& zad, size_t& offset );
 		std::string_view getFuncName( const Zadatak& zad, size_t& offset );
-		std::string_view getFuncArguments( const Zadatak& zad, size_t& offset ); 
+		std::string_view getFuncArguments( const Zadatak& zad, size_t& offset );
 		json::object_t processZadatke( nlohmann::json::object_t& imeProjekta, std::vector<Zadatak*>& zad );
 		void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline );
-		json::object_t getJSONFromFile();
+		nlohmann::json getJSONFromFile();
+		void dodajFunkcijuNaPopis( const size_t projIdx, const std::string& imeNamespacea, const std::string& imeFunkcije );
 	}
 }
 
@@ -67,11 +60,11 @@ static std::string_view universallyExtractFromDeclaration( const Zadatak& zad, s
 	do
 	{
 		curIt = std::find_if( curIt, zad.deklaracija.end(), [&]( const char c )
-			{
-				endOfExtractedInfo = isspace( c ) || c == ':' || c == '(' || c == ')';
-				return endOfExtractedInfo;
-			});
-	} while ( !endOfExtractedInfo );
+							  {
+								  endOfExtractedInfo = isspace( c ) || c == ':' || c == '(' || c == ')';
+								  return endOfExtractedInfo;
+							  } );
+	} while( !endOfExtractedInfo );
 
 	offset += curIt - startIt;
 	return std::string_view( startIt, curIt );
@@ -141,12 +134,13 @@ json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, s
 	return brojCjeline;
 }
 
-void popuniCijeliPopisFunkcija()
+void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 {
-	size_t projIdx = 0;
+	size_t idx = 0;
 	for( const auto& thisProj : Master::popisProjekata )
 	{
-		popuniPopisFunkcijaZa( projIdx++ );
+		popuniPopisFunkcijaZa( jsonData[idx], idx );
+		++idx;
 	}
 }
 
@@ -161,44 +155,40 @@ void Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( std::unordered_map<std:
 	container.insert( { funcName, funID } );
 }
 
-json::object_t Master::_INTERNAL::getJSONFromFile()
+nlohmann::json Master::_INTERNAL::getJSONFromFile()
 {
-	std::ifstream jsonDat( "InformacijeOZadacima.json" );
+	std::ifstream jsonDat( "InformacijeOZadacima.json", std::ios::in );
 	json retVal;
-	jsonDat >> retVal;
+	if( jsonDat.is_open() )	jsonDat >> retVal;
 	return retVal;
 }
 
-/// citanje iz JSON objekta
-void popuniPopisFunkcijaZa( const size_t projIdx )
+void Master::_INTERNAL::dodajFunkcijuNaPopis( const size_t projIdx, const std::string& imeNamespacea, const std::string& imeFunkcije )
 {
-	json jsonData = Master::_INTERNAL::getJSONFromFile();
-	
-	for ( const auto& projektEntry : jsonData["projekt"] )
+	std::string combinedNamespaceAndFunctionName = imeNamespacea + "::" + imeFunkcije;
+	Master::popisFunkcija[projIdx].emplace_back( Cjelina1::vj1_2datoteke ); // NEMOZE, ipak moras koristit prosli nacin sa dodatnom kompilacijom
+}
+
+void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx )
+{
+	json::object_t cjelEntryObj = jsonData;
+	const auto& extractedProjektEntryValue = cjelEntryObj.extract( "Broj cjeline" ); // nazivi projekata su spremljeni u std::map pod. strukturu u json objektu, znaci sortirani su
+	std::pair<std::string, json::array_t> cjelineData;
+	cjelineData = extractedProjektEntryValue._Getptr()->_Myval;
+	std::string brojCjeline = std::move( cjelineData.first );
+	std::unordered_map<std::string, size_t> CjelinaX;
+	Master::popisImenaFunkcijaPoCjelinama[projIdx].insert( { brojCjeline, std::move( CjelinaX ) } );
+	auto& iter = Master::popisImenaFunkcijaPoCjelinama[projIdx].find( brojCjeline )->second;
+//	std::clog << "cjelinaData -> " << cjelineData.second << "\n\n";
+	for( const auto& zadatak : cjelineData.second )
 	{
-		// sadrzi sve ispod podatkovne strukture
-
-		json::object_t projEntryObj = projektEntry;
-		const auto& extractedProjektEntryValue = projEntryObj.extract(Master::popisProjekata[projIdx]); // nazivi projekata su spremljeni u std::map pod. strukturu u json objektu, znaci sortirani su
-		std::pair<std::string, json::object_t> projektInfo;
-		projektInfo = extractedProjektEntryValue._Getptr()->_Myval;
-		std::clog << "projektEntry -> " << projektInfo << "\n\n";
-		for ( const auto& brCjelineEntry : projektEntry[projIdx]["Broj cjeline"])
-		{
-		/*	std::string brojCjeline;
-			brojCjeline = "Cjelina1";
-			std::unordered_map<std::string, size_t> Cjelina1;
-			Master::popisImenaFunkcijaPoCjelinama[projIdx].insert({ brojCjeline, std::move( Cjelina1 ) });	*/
-			for ( const auto& zadaciEntry : brCjelineEntry["Zadaci"] )
-			{
-			/*	auto& iter = Master::popisImenaFunkcijaPoCjelinama[projIdx].find(brojCjeline)->second;
-				std::string imeZadatka = "cj1.zad4_kvadrat";
-				Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( iter, projIdx, imeZadatka, brojCjeline );
-				DODAJ_FUNKCIJU( Cjelina1, zad4_kvadrat );	*/
-			}
-		}
-
+		std::string imeZadatka = "cj1.zad4_kvadrat"; // <---- procitaj ime zadatka
+		Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( iter, projIdx, imeZadatka, brojCjeline );
+		Master::_INTERNAL::dodajFunkcijuNaPopis( projIdx, brojCjeline, imeZadatka );
 	}
+}
+
+
 //	std::pair<std::string, std::string> name;
 /*
 	//while( name = getName() )
@@ -267,22 +257,22 @@ void popuniPopisFunkcijaZa( const size_t projIdx )
 			DODAJ_FUNKCIJU( Cjelina2, zad6 );
 		}
 		*/
-	}
-	/*
-		brojCjeline = "Cjelina2";
-		std::unordered_map<std::string, size_t> Cjelina2;
-		popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].insert( { "Cjelina2", Cjelina2 } );
-		iter = popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].find( "Cjelina1" )->second;
-		insertFunctionNameAndIDIntoUMap( iter, proj, "cj3.zad1", brojCjeline );
-		insertFunctionNameAndIDIntoUMap( iter, proj, "cj3.zad3", brojCjeline );
-		insertFunctionNameAndIDIntoUMap( iter, proj, "cj3.zad4", brojCjeline );
-		insertFunctionNameAndIDIntoUMap( iter, proj, "cj3.zad5", brojCjeline );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad1 );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad3 );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad4 );
-		popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad5 );
 
-	}*/
+ /*
+	brojCjeline = "Cjelina2";
+	std::unordered_map<std::string, size_t> Cjelina2;
+	popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].insert( { "Cjelina2", Cjelina2 } );
+	iter = popisImenaFunkcijaPoCjelinama[static_cast<uint8_t>( proj )].find( "Cjelina1" )->second;
+	insertFunctionNameAndIDIntoUMap( iter, proj, "cj3.zad1", brojCjeline );
+	insertFunctionNameAndIDIntoUMap( iter, proj, "cj3.zad3", brojCjeline );
+	insertFunctionNameAndIDIntoUMap( iter, proj, "cj3.zad4", brojCjeline );
+	insertFunctionNameAndIDIntoUMap( iter, proj, "cj3.zad5", brojCjeline );
+	popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad1 );
+	popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad3 );
+	popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad4 );
+	popisFunkcija[static_cast<uint8_t>( proj )].emplace_back( Cjelina3::zad5 );
+
+}*/
 //	}
 //}
 /// ///////////////////////////////////////////////////////////////////////////////////////////////////

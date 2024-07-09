@@ -188,6 +188,7 @@ void vratiSeZa1ZnakUnazad( std::fstream& dat )
 /// <summary>
 ///		test komentar
 
+// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 /// <summary>
 ///		Da bi bio siguran da citas komentar od funkcije, a ne neki random, moras pocet citat od deklaracije te funkcije.
 ///		Citas od kraja linije prema pocetku dok nenaides na pocetak komentara "//" ili dok do dodes do kraja cijelog komentara "\n\n".
@@ -313,6 +314,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 	return retVal;
 	}
 
+// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 {
 	while( isspace( dat.peek() ) )
@@ -335,6 +337,7 @@ std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 	return deklaracija;
 }
 
+// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )
 {
 	std::string retVal = "";
