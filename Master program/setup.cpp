@@ -23,10 +23,20 @@
 
 using json = nlohmann::json;
 
+extern void finish_Function_list__cpp_file();
+extern void autoAddeedFunctionsFromFiles();
+
+// dovrsi vracanje u proslo stanje gdje je bilo moguce napravit (vratit datoteku za Macro funkcije, update upotrebu u mainu)
+#define DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( IME_NAMESPACE::ime_funkcije )
+#define DODAJ_FUNKCIJU2( ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( ime_funkcije )
+
+///////////////////////////////////
+/// ////////////////////////////////
+///////////////////////////////////
 
 
 void popuniCijeliPopisFunkcija( nlohmann::json& jsonData );
-void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx );
+void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std::ostream& funcDat );
 ////////////////////////////////////////////////////////////////////////////////////
 namespace Master
 {
@@ -45,7 +55,8 @@ namespace Master
 		json::object_t processZadatke( nlohmann::json::object_t& imeProjekta, std::vector<Zadatak*>& zad );
 		void insertFunctionNameAndIDIntoUMap( std::unordered_map<std::string, size_t>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline );
 		nlohmann::json getJSONFromFile();
-		void dodajFunkcijuNaPopis( const size_t projIdx, const std::string& imeNamespacea, const std::string& imeFunkcije );
+		std::string getFuncNmsAndName( const std::string& imeNamespacea, const std::string& imeFunkcije );
+		void createAFileForStoringFunctionList();
 	}
 }
 
@@ -137,11 +148,13 @@ json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, s
 void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 {
 	size_t idx = 0;
+	std::ofstream datotekaZaSpremanjeFunkcija( "Function list.cpp", std::ios::out | std::ios::app );
 	for( const auto& thisProj : Master::popisProjekata )
 	{
-		popuniPopisFunkcijaZa( jsonData[idx], idx );
+		popuniPopisFunkcijaZa( jsonData[idx], idx, datotekaZaSpremanjeFunkcija );
 		++idx;
 	}
+	autoAddeedFunctionsFromFiles();
 }
 
 
@@ -163,14 +176,74 @@ nlohmann::json Master::_INTERNAL::getJSONFromFile()
 	return retVal;
 }
 
-void Master::_INTERNAL::dodajFunkcijuNaPopis( const size_t projIdx, const std::string& imeNamespacea, const std::string& imeFunkcije )
+void Master::_INTERNAL::createAFileForStoringFunctionList()
 {
-	std::string combinedNamespaceAndFunctionName = imeNamespacea + "::" + imeFunkcije;
-	Master::popisFunkcija[projIdx].emplace_back( Cjelina1::vj1_2datoteke ); // NEMOZE, ipak moras koristit prosli nacin sa dodatnom kompilacijom
+	std::ifstream file( "Function list.cpp", std::ios::in );
+	std::ofstream newFile;
+	if( !file.is_open() )
+	{
+		newFile.open( "Function list.cpp", std::ios::out );
+	}
+	file.open( "Function list.cpp", std::ios::in );
+	if( file.is_open() )
+	{
+		// pripremi datoteku za koristenje
+		newFile << "#include <fstream> \
+#include <iostream>\
+\
+\
+// nakraju kad se sve funkcije tu dodaju, zatvori funkciju i undefine macroe\
+void finish_Functions_cpp_file()\
+		{\
+			const char* macro1 = \"#undef DODAJ_FUNKCIJU\";\
+			const char* macro2 = \"#undef DODAJ_FUNKCIJU2\";\
+			std::ofstream datoteka( \"Functions.cpp\", std::ios::out | std::ios::app );\
+			if( datoteka.is_open() )\
+			{\
+				datoteka << \"\n\n\" << '}';\
+				datoteka << \"\n\n\n\" << macro1 << '\n' << macro2 << '\n' << EOF;\
+			}\
+			else\
+			{\
+				datoteka.open( \"Function list.cpp\", std::ios::out | std::ios::app );\
+				if( datoteka.is_open() )\
+				{\
+					datoteka << \"\n\n\" << '}';\
+					datoteka << \"\n\n\n\" << macro1 << '\n' << macro2 << '\n' << EOF;\
+				}\
+				else\
+				{\
+					std::cout << \"\n\nGRESKA prilikom zavrsavanja postupka dodavanja funkcija!!\n\";\
+					datoteka.close();\
+					exit( EXIT_FAILURE );\
+				}\
+			}\
+		}\
+		\
+		void autoAddeedFunctionsFromFiles()\
+		{\
+		\
+		}\
+";
+
+	}
+	else
+	{
+		std::cout << "Nisam mogao otvorit \"Function list\" datoteku\n"
+			<< "Izlazim...\n";
+		exit( EXIT_FAILURE );
+	}
 }
 
-void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx )
+std::string Master::_INTERNAL::getFuncNmsAndName( const std::string& imeNamespacea, const std::string& imeFunkcije )
 {
+	std::string combinedNamespaceAndFunctionName = imeNamespacea + "::" + imeFunkcije;
+	return combinedNamespaceAndFunctionName;
+}
+
+void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std::ostream& funcDat )
+{
+	// otvori datoteku u koju ces zapisivat funkcije
 	json::object_t cjelEntryObj = jsonData;
 	const auto& extractedProjektEntryValue = cjelEntryObj.extract( "Broj cjeline" ); // nazivi projekata su spremljeni u std::map pod. strukturu u json objektu, znaci sortirani su
 	std::pair<std::string, json::array_t> cjelineData;
@@ -184,7 +257,8 @@ void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx )
 	{
 		std::string imeZadatka = "cj1.zad4_kvadrat"; // <---- procitaj ime zadatka
 		Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( iter, projIdx, imeZadatka, brojCjeline );
-		Master::_INTERNAL::dodajFunkcijuNaPopis( projIdx, brojCjeline, imeZadatka );
+		// zapisi u datoteku na pravo mjesto sljedece:
+	//	"DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( IME_NAMESPACE::ime_funkcije );"
 	}
 }
 

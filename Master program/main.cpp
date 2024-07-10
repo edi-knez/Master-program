@@ -3,9 +3,18 @@
 /// 1)  Stavi datoteke koje zelis testirat na lokaciju ".../Projekti/imeProjekta/FilesToParse/"
 /// 2)  Kompajlaj program
 /// 3)  Pokreni program
+/// 4)  Opet kompajlaj program
+/// 5)  Pokreni program 
+/// ---------------------------------
+/// Objašnjenje:
 /// -- Prilikom prvog pokretanja programa stvorit ce se json datoteka iz koje ce se citat sve informacije.
+/// -- prilikom èitanja json datoteke, zapisat æe popis funkcija u .cpp datoteku naziva "Function list"
+/// -- prilikom druge kompilacije programa, linkat æe se svi funkcijski pointeri koji su se prethodno zapisali u tu .cpp datoteku
 /// ////////////////////////////////////////////////////////////////
 /// nakon toga ako zelis promijenit (dodat/uklonit) datoteke iz kojih citas informacije o funkcijama, moras ponovit cijeli postupak
+/// ////////////////////////////////////////////////////////////////
+/// ta .cpp datoteka mora biti prisutna u baš tom obliku (nesmije se dirat sadrzaj i lokacija na kojoj se nalazi)
+/// ako je obrišeš morat æeš ruèno je napravit i kopirat sadržaj iz Function list.bak datoteke i ubacit datoteku u visual studio da bi mogao krenut na korak 2)
 /// ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// OGRANICENJA:
@@ -30,6 +39,7 @@
 /// - pogledaj iznad ove odjelka popis ogranicenja
 /// - podijelit kod u klase
 /// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
+/// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
 
 #include <cstdlib>
 #include <iostream>
@@ -51,7 +61,8 @@ extern void popuniCijeliPopisFunkcija( nlohmann::json& jsonData );
 
 
 
-namespace Master {
+namespace Master
+{
 	std::vector<std::string> popisProjekata;
 	// niz projekata koji sadrzi umap stringova cjelina koji sadrzi umap stringova naziva funkcija
 	extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
@@ -59,7 +70,8 @@ namespace Master {
 
 	void init();
 	void pokretanjeFunkcija();
-	namespace _INTERNAL {
+	namespace _INTERNAL
+	{
 		json::object_t processZadatke( nlohmann::json::object_t& jsonData, std::vector<Zadatak*>& zadaci );
 		nlohmann::json create_json_Object();
 		nlohmann::json getJSONFromFile();
