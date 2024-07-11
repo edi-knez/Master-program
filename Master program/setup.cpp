@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <fstream>
-
+#include <optional>
 
 #include <array>
 #include <vector>
@@ -23,7 +23,7 @@
 
 using json = nlohmann::json;
 
-extern void finish_Function_list__cpp_file();
+extern void finish_Function_list__cpp_file( std::fstream& datoteka );
 extern void autoAddeedFunctionsFromFiles();
 
 // dovrsi vracanje u proslo stanje gdje je bilo moguce napravit (vratit datoteku za Macro funkcije, update upotrebu u mainu)
@@ -147,14 +147,47 @@ json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, s
 
 void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 {
+	const char* relativePathToFile = "";
+	std::vector<std::string> imeDatotekeZaFunkcije = { "Function list.cpp" };
+	ParseFile pf( std::string_view( relativePathToFile ), imeDatotekeZaFunkcije );
+	std::fstream& datotekaZaSpremanjeFunkcija = pf.getDatoteku( 0 );
+	/// ///////////////////////////////////////////////////////
+	char HACK_isItStepNumber3;
+	std::cout << "Ako si na koraku 3) (za vise informacija pogledaj na vrh \"main.cpp\" datoteke unesi znak y\n";
+	std::cin >> HACK_isItStepNumber3;
+	if( HACK_isItStepNumber3 == 'y' )
+	{
+		// zapisi u datoteku na pravo mjesto:
+
+		// ukoliko funkcija sa tim imenom postoji, pronaci ce je. U suprotnom neces moci kompajlat program.
+		while( !pf.getPositionOfFunction( datotekaZaSpremanjeFunkcija, "autoAddeedFunctionsFromFiles" ).has_value() )
+			;
+		if( datotekaZaSpremanjeFunkcija.eof() )
+		{
+			std::cout << "Ovo se jedino moglo dogodit jer si izbrisao forward deklaraciju funkcije \"autoAddedFunctionsFromFiles\" sa vrha ove .cpp datoteke\nIzlazim...\n";
+			exit( EXIT_FAILURE );
+		}
+	}
+	/// //////////////////////////////////////////////////////////
+
+
 	size_t idx = 0;
-	std::ofstream datotekaZaSpremanjeFunkcija( "Function list.cpp", std::ios::out | std::ios::app );
 	for( const auto& thisProj : Master::popisProjekata )
 	{
-		popuniPopisFunkcijaZa( jsonData[idx], idx, datotekaZaSpremanjeFunkcija );
+		popuniPopisFunkcijaZa( jsonData[idx], idx, datotekaZaSpremanjeFunkcija, HACK_isItStepNumber3 );
 		++idx;
 	}
-	autoAddeedFunctionsFromFiles();
+
+
+	/// /////////////////////////////////////////////////////////
+	if( HACK_isItStepNumber3 == 'y' )
+	{
+		finish_Function_list__cpp_file( datotekaZaSpremanjeFunkcija );
+		std::cout << "Ponovno kompaliraj program da bi nastavio na sljedeci korak\nIzlazim...\n";
+		exit( EXIT_SUCCESS );
+	}
+	/// //////////////////////////////////////////////////////////
+	autoAddeedFunctionsFromFiles();	// ubaci sve function pointere popisFunkcija
 }
 
 
@@ -176,64 +209,6 @@ nlohmann::json Master::_INTERNAL::getJSONFromFile()
 	return retVal;
 }
 
-void Master::_INTERNAL::createAFileForStoringFunctionList()
-{
-	std::ifstream file( "Function list.cpp", std::ios::in );
-	std::ofstream newFile;
-	if( !file.is_open() )
-	{
-		newFile.open( "Function list.cpp", std::ios::out );
-	}
-	file.open( "Function list.cpp", std::ios::in );
-	if( file.is_open() )
-	{
-		// pripremi datoteku za koristenje
-		newFile << "#include <fstream> \
-#include <iostream>\
-\
-\
-// nakraju kad se sve funkcije tu dodaju, zatvori funkciju i undefine macroe\
-void finish_Functions_cpp_file()\
-		{\
-			const char* macro1 = \"#undef DODAJ_FUNKCIJU\";\
-			const char* macro2 = \"#undef DODAJ_FUNKCIJU2\";\
-			std::ofstream datoteka( \"Functions.cpp\", std::ios::out | std::ios::app );\
-			if( datoteka.is_open() )\
-			{\
-				datoteka << \"\n\n\" << '}';\
-				datoteka << \"\n\n\n\" << macro1 << '\n' << macro2 << '\n' << EOF;\
-			}\
-			else\
-			{\
-				datoteka.open( \"Function list.cpp\", std::ios::out | std::ios::app );\
-				if( datoteka.is_open() )\
-				{\
-					datoteka << \"\n\n\" << '}';\
-					datoteka << \"\n\n\n\" << macro1 << '\n' << macro2 << '\n' << EOF;\
-				}\
-				else\
-				{\
-					std::cout << \"\n\nGRESKA prilikom zavrsavanja postupka dodavanja funkcija!!\n\";\
-					datoteka.close();\
-					exit( EXIT_FAILURE );\
-				}\
-			}\
-		}\
-		\
-		void autoAddeedFunctionsFromFiles()\
-		{\
-		\
-		}\
-";
-
-	}
-	else
-	{
-		std::cout << "Nisam mogao otvorit \"Function list\" datoteku\n"
-			<< "Izlazim...\n";
-		exit( EXIT_FAILURE );
-	}
-}
 
 std::string Master::_INTERNAL::getFuncNmsAndName( const std::string& imeNamespacea, const std::string& imeFunkcije )
 {
@@ -241,7 +216,7 @@ std::string Master::_INTERNAL::getFuncNmsAndName( const std::string& imeNamespac
 	return combinedNamespaceAndFunctionName;
 }
 
-void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std::ostream& funcDat )
+void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std::ostream& funcDat, const char HACK_isItStepNumber3 )
 {
 	// otvori datoteku u koju ces zapisivat funkcije
 	json::object_t cjelEntryObj = jsonData;
@@ -252,13 +227,17 @@ void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std:
 	std::unordered_map<std::string, size_t> CjelinaX;
 	Master::popisImenaFunkcijaPoCjelinama[projIdx].insert( { brojCjeline, std::move( CjelinaX ) } );
 	auto& iter = Master::popisImenaFunkcijaPoCjelinama[projIdx].find( brojCjeline )->second;
+
+
 //	std::clog << "cjelinaData -> " << cjelineData.second << "\n\n";
 	for( const auto& zadatak : cjelineData.second )
 	{
 		std::string imeZadatka = "cj1.zad4_kvadrat"; // <---- procitaj ime zadatka
 		Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( iter, projIdx, imeZadatka, brojCjeline );
-		// zapisi u datoteku na pravo mjesto sljedece:
-	//	"DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( IME_NAMESPACE::ime_funkcije );"
+		if( HACK_isItStepNumber3 == 'y' )
+		{
+			funcDat <<	"DODAJ_FUNKCIJU( " << brojCjeline << ", " << imeZadatka << " );\n";
+		}
 	}
 }
 

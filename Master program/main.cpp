@@ -26,7 +26,7 @@
 /// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije	<-
 /// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )	<-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// TODO za napravit:
+/// FEATURES za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
 /// - ucitavanje funkcija sa nazivima iz datoteke whitelist
 /// - blokiranje funkcija sa nazivima iz datoteke blacklist
@@ -36,7 +36,7 @@
 /// - vremenski ogranicit izvrsavanje zadatka
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 /// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
-/// - pogledaj iznad ove odjelka popis ogranicenja
+/// - pogledaj iznad ovog odjeljka na popis ogranicenja (oznacenih sa strelicom [ <- ])
 /// - podijelit kod u klase
 /// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
 /// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
@@ -197,7 +197,7 @@ void Master::pokretanjeFunkcija()
 		{
 			if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.size() == 0 )
 			{
-				std::cout << "Nema niti jedne ucitane funkcije :(\nVraæam se na odabir cjelina\n";
+				std::cout << "Nema niti jedne ucitane funkcije :(\nOvo se moglo dogoditi jer nisi ponovno kompajlao program kao sto si trebao ili ako si rucno izbrisao sve funkcije iz \"Function list.cpp\" datoteke ili datoteka nije podrzana u trenutacnoj verziji programa (pogledaj odjeljak \"OGRANICENJE\" na vrhu main.cpp ili se jednostavno u datoteci koju si stavio pod path \"_Projekti\\imeProjekta\\FilesToParse\\imeDatoteka\" ne nalazi niti jedna funkcija \nVraæam se na odabir cjelina\n";
 				goto stage2;
 			}
 
@@ -221,7 +221,7 @@ void Master::pokretanjeFunkcija()
 			std::cout << "\n\nAko zelis vidjeti kod za ovaj zadatak unesi enter";
 			char c = getchar();
 			if( c == '\n' || c == '\r' )
-				; // kod za ispisat taj zadatak
+				; // TODO: kod za ispisat taj zadatak
 		}
 	}
 }
@@ -276,6 +276,8 @@ void Master::init()
 	if( !firstTimeRunning || isFileEmpty )
 	{
 		jsonData = Master::_INTERNAL::create_json_Object();
+		std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program!\nIzlazim...\n";
+		exit( EXIT_SUCCESS );
 	}
 	else
 	{
@@ -296,6 +298,9 @@ void Master::init()
 				popisImenaFunkcijaPoCjelinama.push_back( {} );
 				popisFunkcija.push_back( {} );
 			}
+			popuniCijeliPopisFunkcija(/*from*/ jsonData["projekt"] );
+			for( auto& vec : popisFunkcija )
+				vec.shrink_to_fit();
 		}
 		else if( odabir == '0' )
 		{
@@ -322,11 +327,10 @@ void Master::init()
 			copy_file( curJSON, backup );
 			std::ofstream deleteJSON( nazivJSONdat, std::ios::trunc );
 			jsonData = Master::_INTERNAL::create_json_Object();
+			std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program\nIzlazim...\n";
+			exit( EXIT_SUCCESS );
 		}
 	}
-	popuniCijeliPopisFunkcija(/*from*/ jsonData["projekt"] );
-	for( auto& vec : popisFunkcija )
-		vec.shrink_to_fit();
 }
 
 nlohmann::json Master::_INTERNAL::create_json_Object()
