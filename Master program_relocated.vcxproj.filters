@@ -285,7 +285,7 @@
     <ClCompile Include="_Projekti\ThinkLAP\FilesToParse\ThinkLAPmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Function list.cpp">
+    <ClCompile Include="Data\Function list.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

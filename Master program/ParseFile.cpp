@@ -49,7 +49,7 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 	{
 		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
 		std::string datotekeProjekta = imenaDatoteka[datIdx];
-		m_datoteke.emplace_back( std::fstream( m_paths.front().data() + datotekeProjekta, std::ios::in ) );
+		m_datoteke.emplace_back( std::fstream( ( m_paths.front().data() + datotekeProjekta ), std::ios::in ) );
 
 		if( !m_datoteke[datIdx].is_open() )
 		{
@@ -363,12 +363,12 @@ std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )
 /// <summary>
 ///		Pretrazuje ostatak datoteke od lokacije na kojemu se referenca trenutacno nalazi
 /// </summary>
-/// <param name="dat"></param>
-/// <param name="imeFunkcije"></param>
-/// <returns></returns>
+/// <param name="dat"> referenca datoteke koju pretrazujes </param>
+/// <param name="imeFunkcije"> ime funkcije koje trazis u toj datoteci </param>
+/// <returns> offset ili nullopt ako nije uspjela pretraga </returns>
 std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const char* imeFunkcije )
 {
-	while( bool is_eof = findStartOfAFunction( dat ) )
+	while( bool is_not_eof = !findStartOfAFunction( dat ) )
 	{
 		std::string deklaracija = getDeclaration( dat );
 		std::string::iterator it;

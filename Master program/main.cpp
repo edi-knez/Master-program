@@ -269,10 +269,10 @@ void Master::init()
 {
 	std::cout << "DOBRODOSAO!!\n";
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
-	std::ifstream JSON_datoteka( nazivJSONdat, std::ios::in );
+	std::ifstream JSON_datoteka( "Data\\" + nazivJSONdat, std::ios::in);
 	nlohmann::json jsonData;
 	bool firstTimeRunning = JSON_datoteka.is_open();
-	bool isFileEmpty = std::filesystem::file_size( nazivJSONdat ) == 0;
+	bool isFileEmpty = std::filesystem::file_size( "Data\\" + nazivJSONdat ) == 0;
 	if( !firstTimeRunning || isFileEmpty )
 	{
 		jsonData = Master::_INTERNAL::create_json_Object();
@@ -308,24 +308,24 @@ void Master::init()
 			auto copy_file = []( std::fstream& copyFrom, std::ofstream& copyTo ) {
 				std::stringbuf buf;
 				char c;
-				while( copyFrom >> c )
+				while( c = copyFrom.get() )
 				{
 					buf.sputc( c );
 				}
-				for( const char c : buf.str() )
+				for( const char c : buf. str() )
 				{
 					copyTo.put( c );
 				}
 				};
-			std::fstream curJSON( nazivJSONdat, std::ios::in );
-			std::ofstream backup( nazivJSONdat + ".bak", std::ios::out );
+			std::fstream curJSON( "Data\\" + nazivJSONdat, std::ios::in);
+			std::ofstream backup( "Data\\" + nazivJSONdat + ".bak", std::ios::out);
 			if( !curJSON.is_open() || !backup.is_open() )
 			{
 				std::cout << "Nemogu zavrsit postupak!!\n"
 					<< "Ako problem je i dalje tu, obrisi JSON datoteku rucno\n\n";
 			}
 			copy_file( curJSON, backup );
-			std::ofstream deleteJSON( nazivJSONdat, std::ios::trunc );
+			std::ofstream deleteJSON( "Data\\" + nazivJSONdat, std::ios::trunc);
 			jsonData = Master::_INTERNAL::create_json_Object();
 			std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program\nIzlazim...\n";
 			exit( EXIT_SUCCESS );
@@ -337,10 +337,10 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 {
 	nlohmann::json jsonData;
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
-	std::ifstream JSON_existingDatoteka( nazivJSONdat, std::ios::in );
+	std::ifstream JSON_existingDatoteka( "Data\\" + nazivJSONdat, std::ios::in);
 	if( !JSON_existingDatoteka.is_open() || std::filesystem::file_size( nazivJSONdat ) == 0 )
 	{
-		std::ofstream JSON_newDatoteka( nazivJSONdat, std::ios::out );
+		std::ofstream JSON_newDatoteka( "Data\\" + nazivJSONdat, std::ios::out);
 		if( !JSON_newDatoteka.is_open() )
 		{
 			std::cout << "Nisam mogao otvorit \"InformacijeOZadacima.json\" datoteku!"
