@@ -42,7 +42,10 @@
 /// - podijelit kod u klase
 /// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
 /// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
-/// - Otkriven novi BUG -> ne handle-a ispravno za slucaj da funkcija nema namespace;
+/// poboljsaj blacklisting prilikom procesiranja zadataka (funkcije bez namespacea, funkcije naziva operator=, function overload)
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// BUGS:
+/// - No bugs known to man
 
 #include <cstdlib>
 #include <iostream>
@@ -69,7 +72,7 @@ namespace Master
 {
 	std::vector<std::string> popisProjekata;
 	// niz projekata koji sadrzi umap stringova cjelina koji sadrzi umap stringova naziva funkcija
-	extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, size_t>>> popisImenaFunkcijaPoCjelinama;
+	extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, std::pair<Zadatak, size_t>>>> popisImenaFunkcijaPoCjelinama;
 	extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
 
 	void init();
@@ -126,6 +129,12 @@ int main( const size_t args, const char* argv[] )
 }
 
 
+std::ostream& operator<<( std::ostream& dat, const Zadatak& zad )
+{
+	dat << "TEKST ZADATKA: " << zad.tekst << '\n' << "DEKLARACIJA: " << zad.deklaracija << '\n' << "KOD:\n" << zad.kod << '\n';
+	return dat;
+}
+
 void Master::pokretanjeFunkcija()
 {
 	while( bool youAreNotDone = true )
@@ -140,7 +149,7 @@ void Master::pokretanjeFunkcija()
 		std::cout << "Unesi broj -1 za izlazak iz programa ili jedan od ponudenih brojeva za projekt iz cijeg zelis pokrenut funkciju:\n";
 		{
 			size_t idx = 1;
-			for( const auto proj : Master::popisProjekata )
+			for( const auto& proj : Master::popisProjekata )
 				std::cout << idx++ << ") " << proj << '\n';
 			puts( "" );
 		}
@@ -218,14 +227,13 @@ void Master::pokretanjeFunkcija()
 		auto iterID_funkcijeZaIzvrsit = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
 		if( iterID_funkcijeZaIzvrsit != Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
 		{
-			std::cout << "\nID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second << '\n';
+			std::cout << "\nID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second.second << '\n';
 			std::cout << "Pokrecem...\n\n\n";
 			std::cout << "Funkcija je vratila sljedeæi rezultat:\n";
-			Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second]();
-			std::cout << "\n\nAko zelis vidjeti kod za ovaj zadatak unesi enter";
-			char c = getchar();
-			if( c == '\n' || c == '\r' )
-				; // TODO: kod za ispisat taj zadatak
+			Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second.second]();
+			puts( "\n====================================================" );
+			std::cout << iterID_funkcijeZaIzvrsit->second.first;
+			puts("====================================================");
 		}
 	}
 }
@@ -250,11 +258,7 @@ void rucno()
 }
 
 
-std::ofstream& operator<<( std::ofstream& dat, const Zadatak& zad )
-{
-	dat << "TEKST ZADATKA: " << zad.tekst << '\n' << "DEKLARACIJA: " << zad.deklaracija << '\n' << "KOD:\n" << zad.kod << '\n';
-	return dat;
-}
+
 
 const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath ) {
 	for( const auto& entry : fs::directory_iterator( fullPath ) )
@@ -268,6 +272,8 @@ const auto dodajItemeUVektor = []( std::vector<std::string>& container, const ch
 		container.emplace_back( fileName );
 	}
 	};
+
+
 
 void Master::init()
 {
@@ -454,6 +460,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 		puts( "\n--------------------------------------------" );
 		jsonData["projekt"] = nizProjekata;
 		JSON_newDatoteka << jsonData;
+
 
 		std::cout << "\n=====================================================================\n"
 			<< "\t\t Zadaci su serializirani u json datoteku"
