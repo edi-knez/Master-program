@@ -4,7 +4,8 @@
 /// 2)  Kompajlaj program
 /// 3)  Pokreni program
 /// 4)  Opet kompajlaj program
-/// 5)  Pokreni program 
+/// 5)	Zbog bugova potrebno je rucno otici u "Function list.cpp" datoteku i komentirat problematicne linije
+/// 6)  Pokreni program 
 /// ---------------------------------
 /// Objašnjenje:
 /// -- Prilikom prvog pokretanja programa stvorit ce se json datoteka iz koje ce se citat sve informacije.
@@ -25,6 +26,7 @@
 /// - nepodrzava template funkcije
 /// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije	<-
 /// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )	<-
+/// - nepodrzava function overloading
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FEATURES za napravit:
 /// - citaj JSON datoteku u setup.cpp prilikom ucitavanja popisa
@@ -40,6 +42,7 @@
 /// - podijelit kod u klase
 /// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
 /// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
+/// - Otkriven novi BUG -> ne handle-a ispravno za slucaj da funkcija nema namespace;
 
 #include <cstdlib>
 #include <iostream>
@@ -56,6 +59,7 @@ using namespace nlohmann;
 #include "ParseFile.hpp"
 
 extern struct Zadatak;
+
 
 extern void popuniCijeliPopisFunkcija( nlohmann::json& jsonData );
 
@@ -124,7 +128,7 @@ int main( const size_t args, const char* argv[] )
 
 void Master::pokretanjeFunkcija()
 {
-	while( bool youAreDone = false )
+	while( bool youAreNotDone = true )
 	{
 		if( Master::popisProjekata.size() == 0 )
 		{
@@ -145,14 +149,14 @@ void Master::pokretanjeFunkcija()
 		{
 			std::cin >> odabirProjekta;
 
-			if( ( odabirProjekta -= '0' ) < Master::popisProjekata.size() )
+			if( odabirProjekta == '-' )	return;	// koristi trik sto cin za unosenje znakova koristi buffer koji ce procitat znak '-' iz broja "-1"
+			if( ( odabirProjekta -= '0' ) <= Master::popisProjekata.size() )
 			{
-				odabirProjekta += 1; // pocinje od rednog broja 1, a ne od broja 0
+				odabirProjekta -= 1; // pocinje od rednog broja 1, a ne od broja 0
 				break;
 			}
 			else
 			{
-				if( odabirProjekta == -1 )	return;
 				puts( "Krivi unos!!" );
 				odabirProjekta = -1;
 			}
@@ -269,7 +273,7 @@ void Master::init()
 {
 	std::cout << "DOBRODOSAO!!\n";
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
-	std::ifstream JSON_datoteka( "Data\\" + nazivJSONdat, std::ios::in);
+	std::ifstream JSON_datoteka( "Data\\" + nazivJSONdat, std::ios::in );
 	nlohmann::json jsonData;
 	bool firstTimeRunning = JSON_datoteka.is_open();
 	bool isFileEmpty = std::filesystem::file_size( "Data\\" + nazivJSONdat ) == 0;
@@ -306,26 +310,48 @@ void Master::init()
 		{
 			std::cout << "Pravim kopiju JSON datoteke i brisem original!\n";
 			auto copy_file = []( std::fstream& copyFrom, std::ofstream& copyTo ) {
-				std::stringbuf buf;
-				char c;
-				while( c = copyFrom.get() )
+				std::string strFile;
+				while( !copyFrom.eof() )
 				{
-					buf.sputc( c );
+					strFile += copyFrom.get();
 				}
-				for( const char c : buf. str() )
-				{
-					copyTo.put( c );
-				}
+				if( strFile[strFile.size() - 1] == 'ÿ' )	strFile.resize( strFile.size() - 1 );
+				copyTo << strFile;
 				};
-			std::fstream curJSON( "Data\\" + nazivJSONdat, std::ios::in);
-			std::ofstream backup( "Data\\" + nazivJSONdat + ".bak", std::ios::out);
+			std::fstream curJSON( "Data\\" + nazivJSONdat, std::ios::in );
+			std::ofstream backup( "Data\\" + nazivJSONdat + ".bak", std::ios::out );
 			if( !curJSON.is_open() || !backup.is_open() )
 			{
 				std::cout << "Nemogu zavrsit postupak!!\n"
 					<< "Ako problem je i dalje tu, obrisi JSON datoteku rucno\n\n";
 			}
 			copy_file( curJSON, backup );
-			std::ofstream deleteJSON( "Data\\" + nazivJSONdat, std::ios::trunc);
+			curJSON.close(); backup.close();
+			std::ofstream deleteJSON( "Data\\" + nazivJSONdat, std::ios::trunc );
+			deleteJSON.close();
+
+			curJSON.open( "Data\\Function list.cpp", std::ios::in );
+			backup.open( "Data\\Function list.cpp.bak", std::ios::out );
+			if( !curJSON.is_open() || !backup.is_open() )
+			{
+				std::cout << "Nemogu zavrsit postupak kopiranja \"Function list.cpp\" datoteke!!\n"
+					<< "Ako problem je i dalje tu, obrisi datoteku rucno\n\n";
+			}
+			copy_file( curJSON, backup );
+			curJSON.close(); backup.close();
+			std::ofstream deleteFunctions( "Data\\" + nazivJSONdat, std::ios::trunc );
+			deleteFunctions.close();
+
+			curJSON.open( "Data\\Function list.bak", std::ios::in );
+			backup.open( "Data\\Function list.cpp", std::ios::out );
+			if( !curJSON.is_open() || !backup.is_open() )
+			{
+				std::cout << "Nemogu zavrsit postupak kopiranja \"Function list.bak\" datoteke!!\n"
+					<< "Ako problem je i dalje tu, obrisi datoteku rucno\n\n";
+			}
+			copy_file( curJSON, backup );
+			curJSON.close(); backup.close();
+
 			jsonData = Master::_INTERNAL::create_json_Object();
 			std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program\nIzlazim...\n";
 			exit( EXIT_SUCCESS );
@@ -337,10 +363,10 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 {
 	nlohmann::json jsonData;
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
-	std::ifstream JSON_existingDatoteka( "Data\\" + nazivJSONdat, std::ios::in);
-	if( !JSON_existingDatoteka.is_open() || std::filesystem::file_size( nazivJSONdat ) == 0 )
+	std::ifstream JSON_existingDatoteka( "Data\\" + nazivJSONdat, std::ios::in );
+	if( !JSON_existingDatoteka.is_open() || std::filesystem::file_size( "Data\\" + nazivJSONdat ) == 0 )
 	{
-		std::ofstream JSON_newDatoteka( "Data\\" + nazivJSONdat, std::ios::out);
+		std::ofstream JSON_newDatoteka( "Data\\" + nazivJSONdat, std::ios::out );
 		if( !JSON_newDatoteka.is_open() )
 		{
 			std::cout << "Nisam mogao otvorit \"InformacijeOZadacima.json\" datoteku!"

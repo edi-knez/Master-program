@@ -49,8 +49,9 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 	{
 		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
 		std::string datotekeProjekta = imenaDatoteka[datIdx];
-		m_datoteke.emplace_back( std::fstream( ( m_paths.front().data() + datotekeProjekta ), std::ios::in ) );
-
+		m_datoteke.emplace_back( std::fstream( ( m_paths.front().data() + datotekeProjekta ), std::ios::in | std::ios::out | std::ios::ate ) );
+		m_datoteke[datIdx].seekg( std::ios::beg );
+		m_datoteke[datIdx].seekp( std::ios::beg );
 		if( !m_datoteke[datIdx].is_open() )
 		{
 			std::cout << "Nisam otvorio datoteku: " << m_paths.front() << datotekeProjekta << '\n';
@@ -97,7 +98,7 @@ if( _DEBUG_FLAG && DEBUG_IDX == DEBUG_IDX ) \
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG = false );
+bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const bool DEBUG_FLAG = false);
 std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG = false );
@@ -113,9 +114,9 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_F
 			DUMP_FILE();
 		}
 #endif
-
-		bool is_eof = findStartOfAFunction( dat );
-		if( !is_eof )
+		/*std::streampos unused = 0;*/
+		bool is_eof = findStartOfAFunction( dat/*, unused*/);
+		if( !is_eof ) 
 		{
 			auto zad = new Zadatak;
 			zad->tekst = getKomentar( dat, DEBUG_FLAG );
@@ -128,9 +129,9 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_F
 	return retVal;
 }
 
-bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
+bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const bool DEBUG_FLAG)
 {
-	auto ignoreRestOfALine = [ & ]()
+	auto ignoreRestOfALine = [&]()
 		{
 			char c;
 			while( c = dat.get() )
@@ -138,7 +139,7 @@ bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
 				if( dat.eof() || c == '\n' )	break;
 			}
 		};
-
+	
 	std::string firstWord;
 	firstWord.reserve( 30 );
 	// TODO: mjesto za razmislit u buducnosti
@@ -154,6 +155,7 @@ bool findStartOfAFunction( std::fstream& dat, const bool DEBUG_FLAG )
 				++brojProvjereZnakovaDeklaracije;
 				if( c == '\n' )
 				{
+					/*brojRedaka += 1;*/
 					while( !dat.eof() )	// moze se dogodit da je deklaracija na zadnjoj liniji koda
 					{
 						c = dat.get();
@@ -221,7 +223,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 /////////////////////
 
 
-	auto pronadiPocetakKomentara = [ & ]()
+	auto pronadiPocetakKomentara = [&]()
 		{
 			while( bool notBeginingOfFile = dat.tellg() > 0 && !novaLinijaIspredZnakaKomentara )
 			{
@@ -245,10 +247,10 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 #endif
 			dat.get(); /// preskoci '//' , znakove komentara
 			dat.get();
-				};
+			};
 
 
-	auto spremiLinijuUString = [ & ]()
+	auto spremiLinijuUString = [&]()
 		{
 			previousPosInComment = currentPosInComment;
 			currentPosInComment = dat.tellg();
@@ -296,7 +298,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 			if( bool notEndingOfNextine = dat.peek() == '\n' )	break;
 			vratiSeZa1ZnakUnazad( dat );
 		}
-		}
+	}
 
 	std::string retVal;	// dodaj sve linije teksta u jednu cjelinu
 	while( !tekstZadatka.empty() )
@@ -312,9 +314,9 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
 
 	return retVal;
-	}
+		}
 
-// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
+	// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 {
 	while( isspace( dat.peek() ) )
@@ -368,22 +370,24 @@ std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )
 /// <returns> offset ili nullopt ako nije uspjela pretraga </returns>
 std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const char* imeFunkcije )
 {
-	while( bool is_not_eof = !findStartOfAFunction( dat ) )
+	/*std::streampos brojRedaka = 0;
+	brojRedaka += 1;*/
+	while( bool is_not_eof = !findStartOfAFunction( dat/*, brojRedaka*/) )
 	{
 		std::string deklaracija = getDeclaration( dat );
 		std::string::iterator it;
 		// pronadi pocetak povratnog tipa
-		it = std::find_if( deklaracija.begin(), deklaracija.end(), [ &it ]( char c )
+		it = std::find_if( deklaracija.begin(), deklaracija.end(), [&it]( char c )
 						   {
 							   return isalpha( c );
 						   } );
 		// pronadi kraj povratnog tipa
-		it = std::find_if( it, deklaracija.end(), [ & ]( char c )
+		it = std::find_if( it, deklaracija.end(), [&]( char c )
 						   {
 							   return  isspace( c );
 						   } );
 		// pronadi pocetak imena funkcije
-		it = std::find_if( it, deklaracija.end(), [ & ]( char c )
+		it = std::find_if( it, deklaracija.end(), [&]( char c )
 						   {
 							   return isalpha( c );
 						   } );
@@ -400,8 +404,8 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 		}
 
 		std::string pronadenoIme( it, itEnd );
-		if( strcmp( pronadenoIme.data(), imeFunkcije ) == 0 )	return dat.tellg();
-		else skipFuncBody( dat );
+		if( strcmp( pronadenoIme.data(), imeFunkcije ) == 0 )	return dat.tellg() /*( dat.tellg() - brojRedaka )*/;
+		else																skipFuncBody( dat/*, brojRedaka*/);
 	}
 	return {};
 }
@@ -412,12 +416,13 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 ///		SMATRA SE da je pokazivac trenutne lokacije u datoteci na znaku za pocetak funkcije koje zelis preskocit ( '{' )
 /// </summary>
 /// <param name="dat"> referenca datotecnog objekta gdje preskaces tijelo funkcije </param>
-void ParseFile::skipFuncBody( std::fstream& dat )
+void ParseFile::skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/)
 {
 	size_t stack = 0;
 	char c;
 	while( dat >> c )
 	{
+		/*brojPreskocenihLinija += c == '\n';*/
 		stack += c == '{';
 		stack -= c == '}';
 		if( stack == 0 )	break;

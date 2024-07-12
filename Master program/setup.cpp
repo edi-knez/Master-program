@@ -27,8 +27,8 @@ extern void finish_Function_list__cpp_file( std::fstream& datoteka );
 extern void autoAddeedFunctionsFromFiles();
 
 // dovrsi vracanje u proslo stanje gdje je bilo moguce napravit (vratit datoteku za Macro funkcije, update upotrebu u mainu)
-#define DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( IME_NAMESPACE::ime_funkcije )
-#define DODAJ_FUNKCIJU2( ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( ime_funkcije )
+//#define DODAJ_FUNKCIJU( IME_NAMESPACE, ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( IME_NAMESPACE::ime_funkcije )
+//#define DODAJ_FUNKCIJU2( ime_funkcije ) Master::popisFunkcija[projIdx].emplace_back( ime_funkcije )
 
 ///////////////////////////////////
 /// ////////////////////////////////
@@ -130,7 +130,9 @@ json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, s
 		/// process whitelisting
 		///...
 		/// process blacklisting
-		/// ...
+	/// TOOO: handle-aj slucaj da nema nemaspace-a da ga mozes blacklistat
+		if( namespaceName == "" )	continue;
+		if( funcName == "operator=" ) continue;
 
 		// zadatak = { { "tekst", "pokrece zad1" }, { "deklaracija", "void zad2()" }, {"func body", "{ int i = 5; }" } };
 		zadatak["tekst"] = zad->tekst;
@@ -159,13 +161,18 @@ void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 		// zapisi u datoteku na pravo mjesto:
 
 		// ukoliko funkcija sa tim imenom postoji, pronaci ce je. U suprotnom neces moci kompajlat program.
-		while( !pf.getPositionOfFunction( datotekaZaSpremanjeFunkcija, "autoAddeedFunctionsFromFiles" ).has_value() && !datotekaZaSpremanjeFunkcija.eof() )
-			;
+		std::optional<size_t> writingPosition;
+		do
+		{
+			writingPosition = pf.getPositionOfFunction( datotekaZaSpremanjeFunkcija, "autoAddeedFunctionsFromFiles" );
+		} while( !writingPosition.has_value() && !datotekaZaSpremanjeFunkcija.eof() );
+
 		if( datotekaZaSpremanjeFunkcija.eof() )
 		{
 			std::cout << "Ovo se jedino moglo dogodit jer si izbrisao forward deklaraciju funkcije \"autoAddedFunctionsFromFiles\" sa vrha ove .cpp datoteke\nIzlazim...\n";
 			exit( EXIT_FAILURE );
 		}
+		datotekaZaSpremanjeFunkcija.seekp(writingPosition.value() + 2 );
 	}
 	/// //////////////////////////////////////////////////////////
 
@@ -213,27 +220,36 @@ void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std:
 {
 	// otvori datoteku u koju ces zapisivat funkcije
 	json::object_t cjelEntryObj = jsonData.begin().value();
-//	std::clog << "\n\n" << cjelEntryObj << "\n\n";
+///	std::clog << "\n\n" << cjelEntryObj << "\n\n";
 	const auto& extractedCjelinaEntryValue = cjelEntryObj.extract( "Broj cjeline" );
 	// nazivi projekata su spremljeni u std::map pod. strukturu u json objektu, znaci sortirani su
 	std::pair<std::string, json::array_t> cjelineData;
 	cjelineData = extractedCjelinaEntryValue._Getptr()->_Myval;
 	for( const auto& cjelina : cjelineData.second )
 	{
-		std::string brojCjeline = std::move( cjelina.begin().key() );
+		const std::string& brojCjeline = cjelina.begin().key();
 		cjelEntryObj = cjelina.begin().value();
+
 		std::unordered_map<std::string, size_t> CjelinaX;
 		Master::popisImenaFunkcijaPoCjelinama[projIdx].insert( { brojCjeline, std::move( CjelinaX ) } );
 		auto& iter = Master::popisImenaFunkcijaPoCjelinama[projIdx].find( brojCjeline )->second;
-
-		std::clog << "cjelinaData -> " << cjelineData.second << "\n\n";
-		for( const auto& zadatak : cjelEntryObj )
+		for( const auto& zadatak : cjelEntryObj["Zadaci"] )
 		{
-			std::string imeZadatka = "cj1.zad4_kvadrat"; // <---- procitaj ime zadatka
+			const std::string& deklaracija = zadatak["deklaracija"];
+			auto endIt = std::find( deklaracija.rbegin(), deklaracija.rend(), '(' );
+			auto startIt = std::find_if( endIt, deklaracija.rend(), []( char c )
+										 {
+											 return c == ':' || isspace( c );
+										 } );
+			++endIt;
+			size_t startOffset = deklaracija.rend() - startIt;
+			size_t endOffset = deklaracija.rend() - endIt;
+			std::string imeZadatka( deklaracija.data() + startOffset, deklaracija.data() + endOffset );
 			Master::_INTERNAL::insertFunctionNameAndIDIntoUMap( iter, projIdx, imeZadatka, brojCjeline );
 			if( HACK_isItStepNumber3 == 'y' )
 			{
-				funcDat << "DODAJ_FUNKCIJU( " << brojCjeline << ", " << imeZadatka << " );\n";
+				if( true )	funcDat << '\t' << "DODAJ_FUNKCIJU( " << projIdx << ", " << brojCjeline << ", " << imeZadatka << " );\r";
+			///	else		funcDat << "DODAJ_FUNKCIJU2( " << imeZadatka << " );\n";
 			}
 		}
 	}
