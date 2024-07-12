@@ -118,6 +118,7 @@ json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, s
 	json::array_t zadaci = json::array();
 	json::object_t zadatak = json::object();
 
+	std::unordered_map<std::string, json::array_t> foundNamespaces;
 	std::string namespaceName;
 
 	for( const Zadatak* zad : vecZadaci )
@@ -134,14 +135,21 @@ json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, s
 		if( namespaceName == "" )	continue;
 		if( funcName == "operator=" ) continue;
 
+		if( foundNamespaces.find( namespaceName ) == foundNamespaces.end() )
+		{
+			foundNamespaces[namespaceName] = json::array();
+		}
+
 		// zadatak = { { "tekst", "pokrece zad1" }, { "deklaracija", "void zad2()" }, {"func body", "{ int i = 5; }" } };
 		zadatak["tekst"] = zad->tekst;
 		zadatak["deklaracija"] = zad->deklaracija;
 		zadatak["kod"] = zad->kod;
 
 		zadaci.emplace_back( zadatak );
+		foundNamespaces[namespaceName].emplace_back( zadaci );
 	}
-	brojCjeline[namespaceName]["Zadaci"] = zadaci;
+	for( const auto& entry : foundNamespaces )
+		brojCjeline[entry.first]["Zadaci"] = entry.second;
 	return brojCjeline;
 }
 
@@ -172,7 +180,7 @@ void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 			std::cout << "Ovo se jedino moglo dogodit jer si izbrisao forward deklaraciju funkcije \"autoAddedFunctionsFromFiles\" sa vrha ove .cpp datoteke\nIzlazim...\n";
 			exit( EXIT_FAILURE );
 		}
-		datotekaZaSpremanjeFunkcija.seekp(writingPosition.value() + 2 );
+		datotekaZaSpremanjeFunkcija.seekp( writingPosition.value() + 2 );
 	}
 	/// //////////////////////////////////////////////////////////
 
