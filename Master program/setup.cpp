@@ -117,6 +117,7 @@ json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, s
 	json::object_t zadatak = json::object();
 
 	std::string namespaceName;
+	std::unordered_map<std::string, bool /*unused*/> poznataImenaFunkcija;
 
 	for( const Zadatak* zad : vecZadaci )
 	{
@@ -124,17 +125,36 @@ json::object_t Master::_INTERNAL::processZadatke( json::object_t& imeProjekta, s
 		namespaceName = std::string( getNamespace( *zad, brojPreskocenihZnakova ) );
 		std::string funcName = std::string( getFuncName( *zad, brojPreskocenihZnakova ) );
 		std::string_view funcArguments = getFuncArguments( *zad, brojPreskocenihZnakova );	// garantirano da je terminiran
+		size_t numOfFuncArguments = 0;
+		auto curIt = std::find_if_not( funcArguments.begin() + 1, funcArguments.end(), []( char c )
+								   {
+									   return isspace(c);
+								   });
+		numOfFuncArguments += !isspace(*curIt) && *curIt != ')';
+		while( curIt != funcArguments.end() - 1)
+		{
+			numOfFuncArguments += *curIt == ',';
+			++curIt;
+		}
 
 		/// process whitelisting
 		///...
 		/// process blacklisting
 		if( funcName == "operator=" )									continue;
 		if( namespaceName == "" || namespaceName == funcName )			continue;	/// za sada nemoze handle-at funkcije bez namespacea
+		if( poznataImenaFunkcija.find(funcName) != poznataImenaFunkcija.end() )
+		{ 
+			continue;
+		}
+		else
+		{
+			poznataImenaFunkcija.insert({funcName, true});
+		}
+		if( numOfFuncArguments > 0 )									continue;
 		if( grupiraniZadaciPoNamespaceu.find( namespaceName ) == grupiraniZadaciPoNamespaceu.end() )
 		{
 			grupiraniZadaciPoNamespaceu[namespaceName] = json::array();
 		}
-
 
 		// zadatak = { { "tekst", "pokrece zad1" }, { "deklaracija", "void zad2()" }, {"func body", "{ int i = 5; }" } };
 		zadatak["tekst"] = zad->tekst;
