@@ -13,530 +13,308 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Source Files\C++ knjiga">
+      <UniqueIdentifier>{b291d241-5485-4bea-a8d3-215c2f6d6585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\C++ knjiga">
+      <UniqueIdentifier>{c5674ac9-0e00-40d8-b59b-9f55c0610caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FESB">
+      <UniqueIdentifier>{208aa9ea-0efa-48c7-974d-663a4b8d374d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FESB">
+      <UniqueIdentifier>{2405fa0b-1da1-4869-b927-a95904737764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PracticalCppProg">
+      <UniqueIdentifier>{e30ea12d-5f2e-4d5a-b499-fcdfe7fdcc3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PracticalCppProg">
+      <UniqueIdentifier>{319a487d-0609-40e4-92fd-28398b7c332d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ThinkLAP">
+      <UniqueIdentifier>{c7393d1e-1088-424b-b1ab-a2298e534660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ThinkLAP">
+      <UniqueIdentifier>{4d7ed8b9-80ab-4b07-952f-76c4be5b6656}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="master program\main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina1.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\bonus.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina2.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\C++KnjigaMain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina3.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\CD.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina4.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Clan_obitelji.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina5.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Dijete.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina6.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\DVD.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina7.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\iarray.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina8.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\KlNiz.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Kolegij.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Kompleks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Krug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\LP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\MP3CD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\OOP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Ploca.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Roditelj.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Tocka.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Tocka2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Tocka2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\Tocka3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\c++ knjiga\z121.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\fesb\Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\b_Number.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\b_Oblik.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina9.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\razno\Checkbook.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Decimal.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Krug.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Dogs.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Tocka.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\d_BlankStr_matcher.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Tocka2.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\d_Dek.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\KlNiz.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\d_Hex.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\iarray.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\d_Krug.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Kompleks.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\d_Kvadrat.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\DVD.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\d_Number_mather.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\CD.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\d_Okt.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\LP.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\d_Trokut.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\C++KnjigaMain.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\File_16C.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina10.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\FlashCards.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\MP3CD.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Horses.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Tocka3D.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\infOsobi.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Tocka2D.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Line_number.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Roditelj.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\List.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Ploca.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Mail_label.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\OOP.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Niz_template.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Dijete.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\PageFormatting.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Clan_obitelji.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Parsity.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\c++ knjiga\Kolegij.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Pigs.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\FESB\FilesToParse\Programiranje 2.cpp">
+      <Filter>Source Files\FESB</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\razno\Queue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\Razlomak.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\ShareFile1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\ShareFile2_.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\ShareFileInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\Small_set.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\Stack_Instance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\StringDouble.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\String_matcher.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\SymbolTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\Time.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\razno\Word_match.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\thinklap\Automobile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\thinklap\myCharPtr.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\FESB\FilesToParse\Programiranje 2(7- 12 vjezbe).cpp">
+      <Filter>Source Files\FESB</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Poglavlje2.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Poglavlje3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Poglavlje4.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Poglavlje5.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Poglavlje6.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Poglavlje7.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Poglavlje8.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\thinklap\StringLinkedList.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_projekti\thinklap\myCharPtr.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\thinklap\Automobile.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Student.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
     </ClCompile>
-    <ClCompile Include="_projekti\thinklap\test_Zadaci_array.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\thinklap\Vjezbe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_projekti\thinklap\Zadaci_array.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="_Projekti\razno\FilesToParse\raznoMain.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
     </ClCompile>
     <ClCompile Include="_projekti\thinklap\Zadaci_List.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\thinklap\Zadaci_array.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="_Projekti\ThinkLAP\FilesToParse\ThinkLAPmain.cpp">
+      <Filter>Source Files\ThinkLAP</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\c++ knjiga\z121.cpp">
+      <Filter>Source Files\C++ knjiga</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Word_match.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\b_Number.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\b_Oblik.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\c++ knjiga\bonus.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\d_BlankStr_matcher.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\d_Dek.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\d_Hex.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\d_Krug.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\d_Kvadrat.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\d_Number_mather.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\d_Okt.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\d_Trokut.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Decimal.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Dogs.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\File_16C.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\FlashCards.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Horses.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\infOsobi.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Line_number.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\List.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Mail_label.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Niz_template.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\PageFormatting.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Parsity.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Pigs.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Queue.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Razlomak.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\ShareFile1.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\ShareFile2_.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\ShareFileInterface.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Small_set.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\fesb\Source.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Stack_Instance.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\String_matcher.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\StringDouble.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\thinklap\StringLinkedList.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\SymbolTable.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\thinklap\test_Zadaci_array.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\razno\Time.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
+    </ClCompile>
+    <ClCompile Include="_projekti\thinklap\Vjezbe.cpp">
+      <Filter>Source Files\PracticalCppProg</Filter>
     </ClCompile>
     <ClCompile Include="Master program\setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Master program\ParseFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina5.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina6.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina7.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina8.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina9.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina10.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\FESB\FilesToParse\Programiranje 2(7- 12 vjezbe).cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\FESB\FilesToParse\Programiranje 2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\razno\FilesToParse\raznoMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_Projekti\ThinkLAP\FilesToParse\ThinkLAPmain.cpp">
+    <ClCompile Include="master program\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Data\Function list.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Master program\ParseFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="_projekti\c++ knjiga\CD.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina1.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina10.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina4.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina5.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina6.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina7.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina8.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Cjelina9.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Clan_obitelji.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Dijete.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\DVD.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\iarray.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\KlNiz.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Kolegij.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Kompleks.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Krug.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\LP.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\MP3CD.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\OOP.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Ploca.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\resource.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Roditelj.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Tocka.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Tocka2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Tocka2D.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\c++ knjiga\Tocka3D.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\b_Number.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\b_Oblik.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Checkbook.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Decimal.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Dogs.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\d_BlankStr_matcher.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\d_Dek.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\d_Hex.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\d_Krug.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\d_Kvadrat.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\d_Number_mather.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\d_Okt.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\d_Trokut.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\File_16C.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\FlashCards.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Horses.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\infOsobi.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Line_number.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\List.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Mail_label.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Niz_template.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\PageFormatting.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Parsity.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Pigs.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Queue.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Razlomak.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\ShareFile1.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\ShareFile2_.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\ShareFileInterface.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Small_set.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Stack_Instance.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\StringDouble.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\String_matcher.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\SymbolTable.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Time.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\razno\Word_match.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Automobile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\myCharPtr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Poglavlje2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Poglavlje3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Poglavlje4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Poglavlje5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Poglavlje6.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Poglavlje7.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Poglavlje8.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\StringLL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\StringLLAdv.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Student.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Zadaci_array.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Zadaci_List.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\nPog6.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_projekti\thinklap\Vjezbe.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Master program\ParseFile.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="_Projekti\razno\_helperFunc_raznoMain.hpp">
@@ -546,6 +324,252 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="_Projekti\ThinkLAP\_helperFunc_ThinkLAP.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina1.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina2.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina3.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina4.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina5.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina6.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina7.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina8.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina10.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Cjelina9.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Krug.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Tocka.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Tocka2.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\KlNiz.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Kompleks.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\iarray.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\CD.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\DVD.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\LP.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\MP3CD.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Ploca.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Tocka2D.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\OOP.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Kolegij.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Clan_obitelji.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Roditelj.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Dijete.hpp">
+      <Filter>Header Files\C++ knjiga</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Poglavlje2.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Poglavlje3.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Poglavlje4.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Poglavlje5.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Poglavlje6.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Poglavlje7.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Poglavlje8.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Student.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Automobile.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\myCharPtr.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\nPog6.hpp">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Zadaci_array.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Zadaci_List.h">
+      <Filter>Header Files\ThinkLAP</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\b_Number.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\b_Oblik.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Checkbook.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\d_BlankStr_matcher.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\d_Dek.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\d_Hex.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\d_Krug.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\d_Kvadrat.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\d_Number_mather.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\d_Okt.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\d_Trokut.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Decimal.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Dogs.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\File_16C.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\FlashCards.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Horses.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\infOsobi.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Line_number.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\List.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Mail_label.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Niz_template.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\PageFormatting.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Parsity.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Pigs.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Word_match.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Queue.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Razlomak.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\resource.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\ShareFile1.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\ShareFile2_.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\ShareFileInterface.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Small_set.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Stack_Instance.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\String_matcher.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\StringDouble.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\StringLL.h">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\StringLLAdv.h">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\SymbolTable.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\razno\Time.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\c++ knjiga\Tocka3D.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="_projekti\thinklap\Vjezbe.hpp">
+      <Filter>Header Files\PracticalCppProg</Filter>
+    </ClInclude>
+    <ClInclude Include="Master program\ParseFile.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

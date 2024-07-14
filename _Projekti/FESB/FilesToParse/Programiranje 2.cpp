@@ -271,19 +271,19 @@ void FESB::vj3_3()
 */
 void FESB::vj3_4()
 {
-	//for( int i = 1; i <= 100; ++i )
-	//{
-	//	bool primitivan = false;
-	//	for( int j = 2; j < i / 2 + 1; ++j )	// svi brojevi koji su veci od i / 2 + 1 nemogu biti primitivni
-	//	{
-	//		if( i % j == 0 )
-	//		{
-	//			primitivan = true;
-	//			break;
-	//		}
-	//	}
-	//	if( primitivan )	printf( "Broj %d je primitivan\n", i );
-	//}
+	for( int i = 1; i <= 100; ++i )
+	{
+		bool primitivan = false;
+		for( int j = 2; j < i / 2 + 1; ++j )	// svi brojevi koji su veci od i / 2 + 1 nemogu biti primitivni
+		{
+			if( i % j == 0 )
+			{
+				primitivan = true;
+				break;
+			}
+		}
+		if( primitivan )	printf( "Broj %d je primitivan\n", i );
+	}
 }
 
 

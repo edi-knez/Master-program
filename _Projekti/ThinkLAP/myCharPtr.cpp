@@ -193,7 +193,7 @@ void myCharptr::remove( char pos, char amount )
 	char actualAmount = 0;
 	// nothing to do while i < pos
 	// from pos to end shift all characters amount x to left
-	for( int i = pos, end = getLength();
+	for( int i = pos, end = getLength() - amount;
 		 i <= end;	// no need to copy garbage
 		 ++i, actualAmount += actualAmount < amount )
 		content[i] = content[i + amount];
