@@ -310,6 +310,7 @@ void Master::init()
 	std::cout << "DOBRODOSAO!!\n";
 	puts( "----------------------" );
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
+	std::ofstream( "Data\\" + nazivJSONdat, std::ios::app );
 	std::ifstream JSON_datoteka( "Data\\" + nazivJSONdat, std::ios::in );
 	nlohmann::json jsonData;
 	bool firstTimeRunning = JSON_datoteka.is_open();

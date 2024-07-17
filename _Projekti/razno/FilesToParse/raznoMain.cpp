@@ -98,7 +98,7 @@ void PracticalCppProg::pog11_5()
 	{
 		for( int j = 0; j < 4; ++j )
 		{
-			bitoviDijelaBroja[4 - j] = ( odvojeno[i] & 0x01 ) + '0';
+			bitoviDijelaBroja[3 - j] = ( odvojeno[i] & 0x01 ) + '0';
 			odvojeno[i] >>= 1;
 		}
 		std::cout << bitoviDijelaBroja << "\n";
