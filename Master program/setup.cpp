@@ -93,21 +93,6 @@ std::pair<std::string, std::string> Master::_INTERNAL::getNamespaceAndFunctionNa
 	offset = startOfFuncArguments - deklaracija.begin();
 	return { nmsName, funcName };
 }
-/*
-	std::string_view Master::_INTERNAL::getNamespace(const Zadatak& zad, size_t& offset)
-	{
-		std::string_view retVal = universallyExtractFromDeclaration( zad, offset );
-		++offset; // za svaki ':' znak
-		++offset;
-		return retVal;
-	}
-
-	std::string_view Master::_INTERNAL::getFuncName( const Zadatak& zad, size_t& offset )
-	{
-		std::string_view retVal = universallyExtractFromDeclaration( zad, offset );
-		return retVal;
-	}
-*/
 
 std::string_view Master::_INTERNAL::getFuncArguments( const std::string& deklaracija, size_t& offset )
 {
@@ -169,7 +154,10 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 					// Subscript Operator : []
 					// Function call : ( )
 				};
-				if( overloadableOperators.find( std::string_view( funcName.begin() + keywordOperator.size(), funcName.end() ).data() ) != overloadableOperators.end() )	continue;
+
+				auto offsetBegin = std::find_if_not( funcName.begin() + keywordOperator.size() + 1, funcName.end(), []( char c ) { return isspace( c ); } );
+
+				if( overloadableOperators.find( std::string_view( offsetBegin, funcName.end() ).data() ) != overloadableOperators.end() )	continue;
 			}
 		}
 		if( namespaceName == "" )			continue;	/// za sada nemoze handle-at funkcije bez namespacea
@@ -214,6 +202,7 @@ void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 	char HACK_isItStepNumber3;
 	std::cout << "Ako si na koraku 3) (za vise informacija pogledaj na vrh \"main.cpp\" datoteke) , unesi znak y: ";
 	std::cin >> HACK_isItStepNumber3;
+	puts( "\n==========================================================================================" );
 	puts( "" );
 	if( HACK_isItStepNumber3 == 'y' )
 	{

@@ -26,7 +26,7 @@
 /// - nepodrzava template funkcije
 /// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije	<- (testiraj je li problem rijesen)
 /// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )	<-
-/// - nepodrzava function overloading
+/// - nepodrzava function overloading -> https://www.youtube.com/watch?v=NMWv2vQQjXE
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FEATURES za napravit:
 /// - ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
@@ -42,6 +42,7 @@
 /// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
 /// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
 /// - otklonit sto vise nepravilnosti prijavljene od stane clang tidy alata
+/// - napravi da se datoteka "Function list.cpp" zadnja kompajla
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// BUGS:
 /// - No bugs known to man
@@ -79,6 +80,7 @@ namespace Master
 	namespace _INTERNAL
 	{
 		json::object_t processZadatke( std::vector<Zadatak*>& zadaci );
+		void enforceCorrectBehaviour();
 		nlohmann::json create_json_Object();
 		nlohmann::json getJSONFromFile();
 	};
@@ -136,16 +138,18 @@ std::ostream& operator<<( std::ostream& dat, const Zadatak& zad )
 
 void Master::pokretanjeFunkcija()
 {
-	while( bool youAreNotDone = true )
-	{
 
-	stage1:
-		if( Master::popisProjekata.size() == 0 )
-		{
-			std::cout << "Nema niti jednog ucitanog projekta :(\nIzlazim...\n";
-			puts( "==========================================================================================" );
-			exit( EXIT_SUCCESS );
-		}
+	if( Master::popisProjekata.size() == 0 )
+	{
+		std::cout << "Nema niti jednog ucitanog projekta :(\nIzlazim...\n";
+		puts( "==========================================================================================" );
+		exit( EXIT_SUCCESS );
+	}
+	bool vratiSeKorakUnazad = false;
+	char stage = 1;
+	while( stage > 0 )
+	{
+		vratiSeKorakUnazad = false;
 		std::cout << "\nUnesi broj -1 za izlazak iz programa ili jedan od ponudenih brojeva za projekt iz cijeg zelis pokrenut funkciju:\n";
 		puts( "--------------------------------------------------------" );
 		{
@@ -160,7 +164,7 @@ void Master::pokretanjeFunkcija()
 			std::cout << "Tvoj odabir: ";
 			std::cin >> odabirProjekta;
 
-			if( odabirProjekta == '-' )	return;	// koristi trik sto cin za unosenje znakova koristi buffer koji ce procitat znak '-' iz broja "-1"
+			if( odabirProjekta == '-' )	{ --stage; vratiSeKorakUnazad = true; break; }	// koristi trik sto cin za unosenje znakova koristi buffer koji ce procitat znak '-' iz broja "-1"
 			if( ( odabirProjekta -= '0' ) <= Master::popisProjekata.size() )
 			{
 				odabirProjekta -= 1; // pocinje od rednog broja 1, a ne od broja 0
@@ -172,103 +176,95 @@ void Master::pokretanjeFunkcija()
 				odabirProjekta = -1;
 			}
 		} while( odabirProjekta < 0 );
+		if( vratiSeKorakUnazad )	break;
 
-	stage2:
-		std::cout << "\nOdabrao si projekt " << Master::popisProjekata[odabirProjekta] << '\n';
-		puts( "--------------------------------------------------------" );
-
-		if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].size() == 0 )
+		++stage;
+		while( stage > 1 )
 		{
-			std::cout << "\nNema niti jedne ucitane cjeline :(\nVraæam se na odabir projekta\n";
-			puts( "==========================================================================================" );
-			Master::popisImenaFunkcijaPoCjelinama.erase( Master::popisImenaFunkcijaPoCjelinama.begin() + odabirProjekta );
-			Master::popisProjekata.erase( Master::popisProjekata.begin() + odabirProjekta );
-			goto stage1;
-		}
+			vratiSeKorakUnazad = false;
+			std::cout << "\nOdabrao si projekt " << Master::popisProjekata[odabirProjekta] << '\n';
+			puts( "--------------------------------------------------------" );
 
-		std::cout << "\nIz koje cjeline zelis pokrenut funkciju? Ako se zelis vratit na odabir projekta, unesi -1. A ako zelis izac iz programa unesi -2\n";
-		puts( "--------------------------------------------------------" );
-
-		for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta] )
-			std::cout << str.first << '\n';
-		std::cout << "\nTvoj odabir: ";
-		std::string odabirCjeline;
-		do
-		{
-			std::cin >> odabirCjeline;
-			if( odabirCjeline == "-1" )			goto stage1;
-			else if( odabirCjeline == "-2" )	exit( EXIT_SUCCESS );
-			if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline ) == Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].end() )
+			if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].size() == 0 )
 			{
-				puts( "Krivi unos!!!" );
+				std::cout << "\nNema niti jedne ucitane cjeline :(\nVraæam se na odabir projekta\n";
+				puts( "==========================================================================================" );
+				--stage;
+				break;
 			}
-			else	break;
-		} while( true );
 
-	stage3:
-		std::cout << "\nOdabrao si projekt " << Master::popisProjekata[odabirProjekta] << " - " << odabirCjeline;
-		puts( "\n--------------------------------------------------------" );
+			std::cout << "\nIz koje cjeline zelis pokrenut funkciju? Ako se zelis vratit na odabir projekta, unesi -1. A ako zelis izac iz programa unesi -2\n";
+			puts( "--------------------------------------------------------" );
 
-		if( Master::popisFunkcija[odabirProjekta].size() == 0 )
-		{
-			std::cout << "\n\nNema niti jedne ucitane funkcije :(\nOvo se moglo dogoditi jer nisi ponovno kompajlao program kao sto si trebao ili ako si rucno izbrisao sve funkcije iz \"Function list.cpp\" datoteke ili datoteka nije podrzana u trenutacnoj verziji programa (pogledaj odjeljak \"OGRANICENJE\" na vrhu main.cpp ili se jednostavno u datoteci koju si stavio pod path \"_Projekti\\imeProjekta\\FilesToParse\\imeDatoteka\" ne nalazi niti jedna funkcija.\nVracam se na odabir cjeline\n";
-
-			puts( "==========================================================================================" );
-			Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].erase( odabirCjeline );
-			goto stage2;
-		}
-		if( Master::popisFunkcija[odabirProjekta].size() < Master::popisImenaFunkcijaPoCjelinama[odabirProjekta][odabirCjeline].size() )
-		{
-			std::cout << "\n\nBroj funkcija pronadenih u datoteci \"Function list.cpp\" ne odgovara broje zadataka koji su spremljeni u json datoteku za ovu Cjelinu\nVracam se na odabir cjeline\n";
-			puts( "==========================================================================================" );
-			auto item = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].begin();
+			for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta] )
+				std::cout << str.first << '\n';
+			std::cout << "\nTvoj odabir: ";
+			std::string odabirCjeline;
 			do
 			{
-
-				if( item->first >= odabirCjeline )	
+				bool vratiSeNazad = false;
+				std::cin >> odabirCjeline;
+				if( odabirCjeline == "-1" )			{ --stage; vratiSeKorakUnazad = true; break; }
+				else if( odabirCjeline == "-2" )	exit( EXIT_SUCCESS );
+				if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline ) == Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].end() )
 				{
-					Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].erase( item->first );
-					item = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].begin();
+					puts( "Krivi unos!!!" );
 				}
-				item = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].size() > 0 ? ++item : item;
-			} while( item != Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].end() );
-			
-			goto stage2;
-		}
+				else	break;
+			} while( true );
+			if( vratiSeKorakUnazad )	break;
 
-		std::cout << "\nIzaberi jednu od ponudenih funkcija koju zelis pokrenut:\n";
-		puts("--------------------------------------------------------");
-		for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second )
-		{
-			puts( str.first.c_str() );
-		}
-		std::cout << "\nAko se zelis vratit na odabir cjeline, unesi -1. A ako zelis izac iz programa unesi -2\n";
-		puts( "--------------------------------------------------------" );
-		std::cout << "\nTvoj odabir: ";
-		std::string odabirFunkcije;
-		do
-		{
-			std::cin >> odabirFunkcije;
-			if( odabirFunkcije == "-1" )		goto stage2;
-			else if( odabirFunkcije == "-2" )	exit( EXIT_SUCCESS );
-			if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije )
-				== Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
+			++stage;
+			while( stage > 2 )
 			{
-				puts( "Krivi unos!!!" );
+				vratiSeKorakUnazad = false;
+				std::cout << "\nOdabrao si projekt " << Master::popisProjekata[odabirProjekta] << " - " << odabirCjeline;
+				puts( "\n--------------------------------------------------------" );
+
+				if( Master::popisFunkcija[odabirProjekta].size() == 0 )
+				{
+					std::cout << "\n\nNema niti jedne ucitane funkcije :(\nOvo se moglo dogoditi jer nisi ponovno kompajlao program kao sto si trebao ili ako si rucno izbrisao sve funkcije iz \"Function list.cpp\" datoteke ili datoteka nije podrzana u trenutacnoj verziji programa (pogledaj odjeljak \"OGRANICENJE\" na vrhu main.cpp ili se jednostavno u datoteci koju si stavio pod path \"_Projekti\\imeProjekta\\FilesToParse\\imeDatoteka\" ne nalazi niti jedna funkcija.\nVracam se na odabir cjeline\n";
+
+					puts( "==========================================================================================" );
+					--stage;
+					break;
+				}
+
+				std::cout << "\nIzaberi jednu od ponudenih funkcija koju zelis pokrenut:\n";
+				puts( "--------------------------------------------------------" );
+				for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second )
+				{
+					puts( str.first.c_str() );
+				}
+				std::cout << "\nAko se zelis vratit na odabir cjeline, unesi -1. A ako zelis izac iz programa unesi -2\n";
+				puts( "--------------------------------------------------------" );
+				std::cout << "\nTvoj odabir: ";
+				std::string odabirFunkcije;
+				do
+				{
+					std::cin >> odabirFunkcije;
+					if( odabirFunkcije == "-1" )		{ --stage; vratiSeKorakUnazad = true; break; }
+					else if( odabirFunkcije == "-2" )	exit( EXIT_SUCCESS );
+					if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije )
+						== Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
+					{
+						puts( "Krivi unos!!!" );
+					}
+					else	break;
+				} while( true );
+				auto iterID_funkcijeZaIzvrsit = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
+				if( iterID_funkcijeZaIzvrsit != Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
+				{
+					std::cout << "\nID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second.second << '\n';
+					std::cout << "Pokrecem...\n\n\n";
+					std::cout << "Funkcija je vratila sljedeæi rezultat:\n";
+					puts( "--------------------------------------------------------" );
+					Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second.second]();
+					puts( "\n====================================================" );
+					std::cout << iterID_funkcijeZaIzvrsit->second.first;
+					puts( "====================================================" );
+				}
 			}
-			else	break;
-		} while( true );
-		auto iterID_funkcijeZaIzvrsit = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
-		if( iterID_funkcijeZaIzvrsit != Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
-		{
-			std::cout << "\nID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second.second << '\n';
-			std::cout << "Pokrecem...\n\n\n";
-			std::cout << "Funkcija je vratila sljedeæi rezultat:\n";
-			puts( "--------------------------------------------------------" );
-			Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second.second]();
-			puts( "\n====================================================" );
-			std::cout << iterID_funkcijeZaIzvrsit->second.first;
-			puts( "====================================================" );
 		}
 	}
 }
@@ -295,15 +291,14 @@ void rucno()
 
 
 
-const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath ) {
+const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath, bool addFileNameIntoJson = false ) {
 	for( const auto& entry : fs::directory_iterator( fullPath ) )
 	{
 		std::string pathToItems = entry.path().string();
-		std::string::reverse_iterator itStart = pathToItems.rbegin();
 		std::string::reverse_iterator itEnd;
-		itEnd = std::find( itStart, pathToItems.rend(), '\\' );
-		size_t itemNameLen = itEnd - itStart;
-		std::string fileName( pathToItems.begin() + pathToItems.size() - itemNameLen, pathToItems.end() );
+		itEnd = std::find( pathToItems.rbegin(), pathToItems.rend(), '\\' );
+		size_t offsetToItemName = pathToItems.rend() - itEnd;
+		std::string fileName( pathToItems.begin() + offsetToItemName, pathToItems.end() );
 		container.emplace_back( fileName );
 	}
 	};
@@ -313,6 +308,7 @@ const auto dodajItemeUVektor = []( std::vector<std::string>& container, const ch
 void Master::init()
 {
 	std::cout << "DOBRODOSAO!!\n";
+	puts( "----------------------" );
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
 	std::ifstream JSON_datoteka( "Data\\" + nazivJSONdat, std::ios::in );
 	nlohmann::json jsonData;
@@ -346,6 +342,7 @@ void Master::init()
 			popuniCijeliPopisFunkcija(/*from*/ jsonData["projekt"] );
 			for( auto& vec : popisFunkcija )
 				vec.shrink_to_fit();
+		///	Master::_INTERNAL::enforceCorrectBehaviour();	trenutacno nemoze tocno detektirat mjesto
 		}
 		else if( odabir == '0' )
 		{
@@ -400,6 +397,85 @@ void Master::init()
 	}
 }
 
+/// ukoliko korisnik obrise neke funkcije iz datoteke "Function list.cpp" izmedu koraka 3) i 5) , nastat ce nered. Funkcije zavise u kojem redoslijedu su dodane, a i kako program ocekuje da ima isti broj funkcija u "Function list.cpp", tako i u json datoteci, izbacit ce exception access out of range ukoliko se proba pokrenut funkcija sa velikim ID-om.
+/// ovo se takoder moze rijesiti na bolji nacin poput skeniranja Function list.cpp datoteke nakon samog pokretanja programa da uoci izbacene funkcije, ali nije potrebno tu komplicirat jer u buducnosti ovaj korak ce biti nepotreban
+void Master::_INTERNAL::enforceCorrectBehaviour()
+{
+	std::cout << "stripping out stuff:\n";
+	puts( "-----------------------------------------" );
+	std::array<size_t, 2> idx{ 0 };
+	//std::vector<std::pair
+	for( ; idx[0] < popisProjekata.size(); )
+	{
+		if( Master::popisImenaFunkcijaPoCjelinama[idx[0]].size() == 0 )
+		{
+			std::cout << "Brisem projekt sa niti jednom cjelinom: " << Master::popisProjekata[idx[0]] << "\n";
+			puts( "==========================================================================================" );
+			Master::popisImenaFunkcijaPoCjelinama.erase( Master::popisImenaFunkcijaPoCjelinama.begin() + idx[0] );
+			Master::popisProjekata.erase( Master::popisProjekata.begin() + idx[0] );
+			continue;
+		}
+
+		auto curCjelinaIt = Master::popisImenaFunkcijaPoCjelinama[idx[0]].begin();
+		std::string nazivCjeline;
+		size_t ukupanBrojZadatakaUProjektu = 0;
+		bool isFirstTimePrinted = false;
+		for( idx[1] = 0; idx[1] < popisImenaFunkcijaPoCjelinama[idx[0]].size(); ++idx[1], ++curCjelinaIt )
+		{
+		//std::map<int, int> t{{5, 4}};
+		//auto ttt = t.begin()._Ptr->_Myval;
+		//for( auto& kv : t )
+		//{
+		//	kv.
+		//}
+
+
+			if( Master::popisFunkcija[idx[0]].size() == 0 )
+			{
+				std::cout << "\n\nNema niti jedne ucitane funkcije u ovoj cjelini :(\nOvo se moglo dogoditi jer nisi ponovno kompajlao program kao sto si trebao ili ako si rucno izbrisao sve funkcije iz \"Function list.cpp\" datoteke ili datoteka nije podrzana u trenutacnoj verziji programa (pogledaj odjeljak \"OGRANICENJE\" na vrhu main.cpp ili se jednostavno u datoteci koju si stavio pod path \"_Projekti\\imeProjekta\\FilesToParse\\imeDatoteka\" ne nalazi niti jedna funkcija.\n"
+					<< "Brisem cjelinu: " << nazivCjeline << '\n';
+				puts( "--------------------------------------------\n" );
+				Master::popisImenaFunkcijaPoCjelinama[idx[0]].erase( nazivCjeline );
+			}
+
+			ukupanBrojZadatakaUProjektu += curCjelinaIt->second.size();
+		}
+
+		auto item = Master::popisImenaFunkcijaPoCjelinama[idx[0]].begin();
+		while( Master::popisFunkcija[idx[0]].size() < ukupanBrojZadatakaUProjektu )
+		{
+			if( !isFirstTimePrinted )
+			{
+
+				std::cout << "\nBroj funkcija pronadenih u datoteci \"Function list.cpp\" ne odgovara broju zadataka koji su spremljeni u json datoteku za projekt: " << popisProjekata[idx[0]];
+				puts( "\n--------------------------------------------\n" );
+				isFirstTimePrinted = true;
+			}
+
+			ukupanBrojZadatakaUProjektu -= item->second.size();
+			std::string nazivNajveceCjeline = item->first;
+			for( const auto& cjelina : Master::popisImenaFunkcijaPoCjelinama[idx[0]] )
+			{
+				if( cjelina.first > nazivNajveceCjeline )	nazivNajveceCjeline = cjelina.first;
+			}
+			std::cout << "Brisem: " << nazivNajveceCjeline << "\n";
+			Master::popisImenaFunkcijaPoCjelinama[idx[0]].erase( nazivNajveceCjeline );
+		}
+
+		if( Master::popisImenaFunkcijaPoCjelinama[idx[0]].size() == 0 )
+		{
+			puts( "==========================================================================================" );
+			std::cout << "\nBrisem projekt sa niti jednom cjelinom: " << Master::popisProjekata[idx[0]] << "\n";
+			puts( "==========================================================================================" );
+			puts( "--------------------------------------------\n" );
+			Master::popisImenaFunkcijaPoCjelinama.erase( Master::popisImenaFunkcijaPoCjelinama.begin() + idx[0] );
+			Master::popisProjekata.erase( Master::popisProjekata.begin() + idx[0] );
+			continue;
+		}
+		else ++idx[0];
+	}
+}
+
 nlohmann::json Master::_INTERNAL::create_json_Object()
 {
 	nlohmann::json jsonData;
@@ -442,8 +518,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 			for( const auto path : paths )
 			{
 				imenaDatoteka.push_back( {} );
-				///TODO: dodaj kod za unosenje imena datoteka u json
-				dodajItemeUVektor( imenaDatoteka[idx], path.data() );
+				dodajItemeUVektor( imenaDatoteka[idx], path.data(), true );
 				++idx;
 			}
 		}
@@ -459,7 +534,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 			std::cout << "Nisam mogao otvorit \"zadaci.dat\" datoteku!"
 				<< "\Izlazim...\n";
 			exit( EXIT_FAILURE );
-	}
+		}
 		dat << "===================================================\n";
 #endif
 		for( size_t idx = 0; idx < paths.size(); ++idx )
@@ -484,14 +559,12 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( zadaci );
 				imeProjekta[idx][Master::popisProjekata[idx]]["Broj cjeline"].emplace_back( zadaciCjeline );
 				nizProjekata[idx] = imeProjekta[idx];
-				//		jsonData["projekt"] = nizProjekata;
-				//		std::clog << "jsonData:\n" << jsonData.dump(1) << "\n\n\n\n";
 			}
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
 #endif
-			}
+		}
 		puts( "\n--------------------------------------------" );
 		jsonData["projekt"] = nizProjekata;
 		JSON_newDatoteka << jsonData;
@@ -501,7 +574,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 			<< "\t\t Zadaci su serializirani u json datoteku"
 			<< "\n=====================================================================\n";
   //	std::clog << "jsonData:\n" << jsonData.dump(1) << '\n';
-		}
+	}
 	return jsonData;
 }
 
