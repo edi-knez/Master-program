@@ -20,7 +20,7 @@ Trenutno se nalazi u prototip verziji i podrzava samo C++ programski jezik.
 * Pokreni program. Ako ga 1. puta pokreces, program ce procitat datoteke i spremiti ce sve potrebne informacije u json datoteku.
 * Kompajlaj program.
 * Pokreni program i unesi znak '1' pa onda znak 'y'. Program ce procitat informacije iz json datoteke te ce nadopisat kod za ubacivanje funkcijskih pointera u "Function list.cpp" datoteku
-* \kompajlaj program.
+* Kompajlaj program.
 * Pokreni program i unesi znak '1' pa bilo koji znak osim 'y'. Program ce ucitat sve potrebne informacije u podatkovne strukture:
 	* std::vector<std::string> popisProjekata;
 	* std::vector<std::unordered_map<std::string, std::unordered_map<std::string, std::pair<Zadatak, size_t>>>> popisImenaFunkcijaPoCjelinama;
