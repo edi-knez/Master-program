@@ -27,14 +27,14 @@
 /// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije	<- (testiraj je li problem rijesen)
 /// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )	<-
 /// - nepodrzava function overloading -> https://www.youtube.com/watch?v=NMWv2vQQjXE
+/// - nemoze deduce-at povratni tip funkcije koja vraca auto <-
+/// - nepodrzava trailing return type <-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FEATURES za napravit:
 /// - ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
 /// - blokiranje funkcija sa nazivima iz datoteke blacklist (json format)
 /// - podrzavanje viselinijskih komentara
 /// - koristi wxWidgets za GUI kod rucnog nacina
-/// - spawnanje zadataka na novom threadu
-/// - vremenski ogranicit izvrsavanje zadatka
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 /// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
 /// - pogledaj iznad ovog odjeljka na popis ogranicenja (oznacenih sa strelicom [ <- ])
@@ -47,11 +47,13 @@
 /// BUGS:
 /// - No bugs known to man
 
+#include <Windows.h>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <filesystem>
 namespace fs = std::filesystem;
+#include <thread>
 
 #include <vector>
 #include <unordered_map>
@@ -92,7 +94,7 @@ void automatizirano();
 void rucno();
 
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////
-int main( const int args, const char* argv[] )
+int main( const int args, const char* const argv[] )
 {
 	Master::init();
 	Master::pokretanjeFunkcija();
@@ -136,6 +138,9 @@ std::ostream& operator<<( std::ostream& dat, const Zadatak& zad )
 	return dat;
 }
 
+void pokreni(){}
+
+
 void Master::pokretanjeFunkcija()
 {
 
@@ -172,7 +177,11 @@ void Master::pokretanjeFunkcija()
 			}
 			else
 			{
-				puts( "Krivi unos!!" );
+				puts( "Krivi unos!!\n" );
+				while( std::cin.peek() != '\n' )
+				{
+					std::cin.ignore();
+				}
 				odabirProjekta = -1;
 			}
 		} while( odabirProjekta < 0 );
@@ -238,7 +247,7 @@ void Master::pokretanjeFunkcija()
 				}
 				std::cout << "\nAko se zelis vratit na odabir cjeline, unesi -1. A ako zelis izac iz programa unesi -2\n";
 				puts( "--------------------------------------------------------" );
-				std::cout << "\nTvoj odabir: ";
+				std::cout << "Tvoj odabir: ";
 				std::string odabirFunkcije;
 				do
 				{
@@ -255,19 +264,75 @@ void Master::pokretanjeFunkcija()
 				auto iterID_funkcijeZaIzvrsit = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
 				if( iterID_funkcijeZaIzvrsit != Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
 				{
-					std::cout << "\nID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second.second << '\n';
-					std::cout << "Pokrecem...\n\n\n";
-					std::cout << "Funkcija je vratila sljedeæi rezultat:\n";
-					puts( "--------------------------------------------------------" );
-					Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second.second]();
-					puts( "\n====================================================" );
-					std::cout << iterID_funkcijeZaIzvrsit->second.first;
-					puts( "====================================================" );
+				//	try
+				//	{
+					//	bool timeoutEnabled = false; /*NE UKLJUCUJ AKO ZELIS DEBUGIRAT*/
+						std::cout << "Ako zelis stavit timeout od 15 sekundi na izvrsenje zadatka, unesi enter";
+						//if( std::cin.get() == '\n' )	timeoutEnabled = true;
+						puts( "\n====================================================" );
+						std::cout << iterID_funkcijeZaIzvrsit->second.first;
+						puts( "====================================================" );
+						std::cout << "\nID_funkZaIzvrsit: " << iterID_funkcijeZaIzvrsit->second.second << '\n';
+						std::cout << "Pokrecem...\n\n\n";
+						std::cout << "Funkcija je vratila sljedeæi rezultat:\n";
+						puts( "--------------------------------------------------------" );
+						std::thread zadatakThread( Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second.second] );
+						///Master::popisFunkcija[odabirProjekta][iterID_funkcijeZaIzvrsit->second.second]
+						static bool isFuncDone = false;
+						std::jthread thd2(
+							[&]()
+							{
+								using namespace std::chrono_literals;
+								bool ponoviUpit = true;
+								auto pocetnoVrijeme = std::chrono::high_resolution_clock::now();
+								auto vrijmeSada = std::chrono::high_resolution_clock::now();
+
+								while( !isFuncDone )
+								{
+									if( ponoviUpit && std::chrono::high_resolution_clock::now() - vrijmeSada > std::chrono::high_resolution_clock::duration( 250ms ) )
+									{
+										std::cout << "Cekam unos korisnika: ";
+										vrijmeSada = std::chrono::high_resolution_clock::now();
+										ponoviUpit = false;
+									}
+
+									if( /*timeoutEnabled &&*/ std::chrono::high_resolution_clock::now() - pocetnoVrijeme > std::chrono::seconds(15) )
+									{
+										puts( "\n\n=============================================================================================" );
+										std::cout << "Proslo je 15 sekundi od pokretanja funkcije, vjerojatnost je da je funkcija zapela u beskonacnoj petlji\nIzlazim...\n";
+										puts( "===============================================================================================" );
+										TerminateThread( zadatakThread.native_handle(), 1 );	/// <------- WINDOWS dependent
+										std::cout.flush();
+										std::cout.seekp(std::ios::end);
+										break;
+									}
+
+									std::this_thread::sleep_for( 100ms );
+								}
+							} );
+
+
+						zadatakThread.join(); // prisili ispis funkcije "puts" poslije izvrsenja funkcije
+						isFuncDone = true;
+						puts( "\n====================================================\n" );
+					}
+				/*	catch( std::exception& e )
+					{
+						std::cout << "Funkcija je bacila iznimku: " << e.what() <<"\nAko zelis istrazit o cemu se radi pritisni tipku entera.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku\n";
+						char c = getchar();
+						if( c == '\r' || c == '\n' )	throw;
+					}
+					catch( ... )
+					{
+						std::cout << "Funkcija je bacila iznimku!\nAko zelis istrazit o cemu se radi pritisni tipku entera.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku\n";
+						char c = getchar();
+						if( c == '\r' || c == '\n' )	throw;
+					}*/
 				}
 			}
 		}
 	}
-}
+
 
 void automatizirano()
 {
@@ -560,12 +625,12 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( zadaci );
 				imeProjekta[idx][Master::popisProjekata[idx]]["Broj cjeline"].emplace_back( zadaciCjeline );
 				nizProjekata[idx] = imeProjekta[idx];
-			}
+		}
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
 #endif
-		}
+	}
 		puts( "\n--------------------------------------------" );
 		jsonData["projekt"] = nizProjekata;
 		JSON_newDatoteka << jsonData;

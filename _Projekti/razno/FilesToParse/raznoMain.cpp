@@ -107,28 +107,29 @@ void PracticalCppProg::pog11_5()
 
 void PracticalCppProg::pog11_6()
 {
+//	throw 1;
 	char broj = 54;
 	char result = shiftBitsLeft( broj );
-	char bitoviBroja[sizeof( broj ) + 1] = { 0 };
-	const char MSG = 1 << sizeof( broj );	// Most Significant Bit
+	char bitoviBroja[sizeof( broj ) * 8 + 1] = { 0 };
+	const char MSG = 1 << sizeof( broj ) * 8 - 1;	// Most Significant Bit
 	std::cout << "\nBroj: ";
 	size_t idx = 0;
-	do
+	while( idx < sizeof( broj ) * 8 )
 	{
-		bitoviBroja[idx] = ( broj & MSG ) + '0';
+		bitoviBroja[idx] = ( unsigned char( broj & MSG ) > 0 ) + '0';
 		broj <<= 1;
 		++idx;
-	} while( broj > 0 );
+	};
 	std::cout << bitoviBroja
 		<< "(2)\nRezultat: ";
 
 	idx = 0;
-	do
+	while( idx < sizeof( broj ) * 8 )
 	{
-		bitoviBroja[idx] = ( result & MSG ) + '0';
+		bitoviBroja[idx] = ( unsigned char( result & MSG ) > 0 ) + '0';
 		result <<= 1;
 		++idx;
-	} while( result > 0 );
+	}
 	std::cout << bitoviBroja << "(2)";	// po bazi 2
 }
 

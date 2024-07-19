@@ -46,7 +46,7 @@ namespace Master
 
 	namespace _INTERNAL
 	{
-		std::string_view getFuncReturnType( const std::string& deklaracija, size_t& offset );
+		/*std::pair<std::string, std::optional<std::string>>*/ std::string_view getFuncReturnType( const std::string& deklaracija, size_t& offset );
 		std::pair<std::string, std::string> getNamespaceAndFunctionName( const std::string& deklaracija, size_t& offset );
 		std::string_view getFuncArguments( const std::string& deklaracija, size_t& offset );
 		json::object_t processZadatke( std::vector<Zadatak*>& zad );
@@ -55,23 +55,25 @@ namespace Master
 	}
 }
 
-std::string_view Master::_INTERNAL::getFuncReturnType( const std::string& deklaracija, size_t& offset )
+/*std::pair<std::string, std::optional<std::string>>*/ std::string_view Master::_INTERNAL::getFuncReturnType( const std::string& deklaracija, size_t& offset )
 {
 	auto startIt = deklaracija.begin();
 	auto curIt = startIt;
 	auto tempIt = curIt;
-//	do
-//	{
+
 	curIt = std::find_if_not( curIt, deklaracija.end(), []( char c ){ return isspace( c ); } );
-
-
+///	do
+///	{
 	/// kod za podrzavanje raznih kljucnih rijeci u deklaraciji funkcija
+	std::unordered_map<std::string, bool/*unused*/> kljucneRijeci = {
+	{"const", true}, {"static", true}, {"", true}
+	};
+	curIt = std::find( curIt, deklaracija.end(), ' ' );
 	/// ...
 	/// 
 	/// std::string_view trenutacnaRijec( tempIt, curIt );
-//	} while( true );
+///	} while( true );
 
-	curIt = std::find( curIt, deklaracija.end(), ' ' );
 
 	offset += curIt - startIt;
 	++offset; // preskoci razmak ' '
@@ -134,7 +136,7 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 		izbrojiArgumente();
 
 		/// process default blacklisting
-		{ // TODO: dovrsi ostatak
+		{
 			std::string_view keywordOperator = "operator";
 			if( funcName.starts_with( keywordOperator ) )
 			{
@@ -146,13 +148,19 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 					// Assignment Operators such as: =, +=, *=, /=, -=, %=
 					{"=", true}, {"+=", true}, {"*=", true}, {"/=", true}, {"-=", true}, {"%=", true},
 					// Bitwise Operators such as: &, |, <<, >>, ~, ^
-					{"&", true}, {"|", true}, {"<<", true}, {">>", true}
+					{"&", true}, {"|", true}, {"<<", true}, {">>", true},
 					// Logical Operators such as: &, ||, ! 
+					{"||", true}, {"!", true},
 					// Relational Operators such as : > , < , == , <= , >=
+					{">", true}, {"<", true}, {"==", true}, {"<=", true}, {">=", true},
 					// De - referencing Operator : ( -> )
+					{"->", true},
 					// Dynamic memory allocation and De - allocation Operators : New, delete  
+					{"new", true}, {"delete", true},
 					// Subscript Operator : []
+					{"[]", true},
 					// Function call : ( )
+					{"()", true}
 				};
 
 				auto offsetBegin = std::find_if_not( funcName.begin() + keywordOperator.size() + 1, funcName.end(), []( char c ) { return isspace( c ); } );
