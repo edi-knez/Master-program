@@ -107,7 +107,6 @@ void PracticalCppProg::pog11_5()
 
 void PracticalCppProg::pog11_6()
 {
-//	throw 1;
 	char broj = 54;
 	char result = shiftBitsLeft( broj );
 	char bitoviBroja[sizeof( broj ) * 8 + 1] = { 0 };

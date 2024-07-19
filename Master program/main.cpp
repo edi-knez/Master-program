@@ -4,7 +4,7 @@
 /// 2)  Kompajlaj program
 /// 3)  Pokreni program
 /// 4)  Opet kompajlaj program
-/// 5)	Ako naides na bug potrebno je rucno otici u "Function list.cpp" datoteku i komentirat problematicne linije
+/// 5)	Ako naides na bug potrebno je rucno otici u "Function list.cpp" datoteku i zamijenit problematicne linije sa bilo kojim drugim
 /// 6)  Pokreni program 
 /// ---------------------------------
 /// Objašnjenje:
@@ -45,7 +45,11 @@
 /// - napravi da se datoteka "Function list.cpp" zadnja kompajla
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// BUGS:
-/// - No bugs known to man
+/// - u datoteci setup.cpp u funkciji "processZadatke": ukoliko funkcija ima "noexcept" kvalifikaciju, proizest ce krivi broj argumenata funkcije
+/// - u datoteci ParseFile.cpp u funkciji "findStartOfAFunctioin" se nalazi EDGE CASE -> ukoliko se zagrada sa parametrima funkcije nalazi iza znaka nove linije
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// OSTALO:
+/// - Zbog toga sto zelim imat mogucnost prekidanja izvrsenja zadatka (spawnanje i unistavanje thread-a) izgubila se mogucnost uporabe exception handling-a u glavnom thread-u (rjesenje je poslat std::exception referencu kao funkcijski argumenat funkciji koju zelis izvrsit
 
 #include <Windows.h>
 #include <cstdlib>
@@ -264,11 +268,16 @@ void Master::pokretanjeFunkcija()
 				auto iterID_funkcijeZaIzvrsit = Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije );
 				if( iterID_funkcijeZaIzvrsit != Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
 				{
-				//	try
-				//	{
-					//	bool timeoutEnabled = false; /*NE UKLJUCUJ AKO ZELIS DEBUGIRAT*/
-						std::cout << "Ako zelis stavit timeout od 15 sekundi na izvrsenje zadatka, unesi enter";
-						//if( std::cin.get() == '\n' )	timeoutEnabled = true;
+					try
+					{
+						bool timeoutEnabled = false; /*NE UKLJUCUJ AKO ZELIS DEBUGIRAT*/
+						std::cout << "\nAko zelis stavit timeout od 15 sekundi na izvrsenje zadatka, unesi SAMO enter ";
+						{
+							std::string ch = "t";
+							std::cin.ignore();
+							std::getline( std::cin, ch );
+							if( ch.length() == 0 )	timeoutEnabled = true;
+						}
 						puts( "\n====================================================" );
 						std::cout << iterID_funkcijeZaIzvrsit->second.first;
 						puts( "====================================================" );
@@ -296,14 +305,14 @@ void Master::pokretanjeFunkcija()
 										ponoviUpit = false;
 									}
 
-									if( /*timeoutEnabled &&*/ std::chrono::high_resolution_clock::now() - pocetnoVrijeme > std::chrono::seconds(15) )
+									if( timeoutEnabled && std::chrono::high_resolution_clock::now() - pocetnoVrijeme > std::chrono::seconds( 15 ) )
 									{
 										puts( "\n\n=============================================================================================" );
 										std::cout << "Proslo je 15 sekundi od pokretanja funkcije, vjerojatnost je da je funkcija zapela u beskonacnoj petlji\nIzlazim...\n";
 										puts( "===============================================================================================" );
 										TerminateThread( zadatakThread.native_handle(), 1 );	/// <------- WINDOWS dependent
 										std::cout.flush();
-										std::cout.seekp(std::ios::end);
+										std::cout.seekp( std::ios::end );
 										break;
 									}
 
@@ -316,9 +325,9 @@ void Master::pokretanjeFunkcija()
 						isFuncDone = true;
 						puts( "\n====================================================\n" );
 					}
-				/*	catch( std::exception& e )
+					catch( std::exception& e )
 					{
-						std::cout << "Funkcija je bacila iznimku: " << e.what() <<"\nAko zelis istrazit o cemu se radi pritisni tipku entera.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku\n";
+						std::cout << "Funkcija je bacila iznimku: " << e.what() << "\nAko zelis istrazit o cemu se radi pritisni tipku entera.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku\n";
 						char c = getchar();
 						if( c == '\r' || c == '\n' )	throw;
 					}
@@ -327,11 +336,12 @@ void Master::pokretanjeFunkcija()
 						std::cout << "Funkcija je bacila iznimku!\nAko zelis istrazit o cemu se radi pritisni tipku entera.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku\n";
 						char c = getchar();
 						if( c == '\r' || c == '\n' )	throw;
-					}*/
+					}
 				}
 			}
 		}
 	}
+}
 
 
 void automatizirano()
@@ -625,12 +635,12 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( zadaci );
 				imeProjekta[idx][Master::popisProjekata[idx]]["Broj cjeline"].emplace_back( zadaciCjeline );
 				nizProjekata[idx] = imeProjekta[idx];
-		}
+			}
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
 #endif
-	}
+		}
 		puts( "\n--------------------------------------------" );
 		jsonData["projekt"] = nizProjekata;
 		JSON_newDatoteka << jsonData;
