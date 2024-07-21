@@ -10,17 +10,17 @@
 
 namespace Master
 {
-	extern std::vector<std::vector< void ( * )( ) >> popisFunkcija;
+    extern std::vector<std::vector< void ( * )( ) >> popisFunkcija;
 }
 
 // nakraju kad se sve funkcije tu dodaju, zatvori funkciju i undefine macroe
 void finish_Function_list__cpp_file( std::fstream& datoteka )
 {
-	const char* macro1 = "#undef DODAJ_FUNKCIJU";
-	const char* macro2 = "#undef DODAJ_FUNKCIJU2";
+    const char* macro1 = "#undef DODAJ_FUNKCIJU";
+    const char* macro2 = "#undef DODAJ_FUNKCIJU2";
 
-	datoteka << '\n' << '}';
-	datoteka << "\n\n\n" << macro1 << '\n' << macro2 << '\n';
+    datoteka << '\n' << '}';
+    datoteka << "\n\n\n" << macro1 << '\n' << macro2 << '\n';
 }
 
 void autoAddeedFunctionsFromFiles()

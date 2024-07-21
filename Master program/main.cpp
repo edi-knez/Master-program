@@ -33,7 +33,6 @@
 /// FEATURES za napravit:
 /// - ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
 /// - blokiranje funkcija sa nazivima iz datoteke blacklist (json format)
-/// - podrzavanje viselinijskih komentara
 /// - koristi wxWidgets za GUI kod rucnog nacina
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 /// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
@@ -635,12 +634,21 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( zadaci );
 				imeProjekta[idx][Master::popisProjekata[idx]]["Broj cjeline"].emplace_back( zadaciCjeline );
 				nizProjekata[idx] = imeProjekta[idx];
+
+
+#if false
+				if( idx == 1 )
+				{
+					jsonData["projekt"] = nizProjekata;
+					JSON_newDatoteka << jsonData;
+				}
+#endif
 			}
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
 #endif
-		}
+			}
 		puts( "\n--------------------------------------------" );
 		jsonData["projekt"] = nizProjekata;
 		JSON_newDatoteka << jsonData;
@@ -650,9 +658,9 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 			<< "\t\t Zadaci su serializirani u json datoteku"
 			<< "\n=====================================================================\n";
   //	std::clog << "jsonData:\n" << jsonData.dump(1) << '\n';
-	}
+		}
 	return jsonData;
-}
+	}
 
 
 #undef SPREMAN_ZA_SLJEDECI_KORAK

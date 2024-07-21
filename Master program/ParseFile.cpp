@@ -31,6 +31,34 @@
 }
 */
 
+ParseFile::ParseFile( const std::string_view& path, std::string& imeDatoteke, const char* ekstenzijaDatoteka )
+{
+	if( path.empty() || path[0] == '\0' )
+	{
+		std::cout << "UNESI VAZECI PATH!\n";
+		exit( EXIT_FAILURE );
+	}
+	if( imeDatoteke.empty() )
+	{
+		std::cout << "UNESI IME DATOTEKE GDJE SE NALAZE ZELJENE FUNKCIJE!\n";
+		exit( EXIT_FAILURE );
+	}
+
+	m_paths.push_back( path );
+	for( size_t datIdx = 0; datIdx < imeDatoteke.size(); ++datIdx )
+	{
+		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
+		m_datoteke.emplace_back( std::fstream( ( m_paths.front().data() + imeDatoteke ), std::ios::in | std::ios::out | std::ios::ate ) );
+		m_datoteke[datIdx].seekg( std::ios::beg );
+		m_datoteke[datIdx].seekp( std::ios::beg );
+		if( !m_datoteke[datIdx].is_open() )
+		{
+			std::cout << "Nisam otvorio datoteku: " << m_paths.front() << imeDatoteke << '\n';
+			exit( EXIT_FAILURE );
+		}
+	}
+}
+
 ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka )
 {
 	if( path.empty() || path[0] == '\0' )
@@ -58,8 +86,8 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 			exit( EXIT_FAILURE );
 		}
 	}
-
 }
+
 //////////////////////////////////////////// DEBUG //////////////////////////////////////////////////
 /// //////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,13 +185,13 @@ bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, co
 				/// ispravak EDGE CASE-a -> detektiraj zavrsetak parametarske liste funkcije, tek nakon toga nastavi trazit pocetak funkcije
 				if( didItFoundEndOfALine )
 				{
-					while( !dat.eof() && !isspace( c ) )	// moze se dogodit da je deklaracija na zadnjoj liniji koda
+					while( c = dat.get() )
 					{
-						c = dat.get();
+						if( !isspace( c ) )	break;
 						++brojProvjereZnakovaDeklaracije;
 					}
 					if( c == '{' )	goto success;
-					else			goto failed;	// ako nije pocetak funkcije, znaci da je kraj deklaracije. Provjeri ima li vise uspjeha u sljedecoj liniji
+					else			goto failed;	// ako nije pocetak tijela funkcije, znaci da je kraj deklaracije. Provjeri ima li vise uspjeha u sljedecoj liniji
 				}
 				else if( didItFoundFunctionBody )		goto success;	// pocetna zagrada funkcije se nalazi u istoj liniji
 				else if( didItFoundEndOfDeclaration ) { ignoreRestOfALine(); goto failed; }	// neradi se o definicije funkcije, nego samo o deklaraciji
@@ -213,8 +241,9 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 	size_t previousPosInComment = dat.tellg();
 	std::list<std::string> tekstZadatka;
 	std::string line;
-	bool pronasaoPocetakKomentara = false;
-	bool novaLinijaIspredZnakaKomentara = false;
+	bool pronasaoPocetakLinijeKomentara = false;
+	bool pronasaoPocetakCijelogKomentara = false;
+	bool pronasaoKrajViseLinijskogKomentara = false;
 
 /////////////////////
 // ovo je test
@@ -226,20 +255,51 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 
 	auto pronadiPocetakKomentara = [&]()
 		{
-			while( bool notBeginingOfFile = dat.tellg() > 0 && !novaLinijaIspredZnakaKomentara )
+			while( bool notBeginingOfFile = dat.tellg() > 0 && !pronasaoPocetakCijelogKomentara )
 			{
 				char trenutniZnak = dat.peek();
-				if( trenutniZnak == '\n' && !pronasaoPocetakKomentara )
+				if( trenutniZnak == '\n' && !pronasaoPocetakLinijeKomentara )
 				{
-					novaLinijaIspredZnakaKomentara = true;
+					pronasaoPocetakCijelogKomentara = true;
 					break;
 				}
 
 				vratiSeZa1ZnakUnazad( dat );
-				if( trenutniZnak == '/' && dat.peek() == '/' )
+				if( dat.peek() == '/' && trenutniZnak == '/' )
 				{
-					pronasaoPocetakKomentara = true;
-					break;	// doslo je do pocetka linije
+					pronasaoPocetakLinijeKomentara = true;
+					break;
+				}
+
+				if( !pronasaoPocetakLinijeKomentara && dat.peek() == '*' && trenutniZnak == '/' ) // da bih se izbjegli bugovi, viselinijski komentari se zasebno handle-aju
+				{
+					currentPosInComment = dat.tellg();
+					pronasaoKrajViseLinijskogKomentara = true;
+					while( bool notBeginingOfFile = dat.tellg() > 0 )
+					{
+						trenutniZnak = dat.peek();
+						vratiSeZa1ZnakUnazad( dat );
+						if( dat.peek() == '\n' )	break;
+						if( dat.peek() == '/' && trenutniZnak == '/' )
+						{
+							pronasaoKrajViseLinijskogKomentara = false;
+							pronasaoPocetakLinijeKomentara = true;
+							break;
+						}
+					}
+					if( pronasaoPocetakLinijeKomentara )	break;
+
+					while( bool notBeginingOfFile = dat.tellg() > 0 )
+					{
+						trenutniZnak = dat.peek();
+						vratiSeZa1ZnakUnazad( dat );
+						if( dat.peek() == '/' && trenutniZnak == '*' )
+						{
+							pronasaoPocetakCijelogKomentara = true;
+							break;
+						}
+					}
+					if( pronasaoPocetakCijelogKomentara )	break;
 				}
 			}
 #if false
@@ -265,47 +325,46 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 		};
 
 
-	while( bool notBeginingOfFile = dat.tellg() != 0 )
+	while( bool notBeginingOfFile = dat.tellg() > 1 )	// mora imat barem 2 znaka '/' da bi se linija smatrala kao komentar
 	{
-		char trenutniZnak = dat.peek();
-		vratiSeZa1ZnakUnazad( dat );	// vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
+		pronasaoPocetakLinijeKomentara = false;
+		vratiSeZa1ZnakUnazad( dat );
+		vratiSeZa1ZnakUnazad( dat );
+		vratiSeZa1ZnakUnazad( dat ); // vrati se unazad da bi dosao ispred znaka za novu liniju ( '\n' )
+		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnijef
 
-		// doslo je do pocetka teksta zadatka
-		if( bool notBeginingOfFile = dat.tellg(); trenutniZnak == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )
-		{
-			break;
-		}
-
-		vratiSeZa1ZnakUnazad( dat ); // vrati se unazad za znak za koji si sada provjeravao pocetak komentara
-		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnije
-
-		pronadiPocetakKomentara();
-		if( novaLinijaIspredZnakaKomentara )
-		{
-			dat.seekg( currentPosInFile, std::ios::beg );
-			return {};
-		}
+		pronadiPocetakKomentara(); // vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
+		if( pronasaoPocetakCijelogKomentara )	break;
 		char c;
 #if false
 		DEBUG_LOG( 1 );
 #endif
-
-		while( isspace( dat.peek() ) ) { dat.get(); } // nalazi se na znaku '/'
-	//	vratiSeZa1ZnakUnazad( dat );	// nalazi se na znaku '\n'
-
-		spremiLinijuUString();
-		while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
+		if( pronasaoPocetakLinijeKomentara )
 		{
-			if( bool notEndingOfNextine = dat.peek() == '\n' )	break;
-			vratiSeZa1ZnakUnazad( dat );
+			while( isspace( dat.peek() ) ) { dat.get(); } // nalazi se na znaku '/'
+			spremiLinijuUString();
+			while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
+			{
+				if( bool notEndingOfNextine = dat.peek() == '\n' )	{ dat.get(); break; }
+				vratiSeZa1ZnakUnazad( dat );
+			}
 		}
-		}
+	}
 
 	std::string retVal;	// dodaj sve linije teksta u jednu cjelinu
-	while( !tekstZadatka.empty() )
+	if( pronasaoKrajViseLinijskogKomentara )
 	{
-		retVal += tekstZadatka.front();
-		tekstZadatka.pop_front();
+		retVal.reserve( currentPosInComment - dat.tellg() );
+		while( dat.tellg() != currentPosInComment )
+			retVal += dat.get();
+	}
+	else
+	{
+		while( !tekstZadatka.empty() )
+		{
+			retVal += tekstZadatka.front();
+			tekstZadatka.pop_front();
+		}
 	}
 
 #if false

@@ -46,7 +46,7 @@ namespace Master
 
 	namespace _INTERNAL
 	{
-		std::pair<std::string, std::optional<std::string>> /*std::string_view*/ getFuncReturnType(const std::string& deklaracija, size_t& offset);
+		/*std::pair<std::string, std::optional<std::string>>*/ std::string_view getFuncReturnType(const std::string & deklaracija, size_t & offset);
 		std::pair<std::string, std::string> getNamespaceAndFunctionName( const std::string& deklaracija, size_t& offset );
 		std::string_view getFuncArguments( const std::string& deklaracija, size_t& offset );
 		json::object_t processZadatke( std::vector<Zadatak*>& zad );
@@ -55,7 +55,7 @@ namespace Master
 	}
 }
 
-std::pair<std::string, std::optional<std::string>> /*std::string_view*/ Master::_INTERNAL::getFuncReturnType( const std::string& deklaracija, size_t& offset )
+/*std::pair<std::string, std::optional<std::string>>*/ std::string_view Master::_INTERNAL::getFuncReturnType(const std::string& deklaracija, size_t& offset)
 {
 	auto startIt = deklaracija.begin();
 	auto curIt = startIt;
@@ -203,7 +203,7 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 {
 	const char* relativePathToFile = "Data\\";
-	std::vector<std::string> imeDatotekeZaFunkcije = { "Function list.cpp" };
+	std::string imeDatotekeZaFunkcije = "Function list.cpp";
 	ParseFile pf( std::string_view( relativePathToFile ), imeDatotekeZaFunkcije );
 	std::fstream& datotekaZaSpremanjeFunkcija = pf.getDatoteku( 0 );
 
