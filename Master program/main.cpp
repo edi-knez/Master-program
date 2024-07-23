@@ -19,16 +19,15 @@
 /// ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// OGRANICENJA:
-/// - podrzava samo jedno linijske komentare za tekst zadataka	<-
 /// - funkcije koje te zanimaju moraju biti u namespaceu /
 ///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
 /// - funkcije moraju imat povratni tip "void" (trenutacno)	<-
 /// - nepodrzava template funkcije
 /// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije	<- (testiraj je li problem rijesen)
-/// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )	<-
+/// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )	<- U PROCESU
 /// - nepodrzava function overloading -> https://www.youtube.com/watch?v=NMWv2vQQjXE
-/// - nemoze deduce-at povratni tip funkcije koja vraca auto <-
-/// - nepodrzava trailing return type <-
+/// - nemoze deduce-at povratni tip funkcije koja vraca auto <- U PROCESU
+/// - nepodrzava trailing return type <- U PROCESU
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FEATURES za napravit:
 /// - ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
@@ -42,6 +41,8 @@
 /// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
 /// - otklonit sto vise nepravilnosti prijavljene od stane clang tidy alata
 /// - napravi da se datoteka "Function list.cpp" zadnja kompajla
+/// - ukoliko se u deklaraciji ne nalazi kljucna rijec "noexcept" zahtjevaj da ta funkcija prima argument tipa std::exception& 
+/// - optimiziraj funkcije u datoteci "ParseFile.cpp"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// BUGS:
 /// - u datoteci setup.cpp u funkciji "processZadatke": ukoliko funkcija ima "noexcept" kvalifikaciju, proizest ce krivi broj argumenata funkcije
@@ -78,7 +79,7 @@ namespace Master
 	std::vector<std::string> popisProjekata;
 	// niz projekata koji sadrzi umap stringova cjelina koji sadrzi umap stringova naziva funkcija
 	extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, std::pair<Zadatak, size_t>>>> popisImenaFunkcijaPoCjelinama;
-	extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
+	extern std::vector<std::vector<void ( * const  )( )>> popisFunkcija;
 
 	void init();
 	void pokretanjeFunkcija();
@@ -269,6 +270,7 @@ void Master::pokretanjeFunkcija()
 				{
 					try
 					{
+					throw 1;
 						bool timeoutEnabled = false; /*NE UKLJUCUJ AKO ZELIS DEBUGIRAT*/
 						std::cout << "\nAko zelis stavit timeout od 15 sekundi na izvrsenje zadatka, unesi SAMO enter ";
 						{
@@ -326,15 +328,21 @@ void Master::pokretanjeFunkcija()
 					}
 					catch( std::exception& e )
 					{
-						std::cout << "Funkcija je bacila iznimku: " << e.what() << "\nAko zelis istrazit o cemu se radi pritisni tipku entera.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku\n";
-						char c = getchar();
-						if( c == '\r' || c == '\n' )	throw;
+						puts( "\n\n====================================================\n" );
+						std::cout << "Funkcija je bacila iznimku: " << e.what() << "\nAko zelis istrazit o cemu se radi pritisni tipku entera.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku: ";
+						char c;
+						std::cin >> c;
+						if( tolower( c ) == 'y' )	throw;
+						puts( "\n====================================================\n" );
 					}
 					catch( ... )
 					{
-						std::cout << "Funkcija je bacila iznimku!\nAko zelis istrazit o cemu se radi pritisni tipku entera.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku\n";
-						char c = getchar();
-						if( c == '\r' || c == '\n' )	throw;
+						puts( "\n/n====================================================\n" );
+						std::cout << "Funkcija je bacila iznimku!\nAko zelis istrazit o cemu se radi pritisni tipku 'y'.Ukoliko pak zelis nastavit testirat neke druge aspekte, stisni bilo koju drugu tipku: ";
+						char c;
+						std::cin >> c;
+						if( tolower( c ) == 'y' )	throw;
+						puts( "\n====================================================\n" );
 					}
 				}
 			}
@@ -609,7 +617,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 			std::cout << "Nisam mogao otvorit \"zadaci.dat\" datoteku!"
 				<< "\Izlazim...\n";
 			exit( EXIT_FAILURE );
-		}
+	}
 		dat << "===================================================\n";
 #endif
 		for( size_t idx = 0; idx < paths.size(); ++idx )
@@ -643,7 +651,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 					JSON_newDatoteka << jsonData;
 				}
 #endif
-			}
+				}
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
@@ -660,7 +668,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
   //	std::clog << "jsonData:\n" << jsonData.dump(1) << '\n';
 		}
 	return jsonData;
-	}
+}
 
 
 #undef SPREMAN_ZA_SLJEDECI_KORAK
