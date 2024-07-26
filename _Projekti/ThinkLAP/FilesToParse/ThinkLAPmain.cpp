@@ -198,7 +198,7 @@ void ThinkLAP::pog3_vj4_encode_and_vj5_decode()
 
 		std::cout << "\nNakon dekriptiranja:\n";
 
-		char cipherText[57];
+		char cipherText[70];
 		strcpy_s( cipherText, encoded.get() );
 		auto decode = pog3.vj5_cipher_decode( std::move( encoded ) );
 		std::cout.setf( std::ios::left ); std::cout.width( 12 ); std::cout << "cipherText:" << cipherText << '\n';

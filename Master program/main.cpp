@@ -30,19 +30,26 @@
 /// - nepodrzava trailing return type <- U PROCESU
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FEATURES za napravit:
+/// - popuni datoteku "PotrebneDatotekeIDeklaracijeFunkcija.hpp" sa forward deklaracijama funkcija i #include-aj sve potrebne datoteke 
 /// - ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
 /// - blokiranje funkcija sa nazivima iz datoteke blacklist (json format)
+/// - klasu za trazenje / handle-anje stringova za jos pregledniji kod
+/// - podijelit kod u klase
 /// - koristi wxWidgets za GUI kod rucnog nacina
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 /// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
 /// - pogledaj iznad ovog odjeljka na popis ogranicenja (oznacenih sa strelicom [ <- ])
-/// - podijelit kod u klase
-/// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
 /// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
-/// - otklonit sto vise nepravilnosti prijavljene od stane clang tidy alata
 /// - napravi da se datoteka "Function list.cpp" zadnja kompajla
 /// - ukoliko se u deklaraciji ne nalazi kljucna rijec "noexcept" zahtjevaj da ta funkcija prima argument tipa std::exception& 
+/// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
+/// - --------------------------------------------------------------------------------------------
+/// TRENUTACNO RADIM NA:
+/// - testiraj radi li ispravno detekcija trailing return types
+/// - testiraj podrzava li program vise nivoa namespace-a
+/// - otklonit sto vise nepravilnosti prijavljene od stane clang tidy alata
 /// - optimiziraj funkcije u datoteci "ParseFile.cpp"
+/// 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// BUGS:
 /// - u datoteci setup.cpp u funkciji "processZadatke": ukoliko funkcija ima "noexcept" kvalifikaciju, proizest ce krivi broj argumenata funkcije
@@ -70,7 +77,7 @@ using namespace nlohmann;
 extern struct Zadatak;
 
 
-extern void popuniCijeliPopisFunkcija( nlohmann::json& jsonData );
+extern void popuniCijeliPopisFunkcija( nlohmann::json& jsonData, bool isExecutionProcess );
 
 
 
@@ -79,7 +86,7 @@ namespace Master
 	std::vector<std::string> popisProjekata;
 	// niz projekata koji sadrzi umap stringova cjelina koji sadrzi umap stringova naziva funkcija
 	extern std::vector<std::unordered_map<std::string, std::unordered_map<std::string, std::pair<Zadatak, size_t>>>> popisImenaFunkcijaPoCjelinama;
-	extern std::vector<std::vector<void ( * const  )( )>> popisFunkcija;
+	extern std::vector<std::vector<void ( * )( )>> popisFunkcija;
 
 	void init();
 	void pokretanjeFunkcija();
@@ -270,7 +277,7 @@ void Master::pokretanjeFunkcija()
 				{
 					try
 					{
-					throw 1;
+					//	throw 1;
 						bool timeoutEnabled = false; /*NE UKLJUCUJ AKO ZELIS DEBUGIRAT*/
 						std::cout << "\nAko zelis stavit timeout od 15 sekundi na izvrsenje zadatka, unesi SAMO enter ";
 						{
@@ -395,37 +402,46 @@ void Master::init()
 	std::ofstream( "Data\\" + nazivJSONdat, std::ios::app );
 	std::ifstream JSON_datoteka( "Data\\" + nazivJSONdat, std::ios::in );
 	nlohmann::json jsonData;
-	bool firstTimeRunning = JSON_datoteka.is_open();
-	bool isFileEmpty = std::filesystem::file_size( "Data\\" + nazivJSONdat ) == 0;
-	if( !firstTimeRunning || isFileEmpty )
-	{
-		jsonData = Master::_INTERNAL::create_json_Object();
-		std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program!\nIzlazim...\n";
-		exit( EXIT_SUCCESS );
-	}
-	else
-	{
-		std::cout << "Ako zelis nastavit sa trenatacnom verzijom upisi broj 1, inace 0: ";
-		char odabir;
-		std::cin >> odabir;
-		if( odabir == '1' )
+	char odabir;
+
+	const auto pripremiProgramZaKoristenje = [&]()
 		{
-			jsonData = Master::_INTERNAL::getJSONFromFile();
-			// dodaj imena projekata u vektor
+			bool isPopisProjekataEmpty = popisProjekata.empty();
 			for( const auto& projektEntry : jsonData["projekt"] )
 			{
 				json::object_t projEntryObj = projektEntry;
 				const auto& extractedProjektEntryValue = projEntryObj;
 				std::string projectName = extractedProjektEntryValue.begin()._Ptr->_Myval.first;
 
-				Master::popisProjekata.emplace_back( projectName );
+				if( isPopisProjekataEmpty )		Master::popisProjekata.emplace_back( projectName );
 				popisImenaFunkcijaPoCjelinama.push_back( {} );
 				popisFunkcija.push_back( {} );
 			}
-			popuniCijeliPopisFunkcija(/*from*/ jsonData["projekt"] );
+			popuniCijeliPopisFunkcija(/*from*/ jsonData["projekt"], odabir == '1' );
 			for( auto& vec : popisFunkcija )
 				vec.shrink_to_fit();
-		///	Master::_INTERNAL::enforceCorrectBehaviour();	trenutacno nemoze tocno detektirat mjesto
+		};
+
+	bool firstTimeRunning = JSON_datoteka.is_open();
+	bool isFileEmpty = std::filesystem::file_size( "Data\\" + nazivJSONdat ) == 0;
+	if( !firstTimeRunning || isFileEmpty )
+	{
+		odabir = '0';
+		jsonData = Master::_INTERNAL::create_json_Object();
+		std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program!\nIzlazim...\n";
+		pripremiProgramZaKoristenje();
+		/// naredbe ispod ovog komentara se nebi smjele izvrsit jer se program mora ugasit na ovom koraku
+		exit( EXIT_SUCCESS );
+	}
+	else
+	{
+		std::cout << "Ako zelis nastavit sa trenatacnom verzijom upisi broj 1, inace 0: ";
+		std::cin >> odabir;
+		if( odabir == '1' )
+		{
+			jsonData = Master::_INTERNAL::getJSONFromFile();
+			pripremiProgramZaKoristenje();
+				///	Master::_INTERNAL::enforceCorrectBehaviour();	trenutacno nemoze tocno detektirat mjesto
 		}
 		else if( odabir == '0' )
 		{
@@ -474,6 +490,8 @@ void Master::init()
 			curJSON.close(); backup.close();
 
 			jsonData = Master::_INTERNAL::create_json_Object();
+			pripremiProgramZaKoristenje();
+			/// naredbe ispod ovog komentara se nebi smjele izvrsit jer se program mora ugasit na ovom koraku
 			std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program\nIzlazim...\n";
 			exit( EXIT_SUCCESS );
 		}
@@ -649,14 +667,14 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 				{
 					jsonData["projekt"] = nizProjekata;
 					JSON_newDatoteka << jsonData;
-				}
+			}
 #endif
-				}
+			}
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
 #endif
-			}
+		}
 		puts( "\n--------------------------------------------" );
 		jsonData["projekt"] = nizProjekata;
 		JSON_newDatoteka << jsonData;
@@ -666,7 +684,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 			<< "\t\t Zadaci su serializirani u json datoteku"
 			<< "\n=====================================================================\n";
   //	std::clog << "jsonData:\n" << jsonData.dump(1) << '\n';
-		}
+}
 	return jsonData;
 }
 

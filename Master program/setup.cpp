@@ -33,8 +33,8 @@ extern void autoAddeedFunctionsFromFiles();
 ///////////////////////////////////
 
 
-void popuniCijeliPopisFunkcija( nlohmann::json& jsonData );
-void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std::ostream& funcDat, char HACK_isItStepNumber3 );
+void popuniCijeliPopisFunkcija( nlohmann::json& jsonData, bool isExecutionProcess );
+void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std::ostream& funcDat, bool isExecutionProcess );
 ////////////////////////////////////////////////////////////////////////////////////
 namespace Master
 {
@@ -48,16 +48,45 @@ namespace Master
 	{
 		std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> /*std::string_view*/ getFuncReturnType( const std::string& deklaracija, size_t& offset );
 		std::pair<std::string, std::string> getNamespaceAndFunctionName( const std::string& deklaracija, size_t& offset );
-		std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> getFuncArguments( const std::string& deklaracija, size_t& offset );
+		std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unused*/>>> getFuncArguments( const std::string& deklaracija, size_t& offset );
 		json::object_t processZadatke( std::vector<Zadatak*>& zad );
 		void insertZadatakInfoAndIDIntoUMap( std::unordered_map<std::string, std::pair<Zadatak, size_t>>& container, const size_t projIdx, const std::string& funcName, const std::string& brojCjeline, const json& jZadatak );
 		nlohmann::json getJSONFromFile();
+		void utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, std::optional<std::unordered_map<std::string, bool>> ext1, const std::string_view kod );
+		void utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, std::optional<std::unordered_map<std::string, size_t>> ext2, const std::string_view deklaracija, const std::string_view kod );
 	}
 }
 
-static std::string utvrdiOKojemPovratnomTipuSeRadi()
+void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, std::optional<std::unordered_map<std::string, bool>> ext1, const std::string_view kod )
 {
 
+}
+
+void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, std::optional<std::unordered_map<std::string, size_t>> ext2, const std::string_view deklaracija, const std::string_view kod )
+{
+	// ako funkcija sadrzi trailing return type, samo ga procitaj iz deklaracije
+	if( ext2.has_value() )
+	{
+		std::unordered_map<std::string, size_t>::iterator it = ext2->find( "->" );
+		if( bool isTrailingReturnType = it != ext2->end() )
+		{
+			auto startIt = deklaracija.begin() + it->second;
+			startIt = std::find_if( startIt, deklaracija.end(), []( char c )
+									{
+										return !isspace( c );
+									} );
+			auto endIt = std::find_if( startIt, deklaracija.end(), []( char c )
+									   {
+										   return isspace( c ) || c == '\n';
+									   } );
+			funcRetType = std::string( startIt, endIt );
+		}
+		// inace moras kopat po definiciji funkcije
+		else
+		{
+
+		}
+	}
 }
 
 std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> /*std::string_view*/ Master::_INTERNAL::getFuncReturnType( const std::string& deklaracija, size_t& offset )
@@ -67,14 +96,14 @@ std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unuse
 	auto tempIt = curIt;
 
 	curIt = std::find_if_not( curIt, deklaracija.end(), []( char c ){ return isspace( c ); } );
+	/// kod za podrzavanje raznih kljucnih rijeci u deklaraciji funkcija
+	static std::unordered_map<std::string, bool/*safe to skip*/> kljucneRijeci = { // izmedu pocetka deklaracije i imena funkcije
+		{"const", true}, {"static", false}, {"constexpr", true}, {"consteval", true},
+		{"[[nodiscard]]", true}, {"inline", true}, {"decltype", false},
+		{"struct", true}, {"class", true}, {"enum", true}, {"extern", false}, {"auto", false}
+	};
 ///	do
 ///	{
-	/// kod za podrzavanje raznih kljucnih rijeci u deklaraciji funkcija
-	std::unordered_map<std::string, bool/*safe to skip*/> kljucneRijeci = { // izmedu pocetka deklaracije i imena funkcije
-		{"const", true}, {"static", true}, {"constexpr", false}, {"consteval", false},
-		{"[[nodiscard]]", false}, {"inline", true}, {"decltype", false},
-		{"struct", true}, {"enum", true}, {"extern", false}, {"auto", false}
-	};
 	curIt = std::find( curIt, deklaracija.end(), ' ' );
 	/// ...
 	/// 
@@ -105,20 +134,32 @@ std::pair<std::string, std::string> Master::_INTERNAL::getNamespaceAndFunctionNa
 	return { nmsName, funcName };
 }
 
-std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> Master::_INTERNAL::getFuncArguments(const std::string& deklaracija, size_t& offset)
+std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unused*/>>> Master::_INTERNAL::getFuncArguments( const std::string& deklaracija, size_t& offset )
 {
 	std::unordered_map<std::string, bool/*safe to skip*/> kljucneRijeci = { // izmedu desne zatvarajuce zagrade liste argumenata ')' i otvarajuce zagrade za definiciju koda '{'
 		{"noexcept", true}, {"throw", false},  {"->", false},
 	};
 	auto krajListeArgumenata = std::find( deklaracija.begin() + offset, deklaracija.end(), ')' );
-	std::string retVal1( deklaracija.begin() + offset, krajListeArgumenata );
+	std::string retVal1( deklaracija.begin() + offset, krajListeArgumenata + ( krajListeArgumenata != deklaracija.end() ) );
 	offset = 0;
 
-	/// ////////////////////////////////////////////////////////////////////////////////////////////////////
-	std::optional<std::unordered_map<std::string, bool/*unused*/>> retval2;	// utvrdi sto treba vratit ovdje <----------------------------------
-	if(  )
+	/// ///////////////////////////////////////////////////////////////-------> TESTIRAJ KOD KAD retVal2 DOBIJE VRIJEDNOST
+	std::optional<std::unordered_map<std::string, size_t/*unused*/>> retVal2;	// za sada podrzava samo jednu kvalifikaciju (od ovih dostupnih).
+	auto kvalifikacijeBegin = std::find_if_not( krajListeArgumenata + 1, deklaracija.end(), []( char c )
+												{
+													return isspace( c );
+												} );
 
-	return { retVal1, retval2 };
+	auto kvalifikacijeEnd = std::find_if( kvalifikacijeBegin, deklaracija.end(), []( char c )
+										  {
+											  return isspace( c );
+										  } );
+	std::string_view kvalifikacije( kvalifikacijeBegin, kvalifikacijeEnd );
+	if( !kvalifikacije.empty() )	retVal2 = {};
+	auto kljucnaRijecIt = kljucneRijeci.find( kvalifikacije.data() );
+	if( kljucnaRijecIt != kljucneRijeci.end() && kljucnaRijecIt->first == "->" )	retVal2->emplace( kvalifikacije, size_t( kvalifikacijeEnd - deklaracija.begin() ) );
+	else if( kljucnaRijecIt != kljucneRijeci.end() && kljucnaRijecIt->second == false )	retVal2->emplace( kvalifikacije, false );
+	return { retVal1, retVal2 };
 }
 
 
@@ -141,7 +182,8 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 		auto [namespaceName, funcName] = getNamespaceAndFunctionName( zad->deklaracija, brojPreskocenihZnakova );
 		auto [funcArguments, extra2] = getFuncArguments( zad->deklaracija, brojPreskocenihZnakova );
 		size_t numOfFuncArguments = 0;
-		const auto izbrojiArgumente = [&]()
+		//izbroji Argumente u deklaraciji funkcije
+		[&]()
 			{
 				auto curIt =
 					std::find_if_not( funcArguments.begin() + 1, funcArguments.end(), []( char c ) { return isspace( c ); } );
@@ -150,12 +192,13 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 							   {
 								   numOfFuncArguments += c == ',';
 							   } );
-			};
-		izbrojiArgumente();
+			}
+		( );
 
 		/// handling auto deduction type
-		if( funcReturnType == "auto" )	funcReturnType = utvrdiOKojemPovratnomTipuSeRadi();
-		else if( funcReturnType == "decltype" )
+		if( extra.has_value() && extra->find( "auto" ) != extra->end() )	utvrdiOKojemPovratnomTipuSeRadi( funcReturnType, extra2, zad->deklaracija, zad->kod );
+		else if( extra.has_value() && extra->find( "decltype" ) != extra->end() )	utvrdiOKojemPovratnomTipuSeRadi( funcReturnType, extra, zad->kod ); /// za sada nista ne radi
+
 		/// process default blacklisting
 		{
 			std::string_view keywordOperator = "operator";
@@ -169,7 +212,7 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 					// Assignment Operators such as: =, +=, *=, /=, -=, %=
 					{"=", true}, {"+=", true}, {"*=", true}, {"/=", true}, {"-=", true}, {"%=", true},
 					// Bitwise Operators such as: &, |, <<, >>, ~, ^
-					{"&", true}, {"|", true}, {"<<", true}, {">>", true},
+					{"&", true}, {"|", true}, {"<<", true}, {">>", true}, {"~", true}, {"^", true},
 					// Logical Operators such as: &, ||, ! 
 					{"||", true}, {"!", true},
 					// Relational Operators such as : > , < , == , <= , >=
@@ -192,6 +235,7 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 			}
 		}
 		if( namespaceName == "" )			continue;	/// za sada nemoze handle-at funkcije bez namespacea
+		if( namespaceName == funcName )		continue;	/// blacklista konstruktore u klasama
 		if( poznataImenaFunkcija.find( funcName ) != poznataImenaFunkcija.end() ) /// blacklista function overload-e
 		{
 			continue;
@@ -200,13 +244,13 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 		{
 			poznataImenaFunkcija.insert( { funcName, true } );
 		}
-		if( numOfFuncArguments > 0 )		continue;
+		if( numOfFuncArguments > 0 )		continue;	/// za sada nemoze handle-at funkcije sa argumentima
 		if( grupiraniZadaciPoNamespaceu.find( namespaceName ) == grupiraniZadaciPoNamespaceu.end() )
 		{
 			grupiraniZadaciPoNamespaceu[namespaceName] = json::array();
 		}
 		/// nemozes izvrsit funkciju tijekom run-time koja je oznacena da se moze izvrsit samo tijekom compile-time!
-		if( extra.has_value() && extra.value().find("consteval") != extra.value().end() )	continue;
+		//??if( extra.has_value() && extra.value().find( "consteval" ) != extra.value().end() )	continue;
 
 		/// process whitelisting from user file
 		///...
@@ -225,7 +269,7 @@ json::object_t Master::_INTERNAL::processZadatke( std::vector<Zadatak*>& vecZada
 	return brojCjeline;
 }
 
-void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
+void popuniCijeliPopisFunkcija( nlohmann::json& jsonData, bool isExecutionProcess )
 {
 	const char* relativePathToFile = "Data\\";
 	std::string imeDatotekeZaFunkcije = "Function list.cpp";
@@ -233,12 +277,8 @@ void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 	std::fstream& datotekaZaSpremanjeFunkcija = pf.getDatoteku( 0 );
 
 	/// ///////////////////////////////////////////////////////
-	char HACK_isItStepNumber3;
-	std::cout << "Ako si na koraku 3) (za vise informacija pogledaj na vrh \"main.cpp\" datoteke) , unesi znak y: ";
-	std::cin >> HACK_isItStepNumber3;
-	puts( "\n==========================================================================================" );
-	puts( "" );
-	if( HACK_isItStepNumber3 == 'y' )
+
+	if( isExecutionProcess == false )
 	{
 		// zapisi u datoteku na pravo mjesto:
 
@@ -262,13 +302,13 @@ void popuniCijeliPopisFunkcija( nlohmann::json& jsonData )
 	size_t idx = 0;
 	for( const auto& thisProj : Master::popisProjekata )
 	{
-		popuniPopisFunkcijaZa( jsonData[idx], idx, datotekaZaSpremanjeFunkcija, HACK_isItStepNumber3 );
+		popuniPopisFunkcijaZa( jsonData[idx], idx, datotekaZaSpremanjeFunkcija, isExecutionProcess );
 		++idx;
 	}
 
 
 	/// /////////////////////////////////////////////////////////
-	if( HACK_isItStepNumber3 == 'y' )
+	if( isExecutionProcess == false )
 	{
 		finish_Function_list__cpp_file( datotekaZaSpremanjeFunkcija );
 		std::cout << "Ponovno kompaliraj program da bi nastavio na sljedeci korak\nIzlazim...\n";
@@ -299,7 +339,7 @@ nlohmann::json Master::_INTERNAL::getJSONFromFile()
 }
 
 
-void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std::ostream& funcDat, const char HACK_isItStepNumber3 )
+void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std::ostream& funcDat, bool isExecutionProcess )
 {
 	json::object_t cjelEntryObj = jsonData.begin().value();
 ///	std::clog << "\n\n" << cjelEntryObj << "\n\n";
@@ -309,6 +349,7 @@ void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std:
 	cjelineData = extractedCjelinaEntryValue._Getptr()->_Myval;
 	for( const auto& cjelina : cjelineData.second )
 	{
+		if( cjelina.size() == 0 )	break; /// ukoliko cjelina sadrzi prazan objekt, lose stvari bi se dogodile
 		const std::string& brojCjeline = cjelina.begin().key();
 		cjelEntryObj = cjelina.begin().value();
 
@@ -328,7 +369,7 @@ void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std:
 			size_t endOffset = deklaracija.rend() - endIt;
 			std::string imeZadatka( deklaracija.data() + startOffset, deklaracija.data() + endOffset );
 			Master::_INTERNAL::insertZadatakInfoAndIDIntoUMap( iter, projIdx, imeZadatka, brojCjeline, zadatak );
-			if( HACK_isItStepNumber3 == 'y' )
+			if( isExecutionProcess == false )
 			{
 				if( true )	funcDat << '\t' << "DODAJ_FUNKCIJU( " << projIdx << ", " << brojCjeline << ", " << imeZadatka << " );\r";
 			///	else		funcDat << "DODAJ_FUNKCIJU2( " << imeZadatka << " );\n";

@@ -188,7 +188,7 @@ std::unique_ptr<char[]> Poglavlje3::vj4_cipher_encode( std::string_view plainTex
 std::unique_ptr<char[]> Poglavlje3::vj5_cipher_decode( std::unique_ptr<char[]> cipherText )
 {
 	auto cipherSymbols = buildCipherSymbols();
-	////auto cipherSymbols = buildCipherSymbolsRuntime();
+	///auto cipherSymbols = buildCipherSymbolsRuntime();
 	std::unique_ptr<char[]> decoded;
 	cipherText.swap( decoded );
 	std::string_view view = decoded.get();
