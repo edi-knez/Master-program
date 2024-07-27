@@ -26,7 +26,6 @@ private:
 	static void ispis( int lr );
 	static void ispis( double lrDouble );
 	//
-
 public:
 	class Krug {
 	public:
@@ -47,7 +46,9 @@ public:
 		}
 
 		void operator=( double x );
-
+		/// /////////////////////////////////////////////////////////////////
+		void testViseNivoaNamespacea() const;
+		/// /////////////////////////////////////////////////////////////////
 	//public:
 	private:
 		double m_radijus;
@@ -79,7 +80,6 @@ public:
 		int nazivnik;
 	};
 };
-
 
 
 

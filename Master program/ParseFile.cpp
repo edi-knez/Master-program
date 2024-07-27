@@ -130,10 +130,10 @@ bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, co
 std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG = false );
-std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_FLAG )
+std::vector<std::unique_ptr<Zadatak>> ParseFile::readFile( std::fstream& dat, const bool DEBUG_FLAG )
 {
 
-	std::vector<Zadatak*> retVal;
+	std::vector<std::unique_ptr<Zadatak>> retVal;
 	while( !dat.eof() )
 	{
 #if true	
@@ -146,11 +146,11 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_F
 		bool is_eof = findStartOfAFunction( dat/*, unused*/ );
 		if( !is_eof )
 		{
-			auto zad = new Zadatak;
+			auto zad = std::make_unique<Zadatak>();
 			zad->tekst = getKomentar( dat, DEBUG_FLAG );
 			zad->deklaracija = getDeclaration( dat, DEBUG_FLAG );
 			zad->kod = getFuncBody( dat, DEBUG_FLAG );
-			retVal.push_back( std::move( zad ) );
+			retVal.emplace_back( zad.release() );
 		}
 	}
 	++DEBUG_FILE_IDX;
@@ -331,6 +331,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 		vratiSeZa1ZnakUnazad( dat );
 		vratiSeZa1ZnakUnazad( dat );
 		vratiSeZa1ZnakUnazad( dat ); // vrati se unazad da bi dosao ispred znaka za novu liniju ( '\n' )
+		if( dat.tellg() == 0 )	break;
 		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnijef
 
 		pronadiPocetakKomentara(); // vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara

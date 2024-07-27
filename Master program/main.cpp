@@ -23,8 +23,6 @@
 ///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
 /// - funkcije moraju imat povratni tip "void" (trenutacno)	<-
 /// - nepodrzava template funkcije
-/// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije	<- (testiraj je li problem rijesen)
-/// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )	<- U PROCESU
 /// - nepodrzava function overloading -> https://www.youtube.com/watch?v=NMWv2vQQjXE
 /// - nemoze deduce-at povratni tip funkcije koja vraca auto <- U PROCESU
 /// - nepodrzava trailing return type <- U PROCESU
@@ -33,12 +31,12 @@
 /// - popuni datoteku "PotrebneDatotekeIDeklaracijeFunkcija.hpp" sa forward deklaracijama funkcija i #include-aj sve potrebne datoteke 
 /// - ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
 /// - blokiranje funkcija sa nazivima iz datoteke blacklist (json format)
-/// - klasu za trazenje / handle-anje stringova za jos pregledniji kod
+/// - pogledaj iznad ovog odjeljka na popis ogranicenja (oznacenih sa strelicom [ <- ])
 /// - podijelit kod u klase
+/// - klasu za trazenje / handle-anje stringova za jos pregledniji kod
 /// - koristi wxWidgets za GUI kod rucnog nacina
 /// - dinamicki containeri za bilo kakvu konfiguraciju
 /// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
-/// - pogledaj iznad ovog odjeljka na popis ogranicenja (oznacenih sa strelicom [ <- ])
 /// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
 /// - napravi da se datoteka "Function list.cpp" zadnja kompajla
 /// - ukoliko se u deklaraciji ne nalazi kljucna rijec "noexcept" zahtjevaj da ta funkcija prima argument tipa std::exception& 
@@ -46,40 +44,45 @@
 /// - --------------------------------------------------------------------------------------------
 /// TRENUTACNO RADIM NA:
 /// - testiraj radi li ispravno detekcija trailing return types
-/// - testiraj podrzava li program vise nivoa namespace-a
-/// - otklonit sto vise nepravilnosti prijavljene od stane clang tidy alata
+/// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )
+/// - otklonit sto vise nepravilnosti prijavljene od stane Clang Tidy i SonarLint alata
 /// - optimiziraj funkcije u datoteci "ParseFile.cpp"
+/// - umjesto brisanja svih pointera zadataka, ponovno ih iskoristi za popunjavanje zadataka iz sljedeceg projekta
+/// - funkcija "findStartOfAFunction" u datoteci ParseFile.cpp je hard codana za povratni tip "void" i ne radi ispravno za datoteku raznolikog sadrzaja
 /// 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// BUGS:
-/// - u datoteci setup.cpp u funkciji "processZadatke": ukoliko funkcija ima "noexcept" kvalifikaciju, proizest ce krivi broj argumenata funkcije
+/// - u datoteci setup.cpp u funkciji "processZadatke": ukoliko funkcija ima "noexcept" kvalifikaciju, reci ce krivi broj argumenata funkcije
 /// - u datoteci ParseFile.cpp u funkciji "findStartOfAFunctioin" se nalazi EDGE CASE -> ukoliko se zagrada sa parametrima funkcije nalazi iza znaka nove linije
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// OSTALO:
 /// - Zbog toga sto zelim imat mogucnost prekidanja izvrsenja zadatka (spawnanje i unistavanje thread-a) izgubila se mogucnost uporabe exception handling-a u glavnom thread-u (rjesenje je poslat std::exception referencu kao funkcijski argumenat funkciji koju zelis izvrsit
+/// - U slucaju kad imas funkciju nest-anu u klasi unutar druge klase. Tada se funkcija mora oznacit kvalifikacijom static ili se nece moci kompajlat program pri zadnjem koraku 
 
 #include <Windows.h>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <filesystem>
-namespace fs = std::filesystem;
 #include <thread>
 
 #include <vector>
 #include <unordered_map>
 
 #include "../_Includes/json.hpp"
-using namespace nlohmann;
 
 #include "ParseFile.hpp"
+
+namespace fs = std::filesystem;
+using namespace nlohmann;
 
 extern struct Zadatak;
 
 
 extern void popuniCijeliPopisFunkcija( nlohmann::json& jsonData, bool isExecutionProcess );
 
-
+#include "..\Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 namespace Master
 {
@@ -92,7 +95,7 @@ namespace Master
 	void pokretanjeFunkcija();
 	namespace _INTERNAL
 	{
-		json::object_t processZadatke( std::vector<Zadatak*>& zadaci );
+		json::object_t processZadatke( const std::vector<std::unique_ptr<Zadatak>>& zadaci, std::string_view nazivDatoteke );
 		void enforceCorrectBehaviour();
 		nlohmann::json create_json_Object();
 		nlohmann::json getJSONFromFile();
@@ -189,7 +192,7 @@ void Master::pokretanjeFunkcija()
 			else
 			{
 				puts( "Krivi unos!!\n" );
-				while( std::cin.peek() != '\n' )
+				while( std::cin.peek() != '\n' )	// ignoriraj ostatak inputa
 				{
 					std::cin.ignore();
 				}
@@ -380,7 +383,8 @@ void rucno()
 
 
 
-const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath, bool addFileNameIntoJson = false ) {
+
+const auto dodajItemeUVektor = []( std::vector<std::string>& container, const char* fullPath ) {
 	for( const auto& entry : fs::directory_iterator( fullPath ) )
 	{
 		std::string pathToItems = entry.path().string();
@@ -391,8 +395,6 @@ const auto dodajItemeUVektor = []( std::vector<std::string>& container, const ch
 		container.emplace_back( fileName );
 	}
 	};
-
-
 
 void Master::init()
 {
@@ -445,7 +447,7 @@ void Master::init()
 		}
 		else if( odabir == '0' )
 		{
-			std::cout << "Pravim kopiju JSON datoteke i brisem original!\n";
+			std::cout << "Pravim kopiju JSON datoteke i brisem original!\n\n";
 			auto copy_file = []( std::fstream& copyFrom, std::ofstream& copyTo ) {
 				std::string strFile;
 				while( !copyFrom.eof() )
@@ -581,8 +583,8 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 {
 	nlohmann::json jsonData;
 	std::string nazivJSONdat = "InformacijeOZadacima.json";
-	std::ifstream JSON_existingDatoteka( "Data\\" + nazivJSONdat, std::ios::in );
-	if( !JSON_existingDatoteka.is_open() || std::filesystem::file_size( "Data\\" + nazivJSONdat ) == 0 )
+	if( std::ifstream JSON_existingDatoteka( "Data\\" + nazivJSONdat, std::ios::in );
+		!JSON_existingDatoteka.is_open() || std::filesystem::file_size( "Data\\" + nazivJSONdat ) == 0 )
 	{
 		std::ofstream JSON_newDatoteka( "Data\\" + nazivJSONdat, std::ios::out );
 		if( !JSON_newDatoteka.is_open() )
@@ -616,17 +618,17 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 		// popuni imena datoteka dinamicki sa svim datotekama na tom pathu
 		{
 			size_t idx = 0;
-			for( const auto path : paths )
+			for( const auto& path : paths )
 			{
 				imenaDatoteka.push_back( {} );
-				dodajItemeUVektor( imenaDatoteka[idx], path.data(), true );
+				dodajItemeUVektor( imenaDatoteka[idx], path.data() );
 				++idx;
 			}
 		}
 
 		std::cout << "Parsing files...";
 		std::vector<ParseFile> pfs;
-		std::vector<Zadatak*> zadaci( paths.size() );
+		std::vector<std::unique_ptr<Zadatak>> zadaci( paths.size() );
 #define SPREMAN_ZA_SLJEDECI_KORAK false // kod ispravno radi, sacuvano radi lakseg debugiranja u buducnosti
 #if SPREMAN_ZA_SLJEDECI_KORAK
 		std::ofstream dat( "zadaci.dat", std::ios::out );
@@ -641,12 +643,13 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 		for( size_t idx = 0; idx < paths.size(); ++idx )
 		{
 			puts( "\n--------------------------------------------" );
-			pfs.push_back( ParseFile( paths[idx], imenaDatoteka[idx] ) );
+			pfs.emplace_back( paths[idx], imenaDatoteka[idx] );
 			size_t idxOfFile = 0;
 			nizProjekata.emplace_back( nlohmann::json::object_t() );
 			for( const auto& fName : imenaDatoteka[idx] )
 			{
 				std::cout << fName;
+
 				bool DEBUG_FLAG = false; /*	DEBUG_FLAG = fName == "Cjelina101.cpp"; */
 
 
@@ -657,7 +660,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 				++idxOfFile;
 
 				// popuni JSON objekt kako parsira datoteke
-				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( zadaci );
+				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( zadaci, fName);
 				imeProjekta[idx][Master::popisProjekata[idx]]["Broj cjeline"].emplace_back( zadaciCjeline );
 				nizProjekata[idx] = imeProjekta[idx];
 

@@ -203,6 +203,7 @@
     <ClCompile Include="_projekti\razno\Time.cpp" />
     <ClCompile Include="_projekti\razno\Word_match.cpp" />
     <ClCompile Include="_Projekti\TESTIRANJE\FilesToParse\testiranje1.cpp" />
+    <ClCompile Include="_Projekti\TESTIRANJE\FilesToParse\testiranje2.cpp" />
     <ClCompile Include="_projekti\thinklap\Automobile.cpp" />
     <ClCompile Include="_Projekti\ThinkLAP\FilesToParse\ThinkLAPmain.cpp" />
     <ClCompile Include="_projekti\thinklap\myCharPtr.cpp" />

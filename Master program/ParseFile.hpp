@@ -76,7 +76,7 @@ public:
 public:
 	/// citaj
 	///  - nije potrebno reci za koji je projekt jer m_datoteka vec govori o kojem se projektu radi (po indexu)
-	std::vector<Zadatak*> readFile( std::fstream& dat, const bool DEBUG_FLAG = false );
+	std::vector<std::unique_ptr<Zadatak>> readFile( std::fstream& dat, const bool DEBUG_FLAG = false );
 	//
 	std::optional<size_t> getPositionOfFunction( std::fstream& dat, const char* imeFunkcije );
 	void skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/ );
