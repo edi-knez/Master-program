@@ -49,25 +49,25 @@ namespace Master
 		std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> /*std::string_view*/ getFuncReturnType( const std::string& deklaracija, size_t& offset );
 		std::pair<std::string, std::string> getNamespaceAndFunctionName( const std::string& deklaracija, size_t& offset );
 		std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unused*/>>> getFuncArguments( const std::string& deklaracija, size_t& offset );
-		json::object_t processZadatke( const std::vector<std::unique_ptr<Zadatak>>& zad, std::string_view nazivDatoteke );
+		json::object_t processZadatke( const std::vector<std::unique_ptr<Zadatak>>& zad, const size_t upotrijebljenoZadataka, std::string_view nazivDatoteke );
 		void insertZadatakInfoAndIDIntoUMap( std::unordered_map<std::string, std::pair<Zadatak, size_t>>& container, const size_t projIdx, const std::string& funcName, const json& jZadatak );
 		nlohmann::json getJSONFromFile();
-		void utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, std::optional<std::unordered_map<std::string, bool>> ext1, const std::string_view kod );
-		void utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, std::optional<std::unordered_map<std::string, size_t>> ext2, const std::string_view deklaracija, const std::string_view kod );
+		void utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, const std::optional<std::unordered_map<std::string, bool>>& ext1, const std::string_view kod );
+		void utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, const std::optional<std::unordered_map<std::string, size_t>>& ext2, const std::string_view deklaracija, const std::string_view kod );
 	}
 }
 
-void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, std::optional<std::unordered_map<std::string, bool>> ext1, const std::string_view kod )
+void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, const std::optional<std::unordered_map<std::string, bool>>& ext1, const std::string_view kod )
 {
 	/// TODO: zavrsi ovo
 }
 
-void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, std::optional<std::unordered_map<std::string, size_t>> ext2, const std::string_view deklaracija, const std::string_view kod )
+void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, const std::optional<std::unordered_map<std::string, size_t>>& ext2, const std::string_view deklaracija, const std::string_view kod )
 {
 	// ako funkcija sadrzi trailing return type, samo ga procitaj iz deklaracije
 	if( ext2.has_value() )
 	{
-		std::unordered_map<std::string, size_t>::iterator it = ext2->find( "->" );
+		std::unordered_map<std::string, size_t>::const_iterator it = ext2->find( "->" );
 		if( bool isTrailingReturnType = it != ext2->end() )
 		{
 			auto startIt = deklaracija.begin() + it->second;
@@ -164,8 +164,10 @@ std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unu
 }
 
 
-json::object_t Master::_INTERNAL::processZadatke( const std::vector<std::unique_ptr<Zadatak>>& vecZadaci, std::string_view nazivDatoteke )
+json::object_t Master::_INTERNAL::processZadatke( const std::vector<std::unique_ptr<Zadatak>>& vecZadaci, const size_t upotrijebljenoZadataka, std::string_view nazivDatoteke )
 {
+	if( upotrijebljenoZadataka == 0 )	return {};
+
 	size_t brojPreskocenihZnakova = 0;
 
 	json::object_t brojCjeline = json::object();
@@ -174,8 +176,13 @@ json::object_t Master::_INTERNAL::processZadatke( const std::vector<std::unique_
 
 	std::unordered_map<std::string, bool /*unused*/> poznataImenaFunkcija;
 
-	for( const auto& zad : vecZadaci )
+	auto curIt = vecZadaci.begin();
+	bool isItFull = upotrijebljenoZadataka == vecZadaci.size();
+	bool isContainingOnly1Zadatak = upotrijebljenoZadataka == 1;
+	const auto endIt = vecZadaci.begin() + upotrijebljenoZadataka - isItFull - isContainingOnly1Zadatak;
+	for( ; curIt <= endIt; ++curIt )
 	{
+		auto zad = curIt->get();
 		auto [funcReturnType, extra] = getFuncReturnType( zad->deklaracija, brojPreskocenihZnakova );
 		auto [namespaceName, funcName] = getNamespaceAndFunctionName( zad->deklaracija, brojPreskocenihZnakova );
 		auto [funcArguments, extra2] = getFuncArguments( zad->deklaracija, brojPreskocenihZnakova );
@@ -375,6 +382,7 @@ void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std:
 				if( isExecutionProcess == false )
 				{
 					if( true )	funcDat << '\t' << "DODAJ_FUNKCIJU( " << projIdx << ", " << brojCjeline << ", " << imeZadatka << " );\r";
+					/// else if -> klasa je nested unutar druge klase u kojoj se nalazi funkcija, stavi znak '&' ispred brojCjeline
 				///	else		funcDat << "DODAJ_FUNKCIJU2( " << imeZadatka << " );\n";
 				}
 			}

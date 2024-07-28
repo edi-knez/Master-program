@@ -48,7 +48,7 @@ ParseFile::ParseFile( const std::string_view& path, std::string& imeDatoteke, co
 	for( size_t datIdx = 0; datIdx < imeDatoteke.size(); ++datIdx )
 	{
 		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
-		m_datoteke.emplace_back( std::fstream( ( m_paths.front().data() + imeDatoteke ), std::ios::in | std::ios::out | std::ios::ate ) );
+		m_datoteke.emplace_back( m_paths.front().data() + imeDatoteke, std::ios::in | std::ios::out | std::ios::ate );
 		m_datoteke[datIdx].seekg( std::ios::beg );
 		m_datoteke[datIdx].seekp( std::ios::beg );
 		if( !m_datoteke[datIdx].is_open() )
@@ -77,7 +77,7 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 	{
 		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
 		std::string datotekeProjekta = imenaDatoteka[datIdx];
-		m_datoteke.emplace_back( std::fstream( ( m_paths.front().data() + datotekeProjekta ), std::ios::in | std::ios::out | std::ios::ate ) );
+		m_datoteke.emplace_back( m_paths.front().data() + datotekeProjekta, std::ios::in | std::ios::out | std::ios::ate );
 		m_datoteke[datIdx].seekg( std::ios::beg );
 		m_datoteke[datIdx].seekp( std::ios::beg );
 		if( !m_datoteke[datIdx].is_open() )
@@ -130,10 +130,9 @@ bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, co
 std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG = false );
-std::vector<std::unique_ptr<Zadatak>> ParseFile::readFile( std::fstream& dat, const bool DEBUG_FLAG )
+void ParseFile::readFile( std::fstream& dat, std::vector<std::unique_ptr<Zadatak>>& zadaci, size_t& upotrijevbljenoZadataka, const bool DEBUG_FLAG ) const
 {
-
-	std::vector<std::unique_ptr<Zadatak>> retVal;
+	size_t pronadenoZadataka = 0;
 	while( !dat.eof() )
 	{
 #if true	
@@ -146,15 +145,25 @@ std::vector<std::unique_ptr<Zadatak>> ParseFile::readFile( std::fstream& dat, co
 		bool is_eof = findStartOfAFunction( dat/*, unused*/ );
 		if( !is_eof )
 		{
-			auto zad = std::make_unique<Zadatak>();
-			zad->tekst = getKomentar( dat, DEBUG_FLAG );
-			zad->deklaracija = getDeclaration( dat, DEBUG_FLAG );
-			zad->kod = getFuncBody( dat, DEBUG_FLAG );
-			retVal.emplace_back( zad.release() );
+			if( pronadenoZadataka < zadaci.size() )
+			{
+				zadaci[pronadenoZadataka].get()->tekst = getKomentar( dat, DEBUG_FLAG );
+				zadaci[pronadenoZadataka].get()->deklaracija = getDeclaration( dat, DEBUG_FLAG );
+				zadaci[pronadenoZadataka].get()->kod = getFuncBody( dat, DEBUG_FLAG );
+			}
+			else
+			{
+				auto zad = std::make_unique<Zadatak>();
+				zad->tekst = getKomentar( dat, DEBUG_FLAG );
+				zad->deklaracija = getDeclaration( dat, DEBUG_FLAG );
+				zad->kod = getFuncBody( dat, DEBUG_FLAG );
+				zadaci.emplace_back( zad.release() );
+			}
+			++pronadenoZadataka;
 		}
+		++DEBUG_FILE_IDX;
 	}
-	++DEBUG_FILE_IDX;
-	return retVal;
+	upotrijevbljenoZadataka = pronadenoZadataka;
 }
 
 bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const bool DEBUG_FLAG )
@@ -308,7 +317,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 #endif
 			dat.get(); /// preskoci '//' , znakove komentara
 			dat.get();
-				};
+		};
 
 
 	auto spremiLinijuUString = [&]()
@@ -375,9 +384,9 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
 
 	return retVal;
-	}
+}
 
-	// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
+// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 {
 	while( isspace( dat.peek() ) )
@@ -438,17 +447,17 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 		std::string deklaracija = getDeclaration( dat );
 		std::string::iterator it;
 		// pronadi pocetak povratnog tipa
-		it = std::find_if( deklaracija.begin(), deklaracija.end(), [&it]( char c )
+		it = std::find_if( deklaracija.begin(), deklaracija.end(), []( char c )
 						   {
 							   return isalpha( c );
 						   } );
 		// pronadi kraj povratnog tipa
-		it = std::find_if( it, deklaracija.end(), [&]( char c )
+		it = std::find_if( it, deklaracija.end(), []( char c )
 						   {
 							   return  isspace( c );
 						   } );
 		// pronadi pocetak imena funkcije
-		it = std::find_if( it, deklaracija.end(), [&]( char c )
+		it = std::find_if( it, deklaracija.end(), []( char c )
 						   {
 							   return isalpha( c );
 						   } );
@@ -495,10 +504,12 @@ void ParseFile::skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocen
 
 
 
+ ///
 
-
-
-///
-
-
-
+std::ostream& operator<<( std::ostream& dat, const Zadatak& zad )
+{
+	dat << "TEKST ZADATKA: " << zad.tekst << '\n'
+		<< "DEKLARACIJA: " << zad.deklaracija << '\n'
+		<< "KOD:\n" << zad.kod << '\n';
+	return dat;
+}

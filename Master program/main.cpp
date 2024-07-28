@@ -41,14 +41,18 @@
 /// - napravi da se datoteka "Function list.cpp" zadnja kompajla
 /// - ukoliko se u deklaraciji ne nalazi kljucna rijec "noexcept" zahtjevaj da ta funkcija prima argument tipa std::exception& 
 /// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
-/// - --------------------------------------------------------------------------------------------
+/// 
+/// ----------------------------------------------------------------------------------------------
 /// TRENUTACNO RADIM NA:
 /// - testiraj radi li ispravno detekcija trailing return types
 /// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )
 /// - otklonit sto vise nepravilnosti prijavljene od stane Clang Tidy i SonarLint alata
+/// 
+/// ----------------------------------------------------------------------------------------------
+/// SLJEDECE NA REDU:
 /// - optimiziraj funkcije u datoteci "ParseFile.cpp"
-/// - umjesto brisanja svih pointera zadataka, ponovno ih iskoristi za popunjavanje zadataka iz sljedeceg projekta
 /// - funkcija "findStartOfAFunction" u datoteci ParseFile.cpp je hard codana za povratni tip "void" i ne radi ispravno za datoteku raznolikog sadrzaja
+/// - smanjit broj cache miss-ova tako sto ces koristit 1 veliki string i offset-e umjesto 3 mala string-a (za tekst, deklaraciju i kod)
 /// 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// BUGS:
@@ -73,6 +77,7 @@
 #include "../_Includes/json.hpp"
 
 #include "ParseFile.hpp"
+#include "..\Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 namespace fs = std::filesystem;
 using namespace nlohmann;
@@ -82,7 +87,6 @@ extern struct Zadatak;
 
 extern void popuniCijeliPopisFunkcija( nlohmann::json& jsonData, bool isExecutionProcess );
 
-#include "..\Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp"
 
 namespace Master
 {
@@ -95,7 +99,7 @@ namespace Master
 	void pokretanjeFunkcija();
 	namespace _INTERNAL
 	{
-		json::object_t processZadatke( const std::vector<std::unique_ptr<Zadatak>>& zadaci, std::string_view nazivDatoteke );
+		json::object_t processZadatke( const std::vector<std::unique_ptr<Zadatak>>& zadaci, const size_t upotrijebljenoZadataka, std::string_view nazivDatoteke );
 		void enforceCorrectBehaviour();
 		nlohmann::json create_json_Object();
 		nlohmann::json getJSONFromFile();
@@ -145,12 +149,6 @@ int main( const int args, const char* const argv[] )
 	return EXIT_SUCCESS;
 }
 
-
-std::ostream& operator<<( std::ostream& dat, const Zadatak& zad )
-{
-	dat << "TEKST ZADATKA: " << zad.tekst << '\n' << "DEKLARACIJA: " << zad.deklaracija << '\n' << "KOD:\n" << zad.kod << '\n';
-	return dat;
-}
 
 void pokreni(){}
 
@@ -219,8 +217,8 @@ void Master::pokretanjeFunkcija()
 			std::cout << "\nIz koje cjeline zelis pokrenut funkciju? Ako se zelis vratit na odabir projekta, unesi -1. A ako zelis izac iz programa unesi -2\n";
 			puts( "--------------------------------------------------------" );
 
-			for( const auto& str : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta] )
-				std::cout << str.first << '\n';
+			for( const auto& [nazivCjeline, unused] : Master::popisImenaFunkcijaPoCjelinama[odabirProjekta] )
+				std::cout << nazivCjeline << '\n';
 			std::cout << "\nTvoj odabir: ";
 			std::string odabirCjeline;
 			do
@@ -240,7 +238,6 @@ void Master::pokretanjeFunkcija()
 			++stage;
 			while( stage > 2 )
 			{
-				vratiSeKorakUnazad = false;
 				std::cout << "\nOdabrao si projekt " << Master::popisProjekata[odabirProjekta] << " - " << odabirCjeline;
 				puts( "\n--------------------------------------------------------" );
 
@@ -266,7 +263,7 @@ void Master::pokretanjeFunkcija()
 				do
 				{
 					std::cin >> odabirFunkcije;
-					if( odabirFunkcije == "-1" )		{ --stage; vratiSeKorakUnazad = true; break; }
+					if( odabirFunkcije == "-1" )		{ --stage; break; }
 					else if( odabirFunkcije == "-2" )	exit( EXIT_SUCCESS );
 					if( Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.find( odabirFunkcije )
 						== Master::popisImenaFunkcijaPoCjelinama[odabirProjekta].find( odabirCjeline )->second.end() )
@@ -628,7 +625,8 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 
 		std::cout << "Parsing files...";
 		std::vector<ParseFile> pfs;
-		std::vector<std::unique_ptr<Zadatak>> zadaci( paths.size() );
+		std::vector<std::unique_ptr<Zadatak>> zadaci;
+		zadaci.reserve( 5 );
 #define SPREMAN_ZA_SLJEDECI_KORAK false // kod ispravno radi, sacuvano radi lakseg debugiranja u buducnosti
 #if SPREMAN_ZA_SLJEDECI_KORAK
 		std::ofstream dat( "zadaci.dat", std::ios::out );
@@ -637,10 +635,10 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 			std::cout << "Nisam mogao otvorit \"zadaci.dat\" datoteku!"
 				<< "\Izlazim...\n";
 			exit( EXIT_FAILURE );
-	}
+		}
 		dat << "===================================================\n";
 #endif
-		for( size_t idx = 0; idx < paths.size(); ++idx )
+		for( size_t idx = 0, upotrijebljenoZadataka = 0; idx < paths.size(); ++idx )
 		{
 			puts( "\n--------------------------------------------" );
 			pfs.emplace_back( paths[idx], imenaDatoteka[idx] );
@@ -653,14 +651,14 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 				bool DEBUG_FLAG = false; /*	DEBUG_FLAG = fName == "Cjelina101.cpp"; */
 
 
-				zadaci = std::move( pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), DEBUG_FLAG ) );
+				pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), zadaci, upotrijebljenoZadataka, DEBUG_FLAG );
 
 				/// zadaci stizu po cjelinama u kojima se nalaze
 				puts( "" );
 				++idxOfFile;
 
 				// popuni JSON objekt kako parsira datoteke
-				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( zadaci, fName);
+				json::object_t zadaciCjeline = Master::_INTERNAL::processZadatke( zadaci, upotrijebljenoZadataka, fName );
 				imeProjekta[idx][Master::popisProjekata[idx]]["Broj cjeline"].emplace_back( zadaciCjeline );
 				nizProjekata[idx] = imeProjekta[idx];
 
@@ -672,12 +670,12 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 					JSON_newDatoteka << jsonData;
 			}
 #endif
-			}
+		}
 
 #if SPREMAN_ZA_SLJEDECI_KORAK
 			dat << "====================================================\n";
 #endif
-		}
+	}
 		puts( "\n--------------------------------------------" );
 		jsonData["projekt"] = nizProjekata;
 		JSON_newDatoteka << jsonData;
