@@ -157,7 +157,7 @@ void ParseFile::readFile( std::fstream& dat, std::vector<std::unique_ptr<Zadatak
 				zad->tekst = getKomentar( dat, DEBUG_FLAG );
 				zad->deklaracija = getDeclaration( dat, DEBUG_FLAG );
 				zad->kod = getFuncBody( dat, DEBUG_FLAG );
-				zadaci.emplace_back( zad.release() );
+				zadaci.push_back( std::move( zad ) );
 			}
 			++pronadenoZadataka;
 		}

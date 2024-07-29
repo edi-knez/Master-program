@@ -24,8 +24,7 @@
 /// - funkcije moraju imat povratni tip "void" (trenutacno)	<-
 /// - nepodrzava template funkcije
 /// - nepodrzava function overloading -> https://www.youtube.com/watch?v=NMWv2vQQjXE
-/// - nemoze deduce-at povratni tip funkcije koja vraca auto <- U PROCESU
-/// - nepodrzava trailing return type <- U PROCESU
+/// - nemoze deduce-at povratni tip funkcije koja vraca auto <-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FEATURES za napravit:
 /// - popuni datoteku "PotrebneDatotekeIDeklaracijeFunkcija.hpp" sa forward deklaracijama funkcija i #include-aj sve potrebne datoteke 
@@ -44,7 +43,6 @@
 /// 
 /// ----------------------------------------------------------------------------------------------
 /// TRENUTACNO RADIM NA:
-/// - testiraj radi li ispravno detekcija trailing return types
 /// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [[likely]], ... )
 /// - otklonit sto vise nepravilnosti prijavljene od stane Clang Tidy i SonarLint alata
 /// 
@@ -70,6 +68,7 @@
 #include <fstream>
 #include <filesystem>
 #include <thread>
+#include <memory>
 
 #include <vector>
 #include <unordered_map>
@@ -81,8 +80,6 @@
 
 namespace fs = std::filesystem;
 using namespace nlohmann;
-
-extern struct Zadatak;
 
 
 extern void popuniCijeliPopisFunkcija( nlohmann::json& jsonData, bool isExecutionProcess );
@@ -114,6 +111,19 @@ void rucno();
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////
 int main( const int args, const char* const argv[] )
 {
+/*
+std::vector<std::unique_ptr<Zadatak>> vecZadaci;
+	vecZadaci.reserve(5);
+	auto zad = std::make_unique<Zadatak>();
+	zad->deklaracija = "auto test() -> void";
+	vecZadaci.push_back( std::move( zad ) );
+	const size_t upotrijebljenoZadataka = 1;
+	std::string_view nazivDatoteke = "test trailing return type";
+	auto j = Master::_INTERNAL::processZadatke( vecZadaci, upotrijebljenoZadataka, nazivDatoteke );
+
+	return EXIT_SUCCESS;
+*/
+	/// ////////////////////////////////// /////////////////////// ////////////////////////////
 	Master::init();
 	Master::pokretanjeFunkcija();
 

@@ -110,8 +110,11 @@ std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unuse
 	/// std::string_view trenutacnaRijec( tempIt, curIt );
 ///	} while( true );
 	std::optional<std::unordered_map<std::string, bool/*unused*/>> retVal2;
+	std::unordered_map<std::string, bool/*unused*/> t;
 //	if( )
 	std::string retVal1( tempIt, curIt );
+	t.insert( { std::string( retVal1 ), true } );
+	retVal2.emplace( t );
 
 	offset += curIt - startIt;
 	++offset; // preskoci razmak ' '
@@ -143,7 +146,6 @@ std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unu
 	std::string retVal1( deklaracija.begin() + offset, krajListeArgumenata + ( krajListeArgumenata != deklaracija.end() ) );
 	offset = 0;
 
-	/// ///////////////////////////////////////////////////////////////-------> TESTIRAJ KOD KAD retVal2 DOBIJE VRIJEDNOST
 	std::optional<std::unordered_map<std::string, size_t/*unused*/>> retVal2;	// za sada podrzava samo jednu kvalifikaciju (od ovih dostupnih).
 	auto kvalifikacijeBegin = std::find_if_not( krajListeArgumenata + 1, deklaracija.end(), []( char c )
 												{
@@ -154,11 +156,16 @@ std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unu
 										  {
 											  return isspace( c );
 										  } );
-	std::string_view kvalifikacije( kvalifikacijeBegin, kvalifikacijeEnd );
-	if( !kvalifikacije.empty() )	retVal2 = {};
+	std::string kvalifikacije( kvalifikacijeBegin, kvalifikacijeEnd );
+	if( kvalifikacije.empty() )	retVal2 = {};
 
-	if( auto kljucnaRijecIt = kljucneRijeci.find( kvalifikacije.data() );
-		kljucnaRijecIt != kljucneRijeci.end() && kljucnaRijecIt->first == "->" )	retVal2->emplace( kvalifikacije, size_t( kvalifikacijeEnd - deklaracija.begin() ) );
+	if( auto kljucnaRijecIt = kljucneRijeci.find( kvalifikacije );
+		kljucnaRijecIt != kljucneRijeci.end() && kljucnaRijecIt->first == "->" )
+	{
+		std::unordered_map<std::string, size_t/*unused*/> t;
+		t.insert( std::pair( kvalifikacije, size_t( kvalifikacijeEnd - deklaracija.begin() ) ) );
+		retVal2.emplace( t );
+	}
 	else if( kljucnaRijecIt != kljucneRijeci.end() && kljucnaRijecIt->second == false )	retVal2->emplace( kvalifikacije, false );
 	return { retVal1, retVal2 };
 }
@@ -179,7 +186,7 @@ json::object_t Master::_INTERNAL::processZadatke( const std::vector<std::unique_
 	auto curIt = vecZadaci.begin();
 	bool isItFull = upotrijebljenoZadataka == vecZadaci.size();
 	bool isContainingOnly1Zadatak = upotrijebljenoZadataka == 1;
-	const auto endIt = vecZadaci.begin() + upotrijebljenoZadataka - isItFull - isContainingOnly1Zadatak;
+	const auto endIt = vecZadaci.begin() + ( upotrijebljenoZadataka - isItFull - isContainingOnly1Zadatak + ( isItFull && isContainingOnly1Zadatak ) );
 	for( ; curIt <= endIt; ++curIt )
 	{
 		auto zad = curIt->get();
