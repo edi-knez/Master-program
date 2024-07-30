@@ -46,10 +46,10 @@ namespace Master
 
 	namespace _INTERNAL
 	{
-		std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> /*std::string_view*/ getFuncReturnType( const std::string& deklaracija, size_t& offset );
-		std::pair<std::string, std::string> getNamespaceAndFunctionName( const std::string& deklaracija, size_t& offset );
-		std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unused*/>>> getFuncArguments( const std::string& deklaracija, size_t& offset );
-		json::object_t processZadatke( const std::vector<std::unique_ptr<Zadatak>>& zad, const size_t upotrijebljenoZadataka, std::string_view nazivDatoteke );
+		[[nodiscard]] std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> getFuncReturnType( const std::string& deklaracija, size_t& offset );
+		[[nodiscard]] std::pair<std::string, std::string> getNamespaceAndFunctionName( const std::string& deklaracija, size_t& offset );
+		[[nodiscard]] std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unused*/>>> getFuncArguments( const std::string& deklaracija, size_t& offset );
+		[[nodiscard]] json::object_t processZadatke( const std::vector<std::unique_ptr<Zadatak>>& zad, const size_t upotrijebljenoZadataka, std::string_view nazivDatoteke );
 		void insertZadatakInfoAndIDIntoUMap( std::unordered_map<std::string, std::pair<Zadatak, size_t>>& container, const size_t projIdx, const std::string& funcName, const json& jZadatak );
 		nlohmann::json getJSONFromFile();
 		void utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetType, const std::optional<std::unordered_map<std::string, bool>>& ext1, const std::string_view kod );
@@ -89,7 +89,7 @@ void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetTyp
 	}
 }
 
-std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> /*std::string_view*/ Master::_INTERNAL::getFuncReturnType( const std::string& deklaracija, size_t& offset )
+[[nodiscard]] std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unused*/>>> Master::_INTERNAL::getFuncReturnType( const std::string& deklaracija, size_t& offset )
 {
 	auto startIt = deklaracija.begin();
 	auto curIt = startIt;
@@ -99,29 +99,36 @@ std::pair<std::string, std::optional<std::unordered_map<std::string, bool/*unuse
 	/// kod za podrzavanje raznih kljucnih rijeci u deklaraciji funkcija
 	static std::unordered_map<std::string, bool/*safe to skip*/> kljucneRijeci = { // izmedu pocetka deklaracije i imena funkcije
 		{"const", true}, {"static", false}, {"constexpr", true}, {"consteval", true},
-		{"[[nodiscard]]", true}, {"inline", true}, {"decltype", false},
+		{"[[nodiscard]]", false}, {"inline", true}, {"decltype", false},
 		{"struct", true}, {"class", true}, {"enum", true}, {"extern", false}, {"auto", false}
 	};
-///	do
-///	{
-	curIt = std::find( curIt, deklaracija.end(), ' ' );
-	/// ...
-	/// 
-	/// std::string_view trenutacnaRijec( tempIt, curIt );
-///	} while( true );
-	std::optional<std::unordered_map<std::string, bool/*unused*/>> retVal2;
-	std::unordered_map<std::string, bool/*unused*/> t;
-//	if( )
-	std::string retVal1( tempIt, curIt );
-	t.insert( { std::string( retVal1 ), true } );
-	retVal2.emplace( t );
 
-	offset += curIt - startIt;
-	++offset; // preskoci razmak ' '
-	return { retVal1, retVal2 };/*std::string_view(tempIt, curIt);*/
+	std::string retVal1;
+	std::unordered_map<std::string, bool/*unused*/> t;
+	do	{
+		curIt = std::find_if( curIt, deklaracija.end(), []( char c ){ return isspace( c ) || c == ':' || c == '('; } );
+		if( isspace( *curIt ) )	// nalazi se na zadnjem znaku kvalifikacije
+		{
+			std::string trenutacnaRijec( tempIt, curIt );
+			if( kljucneRijeci.contains( trenutacnaRijec ) )
+			{
+				t.insert( { trenutacnaRijec, false } );
+			}
+			else	retVal1 = trenutacnaRijec;
+			++curIt;
+			tempIt = curIt;
+		}
+		else if( *curIt == ':' )	break;	// nalazi se na kraju najprvijeg imena namespacea
+		else						break;	// nalazi se na kraju imena funkcije
+		/// 
+	} while( true );
+	std::optional<std::unordered_map<std::string, bool/*unused*/>> retVal2( std::move( t ) );
+
+	offset += tempIt - startIt;	// tempIt ce uvijek pokazivat na pravo mjesto
+	return { retVal1, retVal2 };
 }
 
-std::pair<std::string, std::string> Master::_INTERNAL::getNamespaceAndFunctionName( const std::string& deklaracija, size_t& offset )
+[[nodiscard]] std::pair<std::string, std::string> Master::_INTERNAL::getNamespaceAndFunctionName( const std::string& deklaracija, size_t& offset )
 {
 	size_t offset_ = 0;
 	auto startOfFuncArguments = deklaracija.begin() + offset;
@@ -137,7 +144,7 @@ std::pair<std::string, std::string> Master::_INTERNAL::getNamespaceAndFunctionNa
 	return { nmsName, funcName };
 }
 
-std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unused*/>>> Master::_INTERNAL::getFuncArguments( const std::string& deklaracija, size_t& offset )
+[[nodiscard]] std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unused*/>>> Master::_INTERNAL::getFuncArguments( const std::string& deklaracija, size_t& offset )
 {
 	std::unordered_map<std::string, bool/*safe to skip*/> kljucneRijeci = { // izmedu desne zatvarajuce zagrade liste argumenata ')' i otvarajuce zagrade za definiciju koda '{'
 		{"noexcept", true}, {"throw", false},  {"->", false},
@@ -171,7 +178,7 @@ std::pair<std::string, std::optional<std::unordered_map<std::string, size_t/*unu
 }
 
 
-json::object_t Master::_INTERNAL::processZadatke( const std::vector<std::unique_ptr<Zadatak>>& vecZadaci, const size_t upotrijebljenoZadataka, std::string_view nazivDatoteke )
+[[nodiscard]] json::object_t Master::_INTERNAL::processZadatke( const std::vector<std::unique_ptr<Zadatak>>& vecZadaci, const size_t upotrijebljenoZadataka, std::string_view nazivDatoteke )
 {
 	if( upotrijebljenoZadataka == 0 )	return {};
 
@@ -184,6 +191,7 @@ json::object_t Master::_INTERNAL::processZadatke( const std::vector<std::unique_
 	std::unordered_map<std::string, bool /*unused*/> poznataImenaFunkcija;
 
 	auto curIt = vecZadaci.begin();
+	// zbog toga sto moze, ali i nemora predstavljat vazeci zadatak, moraju se handle-at EDGE CASE-ovi
 	bool isItFull = upotrijebljenoZadataka == vecZadaci.size();
 	bool isContainingOnly1Zadatak = upotrijebljenoZadataka == 1;
 	const auto endIt = vecZadaci.begin() + ( upotrijebljenoZadataka - isItFull - isContainingOnly1Zadatak + ( isItFull && isContainingOnly1Zadatak ) );
@@ -344,7 +352,7 @@ void Master::_INTERNAL::insertZadatakInfoAndIDIntoUMap( std::unordered_map<std::
 	container.insert( { funcName, { zadatak, funID } } );
 }
 
-nlohmann::json Master::_INTERNAL::getJSONFromFile()
+[[nodiscard]] nlohmann::json Master::_INTERNAL::getJSONFromFile()
 {
 	std::ifstream jsonDat( "Data\\InformacijeOZadacima.json", std::ios::in );
 	json retVal;

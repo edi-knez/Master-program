@@ -170,8 +170,10 @@ bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, co
 {
 	auto ignoreRestOfALine = [&]()
 		{
-			while( !dat.eof() && dat.get() != '\n' )
-				;
+			while( char c = dat.get() )
+			{
+				if( c == '\n' || c == ';' )	break;
+			}
 		};
 
 	std::string firstWord;
@@ -231,7 +233,7 @@ void vratiSeZa1ZnakUnazad( std::fstream& dat )
 // TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 /// <summary>
 ///		Da bi bio siguran da citas komentar od funkcije, a ne neki random, moras pocet citat od deklaracije te funkcije.
-///		Citas od kraja linije prema pocetku dok nenaides na pocetak komentara "//" ili dok do dodes do kraja cijelog komentara "\n\n".
+///		Citas od kraja linije prema pocetku dok nenaides na pocetak komentara "//" ili dok do dodes do kraja cijelog komentara (linija izned nema znakove jednolijskog kokmentara ili si naisao na pocetak viselinijskog komentara).
 ///		Linije sprema u listu sprijeda. Jer se cita odzada, to je najjednostavniji nacini da se dobije ispravan tekst zadatka.	
 /// 
 ///		Garantirano je da je komentar u ovom formatu jer inace se nebi moglo kompajlat.
