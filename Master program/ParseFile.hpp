@@ -72,7 +72,7 @@ public:
 	void readFile( std::fstream& dat, std::vector<std::unique_ptr<Zadatak>>& zadaci, size_t& upotrijevbljenoZadataka, const bool DEBUG_FLAG = false ) const;
 	//
 	std::optional<size_t> getPositionOfFunction( std::fstream& dat, const char* imeFunkcije );
-	void skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/ );
+	void skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/ ) const;
 /////////////////////////////////////////////////////////
 private:
 	std::vector<std::fstream> m_datoteke;

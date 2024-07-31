@@ -19,10 +19,10 @@
 /// ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// OGRANICENJA:
-/// - funkcije koje te zanimaju moraju biti u namespaceu /
-///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
-/// - funkcije moraju imat povratni tip "void" (trenutacno)	<-
-/// - nepodrzava parsiranje heaeder (.hpp) m datoteka
+/// - funkcije koje te zanimaju moraju biti u namespaceu <- | [kad napravis dinamicke spremnike ukloni ovu stavku]   /
+///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse" <- [mapa naziva "FilesToParse" ce sluzit kao globalni whitelisting]
+/// - funkcije moraju imat povratni tip "void" (trenutacno)	<- | [kada napravis da funkcijski pointer bude raznolik, ukloni ovu stavku]
+/// - nepodrzava parsiranje heaeder (.hpp) datoteka <- | [kada napravis da moze citat funkcije iz klasa, ukloni ovu stavku]
 /// - nepodrzava template funkcije
 /// - nepodrzava function overloading -> https://www.youtube.com/watch?v=NMWv2vQQjXE
 /// - nemoze deduce-at povratni tip funkcije koja vraca auto <-
@@ -31,34 +31,34 @@
 /// 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// FEATURES za napravit:
-/// - popuni datoteku "PotrebneDatotekeIDeklaracijeFunkcija.hpp" sa forward deklaracijama funkcija i #include-aj sve potrebne datoteke 
-/// - ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
-/// - blokiranje funkcija sa nazivima iz datoteke blacklist (json format)
-/// - pogledaj iznad ovog odjeljka na popis ogranicenja (oznacenih sa strelicom [ <- ])
-/// - podijelit kod u klase
-/// - klasu za trazenje / handle-anje stringova za jos pregledniji kod
-/// - koristi wxWidgets za GUI kod rucnog nacina
-/// - dinamicki containeri za bilo kakvu konfiguraciju
-/// - dodaj polje u json datoteku za ime datoteke iz koje se procita zadatak (u datoteci moze bit zadataka sa razlicitim namespace-ima)
+/// - [FEATURE] popuni datoteku "PotrebneDatotekeIDeklaracijeFunkcija.hpp" sa forward deklaracijama funkcija i #include-aj sve potrebne datoteke 
+/// - [TODO: OGRANICENJA] pogledaj iznad ovog odjeljka na popis ogranicenja (oznacenih sa strelicom [ <- ])
+/// - [MISCELLANEOUS] podijelit kod u klase
+/// - [MISCELLANEOUS] klasu za trazenje / handle-anje stringova za jos pregledniji kod
+/// - [FEATURE] dinamicki containeri za bilo kakvu konfiguraciju
 /// - napravit novi path za izvršavanje ovog programa (1. pokretanje programa vs 2. pokretanje programa) da bi se uklonio dodatan posao što nepotrebno radi
 /// - napravi da se datoteka "Function list.cpp" zadnja kompajla
-/// - ukoliko se u deklaraciji ne nalazi kljucna rijec "noexcept" zahtjevaj da ta funkcija prima argument tipa std::exception& 
-/// - omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
+/// - [FEATURE] ukoliko se u deklaraciji ne nalazi kljucna rijec "noexcept" zahtjevaj da ta funkcija prima argument tipa std::exception& 
+/// - [FEATURE] omogucit testiranje koda u drugim programskim jezicima pomocu nasljedivanja
+/// - [MISCELLANEOUS] smanjit broj cache miss-ova tako sto ces koristit 1 veliki string i offset-e umjesto 3 mala string-a (za tekst, deklaraciju i kod)
 /// 
 /// ----------------------------------------------------------------------------------------------
 /// TRENUTACNO RADIM NA:
-/// - funkcija "findStartOfAFunction" u datoteci ParseFile.cpp je hard codana za povratni tip "void" i ne radi ispravno za datoteku raznolikog sadrzaja
-/// - otklonit sto vise nepravilnosti prijavljene od stane Clang Tidy i SonarLint alata
+/// - [FEATURE] ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
+/// - [FEATURE] blokiranje funkcija sa nazivima iz datoteke blacklist (json format)
+/// - [BUG, testiraj je li jos uvijek istina] u datoteci ParseFile.cpp u funkciji "findStartOfAFunctioin" se nalazi EDGE CASE -> ukoliko se zagrada sa parametrima funkcije nalazi iza znaka nove linije
+/// - [MISCELLANEOUS] otklonit sto vise nepravilnosti prijavljene od stane Clang Tidy i SonarLint alata
 /// 
 /// ----------------------------------------------------------------------------------------------
 /// SLJEDECE NA REDU:
-/// - optimiziraj funkcije u datoteci "ParseFile.cpp"
-/// - smanjit broj cache miss-ova tako sto ces koristit 1 veliki string i offset-e umjesto 3 mala string-a (za tekst, deklaraciju i kod)
+/// - [OGRANICENJE] funkcije moraju imat povratni tip "void" (trenutacno)	<-
+/// - [FEATURE] koristi wxWidgets za GUI kod rucnog nacina
+/// - [BUG] u datoteci setup.cpp u funkciji "processZadatke": ukoliko funkcija ima "noexcept" kvalifikaciju, reci ce krivi broj argumenata funkcije
+/// - [MISCELLANEOUS] optimiziraj funkcije u datoteci "ParseFile.cpp"
 /// 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// BUGS:
-/// - u datoteci setup.cpp u funkciji "processZadatke": ukoliko funkcija ima "noexcept" kvalifikaciju, reci ce krivi broj argumenata funkcije
-/// - u datoteci ParseFile.cpp u funkciji "findStartOfAFunctioin" se nalazi EDGE CASE -> ukoliko se zagrada sa parametrima funkcije nalazi iza znaka nove linije
+/// - working on...
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// OSTALO:
@@ -114,21 +114,6 @@ void rucno();
 /// ////////////////////////////////////////////////////////////////////////////////////////////////////
 int main( const int args, const char* const argv[] )
 {
-/*
-	std::vector<std::unique_ptr<Zadatak>> vecZadaci;
-	vecZadaci.reserve(5);
-	auto zad = std::make_unique<Zadatak>();
-	//zad->deklaracija = "const auto test() -> void";
-	zad->deklaracija = "[[nodiscard]] const myCharPtr test()";
-	vecZadaci.push_back( std::move( zad ) );
-	const size_t upotrijebljenoZadataka = 1;
-	std::string_view nazivDatoteke = "test trailing return type";
-	auto j = Master::_INTERNAL::processZadatke( vecZadaci, upotrijebljenoZadataka, nazivDatoteke );
-
-	return EXIT_SUCCESS;
-*/
-
-	/// ////////////////////////////////// /////////////////////// ////////////////////////////
 	Master::init();
 	Master::pokretanjeFunkcija();
 
