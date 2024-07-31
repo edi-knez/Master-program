@@ -126,7 +126,7 @@ if( _DEBUG_FLAG && DEBUG_IDX == DEBUG_IDX ) \
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const bool DEBUG_FLAG = false );
+bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const ParseFile& pf, const bool DEBUG_FLAG = false );
 std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG = false );
@@ -142,7 +142,7 @@ void ParseFile::readFile( std::fstream& dat, std::vector<std::unique_ptr<Zadatak
 		}
 #endif
 		/*std::streampos unused = 0;*/
-		bool is_eof = findStartOfAFunction( dat/*, unused*/ );
+		bool is_eof = findStartOfAFunction( dat/*, unused*/, *this, false );
 		if( !is_eof )
 		{
 			if( pronadenoZadataka < zadaci.size() )
@@ -166,58 +166,172 @@ void ParseFile::readFile( std::fstream& dat, std::vector<std::unique_ptr<Zadatak
 	upotrijevbljenoZadataka = pronadenoZadataka;
 }
 
-bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const bool DEBUG_FLAG )
+bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const ParseFile& pf, const bool DEBUG_FLAG )
 {
 	auto ignoreRestOfALine = [&]()
 		{
-			while( char c = dat.get() )
+			while( int c = dat.get() )
 			{
 				if( c == '\n' || c == ';' )	break;
 			}
 		};
 
-	std::string firstWord;
-	firstWord.reserve( 30 );
-	// TODO: mjesto za razmislit u buducnosti
-	std::string funRetType = "void";
-	while( dat >> firstWord )
+	std::string word;
+	size_t pos = dat.tellg();
+	word.reserve( 30 );
+	unsigned char c;
+	bool isPossibleStart = false;
+	std::clog/*
+
+
+
+	*/ << "\n\n";
+	while( !dat.eof() )
 	{
-		if( firstWord == funRetType )
+		c = dat.get();
+		std::clog << c << "|";
+		if( bool foundEndOfDeclaration = c == ';' )
 		{
-			size_t brojProvjereZnakovaDeklaracije = 0;
-			char c;
+			isPossibleStart = false;
+			word.clear();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		else if( c == '=' )
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		if( c == '/' && dat.peek() == '/' )
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		if( c == '/' && dat.peek() == '*' )
+		{
 			while( c = dat.get() )
 			{
-				++brojProvjereZnakovaDeklaracije;
-				bool didItFoundEndOfALine = c == '\n';
-				bool didItFoundFunctionBody = c == '{';
-				bool didItFoundEndOfDeclaration = c == ';';
-
-				/// ispravak EDGE CASE-a -> detektiraj zavrsetak parametarske liste funkcije, tek nakon toga nastavi trazit pocetak funkcije
-				if( didItFoundEndOfALine )
-				{
-					while( c = dat.get() )
-					{
-						if( !isspace( c ) )	break;
-						++brojProvjereZnakovaDeklaracije;
-					}
-					if( c == '{' )	goto success;
-					else			goto failed;	// ako nije pocetak tijela funkcije, znaci da je kraj deklaracije. Provjeri ima li vise uspjeha u sljedecoj liniji
-				}
-				else if( didItFoundFunctionBody )		goto success;	// pocetna zagrada funkcije se nalazi u istoj liniji
-				else if( didItFoundEndOfDeclaration ) { ignoreRestOfALine(); goto failed; }	// neradi se o definicije funkcije, nego samo o deklaraciji
+				if( c == '*' && dat.peek() == '/' )	break;
 			}
+			dat.get(); // preskoci znak '/'
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
 
-		success:
-			dat.seekg( -1 * ( firstWord.size() + 1 + brojProvjereZnakovaDeklaracije + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
+		word += c;
+		if( isspace( c ) )
+		{
+			word.clear();
+			continue;
+		}
+		if( word == "#include" ) // is this a potential problem??
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		if( word == "namespace" )
+		{
+			while( c = dat.get() )
+			{
+				const bool endOfNmsDeclaration = c == ';';
+				if( endOfNmsDeclaration )
+				{
+					while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+					break;
+				}
+				const bool startOfNmsDefinition = c == '{';
+				if( startOfNmsDefinition )
+				{
+					pf.skipFuncBody( dat );
+				}
+			}
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		else if( word == "class" || word == "struct" || word == "enum" )	// TODO: omoguci dohvacanje koda iz klasa
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			if( dat.peek() == '{' )	pf.skipFuncBody( dat );
+			pos = dat.tellg();
+			continue;
+		}
+
+		if( c == '(' )	isPossibleStart = true;
+		if( isPossibleStart && c == '{' )	/// uspjeh
+		{
+			dat.seekg( pos - dat.tellg(), std::ios::cur );
 			break;
 		}
+		else if( !isPossibleStart && c == '{' )
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			if( dat.peek() == '{' )	pf.skipFuncBody( dat );
+			pos = dat.tellg();
+			continue;
+		}
+//		else if( isPossibleStart&& )
+
+	//		if( word == "false" /*funRetType*/ )
+	/* {
+				size_t brojProvjereZnakovaDeklaracije = 0;
+				while( c = dat.get() )
+				{
+					++brojProvjereZnakovaDeklaracije;
+					bool didItFoundEndOfALine = c == '\n';
+					bool didItFoundFunctionBody = c == '{';
+					bool didItFoundEndOfDeclaration = c == ';';
+
+					/// ispravak EDGE CASE-a -> detektiraj zavrsetak parametarske liste funkcije, tek nakon toga nastavi trazit pocetak funkcije
+					if( didItFoundEndOfALine )
+					{
+						while( c = dat.get() )
+						{
+							if( !isspace( c ) )	break;
+							++brojProvjereZnakovaDeklaracije;
+						}
+						if( c == '{' )	goto success;
+						else			goto failed;	// ako nije pocetak tijela funkcije, znaci da je kraj deklaracije. Provjeri ima li vise uspjeha u sljedecoj liniji
+					}
+					else if( didItFoundFunctionBody )		goto success;	// pocetna zagrada funkcije se nalazi u istoj liniji
+					else if( didItFoundEndOfDeclaration ) { ignoreRestOfALine(); goto failed; }	// neradi se o definicije funkcije, nego samo o deklaraciji
+				}
+
+			success:
+				dat.seekg( -1 * ( word.size() + 1 + brojProvjereZnakovaDeklaracije + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
+				break;
+			}
 
 		ignoreRestOfALine();
 	failed:
-		firstWord.clear();
+		word.clear();
 	}
+	*/
 
+	}
 	return dat.eof();
 }
 
@@ -414,21 +528,16 @@ std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 // TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )
 {
+	while( !dat.eof() && dat.peek() != '{' )	dat.get();	// preskoci sve razmake nakon deklaracije
 	std::string retVal = "";
-	std::string line = "";
-	line.reserve( 255 );
 	size_t stack = 0;
-	while( true )
+	while( const char c = dat.get() )
 	{
-		std::getline( dat, line );
-		for( const char c : line )
-		{
-			retVal += c;
-			stack += c == '{';
-			stack -= c == '}';
-		}
+		retVal += c;
+		stack += c == '{';
+		stack -= c == '}';
+
 		if( stack == 0 )	break;
-		retVal += '\n';
 	}
 	//std::cout << retVal;
 	return retVal;
@@ -444,7 +553,7 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 {
 	/*std::streampos brojRedaka = 0;
 	brojRedaka += 1;*/
-	while( bool is_not_eof = !findStartOfAFunction( dat/*, brojRedaka*/ ) )
+	while( bool is_not_eof = !findStartOfAFunction( dat/*, brojRedaka*/, *this ) )
 	{
 		std::string deklaracija = getDeclaration( dat );
 		std::string::iterator it;
@@ -488,7 +597,7 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 ///		SMATRA SE da je pokazivac trenutne lokacije u datoteci na znaku za pocetak funkcije koje zelis preskocit ( '{' )
 /// </summary>
 /// <param name="dat"> referenca datotecnog objekta gdje preskaces tijelo funkcije </param>
-void ParseFile::skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/ )
+void ParseFile::skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/ ) const
 {
 	size_t stack = 0;
 	char c;

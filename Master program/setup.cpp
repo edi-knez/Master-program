@@ -191,13 +191,9 @@ void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetTyp
 	std::unordered_map<std::string, bool /*unused*/> poznataImenaFunkcija;
 
 	auto curIt = vecZadaci.begin();
-	// zbog toga sto moze, ali i nemora predstavljat vazeci zadatak, moraju se handle-at EDGE CASE-ovi
-	bool isItFull = upotrijebljenoZadataka == vecZadaci.size();
-	bool isContainingOnly1Zadatak = upotrijebljenoZadataka == 1;
-	const auto endIt = vecZadaci.begin() + ( upotrijebljenoZadataka - isItFull - isContainingOnly1Zadatak + ( isItFull && isContainingOnly1Zadatak ) );
-	for( ; curIt <= endIt; ++curIt )
+	for( size_t offset = 0; offset < upotrijebljenoZadataka; ++offset )
 	{
-		auto zad = curIt->get();
+		auto zad = ( curIt + offset )->get();
 		auto [funcReturnType, extra] = getFuncReturnType( zad->deklaracija, brojPreskocenihZnakova );
 		auto [namespaceName, funcName] = getNamespaceAndFunctionName( zad->deklaracija, brojPreskocenihZnakova );
 		auto [funcArguments, extra2] = getFuncArguments( zad->deklaracija, brojPreskocenihZnakova );
@@ -255,6 +251,7 @@ void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetTyp
 				if( overloadableOperators.contains( std::string_view( offsetBegin, endWithTrimmedSpaces ).data() ) )	continue;
 			}
 		}
+		if( funcReturnType != "void" )		continue;	/// za sada nemoze handle-at funkcije sa raznim povratnim tipovima
 		if( namespaceName == "" )			continue;	/// za sada nemoze handle-at funkcije bez namespacea
 		if( namespaceName == funcName )		continue;	/// blacklista konstruktore u klasama
 		if( poznataImenaFunkcija.contains( funcName ) ) /// blacklista function overload-e
@@ -304,7 +301,7 @@ void popuniCijeliPopisFunkcija( nlohmann::json& jsonData, bool isExecutionProces
 	{
 		// zapisi u datoteku na pravo mjesto:
 
-		// ukoliko funkcija sa tim imenom postoji, pronaci ce je. U suprotnom neces moci kompajlat program.
+		// ukoliko funkcija sa tim imenom postoji, pronaci ce je. U suprotnom neces moci nastavit na sljedeci korak programa.
 		std::optional<size_t> writingPosition;
 		do
 		{
