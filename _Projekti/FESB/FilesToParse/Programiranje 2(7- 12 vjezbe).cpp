@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿
+#include <iostream>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -146,9 +147,9 @@ void FESB::vj8_3()
 	printf( "my_strlen: %zd\nstrlen: %zd\n", vj8_my_strlen( a ), strlen( a ) );
 
 	const char* c = { "tesktZaKopirat" };
-	char* d = (char*) malloc( vj8_my_strlen( c ) + 1 );
+	char* d = (char*)malloc( vj8_my_strlen( c ) + 1 );
 	size_t duljina = strlen( c );
-	char* e = (char*) malloc( duljina + 1 );
+	char* e = (char*)malloc( duljina + 1 );
 	if( d )	vj8_my_strcpy( d, c );
 	if( e )	strcpy_s( e, duljina, c );
 	printf( "c: %s\nd: %s\ne: %s", c, d, e );
@@ -488,7 +489,7 @@ void FESB::vj12_2()
 		velicina++;
 		tempBr /= 10;
 	}
-	char* str = (char*) malloc( velicina * sizeof( char ) );
+	char* str = (char*)malloc( velicina * sizeof( char ) );
 	if( str )
 	{
 		for( int i = 1; i < velicina; ++i )
@@ -582,8 +583,8 @@ void FESB::vj12_4()
 	int n;
 	printf( "Unesi velicinu nizova: " );
 	scanf_s( "%d", &n );
-	int* niz1 = (int*) malloc( n * sizeof( int ) );
-	int* niz2 = (int*) malloc( n * sizeof( int ) );
+	int* niz1 = (int*)malloc( n * sizeof( int ) );
+	int* niz2 = (int*)malloc( n * sizeof( int ) );
 	if( niz1 == NULL )	return;
 	if( niz2 == NULL ) { free( niz1 ); return; }
 

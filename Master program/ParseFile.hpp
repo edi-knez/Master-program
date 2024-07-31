@@ -1,7 +1,6 @@
 /// Zbog jednostavnosti, citat ce specijalne datoteke koje ne sadrze nista vise nego samo funkcije koje te zanimaju
 ///  - u svakom projektu nalazi se "FilesToParse" -> potrebna <- mapa koja sadrzi sve bitne datoteke
 /// 
-/// TRENUTACNO NE PODRZAVA TEKST ZADATAKA SA VISE LINIJSKIM KOMENTAROM!! /* */
 
 #pragma once
 #include <iostream>
@@ -32,24 +31,18 @@ struct Zadatak
 	std::string kod; // tijelo funkcije
 
 	Zadatak() = default;
-	Zadatak( const nlohmann::json& jZadatak )
+	explicit Zadatak( const nlohmann::json& jZadatak )
 	{
 		tekst = jZadatak["tekst"];
 		deklaracija = jZadatak["deklaracija"];
 		kod = jZadatak["kod"];
 	}
+
+
+	friend std::ostream& operator<<( std::ostream& dat, const Zadatak& zad );
 };
 
 
-/*
-std::ofstream& operator << ( std::ofstream& dat, const Zadatak& zad )
-{
-	dat << "TEKST ZADATKA: " << zad.tekst << '\n'
-		<< "DEKLARACIJA: " << zad.deklaracija << '\n'
-		<< "KOD:\n" << zad.kod << '\n';
-	return dat;
-}
-*/
 
 /// <summary>
 ///		Ova klasa je zaduzena za prelazak preko zeljenih datoteka i uzimanja informacija za pojedini zadatak.
@@ -60,6 +53,7 @@ public:
 	//ParseFile( std::vector<std::string_view>& paths, std::vector<size_t>& pathIdx, std::vector<std::string>& imenaDatoteka, std::vector<std::string>& ekstenzijaDatoteka );
 	//ParseFile( std::vector<std::string_view>& paths, std::vector<size_t>& pathIdx, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka = "cpp" );
 	//ParseFile( std::vector<std::string_view>& paths, std::vector<std::string>& imenaDatoteka, std::vector<std::string>& ekstenzijaDatoteka );
+	ParseFile( const std::string_view& path, std::string& imenaDatoteka, const char* ekstenzijaDatoteka = "cpp" );
 	ParseFile( const std::string_view& path, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka = "cpp" );
 	ParseFile() = delete;
 	ParseFile( const ParseFile& ) = delete;
@@ -75,10 +69,10 @@ public:
 public:
 	/// citaj
 	///  - nije potrebno reci za koji je projekt jer m_datoteka vec govori o kojem se projektu radi (po indexu)
-	std::vector<Zadatak*> readFile( std::fstream& dat, const bool DEBUG_FLAG = false );
+	void readFile( std::fstream& dat, std::vector<std::unique_ptr<Zadatak>>& zadaci, size_t& upotrijevbljenoZadataka, const bool DEBUG_FLAG = false ) const;
 	//
 	std::optional<size_t> getPositionOfFunction( std::fstream& dat, const char* imeFunkcije );
-	void skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/ );
+	void skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/ ) const;
 /////////////////////////////////////////////////////////
 private:
 	std::vector<std::fstream> m_datoteke;

@@ -37,7 +37,7 @@ public:
 		myCharptr( char numOfEl, const char* cstr )
 		{
 			content = new char[numOfEl + 1];
-			init( numOfEl, cstr );
+			init( numOfEl, strlen(cstr), cstr);
 		}
 		myCharptr( uint8_t len, const myCharptr& rhs )
 		{
@@ -86,18 +86,18 @@ public:
 		void init( const myCharptr& string )
 		{
 			if( string.getContent() == nullptr )	content[0] = 0;
-			else								init( string[0], string.content + 1 );
+			else								init( string[0], string.getLength(), string.content + 1 );
 		}
 		void init( uint8_t len, const myCharptr& string )
 		{
 			if( string.getContent() == nullptr )	content[0] = len;
-			else								init( len, string.content + 1 );
+			else								init( len, string.getLength(), string.content + 1);
 		}
-		void init( char numOfEl, const char* cstr )
+		void init( char numOfEl, char oldSize, const char* cstr )
 		{
 			content[0] = numOfEl;
 
-			for( int i = 1; i <= numOfEl; ++i )
+			for( int i = 1; i <= oldSize; ++i )
 			{
 				content[i] = cstr[i - 1];
 			}

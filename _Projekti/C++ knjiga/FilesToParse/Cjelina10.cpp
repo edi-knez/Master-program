@@ -28,7 +28,7 @@ void Cjelina10::zad1()
         A[i]->_ispisi();
     }
 
-    delete A[0], A[1], A[2];
+	delete a, b, c;
 }
 
 /// <summary>
@@ -45,6 +45,6 @@ void Cjelina10::zad2()
 
     for (int i = 0; i < 2; i++)  c[i]->_ispis();
 
-    for (int i = 0; i < 2; i++)  delete c[i];
+    delete a, b;
 
 }

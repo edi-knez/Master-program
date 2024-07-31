@@ -9,7 +9,7 @@ void test();
 /// <param name="funX">duljina stranice kvadrata (double)</param>
 /// <returns>povrsinu kvadrata (double)</returns>
 
-/* 
+/*
 */
 double Cjelina1::_kvadPovrsina( double funX ) {
 	double funX2;

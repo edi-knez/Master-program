@@ -31,6 +31,34 @@
 }
 */
 
+ParseFile::ParseFile( const std::string_view& path, std::string& imeDatoteke, const char* ekstenzijaDatoteka )
+{
+	if( path.empty() || path[0] == '\0' )
+	{
+		std::cout << "UNESI VAZECI PATH!\n";
+		exit( EXIT_FAILURE );
+	}
+	if( imeDatoteke.empty() )
+	{
+		std::cout << "UNESI IME DATOTEKE GDJE SE NALAZE ZELJENE FUNKCIJE!\n";
+		exit( EXIT_FAILURE );
+	}
+
+	m_paths.push_back( path );
+	for( size_t datIdx = 0; datIdx < imeDatoteke.size(); ++datIdx )
+	{
+		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
+		m_datoteke.emplace_back( m_paths.front().data() + imeDatoteke, std::ios::in | std::ios::out | std::ios::ate );
+		m_datoteke[datIdx].seekg( std::ios::beg );
+		m_datoteke[datIdx].seekp( std::ios::beg );
+		if( !m_datoteke[datIdx].is_open() )
+		{
+			std::cout << "Nisam otvorio datoteku: " << m_paths.front() << imeDatoteke << '\n';
+			exit( EXIT_FAILURE );
+		}
+	}
+}
+
 ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& imenaDatoteka, const char* ekstenzijaDatoteka )
 {
 	if( path.empty() || path[0] == '\0' )
@@ -49,7 +77,7 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 	{
 		//std::string dat = imenaDatoteka[idx] + '.' + ekstenzijaDatoteka;
 		std::string datotekeProjekta = imenaDatoteka[datIdx];
-		m_datoteke.emplace_back( std::fstream( ( m_paths.front().data() + datotekeProjekta ), std::ios::in | std::ios::out | std::ios::ate ) );
+		m_datoteke.emplace_back( m_paths.front().data() + datotekeProjekta, std::ios::in | std::ios::out | std::ios::ate );
 		m_datoteke[datIdx].seekg( std::ios::beg );
 		m_datoteke[datIdx].seekp( std::ios::beg );
 		if( !m_datoteke[datIdx].is_open() )
@@ -58,8 +86,8 @@ ParseFile::ParseFile( const std::string_view& path, std::vector<std::string>& im
 			exit( EXIT_FAILURE );
 		}
 	}
-
 }
+
 //////////////////////////////////////////// DEBUG //////////////////////////////////////////////////
 /// //////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,14 +126,13 @@ if( _DEBUG_FLAG && DEBUG_IDX == DEBUG_IDX ) \
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const bool DEBUG_FLAG = false);
+bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const ParseFile& pf, const bool DEBUG_FLAG = false );
 std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG = false );
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG = false );
-std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_FLAG )
+void ParseFile::readFile( std::fstream& dat, std::vector<std::unique_ptr<Zadatak>>& zadaci, size_t& upotrijevbljenoZadataka, const bool DEBUG_FLAG ) const
 {
-
-	std::vector<Zadatak*> retVal;
+	size_t pronadenoZadataka = 0;
 	while( !dat.eof() )
 	{
 #if true	
@@ -115,69 +142,196 @@ std::vector<Zadatak*> ParseFile::readFile( std::fstream& dat, const bool DEBUG_F
 		}
 #endif
 		/*std::streampos unused = 0;*/
-		bool is_eof = findStartOfAFunction( dat/*, unused*/);
-		if( !is_eof ) 
+		bool is_eof = findStartOfAFunction( dat/*, unused*/, *this, false );
+		if( !is_eof )
 		{
-			auto zad = new Zadatak;
-			zad->tekst = getKomentar( dat, DEBUG_FLAG );
-			zad->deklaracija = getDeclaration( dat, DEBUG_FLAG );
-			zad->kod = getFuncBody( dat, DEBUG_FLAG );
-			retVal.push_back( std::move( zad ) );
+			if( pronadenoZadataka < zadaci.size() )
+			{
+				zadaci[pronadenoZadataka].get()->tekst = getKomentar( dat, DEBUG_FLAG );
+				zadaci[pronadenoZadataka].get()->deklaracija = getDeclaration( dat, DEBUG_FLAG );
+				zadaci[pronadenoZadataka].get()->kod = getFuncBody( dat, DEBUG_FLAG );
+			}
+			else
+			{
+				auto zad = std::make_unique<Zadatak>();
+				zad->tekst = getKomentar( dat, DEBUG_FLAG );
+				zad->deklaracija = getDeclaration( dat, DEBUG_FLAG );
+				zad->kod = getFuncBody( dat, DEBUG_FLAG );
+				zadaci.push_back( std::move( zad ) );
+			}
+			++pronadenoZadataka;
 		}
+		++DEBUG_FILE_IDX;
 	}
-	++DEBUG_FILE_IDX;
-	return retVal;
+	upotrijevbljenoZadataka = pronadenoZadataka;
 }
 
-bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const bool DEBUG_FLAG)
+bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, const ParseFile& pf, const bool DEBUG_FLAG )
 {
 	auto ignoreRestOfALine = [&]()
 		{
-			char c;
-			while( c = dat.get() )
+			while( int c = dat.get() )
 			{
-				if( dat.eof() || c == '\n' )	break;
+				if( c == '\n' || c == ';' )	break;
 			}
 		};
-	
-	std::string firstWord;
-	firstWord.reserve( 30 );
-	// TODO: mjesto za razmislit u buducnosti
-	std::string funRetType = "void";
-	while( dat >> firstWord )
+
+	std::string word;
+	size_t pos = dat.tellg();
+	word.reserve( 30 );
+	unsigned char c;
+	bool isPossibleStart = false;
+	std::clog/*
+
+
+
+	*/ << "\n\n";
+	while( !dat.eof() )
 	{
-		if( firstWord == funRetType )
+		c = dat.get();
+		std::clog << c << "|";
+		if( bool foundEndOfDeclaration = c == ';' )
 		{
-			size_t brojProvjereZnakovaDeklaracije = 0;
-			char c;
+			isPossibleStart = false;
+			word.clear();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		else if( c == '=' )
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		if( c == '/' && dat.peek() == '/' )
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		if( c == '/' && dat.peek() == '*' )
+		{
 			while( c = dat.get() )
 			{
-				++brojProvjereZnakovaDeklaracije;
-				if( c == '\n' )
-				{
-					/*brojRedaka += 1;*/
-					while( !dat.eof() )	// moze se dogodit da je deklaracija na zadnjoj liniji koda
-					{
-						c = dat.get();
-						if( !isspace( c ) )	break;
-						++brojProvjereZnakovaDeklaracije;
-					}
-					if( c == '{' )	goto success;
-					else			goto failed;	// ako nije pocetak funkcije, znaci da je kraj deklaracije. Provjeri ima li vise uspjeha u sljedecoj liniji
-				}
-				if( c == '{' )	goto success;	// pocetna zagrada funkcije se nalazi u istoj liniji
+				if( c == '*' && dat.peek() == '/' )	break;
 			}
+			dat.get(); // preskoci znak '/'
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
 
-		success:
-			dat.seekg( -1 * ( firstWord.size() + 1 + brojProvjereZnakovaDeklaracije + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
+		word += c;
+		if( isspace( c ) )
+		{
+			word.clear();
+			continue;
+		}
+		if( word == "#include" ) // is this a potential problem??
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		if( word == "namespace" )
+		{
+			while( c = dat.get() )
+			{
+				const bool endOfNmsDeclaration = c == ';';
+				if( endOfNmsDeclaration )
+				{
+					while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+					break;
+				}
+				const bool startOfNmsDefinition = c == '{';
+				if( startOfNmsDefinition )
+				{
+					pf.skipFuncBody( dat );
+				}
+			}
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			pos = dat.tellg();
+			continue;
+		}
+		else if( word == "class" || word == "struct" || word == "enum" )	// TODO: omoguci dohvacanje koda iz klasa
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			if( dat.peek() == '{' )	pf.skipFuncBody( dat );
+			pos = dat.tellg();
+			continue;
+		}
+
+		if( c == '(' )	isPossibleStart = true;
+		if( isPossibleStart && c == '{' )	/// uspjeh
+		{
+			dat.seekg( pos - dat.tellg(), std::ios::cur );
 			break;
 		}
+		else if( !isPossibleStart && c == '{' )
+		{
+			isPossibleStart = false;
+			word.clear();
+			ignoreRestOfALine();
+			while( !dat.eof() && isspace( dat.peek() ) || dat.peek() == '\n' )	dat.get();
+			if( dat.peek() == '{' )	pf.skipFuncBody( dat );
+			pos = dat.tellg();
+			continue;
+		}
+//		else if( isPossibleStart&& )
+
+	//		if( word == "false" /*funRetType*/ )
+	/* {
+				size_t brojProvjereZnakovaDeklaracije = 0;
+				while( c = dat.get() )
+				{
+					++brojProvjereZnakovaDeklaracije;
+					bool didItFoundEndOfALine = c == '\n';
+					bool didItFoundFunctionBody = c == '{';
+					bool didItFoundEndOfDeclaration = c == ';';
+
+					/// ispravak EDGE CASE-a -> detektiraj zavrsetak parametarske liste funkcije, tek nakon toga nastavi trazit pocetak funkcije
+					if( didItFoundEndOfALine )
+					{
+						while( c = dat.get() )
+						{
+							if( !isspace( c ) )	break;
+							++brojProvjereZnakovaDeklaracije;
+						}
+						if( c == '{' )	goto success;
+						else			goto failed;	// ako nije pocetak tijela funkcije, znaci da je kraj deklaracije. Provjeri ima li vise uspjeha u sljedecoj liniji
+					}
+					else if( didItFoundFunctionBody )		goto success;	// pocetna zagrada funkcije se nalazi u istoj liniji
+					else if( didItFoundEndOfDeclaration ) { ignoreRestOfALine(); goto failed; }	// neradi se o definicije funkcije, nego samo o deklaraciji
+				}
+
+			success:
+				dat.seekg( -1 * ( word.size() + 1 + brojProvjereZnakovaDeklaracije + 1 ), std::ios::cur );	 // + 1, da se vrati ispred 1. znaka u toj liniji
+				break;
+			}
 
 		ignoreRestOfALine();
 	failed:
-		firstWord.clear();
+		word.clear();
 	}
+	*/
 
+	}
 	return dat.eof();
 }
 
@@ -193,7 +347,7 @@ void vratiSeZa1ZnakUnazad( std::fstream& dat )
 // TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 /// <summary>
 ///		Da bi bio siguran da citas komentar od funkcije, a ne neki random, moras pocet citat od deklaracije te funkcije.
-///		Citas od kraja linije prema pocetku dok nenaides na pocetak komentara "//" ili dok do dodes do kraja cijelog komentara "\n\n".
+///		Citas od kraja linije prema pocetku dok nenaides na pocetak komentara "//" ili dok do dodes do kraja cijelog komentara (linija izned nema znakove jednolijskog kokmentara ili si naisao na pocetak viselinijskog komentara).
 ///		Linije sprema u listu sprijeda. Jer se cita odzada, to je najjednostavniji nacini da se dobije ispravan tekst zadatka.	
 /// 
 ///		Garantirano je da je komentar u ovom formatu jer inace se nebi moglo kompajlat.
@@ -212,8 +366,9 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 	size_t previousPosInComment = dat.tellg();
 	std::list<std::string> tekstZadatka;
 	std::string line;
-	bool pronasaoPocetakKomentara = false;
-	bool novaLinijaIspredZnakaKomentara = false;
+	bool pronasaoPocetakLinijeKomentara = false;
+	bool pronasaoPocetakCijelogKomentara = false;
+	bool pronasaoKrajViseLinijskogKomentara = false;
 
 /////////////////////
 // ovo je test
@@ -225,20 +380,51 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 
 	auto pronadiPocetakKomentara = [&]()
 		{
-			while( bool notBeginingOfFile = dat.tellg() > 0 && !novaLinijaIspredZnakaKomentara )
+			while( bool notBeginingOfFile = dat.tellg() > 0 && !pronasaoPocetakCijelogKomentara )
 			{
 				char trenutniZnak = dat.peek();
-				if( trenutniZnak == '\n' && !pronasaoPocetakKomentara )
+				if( trenutniZnak == '\n' && !pronasaoPocetakLinijeKomentara )
 				{
-					novaLinijaIspredZnakaKomentara = true;
+					pronasaoPocetakCijelogKomentara = true;
 					break;
 				}
 
 				vratiSeZa1ZnakUnazad( dat );
-				if( trenutniZnak == '/' && dat.peek() == '/' )
+				if( dat.peek() == '/' && trenutniZnak == '/' )
 				{
-					pronasaoPocetakKomentara = true;
-					break;	// doslo je do pocetka linije
+					pronasaoPocetakLinijeKomentara = true;
+					break;
+				}
+
+				if( !pronasaoPocetakLinijeKomentara && dat.peek() == '*' && trenutniZnak == '/' ) // da bih se izbjegli bugovi, viselinijski komentari se zasebno handle-aju
+				{
+					currentPosInComment = dat.tellg();
+					pronasaoKrajViseLinijskogKomentara = true;
+					while( bool notBeginingOfFile = dat.tellg() > 0 )
+					{
+						trenutniZnak = dat.peek();
+						vratiSeZa1ZnakUnazad( dat );
+						if( dat.peek() == '\n' )	break;
+						if( dat.peek() == '/' && trenutniZnak == '/' )
+						{
+							pronasaoKrajViseLinijskogKomentara = false;
+							pronasaoPocetakLinijeKomentara = true;
+							break;
+						}
+					}
+					if( pronasaoPocetakLinijeKomentara )	break;
+
+					while( bool notBeginingOfFile = dat.tellg() > 0 )
+					{
+						trenutniZnak = dat.peek();
+						vratiSeZa1ZnakUnazad( dat );
+						if( dat.peek() == '/' && trenutniZnak == '*' )
+						{
+							pronasaoPocetakCijelogKomentara = true;
+							break;
+						}
+					}
+					if( pronasaoPocetakCijelogKomentara )	break;
 				}
 			}
 #if false
@@ -247,7 +433,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 #endif
 			dat.get(); /// preskoci '//' , znakove komentara
 			dat.get();
-			};
+		};
 
 
 	auto spremiLinijuUString = [&]()
@@ -264,47 +450,47 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 		};
 
 
-	while( bool notBeginingOfFile = dat.tellg() != 0 )
+	while( bool notBeginingOfFile = dat.tellg() > 1 )	// mora imat barem 2 znaka '/' da bi se linija smatrala kao komentar
 	{
-		char trenutniZnak = dat.peek();
-		vratiSeZa1ZnakUnazad( dat );	// vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
+		pronasaoPocetakLinijeKomentara = false;
+		vratiSeZa1ZnakUnazad( dat );
+		vratiSeZa1ZnakUnazad( dat );
+		vratiSeZa1ZnakUnazad( dat ); // vrati se unazad da bi dosao ispred znaka za novu liniju ( '\n' )
+		if( dat.tellg() == 0 )	break;
+		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnijef
 
-		// doslo je do pocetka teksta zadatka
-		if( bool notBeginingOfFile = dat.tellg(); trenutniZnak == '\n' && notBeginingOfFile > 0 && dat.get() == '\n' )
-		{
-			break;
-		}
-
-		vratiSeZa1ZnakUnazad( dat ); // vrati se unazad za znak za koji si sada provjeravao pocetak komentara
-		currentPosInComment = dat.tellg();	// zapamti poziciju newline znaka za kasnije
-
-		pronadiPocetakKomentara();
-		if( novaLinijaIspredZnakaKomentara )
-		{
-			dat.seekg( currentPosInFile, std::ios::beg );
-			return {};
-		}
+		pronadiPocetakKomentara(); // vracaj se unazad za jedan znak da se nalazis na pocetku linije komentara
+		if( pronasaoPocetakCijelogKomentara )	break;
 		char c;
 #if false
 		DEBUG_LOG( 1 );
 #endif
-
-		while( isspace( dat.peek() ) ) { dat.get(); } // nalazi se na znaku '/'
-	//	vratiSeZa1ZnakUnazad( dat );	// nalazi se na znaku '\n'
-
-		spremiLinijuUString();
-		while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
+		if( pronasaoPocetakLinijeKomentara )
 		{
-			if( bool notEndingOfNextine = dat.peek() == '\n' )	break;
-			vratiSeZa1ZnakUnazad( dat );
+			while( isspace( dat.peek() ) ) { dat.get(); } // nalazi se na znaku '/'
+			spremiLinijuUString();
+			while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
+			{
+				if( bool notEndingOfNextine = dat.peek() == '\n' )	{ dat.get(); break; }
+				vratiSeZa1ZnakUnazad( dat );
+			}
 		}
 	}
 
 	std::string retVal;	// dodaj sve linije teksta u jednu cjelinu
-	while( !tekstZadatka.empty() )
+	if( pronasaoKrajViseLinijskogKomentara )
 	{
-		retVal += tekstZadatka.front();
-		tekstZadatka.pop_front();
+		retVal.reserve( currentPosInComment - dat.tellg() );
+		while( dat.tellg() != currentPosInComment )
+			retVal += dat.get();
+	}
+	else
+	{
+		while( !tekstZadatka.empty() )
+		{
+			retVal += tekstZadatka.front();
+			tekstZadatka.pop_front();
+		}
 	}
 
 #if false
@@ -314,9 +500,9 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 	dat.seekg( currentPosInFile, std::ios::beg ); // vrati datoteku nazad gdje je bila prije citanja komentara
 
 	return retVal;
-		}
+}
 
-	// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
+// TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 {
 	while( isspace( dat.peek() ) )
@@ -342,21 +528,16 @@ std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 // TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 std::string getFuncBody( std::fstream& dat, const bool DEBUG_FLAG )
 {
+	while( !dat.eof() && dat.peek() != '{' )	dat.get();	// preskoci sve razmake nakon deklaracije
 	std::string retVal = "";
-	std::string line = "";
-	line.reserve( 255 );
 	size_t stack = 0;
-	while( true )
+	while( const char c = dat.get() )
 	{
-		std::getline( dat, line );
-		for( const char c : line )
-		{
-			retVal += c;
-			stack += c == '{';
-			stack -= c == '}';
-		}
+		retVal += c;
+		stack += c == '{';
+		stack -= c == '}';
+
 		if( stack == 0 )	break;
-		retVal += '\n';
 	}
 	//std::cout << retVal;
 	return retVal;
@@ -372,22 +553,22 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 {
 	/*std::streampos brojRedaka = 0;
 	brojRedaka += 1;*/
-	while( bool is_not_eof = !findStartOfAFunction( dat/*, brojRedaka*/) )
+	while( bool is_not_eof = !findStartOfAFunction( dat/*, brojRedaka*/, *this ) )
 	{
 		std::string deklaracija = getDeclaration( dat );
 		std::string::iterator it;
 		// pronadi pocetak povratnog tipa
-		it = std::find_if( deklaracija.begin(), deklaracija.end(), [&it]( char c )
+		it = std::find_if( deklaracija.begin(), deklaracija.end(), []( char c )
 						   {
 							   return isalpha( c );
 						   } );
 		// pronadi kraj povratnog tipa
-		it = std::find_if( it, deklaracija.end(), [&]( char c )
+		it = std::find_if( it, deklaracija.end(), []( char c )
 						   {
 							   return  isspace( c );
 						   } );
 		// pronadi pocetak imena funkcije
-		it = std::find_if( it, deklaracija.end(), [&]( char c )
+		it = std::find_if( it, deklaracija.end(), []( char c )
 						   {
 							   return isalpha( c );
 						   } );
@@ -405,7 +586,7 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 
 		std::string pronadenoIme( it, itEnd );
 		if( strcmp( pronadenoIme.data(), imeFunkcije ) == 0 )	return dat.tellg() /*( dat.tellg() - brojRedaka )*/;
-		else																skipFuncBody( dat/*, brojRedaka*/);
+		else													skipFuncBody( dat/*, brojRedaka*/ );
 	}
 	return {};
 }
@@ -416,7 +597,7 @@ std::optional<size_t> ParseFile::getPositionOfFunction( std::fstream& dat, const
 ///		SMATRA SE da je pokazivac trenutne lokacije u datoteci na znaku za pocetak funkcije koje zelis preskocit ( '{' )
 /// </summary>
 /// <param name="dat"> referenca datotecnog objekta gdje preskaces tijelo funkcije </param>
-void ParseFile::skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/)
+void ParseFile::skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocenihLinija*/ ) const
 {
 	size_t stack = 0;
 	char c;
@@ -434,10 +615,12 @@ void ParseFile::skipFuncBody( std::fstream& dat/*, std::streampos& brojPreskocen
 
 
 
+ ///
 
-
-
-///
-
-
-
+std::ostream& operator<<( std::ostream& dat, const Zadatak& zad )
+{
+	dat << "TEKST ZADATKA: " << zad.tekst << '\n'
+		<< "DEKLARACIJA: " << zad.deklaracija << '\n'
+		<< "KOD:\n" << zad.kod << '\n';
+	return dat;
+}

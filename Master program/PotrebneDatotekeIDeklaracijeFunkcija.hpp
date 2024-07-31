@@ -33,6 +33,10 @@ namespace FESB
 	extern void vj11_1();	extern void vj11_2();	extern void vj11_3();	extern void vj11_4();
 	extern void vj12_1();	extern void vj12_2();	extern void vj12_3();	extern void vj12_4();
 }
+namespace FESB::TESTIRANJE
+{
+	void testViseNivoaNamespacea();
+}
 //////////////////////////////////////
 
 

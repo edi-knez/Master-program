@@ -439,7 +439,8 @@ void FESB::vj5_2()
 	char str2[STRING_LIMIT] = { 0 };
 	printf( "Unesi tekst u varijablu: " );
 	scanf( " %s", &str1 );
-	for( int idx = 0; str1[idx] != '\0' && idx < STRING_LIMIT; ++idx )
+	str1[STRING_LIMIT - 1] = '\0';
+	for( int idx = 0; str1[idx] != '\0'; ++idx )
 	{
 		if( !( isdigit( str1[idx] ) ) ) { str2[idx] += str1[idx]; }
 		else { str2[idx] += ' '; }
