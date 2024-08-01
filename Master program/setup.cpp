@@ -132,7 +132,7 @@ void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetTyp
 {
 	size_t offset_ = 0;
 	auto startOfFuncArguments = deklaracija.begin() + offset;
-	startOfFuncArguments = std::find( startOfFuncArguments, deklaracija.end(), '(' );
+	startOfFuncArguments = std::find_if( startOfFuncArguments, deklaracija.end(), []( const char c ) { return isspace( c ) || c == '('; } );
 	// koristim hack: -1 * ( startOfFuncArguments - deklaracija.begin() ) jer izgleda prirodnije kad moram offset-at reverse pokazivac u desno
 	auto tempIt = std::find_if_not( deklaracija.rend() + -1 * ( startOfFuncArguments - deklaracija.begin() ), deklaracija.rend(), []( char c ){ return isspace( c ); } );
 	auto endOfFuncName = deklaracija.begin() + ( deklaracija.rend() - tempIt );
@@ -140,6 +140,7 @@ void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetTyp
 	auto startOfFuncName = deklaracija.begin() + ( deklaracija.rend() - tempIt );
 	std::string funcName( startOfFuncName, endOfFuncName );
 	std::string nmsName( deklaracija.begin() + offset, startOfFuncName - 2 * ( ( deklaracija.begin() + offset ) != startOfFuncName ) );
+	startOfFuncArguments = std::find( startOfFuncArguments, deklaracija.end(), '(' );
 	offset = startOfFuncArguments - deklaracija.begin();
 	return { nmsName, funcName };
 }
@@ -149,6 +150,7 @@ void Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi( std::string& funcRetTyp
 	std::unordered_map<std::string, bool/*safe to skip*/> kljucneRijeci = { // izmedu desne zatvarajuce zagrade liste argumenata ')' i otvarajuce zagrade za definiciju koda '{'
 		{"noexcept", true}, {"throw", false},  {"->", false},
 	};
+
 	auto krajListeArgumenata = std::find( deklaracija.begin() + offset, deklaracija.end(), ')' );
 	std::string retVal1( deklaracija.begin() + offset, krajListeArgumenata + ( krajListeArgumenata != deklaracija.end() ) );
 	offset = 0;
@@ -382,14 +384,19 @@ void popuniPopisFunkcijaZa( nlohmann::json& jsonData, const size_t projIdx, std:
 			{
 				const std::string& deklaracija = zadatak["deklaracija"];
 				auto endIt = std::find( deklaracija.rbegin(), deklaracija.rend(), '(' );
+				bool handleEdgeCase;
+				if( handleEdgeCase = isspace( *( endIt + 1 ) ) )
+				{
+					endIt = std::find_if_not( endIt + 1, deklaracija.rend(), []( const char c ){ return isspace( c ); } );
+				}
 				auto startIt = std::find_if( endIt, deklaracija.rend(), []( char c )
 											 {
 												 return c == ':' || isspace( c );
 											 } );
-				++endIt;
+				endIt += !handleEdgeCase;;
 				size_t startOffset = deklaracija.rend() - startIt;
 				size_t endOffset = deklaracija.rend() - endIt;
-				std::string imeZadatka( deklaracija.data() + startOffset, deklaracija.data() + endOffset );
+				std::string imeZadatka( deklaracija.data() + startOffset, deklaracija.data() + endOffset);
 				Master::_INTERNAL::insertZadatakInfoAndIDIntoUMap( iter, projIdx, imeZadatka, zadatak );
 				if( isExecutionProcess == false )
 				{

@@ -1,6 +1,26 @@
 #pragma once
 
 //////////////////////////////////////
+/// ////////////////////////////////// potrebno za testiranje
+//////////////////////////////////////
+namespace TESTIRANJE1
+{
+	int trailingReturnFun1();
+	void trailingReturnFun2();
+};
+
+namespace TESTIRANJE2::NESTED_NAMESPACE
+{
+	void testViseNivoaNamespacea();
+};
+
+namespace TESTIRANJE3::EDGE_CASES
+{
+	void newLineBeforeOpenParanthasis();
+};
+//////////////////////////////////////
+
+//////////////////////////////////////
 /// ////////////////////////////////// potrebne datoteke iz projekta C++ knjiga
 //////////////////////////////////////
 #include "../_Projekti/C++ knjiga/Cjelina1.hpp"
@@ -32,11 +52,7 @@ namespace FESB
 	extern void vj10_1();	extern void vj10_2();	extern void vj10_3();	extern void vj10_4();
 	extern void vj11_1();	extern void vj11_2();	extern void vj11_3();	extern void vj11_4();
 	extern void vj12_1();	extern void vj12_2();	extern void vj12_3();	extern void vj12_4();
-}
-namespace FESB::TESTIRANJE
-{
-	void testViseNivoaNamespacea();
-}
+};
 //////////////////////////////////////
 
 
@@ -87,7 +103,7 @@ namespace PracticalCppProg
 	/////////////////////////////////////
 
 	extern void pog26_1();	extern void pog26_3();	extern void pog26_5();
-}
+};
 /////////////////////////////////////
 
 //////////////////////////////////////
@@ -120,5 +136,5 @@ namespace ThinkLAP
 	extern void pog6_vj1();		extern void pog6_vj2();		extern void pog6_vj3();		extern void pog6_vj4();
 	extern void pog6_vj5();		extern void pog6_zad1();	extern void pog6_zad2();	extern void pog6_zad3();
 	extern void pog6_zad4();	extern void pog6_zad5();	extern void pog6_zad6();
-}
+};
 //////////////////////////////////////

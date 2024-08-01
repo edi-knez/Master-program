@@ -13,4 +13,4 @@
 
 
 // TESTIRANJE NEST-ANJE NAMESPACEA
-void FESB::TESTIRANJE::testViseNivoaNamespacea() { std::cout << "USPJEH"; }
+void TESTIRANJE2::NESTED_NAMESPACE::testViseNivoaNamespacea() { std::cout << "\nUSPJEH\n"; }

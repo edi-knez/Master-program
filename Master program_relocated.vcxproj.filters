@@ -318,6 +318,9 @@
     <ClCompile Include="_Projekti\TESTIRANJE\FilesToParse\testiranje2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="_Projekti\TESTIRANJE\FilesToParse\testiranje3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp">

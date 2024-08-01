@@ -46,7 +46,6 @@
 /// TRENUTACNO RADIM NA:
 /// - [FEATURE] ucitavanje funkcija sa nazivima iz datoteke whitelist (json format)
 /// - [FEATURE] blokiranje funkcija sa nazivima iz datoteke blacklist (json format)
-/// - [BUG, testiraj je li jos uvijek istina] u datoteci ParseFile.cpp u funkciji "findStartOfAFunctioin" se nalazi EDGE CASE -> ukoliko se zagrada sa parametrima funkcije nalazi iza znaka nove linije
 /// - [MISCELLANEOUS] otklonit sto vise nepravilnosti prijavljene od stane Clang Tidy i SonarLint alata
 /// 
 /// ----------------------------------------------------------------------------------------------
@@ -660,7 +659,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 		std::cout << "Parsing files...";
 		std::vector<ParseFile> pfs;
 		std::vector<std::unique_ptr<Zadatak>> zadaci;
-		zadaci.reserve( 5 );
+		zadaci.reserve( 8 );
 #define SPREMAN_ZA_SLJEDECI_KORAK false // kod ispravno radi, sacuvano radi lakseg debugiranja u buducnosti
 #if SPREMAN_ZA_SLJEDECI_KORAK
 		std::ofstream dat( "zadaci.dat", std::ios::out );

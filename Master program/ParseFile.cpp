@@ -181,15 +181,11 @@ bool findStartOfAFunction( std::fstream& dat/*, std::streampos& brojRedaka*/, co
 	word.reserve( 30 );
 	unsigned char c;
 	bool isPossibleStart = false;
-	std::clog/*
 
-
-
-	*/ << "\n\n";
 	while( !dat.eof() )
 	{
 		c = dat.get();
-		std::clog << c << "|";
+	//	std::clog << c << "|";
 		if( bool foundEndOfDeclaration = c == ';' )
 		{
 			isPossibleStart = false;
@@ -467,7 +463,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 #endif
 		if( pronasaoPocetakLinijeKomentara )
 		{
-			while( isspace( dat.peek() ) ) { dat.get(); } // nalazi se na znaku '/'
+			while( !dat.eof() && isspace( dat.peek() ) ) { dat.get(); } // nalazi se na znaku '/'
 			spremiLinijuUString();
 			while( bool notBeginingOfFile = dat.tellg() > 0 )	// preskoci sve ostale '/' nepotrebne znakove
 			{
@@ -505,7 +501,7 @@ std::string getKomentar( std::fstream& dat, const bool DEBUG_FLAG )
 // TODO: OPTIMIZACIJA, umjesto dodavanja znakova stringu, vrati pocetnu i krajnju poziciju u datoteci iz koje ce spremit tekst u string sa samo jednom alokacijom
 std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 {
-	while( isspace( dat.peek() ) )
+	while( !dat.eof() && isspace( dat.peek() ) )
 	{
 		dat.get();
 	//	if( ::_DEBUG_FLAG && ::DEBUG_IDX == 2 )	std::cout << dat.peek() << '\n';
@@ -513,15 +509,16 @@ std::string getDeclaration( std::fstream& dat, const bool DEBUG_FLAG )
 	bool startOfArguments = false;
 	size_t stack = 0;
 	std::string deklaracija;
-
-	while( startOfArguments == false || stack != 0 )
+	char curChar = dat.peek();
+	while( ( startOfArguments == false || stack != 0 ) || curChar != '{' )
 	{
 		stack += dat.peek() == '(';
 		stack -= dat.peek() == ')';
 		startOfArguments |= stack;
 		deklaracija += dat.get();
+		curChar = dat.peek();
 	}
-	dat.get();
+	
 	return deklaracija;
 }
 
