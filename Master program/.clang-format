@@ -1,0 +1,27 @@
+# Format Style Options - Created with Clang Power Tools
+---
+BasedOnStyle: WebKit
+AlignEscapedNewlines: DontAlign
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Always
+AllowShortLoopsOnASingleLine: true
+BreakBeforeBraces: Linux
+ColumnLimit: 360
+ContinuationIndentWidth: 2
+Cpp11BracedListStyle: true
+DeriveLineEnding: false
+IndentGotoLabels: false
+IndentWidth: 2
+MaxEmptyLinesToKeep: 2
+NamespaceIndentation: None
+ReflowComments: false
+SortIncludes: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeParens: Never
+SpaceInEmptyBlock: false
+SpacesInConditionalStatement: true
+SpacesInParentheses: true
+UseCRLF: true
+UseTab: ForContinuationAndIndentation
+...

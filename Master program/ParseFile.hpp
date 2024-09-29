@@ -15,7 +15,7 @@
 #include <stack>
 #include <list>
 
-#include "../_Includes/json.hpp"
+#include "..\_Includes\json.hpp"
 
 /// Zapisi u datoteku "Functions.cpp": ° DODAJ_FUNKCIJU( imeNamespace, imeZadatka); °
 /// koja ce se izvrsit u funkciji prilikom pokretanja programa

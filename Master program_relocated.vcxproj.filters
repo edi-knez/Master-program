@@ -37,6 +37,18 @@
     <Filter Include="Header Files\ThinkLAP">
       <UniqueIdentifier>{4d7ed8b9-80ab-4b07-952f-76c4be5b6656}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\TESTIRANJE">
+      <UniqueIdentifier>{cf5e0bab-da82-4c10-8446-382704a7f54c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\USER">
+      <UniqueIdentifier>{a5648a15-4c23-4be1-92b8-9a247e4ed84d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\USER\Inputs">
+      <UniqueIdentifier>{3485efe6-67ab-44ed-bd55-5e741a292fd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\USER\Code">
+      <UniqueIdentifier>{977b21b0-42ac-4573-9911-481e05fbc352}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Projekti\C++ knjiga\FilesToParse\Cjelina1.cpp">
@@ -313,13 +325,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_Projekti\TESTIRANJE\FilesToParse\testiranje1.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\TESTIRANJE</Filter>
     </ClCompile>
     <ClCompile Include="_Projekti\TESTIRANJE\FilesToParse\testiranje2.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\TESTIRANJE</Filter>
     </ClCompile>
     <ClCompile Include="_Projekti\TESTIRANJE\FilesToParse\testiranje3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\TESTIRANJE</Filter>
+    </ClCompile>
+    <ClCompile Include="USER\Code\yourCode.cpp">
+      <Filter>Resource Files\USER\Code</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -581,11 +596,16 @@
     <ClInclude Include="Master program\ParseFile.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="USER\Code\YourCode.hpp">
+      <Filter>Resource Files\USER\Code</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="_projekti\c++ knjiga\kompleks.bin">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="imenaFunkcijaOutput.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="conf.ig">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

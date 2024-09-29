@@ -95,6 +95,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>EnableAllWarnings</WarningLevel>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -131,6 +132,7 @@
     <ClCompile Include="master program\main.cpp" />
     <ClCompile Include="Master program\ParseFile.cpp" />
     <ClCompile Include="Master program\setup.cpp" />
+    <ClCompile Include="USER\Code\yourCode.cpp" />
     <ClCompile Include="_projekti\c++ knjiga\bonus.cpp" />
     <ClCompile Include="_projekti\c++ knjiga\C++KnjigaMain.cpp" />
     <ClCompile Include="_projekti\c++ knjiga\CD.cpp" />
@@ -225,6 +227,7 @@
   <ItemGroup>
     <ClInclude Include="Master program\ParseFile.hpp" />
     <ClInclude Include="Master program\PotrebneDatotekeIDeklaracijeFunkcija.hpp" />
+    <ClInclude Include="USER\Code\YourCode.hpp" />
     <ClInclude Include="_projekti\c++ knjiga\CD.hpp" />
     <ClInclude Include="_projekti\c++ knjiga\Cjelina1.hpp" />
     <ClInclude Include="_projekti\c++ knjiga\Cjelina10.hpp" />
@@ -312,7 +315,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imenaFunkcijaOutput.dat" />
-    <None Include="_projekti\c++ knjiga\kompleks.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="conf.ig" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

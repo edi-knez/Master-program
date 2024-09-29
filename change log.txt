@@ -1,0 +1,15 @@
+Napravljen je prostor u kojemu korisnik moze napisat vlastiti kod
+Dodani overloadi za funkcije popuniCijeliPopisFunkcija i popuniPopisFunkcijaZa da mogu radit za filtere umjesto da se iskomplicira vec napisana funkcija
+Uklonjen bug iz funkcije getFuncReturnType
+Razne male izmjene i poboljsanja u funkciji getFuncArguments
+Dodane varijable u main.cpp za podrsku filterske znacajke
+Dodane funkcije za ucitavanje, promjenu, primjenu, spremanje, filterski postupak i filtriranje, uklananje nekompatabilnih funkcija zbog filterske znacajke
+Dodana funkcija koja pretvara podatke iz glavne podatkovne strukture u json format
+Refactor proslog nacina za pokretanje funkcija tako da koristi function pointere
+Premjeste funkcija naziva getJSONFromFile iz setup.cpp u main.cpp
+Dodana funkcija za ucitavanje konfiguracijskih postavki u program
+Dodana nove opcije u glavnom izborniku programa
+Dodana je zastita na inputu kako bi se sprijecilo nepozeljno ponasanje
+Refactor funkcija korakOdabiraProjekta, korakOdabiraCjeline, korakOdabirFunkcije kako bi se omogucila fleksibilnost
+Dodano temelje za implementiranje znacajke filtriranje tijekom 3. koraka izvrsavanja programa
+
