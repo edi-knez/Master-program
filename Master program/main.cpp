@@ -1236,7 +1236,7 @@ void Master::init()
 			jsonData = Master::_INTERNAL::create_json_Object();
 			pripremiProgramZaKoristenje();
 			/// naredbe ispod ovog komentara se nebi smjele izvrsit jer se program mora ugasit na ovom koraku
-			std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program\nIzlazim...\n";
+			/// Da bi nastavio na sljedeci korak, ponovno kompajliraj program;
 			exit( EXIT_SUCCESS );
 		}
 	}
@@ -1434,7 +1434,6 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 				pfs[idx].readFile( pfs[idx].getDatoteku( idxOfFile ), zadaci, upotrijebljenoZadataka, DEBUG_FLAG );
 
 				/// zadaci stizu po cjelinama u kojima se nalaze
-				puts( "" );
 				++idxOfFile;
 
 				if( Master::konfiguracijskePostavke.at( "FILTER" ) == "ALLOW" && Master::konfiguracijskePostavke.at( "FILTER_WHILE" ) == "PROCESSING" )
@@ -1467,7 +1466,7 @@ nlohmann::json Master::_INTERNAL::create_json_Object()
 			dat << "====================================================\n";
 #endif
 			std::for_each( imenaDatoteka[idx].begin(), imenaDatoteka[idx].end(), []( const std::string_view imeDatoteke, int l_idx = 0 ){
-				if( true )	std::cout << imeDatoteke << '/n';	/// TODO: ispis zavisi nalazi li se ime u vektoru tipa bool
+				if( true )	std::cout << imeDatoteke << '\n';	/// TODO: ispis zavisi nalazi li se ime u vektoru tipa bool
 			} );
 		}
 		puts( "\n--------------------------------------------" );

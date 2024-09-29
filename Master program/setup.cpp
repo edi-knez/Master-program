@@ -335,7 +335,7 @@ void Master::popuniCijeliPopisFunkcija( const nlohmann::json& jsonData, std::vec
 	if( isExecutionProcess == false )
 	{
 		finish_Function_list__cpp_file( datotekaZaSpremanjeFunkcija );
-		std::cout << "Ponovno kompaliraj program da bi nastavio na sljedeci korak\nIzlazim...\n";
+		std::cout << "Da bi nastavio na sljedeci korak, ponovno kompajliraj program\nIzlazim...\n";
 		exit( EXIT_SUCCESS );
 	}
 	/// //////////////////////////////////////////////////////////
