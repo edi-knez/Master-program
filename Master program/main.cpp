@@ -44,9 +44,6 @@
 /// - [MISCELLANEOUS] napravi izmjene u ParseFile klasi tako da je laksa za koristenje (pristup pojedinoj datoteci, koristi operator [] i varijablu koja prati iskoristene datoteke )
 /// - [MISCELLANEOUS] ubrzat ispis u konzolu
 /// - [MISCELLANEOUS] promijeni podatkovne strukture za filtere tako da ustedis na prostoru
-/// - [FEATURE] pitaj korisnika da odabere zeljene filterske datoteke ukoliko ih ima vise 
-/// - [FEATURE] mogucnost korisnika da update-a filtere sa filterima u drugim datotekama 
-/// - [FEATURE] ukoliko ima vise filterskih datoteka pitaj korisnika da odabere koje zeli ucitat pri pokretanju programa
 /// - [MISCELLANEOUS] neke stavke za filtriranje ce biti od vece koristi ako su pristupne u programu umjesto samo read-only
 /// - [MISCELLANEOUS] promijeni strukturu popisaImenaFunkcijaPoCjelinama da sadrzi map za imena projekata zbog filtera
 /// - [MISCELLANEOUS] zavrsi implementaciju overloadanih funkcija Master::_INTERNAL::utvrdiOKojemPovratnomTipuSeRadi
@@ -60,7 +57,6 @@
 /// TRENUTACNO RADIM NA:
 /// - [FEATURE] filtriranje tijekom procesiranja zadataka
 /// - [BUG] ispisuje nakdnadno znak '\n' prilikom ispisa koda pokrenute funkcije
-/// - [MISCELLANEOUS] popravi ispis imena datotekka pri parsiranju u 3. koraku
 /// - [FEATURE] koristi wxWidgets za GUI kod rucnog nacina
 /// - [MISCELLANEOUS] otklonit sto vise nepravilnosti prijavljene od stane Clang Tidy i SonarLint alata
 ///
