@@ -51,6 +51,8 @@
 /// - [MISCELLANEOUS] ///	Master::_INTERNAL::enforceCorrectBehaviour();	trenutacno nemoze tocno detektirat mjesto
 /// - [MISCELLANEOUS] smisli rjesenje za razlicite nacine (postavka: MODE) izvrsavanja ovog programa
 /// - [MISCELLANEOUS] refactoraj glavnu podatkovnu strukturu funkcija po cjelinama da bi se mogli koristiti razliciti filteri bez nus pojava 
+/// - [FEATURE] zavrsi filtriranje u koraku 3
+/// - [FEATURE] filtriranje na temelju naziva datoteke, naziva projekta, naziva cjeline
 /// 
 ///
 /// ----------------------------------------------------------------------------------------------
