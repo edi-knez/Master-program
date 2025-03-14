@@ -11,8 +11,6 @@ Trenutno se nalazi u prototip verziji i podrzava samo C++ programski jezik.
 * ///		odvoji sve funkcije koje te zanimaju u zasebnu .cpp datoteku i stavi je u mapu "FilesToParse"
 * /// - funkcije moraju imat povratni tip "void" (trenutacno)	<-
 * /// - nepodrzava template funkcije
-* /// - nepodrzava vise nivoa namespace-a (pr: void namespace1::namespace2::imeFunk() ) za ucitanje deklaracije funkcije	<- (testiraj je li problem rijesen)
-* /// - nepodrzava razne kljucne rijeci u deklaraciji funkcija ( const, static, noexcept, constexpr, [ [likely]], ... )	<-
 * /// - nepodrzava function overloading
 
 ### Opis kako radi:
@@ -22,14 +20,15 @@ Trenutno se nalazi u prototip verziji i podrzava samo C++ programski jezik.
 * Pokreni program i unesi znak '1' pa onda znak 'y'. Program ce procitat informacije iz json datoteke te ce nadopisat kod za ubacivanje funkcijskih pointera u "Function list.cpp" datoteku
 * Kompajlaj program.
 * Pokreni program i unesi znak '1' pa bilo koji znak osim 'y'. Program ce ucitat sve potrebne informacije u podatkovne strukture:
-	* std::vector<std::string> popisProjekata;
+	* std::vector<string> popisProjekata;
 	* std::vector<std::unordered_map<std::string, std::unordered_map<std::string, std::pair<Zadatak, size_t>>>> popisImenaFunkcijaPoCjelinama;
 	* std::vector<std::vector<void ( * )( )>> popisFunkcija;
 	i biti ce spreman za koristenje. 
 
 
 ### Demonstracija:
-Nalazi se u "demo" folderu
+Video se nalazi na sljedecoj poveznici: https://mega.nz/file/kzIRkJYB#JBXIftEnvWpU5Q4TPzoiUH1mG0yNJU67e-P7B4c9owk
+Video je uklonjen iz projektnog foldera jer nije bio vidljiv na github stranici.
 
 ### Instalacija:
 * Step 1: Kloniraj projekt
