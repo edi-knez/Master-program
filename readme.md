@@ -28,6 +28,7 @@ Trenutno se nalazi u prototip verziji i podrzava samo C++ programski jezik.
 
 ### Demonstracija:
 Video se nalazi na sljedecoj poveznici: https://mega.nz/file/kzIRkJYB#JBXIftEnvWpU5Q4TPzoiUH1mG0yNJU67e-P7B4c9owk
+
 Video je uklonjen iz projektnog foldera jer nije bio vidljiv na github stranici.
 
 ### Instalacija:
