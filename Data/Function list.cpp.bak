@@ -24,7 +24,8 @@ void finish_Function_list__cpp_file( std::fstream& datoteka )
 }
 
 void autoAddeedFunctionsFromFiles()
-{	DODAJ_FUNKCIJU( 0, Cjelina1, zad4_kvadrat );
+{
+	DODAJ_FUNKCIJU( 0, Cjelina1, zad4_kvadrat );
 	DODAJ_FUNKCIJU( 0, Cjelina1, zad5_ispis );
 	DODAJ_FUNKCIJU( 0, Cjelina1, vj1_2datoteke );
 	DODAJ_FUNKCIJU( 0, Cjelina1, vj3_krug );
