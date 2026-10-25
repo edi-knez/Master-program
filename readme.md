@@ -30,7 +30,10 @@ Video se nalazi na sljedecoj poveznici: https://mega.nz/file/kzIRkJYB#JBXIftEnvW
 
 -- Video je uklonjen iz projektnog foldera jer nije bio vidljiv na github stranici.
 
+#### Slika prikazuje Screen shot primjera rada programa iz gore navedenog videa 
 ![Primjer rada programa](___readme_assets/primjer_funkcionalnosti_programa_iz_videa.png)
+
+#### Slike ispod prikazuje primjer koda za filtriranje funkcija koji se ne nalazi u videu (naknadno dodano)
 ![Primjer koda za filtriranje funkcija koji se ne nalazi u videu](___readme_assets/primjer_koda_za_novododano_filtriranje_funkcija_prilikom_ucitavanja_programa.png)
 ![Primjer koda za filtriranje funkcija koji se ne nalazi u videu](___readme_assets/primjer_koda_za_novododano_filtriranje_funkcija_prilikom_ucitavanja_programa_2.png)
 
