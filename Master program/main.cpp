@@ -523,7 +523,7 @@ void Master::startFilteringProcess()
 			return;
 		}
 
-		uint8_t availableOptions = 1 +
+		const uint8_t availableOptions = 1 +
 			useWhitelistFilter +
 			useBlacklistFilter;
 
@@ -582,9 +582,9 @@ void Master::filter( const char odabirProjekta, const std::string& odabirCjeline
 
 	std::cout << "Imas sljedece opcije:\n";
 	if( &spremnikFunkcijaPoCjelinama == &Master::popisImenaFunkcijaPoCjelinama )
-		std::cout << "1) Dodaj funkciju u \"" << containerName << "\" spremnik/nUnesi bilo koji drugi znak ako zelis obustavit trenutacnu operaciju\n\n";
+		std::cout << "1) Dodaj funkciju u \"" << containerName << "\" spremnik\nUnesi bilo koji drugi znak ako zelis obustavit trenutacnu operaciju\n\n";
 	else
-		std::cout << "1) Ukloni funkciju iz \"" << containerName << "\" spremnika/nUnesi bilo koji drugi znak ako zelis obustavit trenutacnu operaciju\n\n";
+		std::cout << "1) Ukloni funkciju iz \"" << containerName << "\" spremnika\nUnesi bilo koji drugi znak ako zelis obustavit trenutacnu operaciju\n\n";
 
 	std::vector<std::unordered_map<std::string, std::unordered_map<std::string, std::pair<Zadatak, size_t>>>>& spremnik1 = Master::popisWhitelistanihImenaFunkcijaPoCjelinama;
 	std::vector<std::unordered_map<std::string, std::unordered_map<std::string, std::pair<Zadatak, size_t>>>>& spremnik2 = Master::popisBlacklistanihImenaFunkcijaPoCjelinama;
@@ -826,7 +826,7 @@ void Master::helpFunc_repeatStepIfDesiredOfSavingFilter( const bool isWhitelistF
 
 /// funkcija sluzi za spremanje filterskeDatoteke
 /// funkcija vraca vrijednost true: u slucaju ako je usjesno spremljena datoteka ili
-/// vraca vrijednost false: ako si slucajno krivo unijeo ili nezelis spremit filter
+/// vraca vrijednost false: ako si slucajno krivo unio ili nezelis spremit filter
 bool Master::helpFunc_saveOrOverwriteFilterFile( const bool isWhitelistFile )
 {
 	char odabir;
@@ -1185,12 +1185,11 @@ void Master::init()
 			std::cout << "Pravim kopiju JSON datoteke i brisem original!\n\n";
 			auto copy_file = []( std::fstream& copyFrom, std::ofstream& copyTo ) {
 				std::string strFile;
-				while( !copyFrom.eof() )
+				while( copyFrom.peek() != EOF )
 				{
 					strFile += copyFrom.get();
 				}
-				if( strFile[strFile.size() - 1] == 'ÿ' )
-					strFile.resize( strFile.size() - 1 );
+
 				copyTo << strFile;
 			};
 			std::fstream curJSON( "Data\\" + nazivJSONdat, std::ios::in );
