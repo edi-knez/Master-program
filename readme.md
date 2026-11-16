@@ -39,6 +39,8 @@ Video se nalazi na sljedecoj poveznici: https://mega.nz/file/kzIRkJYB#JBXIftEnvW
 
 #### Link ispod vodi na kod koji bi ispravno radio, ali nisam bio zadovoljan zbog kompleksnosti te sam pronašao bolje i preglednije rješenje
 [Primjer](___readme_assets/primjer_refactor_koda.cpp)
+
+---
 Želim i napomenuti kako sam od onda skužio da dinamièki niz ovdje uopæe nije potreban i dovoljna je samo bool varijabla jer pratimo koji je finalni rezultat
 
 ### Instalacija:
