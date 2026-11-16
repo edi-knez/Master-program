@@ -37,6 +37,9 @@ Video se nalazi na sljedecoj poveznici: https://mega.nz/file/kzIRkJYB#JBXIftEnvW
 ![Primjer koda za filtriranje funkcija koji se ne nalazi u videu](___readme_assets/primjer_koda_za_novododano_filtriranje_funkcija_prilikom_ucitavanja_programa.png)
 ![Primjer koda za filtriranje funkcija koji se ne nalazi u videu](___readme_assets/primjer_koda_za_novododano_filtriranje_funkcija_prilikom_ucitavanja_programa_2.png)
 
+#### Link ispod vodi na kod koji bi ispravno radio, ali nisam bio zadovoljan zbog kompleksnosti te sam pronašao bolje i preglednije rješenje
+[Primjer](___readme_assets/primjer_refactor_koda.cpp)
+
 ### Instalacija:
 * Step 1: Kloniraj projekt
 * Step 2: Gotovo
